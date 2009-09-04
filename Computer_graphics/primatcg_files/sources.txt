@@ -1,0 +1,6 @@
+Source: http://sites.google.com/site/primatcg/fajly-i-ssylki
+  CG-Met.doc            from CG-Met.zip
+  DiD3DBase9/           from DiD3DBase9.zip
+  D3DBase9UserGuide.pdf
+  basic_tasks.pdf
+  XMeshUserGuide.pdf
