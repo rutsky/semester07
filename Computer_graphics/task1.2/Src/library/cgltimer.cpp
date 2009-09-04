@@ -36,7 +36,10 @@ float cglTimer::getCurTime()
 {
   UInt64 time;
   QueryPerformanceCounter((LARGE_INTEGER*)&time);
-  return float(double(time) / double(m_freq));
+  //return float(double(time) / double(m_freq));
+  // FIXME: Strange fail is going above!
+  float t = float(double(time) / double(m_freq));
+  return t;
 }
 
 void cglTimer::update()
