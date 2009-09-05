@@ -1,1 +1,3 @@
  * Fix strange crash in cglTimer::getCurTime().
+ * Check is this statement is correct:
+<<Например, запись R8G8B8 обозначает 24-битный пиксель с 8-битами на канал, причем красный канал кодируется старшим байтом, а голубой – младшим.>>
