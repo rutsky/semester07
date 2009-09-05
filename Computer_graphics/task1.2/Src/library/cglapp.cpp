@@ -26,8 +26,7 @@
 namespace
 {
   const char * s_windowClassName = "D3DBase9";
-  const float  s_fpsMeasurementTime = 5.0f;
-
+  const float  s_fpsMeasurementTime = 1.0f;
 }
 
 // *******************************************************************
