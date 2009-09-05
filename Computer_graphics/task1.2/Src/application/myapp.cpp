@@ -114,6 +114,11 @@ void myApp::zoom(float dr)
   shiftColor(m_nClearColor, dr, 0); // Blue
 }
 
+char const *myApp::getWindowText()
+{
+  return "Task 1.2, Vladimir Rutsky, 4057/2.";
+}
+
 void myApp::update()
 {
   // Call predecessor update

@@ -38,6 +38,7 @@ public:
   // This function performs input processing. Returns true if input is handled
   virtual bool processInput(unsigned int nMsg, int wParam, long lParam);
 protected:
+  virtual char const *getWindowText();
   virtual void update();
   
 private:
