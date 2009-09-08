@@ -17,6 +17,12 @@
 
 #include "myapp.h"
 
+#include "library/cgld3d.h"
+
+#include "point.h"
+#include "triangle.h"
+#include "xprimitive.h"
+
 // *******************************************************************
 // defines
 
@@ -148,4 +154,15 @@ void myApp::update()
   float rI = 0.0f;
   for (int i = 0; i < 10000000;i++)
     rI += sin(i);*/
+}
+
+void myApp::renderInternal()
+{
+  LPDIRECT3DDEVICE9 d3ddev = m_pD3D->getDevice();
+  
+  xprimitives::Triangle triangle(d3ddev, 
+                                 cg::triangle_4f(cg::point_4f(), cg::point_4f(0, 1, 0), cg::point_4f(1, 0, 0)),
+                                 cg::color_4b_red(), cg::color_4b_green(), cg::color_4b_blue());
+  
+  triangle.render(d3ddev);
 }

@@ -40,6 +40,7 @@ public:
 protected:
   virtual char const *getWindowText();
   virtual void update();
+  virtual void renderInternal();
   
 private:
   enum
