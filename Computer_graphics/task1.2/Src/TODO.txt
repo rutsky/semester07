@@ -4,4 +4,5 @@
  * Fix strange rendering area with garbage at the top of viewport.
  * Rename some *.h files to *.hpp.
  * Made cg library template.
- * Use COM smart pointers.
+ + Use COM smart pointers.
+ * Commited not needed modifications from ../../../primatcg_files/CG-Met.doc -- remove.
