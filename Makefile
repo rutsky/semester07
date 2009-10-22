@@ -3,16 +3,23 @@
 # Vladimir Rutsky <altsysrq@gmail.com>
 # 20.05.2009
 
+GIT_PATH_GITHUB=git@github.com:rutsky/semester07.git
+GIT_PATH_GITORIOUS=git@gitorious.org:spbstu/semester07.git
+
 all:
 	@echo "Read Makefile contents for details of usage."
 
 git-init:
-	git remote add github    git@github.com:rutsky/semester07.git
-	git remote add gitorious git@gitorious.org:spbstu/semester07.git
+	git remote add github    $(GIT_PATH_GITHUB)
+	git remote add gitorious $(GIT_PATH_GITOURIOUS)
 
 public:
-	git push git@github.com:rutsky/semester07.git    master
-	git push git@gitorious.org:spbstu/semester07.git master
+	git push github    master
+	git push gitorious master
+
+update:
+	git fetch github
+	git merge github/master
 
 clean-light:
 	find . -name '*.o' -exec rm '{}' \;
