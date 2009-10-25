@@ -6,8 +6,8 @@ puts array_var[1] # "2"
 hash_var = {'one' => 1, 'two' => 2}
 puts hash_var['one'] # "1"
 
-# Range от 0 до 10
-(0..10). 
+# Range от 0 до 9
+(0...10). 
   # новый Range из квадратов
   collect{|v| v ** 2 }.
   # новый Range из некоторых элементов старого
@@ -18,5 +18,5 @@ puts hash_var['one'] # "1"
 # 0       0
 # 1       4
 # 2       9
-# 3       16
-# 4       64
+# 3      16
+# 4      64
