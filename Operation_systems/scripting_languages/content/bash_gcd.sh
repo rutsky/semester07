@@ -9,7 +9,7 @@ function gcd {
     b=$c
   done
   
-  return $c
+  return $b
 }
 
 gcd 42 56
