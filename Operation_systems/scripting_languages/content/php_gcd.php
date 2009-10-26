@@ -2,7 +2,6 @@
 <?php
 
 function gcd( $a, $b ) {
-  $c = $b;
   while ($a > 0)
   {
     $c = $a;
