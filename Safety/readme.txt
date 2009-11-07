@@ -1,0 +1,1 @@
+Metoda_lab.doc downloaded from <http://politex1.net/Terentjev/index.htm>.
