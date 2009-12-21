@@ -6,8 +6,7 @@ load(grobner);
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-g[i, j] := random(10)$
-coefsMatrix: genmatrix(g, 7, 3);
+coefsMatrix: genmatrix(lambda([i, j], 1 + random(2)), 4, 1);
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
@@ -30,23 +29,12 @@ display(variables)$
 
 /* [wxMaxima: input   start ] */
 poly_monomial_order:'lex$
-poly_buchberger(equations, variables);
+/*poly_buchberger(equations, variables);*/
+poly_reduced_grobner(equations, variables);
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-length( row(coefsMatrix, 2))$ );
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: input   start ] */
-m: matrix([1,2], [3,4], [5,6]);
-length(m); /* gives 3, as expected*/
-length(row(m, 1)); /* gives 1 ?!? */
-length([1,2]);
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: input   start ] */
-values;
-x9;
+if showtime#false then showtime:false else showtime:all$
 /* [wxMaxima: input   end   ] */
 
 /* Maxima can't load/batch files which end with a comment! */
