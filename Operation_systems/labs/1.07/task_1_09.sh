@@ -1,6 +1,6 @@
 #!/bin/bash
-# task_1_07.sh
-# Task 1.07 on Unix course.
+# task_1_09.sh
+# Task 1.09 on Unix course.
 # Vladimir Rutsky <altsysrq@gmail.com>
 # 20.12.2009
 
