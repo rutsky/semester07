@@ -1,0 +1,73 @@
+% report_1_1.tex
+% Report on task 1.1
+% Vladimir Rutsky <altsysrq@gmail.com>
+% 21.12.2009
+
+\documentclass[a4paper,12pt]{article}
+
+% Encoding support.
+\usepackage{ucs}
+\usepackage[utf8x]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[russian]{babel}
+
+\usepackage{amsmath, amsthm, amssymb}
+
+% Indenting first paragraph.
+\usepackage{indentfirst}
+
+\usepackage{listings}
+% Source code listings.
+\renewcommand{\lstlistingname}{Исходный код}
+
+% Spaces after commas.
+\frenchspacing
+% Minimal carrying number of characters,
+\righthyphenmin=2
+
+% From K.V.Voroncov Latex in samples, 2005.
+\textheight=24cm   % text height
+\textwidth=16cm    % text width.
+\oddsidemargin=0pt % left side indention
+\topmargin=-1.5cm  % top side indention.
+\parindent=24pt    % paragraph indent
+\parskip=0pt       % distance between paragraphs.
+\tolerance=2000
+%\flushbottom       % page height aligning
+%\hoffset=0cm
+%\pagestyle{empty}  % without numeration
+
+\title{Отчет по курсу ``Операционные системы'' \\ Задание 1.1}
+\author{Владимир Руцкий, 4057/2}
+
+\newcommand{\commandquote}[1]{\textbf{#1}}
+
+\begin{document}
+
+% Title page.
+\maketitle
+% Content
+
+\section*{Постановка задачи}
+\textit{``Напишите скрипт, архивирующий все файлы в домашнем каталоге пользователя,
+размер которых больше 100K и к которым не обращались больше 30 дней.
+Предусмотрите возможность изменения параметров (размера и времени
+обращения) с помощью параметров командной строки.''}
+
+\section*{Выбранный метод решения}
+\begin{enumerate}
+ \item Разбор аргументов командной строки будет произведён с помощью конструкции \commandquote{while-case}.
+ \item Необходимые для архивирования файлы будут найдены с помощью программы \commandquote{find}.
+ \item Найденный список файлов будет передан команде программе \commandquote{tar} 
+с помощью программы \commandquote{xargs}.
+\end{enumerate}
+
+\section*{Исходный код}
+\lstset{language=bash, caption=Программа,%
+label=source-code, basicstyle=\footnotesize,%
+numbers=left, numberstyle=\footnotesize, numbersep=5pt, frame=single, breaklines=true, breakatwhitespace=false,%
+inputencoding=utf8x}
+\lstinputlisting{../task_1_1.sh}
+
+
+\end{document}
