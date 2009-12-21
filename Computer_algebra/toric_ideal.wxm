@@ -6,24 +6,25 @@ load(grobner);
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-rows: 7;
-columns: 3;
-g[i, j] := random(10);
-coefsMatrix: genmatrix(g, rows, columns);
+g[i, j] := random(10)$
+coefsMatrix: genmatrix(g, 7, 3);
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-a: concat(concat('x, 9), 3);
-a:: 10;
+apply("+", [1, 2, 3]);
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-equations: [];
-for r:1 thru rows step 1 do
-    for c:1 thru columns step 1 do (
-        v: concat(concat('x, r), c),
-        v:: matrixCoefs[r][c]
-    )$
+variables: []$
+equations: []$
+for r:1 thru length(coefsMatrix) step 1 do (
+    equationMultipliers: [],
+    for c:1 thru length(coefsMatrix[1]) step 1 do (
+        equationMultipliers: append(equationMultipliers, [concat(concat('x, r), c)^coefsMatrix[r][c]])
+    ),
+    equations: append(equations, [-concat('y, r) + apply("*", equationMultipliers)])
+)$
+display(equations);
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
