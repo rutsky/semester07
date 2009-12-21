@@ -4,8 +4,6 @@
 # Vladimir Rutsky <altsysrq@gmail.com>
 # 20.12.2009
 
-#set -x
-
 SIZE_LOWER_BOUND=+100k
 LAST_ACCESS_TIME_PERIOD=+30
 #HOME_DIR=~
