@@ -6,7 +6,7 @@ load(grobner);
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-coefsMatrix: genmatrix(lambda([i, j], 1 + random(2)), 4, 1);
+coefsMatrix: genmatrix(lambda([i, j], random(3)), 7, 3);
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
@@ -29,8 +29,7 @@ display(variables)$
 
 /* [wxMaxima: input   start ] */
 poly_monomial_order:'lex$
-/*poly_buchberger(equations, variables);*/
-poly_reduced_grobner(equations, variables);
+poly_buchberger(equations, variables);
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
