@@ -1,0 +1,76 @@
+% report_2_01.tex
+% Report on task 2.01
+% Vladimir Rutsky <altsysrq@gmail.com>
+% 21.12.2009
+
+\documentclass[a4paper,12pt]{article}
+
+% Encoding support.
+\usepackage{ucs}
+\usepackage[utf8x]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[russian]{babel}
+
+\usepackage{amsmath, amsthm, amssymb}
+
+% Indenting first paragraph.
+\usepackage{indentfirst}
+
+\usepackage{listings}
+% Source code listings.
+\renewcommand{\lstlistingname}{Исходный код}
+
+% Spaces after commas.
+\frenchspacing
+% Minimal carrying number of characters,
+\righthyphenmin=2
+
+% From K.V.Voroncov Latex in samples, 2005.
+\textheight=24cm   % text height
+\textwidth=16cm    % text width.
+\oddsidemargin=0pt % left side indention
+\topmargin=-1.5cm  % top side indention.
+\parindent=24pt    % paragraph indent
+\parskip=0pt       % distance between paragraphs.
+\tolerance=2000
+%\flushbottom       % page height aligning
+%\hoffset=0cm
+%\pagestyle{empty}  % without numeration
+
+\title{Отчет по курсу ``Операционные системы'' \\ Задание 2.01}
+\author{Владимир Руцкий, 4057/2}
+
+\newcommand{\commandquote}[1]{\textbf{#1}}
+
+\begin{document}
+
+% Title page.
+\maketitle
+% Content
+
+\section*{Постановка задачи}
+\textit{``Напишите программу, вычисляющую суммарный размер всех файлов в указанном
+каталоге и его подкаталогах.''}
+
+\section*{Выбранный метод решения}
+\begin{enumerate}
+ \item Программа принимает на вход список каталогов (файлов),
+суммарный размер файлов в которых требуется вычислить.
+ \item Для вычисления суммарного размера файлов в каталоге используется рекурсивная процедура,
+принимающая на вход текущий обрабатываемый каталог (файл).
+ \item Процедура определяет тип обрабатываемого файла с помощью функции \commandquote{stat()} и, 
+если это файл, то возвращает его размер,
+а если это каталог, то вызывает себя от файлов в каталоге 
+(считывание содержимого каталога осуществляется функциями \commandquote{opendir()}, 
+\commandquote{readdir()} и \commandquote{closedir()}).
+\end{enumerate}
+
+\pagebreak
+\section*{Исходный код}
+\lstset{language=bash, caption=task\_2\_01.c,%
+label=source-code, basicstyle=\footnotesize,%
+numbers=left, numberstyle=\footnotesize, numbersep=5pt, frame=single, breaklines=true, breakatwhitespace=false,%
+inputencoding=utf8x}
+\lstinputlisting{data/task_2_01.c}
+
+\end{document}
