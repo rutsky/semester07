@@ -6,23 +6,25 @@ load(grobner);
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
+rows: 7;
+columns: 3;
 g[i, j] := random(10);
-coefsMatrix: genmatrix(g, 7, 3);
+coefsMatrix: genmatrix(g, rows, columns);
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-length(coefsMatrix, 1);
+a: concat('x, 9);
+a:: 10;
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
 equations: [];
-for r:1 thru length(coefsMatrix) step 1 do
-  /*(
-display(row(coefsMatrix, 8 - r)),
-   display(row(coefsMatrix, r)))$*/
-    (display(length(row(coefsMatrix, r))),
-    for c:1 thru length(row(coefsMatrix, r)) step 1 do
-        display([r, c]))$;
+for r:1 thru rows step 1 do
+    for c:1 thru columns step 1 do (
+        display([r, c]),
+        v: concat('concat('x, r), c)
+        v:: matrixCoefs
+    )$
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
@@ -38,6 +40,17 @@ m: matrix([1,2], [3,4], [5,6]);
 length(m); /* gives 3, as expected*/
 length(row(m, 1)); /* gives 1 ?!? */
 length([1,2]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+values;
+x9;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+M1: matrix([a1, b1], [c1, d1]);
+M2: matrix([a2, b2], [c2, d2]);
+solve(M1 . M2 = M2 . M1, [a1, b1, c1, d1, a2, b2, c2, d2]);
 /* [wxMaxima: input   end   ] */
 
 /* Maxima can't load/batch files which end with a comment! */
