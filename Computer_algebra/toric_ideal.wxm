@@ -16,7 +16,7 @@ equations: []$
 for r:1 thru length(coefsMatrix) step 1 do (
     equationMultipliers: [],
     for c:1 thru length(coefsMatrix[1]) step 1 do (
-        v: concat(concat('x, r), c),
+        v: concat('x, c),
         equationMultipliers: append(equationMultipliers, [v^coefsMatrix[r][c]]),
         variables: append(variables, [v])
     ),
