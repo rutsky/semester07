@@ -1,0 +1,79 @@
+% report_1_10.tex
+% Report on task 1.10
+% Vladimir Rutsky <altsysrq@gmail.com>
+% 21.12.2009
+
+\documentclass[a4paper,12pt]{article}
+
+% Encoding support.
+\usepackage{ucs}
+\usepackage[utf8x]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[russian]{babel}
+
+\usepackage{amsmath, amsthm, amssymb}
+
+% Indenting first paragraph.
+\usepackage{indentfirst}
+
+\usepackage{listings}
+% Source code listings.
+\renewcommand{\lstlistingname}{Исходный код}
+
+% Spaces after commas.
+\frenchspacing
+% Minimal carrying number of characters,
+\righthyphenmin=2
+
+% From K.V.Voroncov Latex in samples, 2005.
+\textheight=24cm   % text height
+\textwidth=16cm    % text width.
+\oddsidemargin=0pt % left side indention
+\topmargin=-1.5cm  % top side indention.
+\parindent=24pt    % paragraph indent
+\parskip=0pt       % distance between paragraphs.
+\tolerance=2000
+%\flushbottom       % page height aligning
+%\hoffset=0cm
+%\pagestyle{empty}  % without numeration
+
+\title{Отчет по курсу ``Операционные системы'' \\ Задание 1.10}
+\author{Владимир Руцкий, 4057/2}
+
+\newcommand{\commandquote}[1]{\textbf{#1}}
+
+\begin{document}
+
+% Title page.
+\maketitle
+% Content
+
+\section*{Постановка задачи}
+\textit{``Напишите скрипт, отыскивающий дублирующиеся файлы в домашнем каталоге
+пользователя или в каталогах, указанных в качестве параметров командной
+строки. Дублирование файлов можно, в частности, проверить по совпадению
+имени и контрольной суммы MD5 (используйте команду md5sum).''}
+
+\section*{Выбранный метод решения}
+\begin{enumerate}
+ \item Разбор аргументов командной строки будет произведён с помощью конструкции \commandquote{while-if}.
+Каждая введённая в параметрах директория будет обработана отдельно.
+ \item Для каждой обрабатываемой директории будет построен список файлов с помощью команды \commandquote{find}.
+ \item Для каждого файла будет вычислена его MD5-сумма, базовое имя и полное имя. 
+Эти данные будут сохранены именно в таком порядке в одной строке, разделённые нулевым-символом.
+ \item Строки описания для всех файлов из обрабатываемой директории будут отсортированы в алфавитном порядке, 
+в результате чего строки для файлов с одинаковыми MD5-суммами и именами станут находиться рядом
+в рабочем потоке.
+ \item Из рабочего потока будут построчно считаны все описания файлов, и в случае нахождения рядом описаний,
+с одинаковыми MD5-суммами и именами файлов, имена соответствующих файлов будут выведены как результат.
+\end{enumerate}
+
+\pagebreak
+\section*{Исходный код}
+\lstset{language=bash, caption=task\_1\_10.sh,%
+label=source-code, basicstyle=\footnotesize,%
+numbers=left, numberstyle=\footnotesize, numbersep=5pt, frame=single, breaklines=true, breakatwhitespace=false,%
+inputencoding=utf8x}
+\lstinputlisting{data/task_1_10.sh}
+
+\end{document}
