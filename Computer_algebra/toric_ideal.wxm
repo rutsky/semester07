@@ -13,7 +13,7 @@ coefsMatrix: genmatrix(g, rows, columns);
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-a: concat('x, 9);
+a: concat(concat('x, 9), 3);
 a:: 10;
 /* [wxMaxima: input   end   ] */
 
@@ -21,9 +21,8 @@ a:: 10;
 equations: [];
 for r:1 thru rows step 1 do
     for c:1 thru columns step 1 do (
-        display([r, c]),
-        v: concat('concat('x, r), c)
-        v:: matrixCoefs
+        v: concat(concat('x, r), c),
+        v:: matrixCoefs[r][c]
     )$
 /* [wxMaxima: input   end   ] */
 
@@ -45,12 +44,6 @@ length([1,2]);
 /* [wxMaxima: input   start ] */
 values;
 x9;
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: input   start ] */
-M1: matrix([a1, b1], [c1, d1]);
-M2: matrix([a2, b2], [c2, d2]);
-solve(M1 . M2 = M2 . M1, [a1, b1, c1, d1, a2, b2, c2, d2]);
 /* [wxMaxima: input   end   ] */
 
 /* Maxima can't load/batch files which end with a comment! */
