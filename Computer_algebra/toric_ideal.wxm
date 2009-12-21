@@ -11,24 +11,26 @@ coefsMatrix: genmatrix(g, 7, 3);
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-apply("+", [1, 2, 3]);
-/* [wxMaxima: input   end   ] */
-
-/* [wxMaxima: input   start ] */
 variables: []$
 equations: []$
 for r:1 thru length(coefsMatrix) step 1 do (
     equationMultipliers: [],
     for c:1 thru length(coefsMatrix[1]) step 1 do (
-        equationMultipliers: append(equationMultipliers, [concat(concat('x, r), c)^coefsMatrix[r][c]])
+        v: concat(concat('x, r), c),
+        equationMultipliers: append(equationMultipliers, [v^coefsMatrix[r][c]]),
+        variables: append(variables, [v])
     ),
-    equations: append(equations, [-concat('y, r) + apply("*", equationMultipliers)])
+    v: concat('y, r),
+    equations: append(equations, [-v + apply("*", equationMultipliers)]),
+    variables: append(variables, [v])
 )$
-display(equations);
+display(equations)$
+display(variables)$
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-rows(coefsMatrix);
+poly_monomial_order:'lex$
+poly_buchberger(equations, variables);
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
