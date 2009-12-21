@@ -1,0 +1,74 @@
+% report_1_09.tex
+% Report on task 1.09
+% Vladimir Rutsky <altsysrq@gmail.com>
+% 21.12.2009
+
+\documentclass[a4paper,12pt]{article}
+
+% Encoding support.
+\usepackage{ucs}
+\usepackage[utf8x]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[russian]{babel}
+
+\usepackage{amsmath, amsthm, amssymb}
+
+% Indenting first paragraph.
+\usepackage{indentfirst}
+
+\usepackage{listings}
+% Source code listings.
+\renewcommand{\lstlistingname}{Исходный код}
+
+% Spaces after commas.
+\frenchspacing
+% Minimal carrying number of characters,
+\righthyphenmin=2
+
+% From K.V.Voroncov Latex in samples, 2005.
+\textheight=24cm   % text height
+\textwidth=16cm    % text width.
+\oddsidemargin=0pt % left side indention
+\topmargin=-1.5cm  % top side indention.
+\parindent=24pt    % paragraph indent
+\parskip=0pt       % distance between paragraphs.
+\tolerance=2000
+%\flushbottom       % page height aligning
+%\hoffset=0cm
+%\pagestyle{empty}  % without numeration
+
+\title{Отчет по курсу ``Операционные системы'' \\ Задание 1.09}
+\author{Владимир Руцкий, 4057/2}
+
+\newcommand{\commandquote}[1]{\textbf{#1}}
+
+\begin{document}
+
+% Title page.
+\maketitle
+% Content
+
+\section*{Постановка задачи}
+\textit{``Напишите скрипт, сравнивающий два дерева каталогов. Скрипт должен
+выводить сведения о файлах и каталогах, которые отсутствуют в одном дереве
+каталогов, но присутствуют в другом, а также об отличающихся файлах. Для
+сравнения файлов можно использовать команды cmp или diff.''}
+
+\section*{Выбранный метод решения}
+\begin{enumerate}
+ \item Разбор аргументов командной строки будет произведён с помощью конструкций \commandquote{if}.
+ \item Будет создан список файлов для сравниваемых деревьев с помощью команды \commandquote{find} и 
+отсортирован в лексикографическом порядке с помощью команды \commandquote{sort}.
+ \item Различие в списках файлов будут получены с помощью команды \commandquote{comm}.
+ \item Наличие различий между файлами с одинаковыми именами будет проверено с помощью команды \commandquote{cmp}.
+\end{enumerate}
+
+\pagebreak
+\section*{Исходный код}
+\lstset{language=bash, caption=task\_1\_09.sh,%
+label=source-code, basicstyle=\footnotesize,%
+numbers=left, numberstyle=\footnotesize, numbersep=5pt, frame=single, breaklines=true, breakatwhitespace=false,%
+inputencoding=utf8x}
+\lstinputlisting{data/task_1_09.sh}
+
+\end{document}
