@@ -41,4 +41,4 @@ while [ "$1" != "" ]; do
   esac
 done
 
-find $HOME_DIR -type f -size $SIZE_LOWER_BOUND -atime $LAST_ACCESS_TIME_PERIOD -not -wholename $ARCHIVE_NAME -print0 | xargs -0 tar -czf $ARCHIVE_NAME 
+find "$HOME_DIR" -type f -size $SIZE_LOWER_BOUND -atime $LAST_ACCESS_TIME_PERIOD -not -wholename "$ARCHIVE_NAME" -print0 | xargs -0 tar -czf "$ARCHIVE_NAME"

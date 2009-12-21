@@ -26,7 +26,7 @@ function process_dir
     exit 1
   fi
   
-  find $1 -type f -size $SIZE -printf '%h%f %s %u\n'
+  find "$1" -type f -size $SIZE -printf '%h%f %s %u\n'
 }
 
 while [ "$1" != "" ]; do
@@ -42,17 +42,17 @@ while [ "$1" != "" ]; do
     --)
         shift
         while [ "$1" != "" ]; do
-          process_dir $1
+          process_dir "$1"
           shift
         done
         ;;
     *)
-        process_dir $1
+        process_dir "$1"
         shift
         ;;
   esac
 done
 
 if [ $PROCESSED == 0 ]; then
-  process_dir $HOME_DIR
+  process_dir "$HOME_DIR"
 fi
