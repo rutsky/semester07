@@ -3,7 +3,7 @@
 # Vladimir Rutsky <altsysrq@gmail.com>
 # 22.03.2009
 
-SOURCES = report_1_3
+SOURCES = report_1_03
 DEPENDENCY = data/*
 TEX2PDF = pdflatex
 

@@ -1,6 +1,6 @@
 #!/bin/bash
-# task_1_3.sh
-# Task 1.3 on Unix course.
+# task_1_03.sh
+# Task 1.03 on Unix course.
 # Vladimir Rutsky <altsysrq@gmail.com>
 # 20.12.2009
 
