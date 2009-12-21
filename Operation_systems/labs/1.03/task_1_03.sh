@@ -26,7 +26,7 @@ function process_dir
     exit 1
   fi
   
-  find "$1" -type f -size $SIZE -printf '%h%f %s %u\n'
+  find "$1" -type f -size $SIZE -printf '%P %s %u\n'
 }
 
 while [ "$1" != "" ]; do
