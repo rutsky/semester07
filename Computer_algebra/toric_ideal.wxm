@@ -2,7 +2,7 @@
 /* [ Created with wxMaxima version 0.8.3a ] */
 
 /* [wxMaxima: input   start ] */
-load(grobner);
+load(grobner)$
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
@@ -10,30 +10,46 @@ coefsMatrix: genmatrix(lambda([i, j], random(3)), 7, 3);
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-variables: []$
+x_variables: []$
+y_variables: []$
 equations: []$
-for r:1 thru length(coefsMatrix) step 1 do (
+for r: 1 thru length(coefsMatrix) step 1 do (
     equationMultipliers: [],
     for c:1 thru length(coefsMatrix[1]) step 1 do (
         v: concat('x, c),
         equationMultipliers: append(equationMultipliers, [v^coefsMatrix[r][c]]),
-        variables: append(variables, [v])
+        x_variables: append(x_variables, [v])
     ),
     v: concat('y, r),
     equations: append(equations, [-v + apply("*", equationMultipliers)]),
-    variables: append(variables, [v])
+    y_variables: append(y_variables, [v])
 )$
+all_variables: append(x_variables, y_variables)$
+
 display(equations)$
-display(variables)$
+display(all_variables)$
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
 poly_monomial_order:'lex$
-poly_buchberger(equations, variables);
+basis: poly_buchberger(equations, all_variables)$
+
+display(basis)$
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-if showtime#false then showtime:false else showtime:all$
+for i: 1 thru length(basis) step 1 do (
+    /* TODO: Use list magic */
+    isFreeOf: 1,
+    for j: 1 thru length(x_variables) step 1 do (
+        if not freeof(x_variables[j], basis[i]) then (
+            isFreeOf: 0,
+            return(0)
+        )
+    ),
+    if isFreeOf = 1 then
+        display(basis[i])
+)$
 /* [wxMaxima: input   end   ] */
 
 /* Maxima can't load/batch files which end with a comment! */
