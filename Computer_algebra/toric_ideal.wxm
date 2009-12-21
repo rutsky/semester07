@@ -1,0 +1,44 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 0.8.3a ] */
+
+/* [wxMaxima: input   start ] */
+load(grobner);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+g[i, j] := random(10);
+coefsMatrix: genmatrix(g, 7, 3);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+length(coefsMatrix, 1);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+equations: [];
+for r:1 thru length(coefsMatrix) step 1 do
+  /*(
+display(row(coefsMatrix, 8 - r)),
+   display(row(coefsMatrix, r)))$*/
+    (display(length(row(coefsMatrix, r))),
+    for c:1 thru length(row(coefsMatrix, r)) step 1 do
+        display([r, c]))$;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+rows(coefsMatrix);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+length( row(coefsMatrix, 2))$ );
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+m: matrix([1,2], [3,4], [5,6]);
+length(m); /* gives 3, as expected*/
+length(row(m, 1)); /* gives 1 ?!? */
+length([1,2]);
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$
