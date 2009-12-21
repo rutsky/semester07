@@ -4,7 +4,7 @@
 # 22.03.2009
 
 SOURCES = report_1_1
-DEPENDENCY = 
+DEPENDENCY = data/*
 TEX2PDF = pdflatex
 
 PDF_TARGETS := $(foreach A,$(SOURCES),$(A).pdf)
