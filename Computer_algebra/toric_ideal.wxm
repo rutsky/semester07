@@ -23,35 +23,35 @@ display(coefsMatrix)$
    to powers coefficients matrix */
 x_variables: []$
 y_variables: []$
-equations: []$
+polynoms: []$
 for r: 1 thru length(coefsMatrix) step 1 do (
-    equationMultipliers: [],
+    monomialMultipliers: [],
     for c:1 thru length(coefsMatrix[1]) step 1 do (
         v: 'x[c],
-        equationMultipliers: 
-            append(equationMultipliers, [v^coefsMatrix[r][c]]),
+        monomialMultipliers: 
+            append(monomialMultipliers, [v^coefsMatrix[r][c]]),
         x_variables: append(x_variables, [v])
     ),
     v: 'y[r],
-    equations: 
-        append(equations, [-v + apply("*", equationMultipliers)]),
+    polynoms: 
+        append(polynoms, [-v + apply("*", monomialMultipliers)]),
     y_variables: append(y_variables, [v])
 )$
 all_variables: append(x_variables, y_variables)$
 
-print("Source equations:")$
-for i: 1 thru length(equations) step 1 do
-    display(equations[i])$
+print("Source polynoms:")$
+for i: 1 thru length(polynoms) step 1 do
+    display(polynoms[i])$
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
 /* Calculating Grobner basis */
 poly_monomial_order:'lex$
-basis: poly_buchberger(equations, all_variables)$
+basis: poly_buchberger(polynoms, all_variables)$
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-/* Printing some equations from founded basis */
+/* Printing some polynoms from founded basis */
 display(basis[1])$
 display(basis[2])$
 display(basis[3])$
@@ -62,7 +62,7 @@ display(basis[length(basis)])$
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-/* Displaying basis equations containing only 'y' variables */
+/* Displaying basis polynoms containing only 'y' variables */
 for i: 1 thru length(basis) step 1 do (
     /* TODO: Use list magic */
     isFreeOf: 1,
