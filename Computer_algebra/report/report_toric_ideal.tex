@@ -16,11 +16,9 @@
 % Indenting first paragraph.
 \usepackage{indentfirst}
 
-\usepackage{listings}
-% Source code listings.
-\renewcommand{\lstlistingname}{Исходный код}
-
 \usepackage{hyperref}
+
+\usepackage[final]{pdfpages}
 
 % Spaces after commas.
 \frenchspacing
@@ -91,18 +89,8 @@ Maxima\footnote{\url{http://maxima.sourceforge.net/}~--- Maxima, a Computer Alge
 
 Число переменных было фиксировано на значениях $n = 7$, $m = 3$.
 Матрица степеней $c(n, m)$ была заполнена произвольными целыми степенями из диапазона $[0, 4]$,
-её можно найти в разделе \ref{sec:source-code}.
+её можно найти в приложении с исходным кодом и результатом решения.
 
-\section{Результаты решения}
-Полученный идеал $a'$ приведён в конце раздела \ref{sec:source-code}.
-
-\section{Исходный код}
-\label{sec:source-code}
-
-% \lstset{language=bash, caption=task\_2\_02.c,%
-% label=source-code, basicstyle=\footnotesize,%
-% numbers=left, numberstyle=\footnotesize, numbersep=5pt, frame=single, breaklines=true, breakatwhitespace=false,%
-% inputencoding=utf8x}
-% \lstinputlisting{data/task_2_02.c}
+\includepdf[pages=-]{data/toric_ideal.pdf}
 
 \end{document}
