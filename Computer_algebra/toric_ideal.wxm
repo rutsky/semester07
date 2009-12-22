@@ -52,6 +52,7 @@ basis: poly_buchberger(polynoms, all_variables)$
 
 /* [wxMaxima: input   start ] */
 /* Printing some polynoms from founded basis */
+print("Basis has", length(basis), "polynoms.")$
 display(basis[1])$
 display(basis[2])$
 display(basis[3])$
