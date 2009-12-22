@@ -65,7 +65,7 @@ display(basis[length(basis)])$
 /* [wxMaxima: input   start ] */
 /* Displaying basis polynoms containing only 'y' variables */
 for i: 1 thru length(basis) step 1 do (
-    /* TODO: Use list magic */
+    /* TODO: Use list's magic */
     isFreeOf: 1,
     for j: 1 thru length(x_variables) step 1 do (
         if not freeof(x_variables[j], basis[i]) then (
