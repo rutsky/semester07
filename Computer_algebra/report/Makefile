@@ -18,7 +18,7 @@ all: pdf
 
 clean:
 	rm -f *~
-	rm -f $(foreach A,$(SOURCES),$(A).aux $(A).dvi $(A).tex.backup $(A).log)
+	rm -f $(foreach A,$(SOURCES),$(A).aux $(A).dvi $(A).tex.backup $(A).log $(A).out)
 
 distclean: clean
 	rm -f $(PDF_TARGETS)
