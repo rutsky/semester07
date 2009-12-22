@@ -3,9 +3,11 @@
 # Vladimir Rutsky <altsysrq@gmail.com>
 # 22.03.2009
 
-SOURCES = report_toric_ideal
+SOURCES = report_toric_ideal report_toric_ideal_results
 DEPENDENCY = data/*
 TEX2PDF = pdflatex
+
+report_toric_ideal.tex: report_toric_ideal_results.pdf
 
 PDF_TARGETS := $(foreach A,$(SOURCES),$(A).pdf)
 
