@@ -2,42 +2,67 @@
 /* [ Created with wxMaxima version 0.8.3a ] */
 
 /* [wxMaxima: input   start ] */
+/* toric_ideal.wxm
+ * Calculating toric ideal.
+ * Vladimir Rutsky <altsysrq@gmail.com>
+ * 22.12.2009
+ */
+
+/* Loading required packages */
 load(grobner)$
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
-coefsMatrix: genmatrix(lambda([i, j], random(3)), 7, 3);
+/* Generating powers coefficients matrix */
+coefsMatrix: genmatrix(lambda([i, j], random(5)), 7, 3)$
+display(coefsMatrix)$
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
+/* Building system of equation corresponding 
+   to powers coefficients matrix */
 x_variables: []$
 y_variables: []$
 equations: []$
 for r: 1 thru length(coefsMatrix) step 1 do (
     equationMultipliers: [],
     for c:1 thru length(coefsMatrix[1]) step 1 do (
-        v: concat('x, c),
-        equationMultipliers: append(equationMultipliers, [v^coefsMatrix[r][c]]),
+        v: 'x[c],
+        equationMultipliers: 
+            append(equationMultipliers, [v^coefsMatrix[r][c]]),
         x_variables: append(x_variables, [v])
     ),
-    v: concat('y, r),
-    equations: append(equations, [-v + apply("*", equationMultipliers)]),
+    v: 'y[r],
+    equations: 
+        append(equations, [-v + apply("*", equationMultipliers)]),
     y_variables: append(y_variables, [v])
 )$
 all_variables: append(x_variables, y_variables)$
 
-display(equations)$
-display(all_variables)$
+print("Source equations:")$
+for i: 1 thru length(equations) step 1 do
+    display(equations[i])$
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
+/* Calculating Grobner basis */
 poly_monomial_order:'lex$
 basis: poly_buchberger(equations, all_variables)$
-
-display(basis)$
 /* [wxMaxima: input   end   ] */
 
 /* [wxMaxima: input   start ] */
+/* Printing some equations from founded basis */
+display(basis[1])$
+display(basis[2])$
+display(basis[3])$
+for i: 1 thru 4 step 1 do
+    display(basis[1 + random(length(basis))])$
+display(basis[length(basis) - 1])$
+display(basis[length(basis)])$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+/* Displaying basis equations containing only 'y' variables */
 for i: 1 thru length(basis) step 1 do (
     /* TODO: Use list magic */
     isFreeOf: 1,
