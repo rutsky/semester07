@@ -45,7 +45,21 @@ int tryRun( key_t key )
       /* Allocated resource.
        * Waiting current process termination to free resource */
       /* TODO: If program will be terminated here, resource will not be freed */
-      fprintf(stdout, "Program is running.\nPress enter to terminate...\n");
+      fprintf(stdout, "Program is running.\n");
+      
+      {
+        int instancesLeft;
+        if ((instancesLeft = semctl(semId, 0, GETVAL)) != -1)
+        {
+          fprintf(stdout, "%d instances left.\n", instancesLeft);
+        }
+        else
+        {
+          perror("semctl");
+          fprintf(stderr, "Error: semctl.\n");
+        }
+      }
+      fprintf(stdout, "Press enter to terminate...\n");
       fgetc(stdin);
     }
     else if (errno == EAGAIN)
