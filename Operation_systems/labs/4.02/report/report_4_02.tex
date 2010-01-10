@@ -1,0 +1,101 @@
+% report_4_02.tex
+% Report on task 4.02
+% Vladimir Rutsky <altsysrq@gmail.com>
+% 21.12.2009
+
+\documentclass[a4paper,12pt]{article}
+
+% Encoding support.
+\usepackage{ucs}
+\usepackage[utf8x]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[russian]{babel}
+
+\usepackage{amsmath, amsthm, amssymb}
+
+% Indenting first paragraph.
+\usepackage{indentfirst}
+
+\usepackage{listings}
+% Source code listings.
+\renewcommand{\lstlistingname}{Исходный код}
+
+% Spaces after commas.
+\frenchspacing
+% Minimal carrying number of characters,
+\righthyphenmin=2
+
+% From K.V.Voroncov Latex in samples, 2005.
+\textheight=24cm   % text height
+\textwidth=16cm    % text width.
+\oddsidemargin=0pt % left side indention
+\topmargin=-1.5cm  % top side indention.
+\parindent=24pt    % paragraph indent
+\parskip=0pt       % distance between paragraphs.
+\tolerance=2000
+%\flushbottom       % page height aligning
+%\hoffset=0cm
+%\pagestyle{empty}  % without numeration
+
+\title{Отчет по курсу ``Операционные системы'' \\ Задание 4.02}
+\author{Владимир Руцкий, 4057/2}
+\date{24 декабря 2009~г.}
+
+\newcommand{\commandquote}[1]{\textbf{#1}}
+\newcommand{\varquote}[1]{\textbf{#1}}
+
+\begin{document}
+
+% Title page.
+\maketitle
+% Content
+
+\section*{Постановка задачи}
+\textit{``Напишите программу, моделирующую решение задачи читателей и писателей в
+условиях, когда разрешено одновременное чтение данных, а запись требует
+монопольного доступа.''}
+
+\section*{Выбранный метод решения}
+Для работы с потоками используются потоки POSIX.
+
+Используется два мутекса:
+\begin{itemize}
+ \item \varquote{databaseMutex}~--- взаимно исключающий доступ к базе данных.
+Им обладает либо один из писателей, который в данный момент пишет в базу, 
+либо группа читателей, которые параллельно читают.
+ \item \varquote{nReadersMutex}~--- взаимно исключающий доступ к счетчику читателей.
+\end{itemize}
+
+При запуске программа создаёт по одному потоку для всех читателей и писателей,
+дальше они работают независимо друг от друга, координируя действия только через мутексы.
+
+Работа писателя:
+\begin{enumerate}
+ \item Захват \varquote{databaseMutex}.
+ \item Работа с базой данных.
+ \item Освобождение \varquote{databaseMutex}.
+\end{enumerate}
+
+Работа читателя:
+\begin{enumerate}
+ \item Захват \varquote{nReadersMutex}.
+ \item Если количество читателей равно нулю~--- текущий читатель единственный, 
+а значит доступ к базе не захвачен~--- захват \varquote{databaseMutex}.
+ \item Увеличение числа читателей.
+ \item Освобождение \varquote{nReadersMutex}.
+ \item Чтение базы.
+ \item Захват \varquote{nReadersMutex}.
+ \item Если количество читателей равно одному~--- читатель был последним, 
+доступ к базе данных больше не нужен~--- освобождение \varquote{databaseMutex}.
+ \item Уменьшение числа читателей.
+ \item Освобождение \varquote{nReadersMutex}.
+\end{enumerate}
+
+\section*{Исходный код}
+\lstset{language=C, caption=task\_4\_02.c,%
+label=source-code, basicstyle=\footnotesize,%
+numbers=left, numberstyle=\footnotesize, numbersep=5pt, frame=single, breaklines=true, breakatwhitespace=false,%
+inputencoding=utf8x}
+\lstinputlisting{data/task_4_02.c}
+
+\end{document}
