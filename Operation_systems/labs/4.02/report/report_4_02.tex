@@ -66,14 +66,15 @@
  \item \varquote{nReadersMutex}~--- взаимно исключающий доступ к счетчику читателей.
 \end{itemize}
 
-При запуске программа создаёт по одному потоку для всех читателей и писателей,
+При запуске программа создаёт по одному потоку для каждого их читателей и писателей 
+(\commandquote{pthread\_create}),
 дальше они работают независимо друг от друга, координируя действия только через мутексы.
 
 Работа писателя:
 \begin{enumerate}
- \item Захват \varquote{databaseMutex}.
+ \item Захват \varquote{databaseMutex} (\commandquote{pthread\_mutex\_lock}).
  \item Работа с базой данных.
- \item Освобождение \varquote{databaseMutex}.
+ \item Освобождение \varquote{databaseMutex} (\commandquote{pthread\_mutex\_unlock}).
 \end{enumerate}
 
 Работа читателя:
