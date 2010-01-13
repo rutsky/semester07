@@ -1,0 +1,4 @@
+# NetBeans stuff
+build/
+dist/
+nbproject/private/
