@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package hello;
+package zoo;
 
 import javax.microedition.midlet.*;
 import javax.microedition.lcdui.*;
