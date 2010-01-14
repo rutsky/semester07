@@ -11,7 +11,7 @@ all:
 
 git-init:
 	git remote add github    $(GIT_PATH_GITHUB)
-	git remote add gitorious $(GIT_PATH_GITOURIOUS)
+	git remote add gitorious $(GIT_PATH_GITORIOUS)
 
 public:
 	git push github    master
