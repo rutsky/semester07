@@ -59,6 +59,12 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     private Font font;
     private Ticker ticker;
     private Ticker ticker1;
+    private Ticker ticker2;
+    private Ticker ticker3;
+    private Ticker ticker4;
+    private Ticker ticker5;
+    private Ticker ticker6;
+    private Ticker ticker7;
     //</editor-fold>//GEN-END:|fields|0|
 
     /**
@@ -548,9 +554,10 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public List getIsWeb() {
         if (isWeb == null) {//GEN-END:|70-getter|0|70-preInit
             // write pre-init user code here
-            isWeb = new List("Is it widely used in Web?", Choice.IMPLICIT);//GEN-BEGIN:|70-getter|1|70-postInit
+            isWeb = new List("Web?", Choice.IMPLICIT);//GEN-BEGIN:|70-getter|1|70-postInit
             isWeb.append("Yes", null);
             isWeb.append("No", null);
+            isWeb.setTicker(getTicker2());
             isWeb.setCommandListener(this);
             isWeb.setSelectedFlags(new boolean[] { false, false });//GEN-END:|70-getter|1|70-postInit
             // write post-init user code here
@@ -589,9 +596,10 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public List getIsVM() {
         if (isVM == null) {//GEN-END:|78-getter|0|78-preInit
             // write pre-init user code here
-            isVM = new List("Is it runs on virtual machine?", Choice.IMPLICIT);//GEN-BEGIN:|78-getter|1|78-postInit
+            isVM = new List("VM-based?", Choice.IMPLICIT);//GEN-BEGIN:|78-getter|1|78-postInit
             isVM.append("Yes", null);
             isVM.append("No", null);
+            isVM.setTicker(getTicker3());
             isVM.setCommandListener(this);
             isVM.setSelectedFlags(new boolean[] { false, false });//GEN-END:|78-getter|1|78-postInit
             // write post-init user code here
@@ -630,9 +638,10 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public List getIsBrowser() {
         if (isBrowser == null) {//GEN-END:|84-getter|0|84-preInit
             // write pre-init user code here
-            isBrowser = new List("Is it runs in browser?", Choice.IMPLICIT);//GEN-BEGIN:|84-getter|1|84-postInit
+            isBrowser = new List("Browser?", Choice.IMPLICIT);//GEN-BEGIN:|84-getter|1|84-postInit
             isBrowser.append("Yes", null);
             isBrowser.append("No", null);
+            isBrowser.setTicker(getTicker5());
             isBrowser.setCommandListener(this);
             isBrowser.setSelectedFlags(new boolean[] { false, false });//GEN-END:|84-getter|1|84-postInit
             // write post-init user code here
@@ -671,7 +680,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public List getJavaScript() {
         if (JavaScript == null) {//GEN-END:|90-getter|0|90-preInit
             // write pre-init user code here
-            JavaScript = new List("Is is JavaScript?", Choice.IMPLICIT);//GEN-BEGIN:|90-getter|1|90-postInit
+            JavaScript = new List("JavaScript?", Choice.IMPLICIT);//GEN-BEGIN:|90-getter|1|90-postInit
             JavaScript.append("Yes!", null);
             JavaScript.append("No", null);
             JavaScript.setCommandListener(this);
@@ -761,9 +770,10 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public List getIsMS() {
         if (isMS == null) {//GEN-END:|105-getter|0|105-preInit
             // write pre-init user code here
-            isMS = new List("Is it created by Microsoft?", Choice.IMPLICIT);//GEN-BEGIN:|105-getter|1|105-postInit
+            isMS = new List("Microsoft?", Choice.IMPLICIT);//GEN-BEGIN:|105-getter|1|105-postInit
             isMS.append("Yes", null);
             isMS.append("No", null);
+            isMS.setTicker(getTicker4());
             isMS.setCommandListener(this);
             isMS.setSelectedFlags(new boolean[] { false, false });//GEN-END:|105-getter|1|105-postInit
             // write post-init user code here
@@ -802,7 +812,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public List getCSharp() {
         if (CSharp == null) {//GEN-END:|111-getter|0|111-preInit
             // write pre-init user code here
-            CSharp = new List("Is it C#?", Choice.IMPLICIT);//GEN-BEGIN:|111-getter|1|111-postInit
+            CSharp = new List("C#?", Choice.IMPLICIT);//GEN-BEGIN:|111-getter|1|111-postInit
             CSharp.append("Yes!", null);
             CSharp.append("No", null);
             CSharp.setCommandListener(this);
@@ -843,7 +853,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public List getJava() {
         if (Java == null) {//GEN-END:|119-getter|0|119-preInit
             // write pre-init user code here
-            Java = new List("Is it Java?", Choice.IMPLICIT);//GEN-BEGIN:|119-getter|1|119-postInit
+            Java = new List("Java?", Choice.IMPLICIT);//GEN-BEGIN:|119-getter|1|119-postInit
             Java.append("Yes!", null);
             Java.append("No", null);
             Java.setCommandListener(this);
@@ -884,7 +894,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public List getIsOOP() {
         if (isOOP == null) {//GEN-END:|127-getter|0|127-preInit
             // write pre-init user code here
-            isOOP = new List("Is it fully object oriented?", Choice.IMPLICIT);//GEN-BEGIN:|127-getter|1|127-postInit
+            isOOP = new List("Object Oriented?", Choice.IMPLICIT);//GEN-BEGIN:|127-getter|1|127-postInit
             isOOP.append("Yes", null);
             isOOP.append("No", null);
             isOOP.setTicker(getTicker());
@@ -926,7 +936,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public List getIsIndent() {
         if (isIndent == null) {//GEN-END:|134-getter|0|134-preInit
             // write pre-init user code here
-            isIndent = new List("Is it indentation based?", Choice.IMPLICIT);//GEN-BEGIN:|134-getter|1|134-postInit
+            isIndent = new List("Indent-based?", Choice.IMPLICIT);//GEN-BEGIN:|134-getter|1|134-postInit
             isIndent.append("Yes", null);
             isIndent.append("No", null);
             isIndent.setTicker(getTicker1());
@@ -968,7 +978,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public List getPython() {
         if (Python == null) {//GEN-END:|140-getter|0|140-preInit
             // write pre-init user code here
-            Python = new List("Is it Python?", Choice.IMPLICIT);//GEN-BEGIN:|140-getter|1|140-postInit
+            Python = new List("Python?", Choice.IMPLICIT);//GEN-BEGIN:|140-getter|1|140-postInit
             Python.append("Yes!", null);
             Python.append("No", null);
             Python.setCommandListener(this);
@@ -1009,7 +1019,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public List getRuby() {
         if (Ruby == null) {//GEN-END:|148-getter|0|148-preInit
             // write pre-init user code here
-            Ruby = new List("Is it Ruby?", Choice.IMPLICIT);//GEN-BEGIN:|148-getter|1|148-postInit
+            Ruby = new List("Ruby?", Choice.IMPLICIT);//GEN-BEGIN:|148-getter|1|148-postInit
             Ruby.append("Yes!", null);
             Ruby.append("No", null);
             Ruby.setCommandListener(this);
@@ -1050,7 +1060,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public Ticker getTicker() {
         if (ticker == null) {//GEN-END:|133-getter|0|133-preInit
             // write pre-init user code here
-            ticker = new Ticker("Fully object oriented means that it at least support Inheritance, Incapsulation and Polymorphysm");//GEN-LINE:|133-getter|1|133-postInit
+            ticker = new Ticker("Support Inheritance, Incapsulation and Polymorphysm?");//GEN-LINE:|133-getter|1|133-postInit
             // write post-init user code here
         }//GEN-BEGIN:|133-getter|2|
         return ticker;
@@ -1065,9 +1075,10 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public List getIsRegexp() {
         if (isRegexp == null) {//GEN-END:|165-getter|0|165-preInit
             // write pre-init user code here
-            isRegexp = new List("Is it have syntax for regexp?", Choice.IMPLICIT);//GEN-BEGIN:|165-getter|1|165-postInit
+            isRegexp = new List("Has regexp?", Choice.IMPLICIT);//GEN-BEGIN:|165-getter|1|165-postInit
             isRegexp.append("Yes", null);
             isRegexp.append("No", null);
+            isRegexp.setTicker(getTicker6());
             isRegexp.setCommandListener(this);
             isRegexp.setSelectedFlags(new boolean[] { false, false });//GEN-END:|165-getter|1|165-postInit
             // write post-init user code here
@@ -1106,7 +1117,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public List getPHP() {
         if (PHP == null) {//GEN-END:|171-getter|0|171-preInit
             // write pre-init user code here
-            PHP = new List("Is it PHP?", Choice.IMPLICIT);//GEN-BEGIN:|171-getter|1|171-postInit
+            PHP = new List("PHP?", Choice.IMPLICIT);//GEN-BEGIN:|171-getter|1|171-postInit
             PHP.append("Yes!", null);
             PHP.append("No", null);
             PHP.setCommandListener(this);
@@ -1147,7 +1158,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public List getPerl() {
         if (Perl == null) {//GEN-END:|179-getter|0|179-preInit
             // write pre-init user code here
-            Perl = new List("Is it Perl?", Choice.IMPLICIT);//GEN-BEGIN:|179-getter|1|179-postInit
+            Perl = new List("Perl?", Choice.IMPLICIT);//GEN-BEGIN:|179-getter|1|179-postInit
             Perl.append("Yes!", null);
             Perl.append("No", null);
             Perl.setCommandListener(this);
@@ -1188,7 +1199,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public List getIsCompilable() {
         if (isCompilable == null) {//GEN-END:|187-getter|0|187-preInit
             // write pre-init user code here
-            isCompilable = new List("Is it compilable in native executable?", Choice.IMPLICIT);//GEN-BEGIN:|187-getter|1|187-postInit
+            isCompilable = new List("Is it compilable?", Choice.IMPLICIT);//GEN-BEGIN:|187-getter|1|187-postInit
             isCompilable.append("Yes", null);
             isCompilable.append("No", null);
             isCompilable.setCommandListener(this);
@@ -1270,7 +1281,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public List getIsTemplate() {
         if (isTemplate == null) {//GEN-END:|199-getter|0|199-preInit
             // write pre-init user code here
-            isTemplate = new List("Is it have templates?", Choice.IMPLICIT);//GEN-BEGIN:|199-getter|1|199-postInit
+            isTemplate = new List("Have templates?", Choice.IMPLICIT);//GEN-BEGIN:|199-getter|1|199-postInit
             isTemplate.append("Yes", null);
             isTemplate.append("No", null);
             isTemplate.setCommandListener(this);
@@ -1311,7 +1322,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public List getCPlusPLus() {
         if (CPlusPLus == null) {//GEN-END:|205-getter|0|205-preInit
             // write pre-init user code here
-            CPlusPLus = new List("Is it C++?", Choice.IMPLICIT);//GEN-BEGIN:|205-getter|1|205-postInit
+            CPlusPLus = new List("C++?", Choice.IMPLICIT);//GEN-BEGIN:|205-getter|1|205-postInit
             CPlusPLus.append("Yes!", null);
             CPlusPLus.append("No", null);
             CPlusPLus.setCommandListener(this);
@@ -1352,7 +1363,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public List getDelphi() {
         if (Delphi == null) {//GEN-END:|213-getter|0|213-preInit
             // write pre-init user code here
-            Delphi = new List("Is it Delphi?", Choice.IMPLICIT);//GEN-BEGIN:|213-getter|1|213-postInit
+            Delphi = new List("Delphi?", Choice.IMPLICIT);//GEN-BEGIN:|213-getter|1|213-postInit
             Delphi.append("Yes!", null);
             Delphi.append("No", null);
             Delphi.setCommandListener(this);
@@ -1393,9 +1404,10 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public List getIsBegin() {
         if (isBegin == null) {//GEN-END:|221-getter|0|221-preInit
             // write pre-init user code here
-            isBegin = new List("Is it have keywork \"begin\"?", Choice.IMPLICIT);//GEN-BEGIN:|221-getter|1|221-postInit
+            isBegin = new List("begin/end?", Choice.IMPLICIT);//GEN-BEGIN:|221-getter|1|221-postInit
             isBegin.append("Yes", null);
             isBegin.append("No", null);
+            isBegin.setTicker(getTicker7());
             isBegin.setCommandListener(this);
             isBegin.setSelectedFlags(new boolean[] { false, false });//GEN-END:|221-getter|1|221-postInit
             // write post-init user code here
@@ -1434,7 +1446,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public List getPascal() {
         if (Pascal == null) {//GEN-END:|227-getter|0|227-preInit
             // write pre-init user code here
-            Pascal = new List("Is it Pascal?", Choice.IMPLICIT);//GEN-BEGIN:|227-getter|1|227-postInit
+            Pascal = new List("Pascal?", Choice.IMPLICIT);//GEN-BEGIN:|227-getter|1|227-postInit
             Pascal.append("Yes!", null);
             Pascal.append("No", null);
             Pascal.setCommandListener(this);
@@ -1475,7 +1487,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public List getC() {
         if (C == null) {//GEN-END:|235-getter|0|235-preInit
             // write pre-init user code here
-            C = new List("Is it C?", Choice.IMPLICIT);//GEN-BEGIN:|235-getter|1|235-postInit
+            C = new List("C?", Choice.IMPLICIT);//GEN-BEGIN:|235-getter|1|235-postInit
             C.append("Yes!", null);
             C.append("No", null);
             C.setCommandListener(this);
@@ -1516,7 +1528,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public List getIsDB() {
         if (isDB == null) {//GEN-END:|243-getter|0|243-preInit
             // write pre-init user code here
-            isDB = new List("Is it used in databases?", Choice.IMPLICIT);//GEN-BEGIN:|243-getter|1|243-postInit
+            isDB = new List("Used in DBs?", Choice.IMPLICIT);//GEN-BEGIN:|243-getter|1|243-postInit
             isDB.append("Yes", null);
             isDB.append("No", null);
             isDB.setCommandListener(this);
@@ -1598,7 +1610,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public List getMATLAB() {
         if (MATLAB == null) {//GEN-END:|257-getter|0|257-preInit
             // write pre-init user code here
-            MATLAB = new List("Is it MATLAB?", Choice.IMPLICIT);//GEN-BEGIN:|257-getter|1|257-postInit
+            MATLAB = new List("MATLAB?", Choice.IMPLICIT);//GEN-BEGIN:|257-getter|1|257-postInit
             MATLAB.append("Yes!", null);
             MATLAB.append("No", null);
             MATLAB.setCommandListener(this);
@@ -1639,12 +1651,102 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public Ticker getTicker1() {
         if (ticker1 == null) {//GEN-END:|164-getter|0|164-preInit
             // write pre-init user code here
-            ticker1 = new Ticker("Does indentation plays significant role in syntax?");//GEN-LINE:|164-getter|1|164-postInit
+            ticker1 = new Ticker("Does indentation significant in syntax?");//GEN-LINE:|164-getter|1|164-postInit
             // write post-init user code here
         }//GEN-BEGIN:|164-getter|2|
         return ticker1;
     }
     //</editor-fold>//GEN-END:|164-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: ticker2 ">//GEN-BEGIN:|266-getter|0|266-preInit
+    /**
+     * Returns an initiliazed instance of ticker2 component.
+     * @return the initialized component instance
+     */
+    public Ticker getTicker2() {
+        if (ticker2 == null) {//GEN-END:|266-getter|0|266-preInit
+            // write pre-init user code here
+            ticker2 = new Ticker("Is it widely used in Web?");//GEN-LINE:|266-getter|1|266-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|266-getter|2|
+        return ticker2;
+    }
+    //</editor-fold>//GEN-END:|266-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: ticker3 ">//GEN-BEGIN:|267-getter|0|267-preInit
+    /**
+     * Returns an initiliazed instance of ticker3 component.
+     * @return the initialized component instance
+     */
+    public Ticker getTicker3() {
+        if (ticker3 == null) {//GEN-END:|267-getter|0|267-preInit
+            // write pre-init user code here
+            ticker3 = new Ticker("Is it runs on virtual machine?");//GEN-LINE:|267-getter|1|267-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|267-getter|2|
+        return ticker3;
+    }
+    //</editor-fold>//GEN-END:|267-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: ticker4 ">//GEN-BEGIN:|268-getter|0|268-preInit
+    /**
+     * Returns an initiliazed instance of ticker4 component.
+     * @return the initialized component instance
+     */
+    public Ticker getTicker4() {
+        if (ticker4 == null) {//GEN-END:|268-getter|0|268-preInit
+            // write pre-init user code here
+            ticker4 = new Ticker("Is it created by Microsoft?");//GEN-LINE:|268-getter|1|268-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|268-getter|2|
+        return ticker4;
+    }
+    //</editor-fold>//GEN-END:|268-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: ticker5 ">//GEN-BEGIN:|269-getter|0|269-preInit
+    /**
+     * Returns an initiliazed instance of ticker5 component.
+     * @return the initialized component instance
+     */
+    public Ticker getTicker5() {
+        if (ticker5 == null) {//GEN-END:|269-getter|0|269-preInit
+            // write pre-init user code here
+            ticker5 = new Ticker("Is it runs in browser?");//GEN-LINE:|269-getter|1|269-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|269-getter|2|
+        return ticker5;
+    }
+    //</editor-fold>//GEN-END:|269-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: ticker6 ">//GEN-BEGIN:|270-getter|0|270-preInit
+    /**
+     * Returns an initiliazed instance of ticker6 component.
+     * @return the initialized component instance
+     */
+    public Ticker getTicker6() {
+        if (ticker6 == null) {//GEN-END:|270-getter|0|270-preInit
+            // write pre-init user code here
+            ticker6 = new Ticker("Has regexp in syntax?");//GEN-LINE:|270-getter|1|270-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|270-getter|2|
+        return ticker6;
+    }
+    //</editor-fold>//GEN-END:|270-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: ticker7 ">//GEN-BEGIN:|271-getter|0|271-preInit
+    /**
+     * Returns an initiliazed instance of ticker7 component.
+     * @return the initialized component instance
+     */
+    public Ticker getTicker7() {
+        if (ticker7 == null) {//GEN-END:|271-getter|0|271-preInit
+            // write pre-init user code here
+            ticker7 = new Ticker("Is it have keywords \"begin\"/\"end\"?");//GEN-LINE:|271-getter|1|271-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|271-getter|2|
+        return ticker7;
+    }
+    //</editor-fold>//GEN-END:|271-getter|2|
 
     /**
      * Returns a display instance.

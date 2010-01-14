@@ -95,10 +95,10 @@
                         <Property name="itemCommandListener" typeID="C#ItemCommandListener" value="R17"/>
                         <Property name="text" typeID="Pjava.lang.String" value="VThink of one of popular programming languages, and I'll try to guess it"/>
                         <Component componentID="30" typeID="C#ItemCommandEventSource">
-                            <Property name="eventHandler" typeID="C#EventHandler" value="R73"/>
+                            <Property name="eventHandler" typeID="C#EventHandler" value="R265"/>
                             <Property name="item" typeID="Cjavax.microedition.lcdui.Item" value="R16"/>
                             <Property name="command" typeID="Cjavax.microedition.lcdui.Command" value="R29"/>
-                            <Component componentID="73" typeID="C#SwitchDisplayableEventHandler">
+                            <Component componentID="265" typeID="C#SwitchDisplayableEventHandler">
                                 <Property name="eventSource" typeID="C#EventSource" value="R30"/>
                                 <Property name="displayable" typeID="Cjavax.microedition.lcdui.Displayable" value="R70"/>
                             </Component>
@@ -137,7 +137,8 @@
                     <Property name="instanceName" typeID="Pjava.lang.String" value="VisWeb"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
                     <Property name="commands" typeID="1C#CommandEventSource" value="A1:3_R71"/>
-                    <Property name="title" typeID="Pjava.lang.String" value="VIs it widely used in Web?"/>
+                    <Property name="title" typeID="Pjava.lang.String" value="VWeb?"/>
+                    <Property name="ticker" typeID="Cjavax.microedition.lcdui.Ticker" value="R266"/>
                     <Property name="commandListener" typeID="C#CommandListener" value="R7"/>
                     <Property name="elements" typeID="1C#ListElementEventSource" value="A2:3_R743_R75"/>
                     <Property name="selectCommand" typeID="C#CommandEventSource" value="R71"/>
@@ -170,7 +171,8 @@
                     <Property name="instanceName" typeID="Pjava.lang.String" value="VisVM"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
                     <Property name="commands" typeID="1C#CommandEventSource" value="A1:3_R79"/>
-                    <Property name="title" typeID="Pjava.lang.String" value="VIs it runs on virtual machine?"/>
+                    <Property name="title" typeID="Pjava.lang.String" value="VVM-based?"/>
+                    <Property name="ticker" typeID="Cjavax.microedition.lcdui.Ticker" value="R267"/>
                     <Property name="commandListener" typeID="C#CommandListener" value="R7"/>
                     <Property name="elements" typeID="1C#ListElementEventSource" value="A2:3_R813_R82"/>
                     <Property name="selectCommand" typeID="C#CommandEventSource" value="R79"/>
@@ -203,7 +205,8 @@
                     <Property name="instanceName" typeID="Pjava.lang.String" value="VisBrowser"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
                     <Property name="commands" typeID="1C#CommandEventSource" value="A1:3_R85"/>
-                    <Property name="title" typeID="Pjava.lang.String" value="VIs it runs in browser?"/>
+                    <Property name="title" typeID="Pjava.lang.String" value="VBrowser?"/>
+                    <Property name="ticker" typeID="Cjavax.microedition.lcdui.Ticker" value="R269"/>
                     <Property name="commandListener" typeID="C#CommandListener" value="R7"/>
                     <Property name="elements" typeID="1C#ListElementEventSource" value="A2:3_R873_R88"/>
                     <Property name="selectCommand" typeID="C#CommandEventSource" value="R85"/>
@@ -236,7 +239,7 @@
                     <Property name="instanceName" typeID="Pjava.lang.String" value="VJavaScript"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
                     <Property name="commands" typeID="1C#CommandEventSource" value="A1:3_R91"/>
-                    <Property name="title" typeID="Pjava.lang.String" value="VIs is JavaScript?"/>
+                    <Property name="title" typeID="Pjava.lang.String" value="VJavaScript?"/>
                     <Property name="commandListener" typeID="C#CommandListener" value="R7"/>
                     <Property name="elements" typeID="1C#ListElementEventSource" value="A2:3_R943_R95"/>
                     <Property name="selectCommand" typeID="C#CommandEventSource" value="R91"/>
@@ -309,7 +312,8 @@
                     <Property name="instanceName" typeID="Pjava.lang.String" value="VisMS"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
                     <Property name="commands" typeID="1C#CommandEventSource" value="A1:4_R106"/>
-                    <Property name="title" typeID="Pjava.lang.String" value="VIs it created by Microsoft?"/>
+                    <Property name="title" typeID="Pjava.lang.String" value="VMicrosoft?"/>
+                    <Property name="ticker" typeID="Cjavax.microedition.lcdui.Ticker" value="R268"/>
                     <Property name="commandListener" typeID="C#CommandListener" value="R7"/>
                     <Property name="elements" typeID="1C#ListElementEventSource" value="A2:4_R1094_R110"/>
                     <Property name="selectCommand" typeID="C#CommandEventSource" value="R106"/>
@@ -342,7 +346,7 @@
                     <Property name="instanceName" typeID="Pjava.lang.String" value="VCSharp"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
                     <Property name="commands" typeID="1C#CommandEventSource" value="A1:4_R112"/>
-                    <Property name="title" typeID="Pjava.lang.String" value="VIs it C#?"/>
+                    <Property name="title" typeID="Pjava.lang.String" value="VC#?"/>
                     <Property name="commandListener" typeID="C#CommandListener" value="R7"/>
                     <Property name="elements" typeID="1C#ListElementEventSource" value="A2:4_R1144_R115"/>
                     <Property name="selectCommand" typeID="C#CommandEventSource" value="R112"/>
@@ -375,7 +379,7 @@
                     <Property name="instanceName" typeID="Pjava.lang.String" value="VJava"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
                     <Property name="commands" typeID="1C#CommandEventSource" value="A1:4_R120"/>
-                    <Property name="title" typeID="Pjava.lang.String" value="VIs it Java?"/>
+                    <Property name="title" typeID="Pjava.lang.String" value="VJava?"/>
                     <Property name="commandListener" typeID="C#CommandListener" value="R7"/>
                     <Property name="elements" typeID="1C#ListElementEventSource" value="A2:4_R1234_R124"/>
                     <Property name="selectCommand" typeID="C#CommandEventSource" value="R120"/>
@@ -408,7 +412,7 @@
                     <Property name="instanceName" typeID="Pjava.lang.String" value="VisOOP"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
                     <Property name="commands" typeID="1C#CommandEventSource" value="A1:4_R128"/>
-                    <Property name="title" typeID="Pjava.lang.String" value="VIs it fully object oriented?"/>
+                    <Property name="title" typeID="Pjava.lang.String" value="VObject Oriented?"/>
                     <Property name="ticker" typeID="Cjavax.microedition.lcdui.Ticker" value="R133"/>
                     <Property name="commandListener" typeID="C#CommandListener" value="R7"/>
                     <Property name="elements" typeID="1C#ListElementEventSource" value="A2:4_R1314_R132"/>
@@ -442,7 +446,7 @@
                     <Property name="instanceName" typeID="Pjava.lang.String" value="VisIndent"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
                     <Property name="commands" typeID="1C#CommandEventSource" value="A1:4_R135"/>
-                    <Property name="title" typeID="Pjava.lang.String" value="VIs it indentation based?"/>
+                    <Property name="title" typeID="Pjava.lang.String" value="VIndent-based?"/>
                     <Property name="ticker" typeID="Cjavax.microedition.lcdui.Ticker" value="R164"/>
                     <Property name="commandListener" typeID="C#CommandListener" value="R7"/>
                     <Property name="elements" typeID="1C#ListElementEventSource" value="A2:4_R1384_R139"/>
@@ -476,7 +480,7 @@
                     <Property name="instanceName" typeID="Pjava.lang.String" value="VPython"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
                     <Property name="commands" typeID="1C#CommandEventSource" value="A1:4_R141"/>
-                    <Property name="title" typeID="Pjava.lang.String" value="VIs it Python?"/>
+                    <Property name="title" typeID="Pjava.lang.String" value="VPython?"/>
                     <Property name="commandListener" typeID="C#CommandListener" value="R7"/>
                     <Property name="elements" typeID="1C#ListElementEventSource" value="A2:4_R1434_R144"/>
                     <Property name="selectCommand" typeID="C#CommandEventSource" value="R141"/>
@@ -509,7 +513,7 @@
                     <Property name="instanceName" typeID="Pjava.lang.String" value="VRuby"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
                     <Property name="commands" typeID="1C#CommandEventSource" value="A1:4_R149"/>
-                    <Property name="title" typeID="Pjava.lang.String" value="VIs it Ruby?"/>
+                    <Property name="title" typeID="Pjava.lang.String" value="VRuby?"/>
                     <Property name="commandListener" typeID="C#CommandListener" value="R7"/>
                     <Property name="elements" typeID="1C#ListElementEventSource" value="A2:4_R1524_R153"/>
                     <Property name="selectCommand" typeID="C#CommandEventSource" value="R149"/>
@@ -542,7 +546,8 @@
                     <Property name="instanceName" typeID="Pjava.lang.String" value="VisRegexp"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
                     <Property name="commands" typeID="1C#CommandEventSource" value="A1:4_R166"/>
-                    <Property name="title" typeID="Pjava.lang.String" value="VIs it have syntax for regexp?"/>
+                    <Property name="title" typeID="Pjava.lang.String" value="VHas regexp?"/>
+                    <Property name="ticker" typeID="Cjavax.microedition.lcdui.Ticker" value="R270"/>
                     <Property name="commandListener" typeID="C#CommandListener" value="R7"/>
                     <Property name="elements" typeID="1C#ListElementEventSource" value="A2:4_R1684_R169"/>
                     <Property name="selectCommand" typeID="C#CommandEventSource" value="R166"/>
@@ -575,7 +580,7 @@
                     <Property name="instanceName" typeID="Pjava.lang.String" value="VPHP"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
                     <Property name="commands" typeID="1C#CommandEventSource" value="A1:4_R172"/>
-                    <Property name="title" typeID="Pjava.lang.String" value="VIs it PHP?"/>
+                    <Property name="title" typeID="Pjava.lang.String" value="VPHP?"/>
                     <Property name="commandListener" typeID="C#CommandListener" value="R7"/>
                     <Property name="elements" typeID="1C#ListElementEventSource" value="A2:4_R1754_R176"/>
                     <Property name="selectCommand" typeID="C#CommandEventSource" value="R172"/>
@@ -608,7 +613,7 @@
                     <Property name="instanceName" typeID="Pjava.lang.String" value="VPerl"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
                     <Property name="commands" typeID="1C#CommandEventSource" value="A1:4_R180"/>
-                    <Property name="title" typeID="Pjava.lang.String" value="VIs it Perl?"/>
+                    <Property name="title" typeID="Pjava.lang.String" value="VPerl?"/>
                     <Property name="commandListener" typeID="C#CommandListener" value="R7"/>
                     <Property name="elements" typeID="1C#ListElementEventSource" value="A2:4_R1834_R184"/>
                     <Property name="selectCommand" typeID="C#CommandEventSource" value="R180"/>
@@ -641,7 +646,7 @@
                     <Property name="instanceName" typeID="Pjava.lang.String" value="VisCompilable"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
                     <Property name="commands" typeID="1C#CommandEventSource" value="A1:4_R188"/>
-                    <Property name="title" typeID="Pjava.lang.String" value="VIs it compilable in native executable?"/>
+                    <Property name="title" typeID="Pjava.lang.String" value="VIs it compilable?"/>
                     <Property name="commandListener" typeID="C#CommandListener" value="R7"/>
                     <Property name="elements" typeID="1C#ListElementEventSource" value="A2:4_R1904_R191"/>
                     <Property name="selectCommand" typeID="C#CommandEventSource" value="R188"/>
@@ -707,7 +712,7 @@
                     <Property name="instanceName" typeID="Pjava.lang.String" value="VisTemplate"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
                     <Property name="commands" typeID="1C#CommandEventSource" value="A1:4_R200"/>
-                    <Property name="title" typeID="Pjava.lang.String" value="VIs it have templates?"/>
+                    <Property name="title" typeID="Pjava.lang.String" value="VHave templates?"/>
                     <Property name="commandListener" typeID="C#CommandListener" value="R7"/>
                     <Property name="elements" typeID="1C#ListElementEventSource" value="A2:4_R2034_R204"/>
                     <Property name="selectCommand" typeID="C#CommandEventSource" value="R200"/>
@@ -740,7 +745,7 @@
                     <Property name="instanceName" typeID="Pjava.lang.String" value="VCPlusPLus"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
                     <Property name="commands" typeID="1C#CommandEventSource" value="A1:4_R206"/>
-                    <Property name="title" typeID="Pjava.lang.String" value="VIs it C++?"/>
+                    <Property name="title" typeID="Pjava.lang.String" value="VC++?"/>
                     <Property name="commandListener" typeID="C#CommandListener" value="R7"/>
                     <Property name="elements" typeID="1C#ListElementEventSource" value="A2:4_R2084_R209"/>
                     <Property name="selectCommand" typeID="C#CommandEventSource" value="R206"/>
@@ -773,7 +778,7 @@
                     <Property name="instanceName" typeID="Pjava.lang.String" value="VDelphi"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
                     <Property name="commands" typeID="1C#CommandEventSource" value="A1:4_R214"/>
-                    <Property name="title" typeID="Pjava.lang.String" value="VIs it Delphi?"/>
+                    <Property name="title" typeID="Pjava.lang.String" value="VDelphi?"/>
                     <Property name="commandListener" typeID="C#CommandListener" value="R7"/>
                     <Property name="elements" typeID="1C#ListElementEventSource" value="A2:4_R2174_R218"/>
                     <Property name="selectCommand" typeID="C#CommandEventSource" value="R214"/>
@@ -806,7 +811,8 @@
                     <Property name="instanceName" typeID="Pjava.lang.String" value="VisBegin"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
                     <Property name="commands" typeID="1C#CommandEventSource" value="A1:4_R222"/>
-                    <Property name="title" typeID="Pjava.lang.String" value="VIs it have keywork &quot;begin&quot;?"/>
+                    <Property name="title" typeID="Pjava.lang.String" value="Vbegin/end?"/>
+                    <Property name="ticker" typeID="Cjavax.microedition.lcdui.Ticker" value="R271"/>
                     <Property name="commandListener" typeID="C#CommandListener" value="R7"/>
                     <Property name="elements" typeID="1C#ListElementEventSource" value="A2:4_R2254_R226"/>
                     <Property name="selectCommand" typeID="C#CommandEventSource" value="R222"/>
@@ -839,7 +845,7 @@
                     <Property name="instanceName" typeID="Pjava.lang.String" value="VPascal"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
                     <Property name="commands" typeID="1C#CommandEventSource" value="A1:4_R228"/>
-                    <Property name="title" typeID="Pjava.lang.String" value="VIs it Pascal?"/>
+                    <Property name="title" typeID="Pjava.lang.String" value="VPascal?"/>
                     <Property name="commandListener" typeID="C#CommandListener" value="R7"/>
                     <Property name="elements" typeID="1C#ListElementEventSource" value="A2:4_R2314_R232"/>
                     <Property name="selectCommand" typeID="C#CommandEventSource" value="R228"/>
@@ -872,7 +878,7 @@
                     <Property name="instanceName" typeID="Pjava.lang.String" value="VC"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
                     <Property name="commands" typeID="1C#CommandEventSource" value="A1:4_R236"/>
-                    <Property name="title" typeID="Pjava.lang.String" value="VIs it C?"/>
+                    <Property name="title" typeID="Pjava.lang.String" value="VC?"/>
                     <Property name="commandListener" typeID="C#CommandListener" value="R7"/>
                     <Property name="elements" typeID="1C#ListElementEventSource" value="A2:4_R2394_R240"/>
                     <Property name="selectCommand" typeID="C#CommandEventSource" value="R236"/>
@@ -905,7 +911,7 @@
                     <Property name="instanceName" typeID="Pjava.lang.String" value="VisDB"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
                     <Property name="commands" typeID="1C#CommandEventSource" value="A1:4_R244"/>
-                    <Property name="title" typeID="Pjava.lang.String" value="VIs it used in databases?"/>
+                    <Property name="title" typeID="Pjava.lang.String" value="VUsed in DBs?"/>
                     <Property name="commandListener" typeID="C#CommandListener" value="R7"/>
                     <Property name="elements" typeID="1C#ListElementEventSource" value="A2:4_R2474_R248"/>
                     <Property name="selectCommand" typeID="C#CommandEventSource" value="R244"/>
@@ -971,7 +977,7 @@
                     <Property name="instanceName" typeID="Pjava.lang.String" value="VMATLAB"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
                     <Property name="commands" typeID="1C#CommandEventSource" value="A1:4_R258"/>
-                    <Property name="title" typeID="Pjava.lang.String" value="VIs it MATLAB?"/>
+                    <Property name="title" typeID="Pjava.lang.String" value="VMATLAB?"/>
                     <Property name="commandListener" typeID="C#CommandListener" value="R7"/>
                     <Property name="elements" typeID="1C#ListElementEventSource" value="A2:4_R2614_R262"/>
                     <Property name="selectCommand" typeID="C#CommandEventSource" value="R258"/>
@@ -1015,12 +1021,42 @@
                 <Component componentID="133" typeID="Cjavax.microedition.lcdui.Ticker">
                     <Property name="instanceName" typeID="Pjava.lang.String" value="Vticker"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
-                    <Property name="string" typeID="Pjava.lang.String" value="VFully object oriented means that it at least support Inheritance, Incapsulation and Polymorphysm"/>
+                    <Property name="string" typeID="Pjava.lang.String" value="VSupport Inheritance, Incapsulation and Polymorphysm?"/>
                 </Component>
                 <Component componentID="164" typeID="Cjavax.microedition.lcdui.Ticker">
                     <Property name="instanceName" typeID="Pjava.lang.String" value="Vticker1"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
-                    <Property name="string" typeID="Pjava.lang.String" value="VDoes indentation plays significant role in syntax?"/>
+                    <Property name="string" typeID="Pjava.lang.String" value="VDoes indentation significant in syntax?"/>
+                </Component>
+                <Component componentID="266" typeID="Cjavax.microedition.lcdui.Ticker">
+                    <Property name="instanceName" typeID="Pjava.lang.String" value="Vticker2"/>
+                    <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
+                    <Property name="string" typeID="Pjava.lang.String" value="VIs it widely used in Web?"/>
+                </Component>
+                <Component componentID="267" typeID="Cjavax.microedition.lcdui.Ticker">
+                    <Property name="instanceName" typeID="Pjava.lang.String" value="Vticker3"/>
+                    <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
+                    <Property name="string" typeID="Pjava.lang.String" value="VIs it runs on virtual machine?"/>
+                </Component>
+                <Component componentID="268" typeID="Cjavax.microedition.lcdui.Ticker">
+                    <Property name="instanceName" typeID="Pjava.lang.String" value="Vticker4"/>
+                    <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
+                    <Property name="string" typeID="Pjava.lang.String" value="VIs it created by Microsoft?"/>
+                </Component>
+                <Component componentID="269" typeID="Cjavax.microedition.lcdui.Ticker">
+                    <Property name="instanceName" typeID="Pjava.lang.String" value="Vticker5"/>
+                    <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
+                    <Property name="string" typeID="Pjava.lang.String" value="VIs it runs in browser?"/>
+                </Component>
+                <Component componentID="270" typeID="Cjavax.microedition.lcdui.Ticker">
+                    <Property name="instanceName" typeID="Pjava.lang.String" value="Vticker6"/>
+                    <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
+                    <Property name="string" typeID="Pjava.lang.String" value="VHas regexp in syntax?"/>
+                </Component>
+                <Component componentID="271" typeID="Cjavax.microedition.lcdui.Ticker">
+                    <Property name="instanceName" typeID="Pjava.lang.String" value="Vticker7"/>
+                    <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
+                    <Property name="string" typeID="Pjava.lang.String" value="VIs it have keywords &quot;begin&quot;/&quot;end&quot;?"/>
                 </Component>
             </Component>
             <Component componentID="21" typeID="C#DatabindingCategory"/>
@@ -1034,7 +1070,7 @@
         <Node componentID="165" descriptorID="componentNode165" x="931" y="572"/>
         <Node componentID="221" descriptorID="componentNode221" x="551" y="503"/>
         <Node componentID="134" descriptorID="componentNode134" x="1144" y="432"/>
-        <Node componentID="70" descriptorID="componentNode70" x="383" y="136"/>
+        <Node componentID="70" descriptorID="componentNode70" x="401" y="135"/>
         <Node componentID="179" descriptorID="componentNode179" x="827" y="687"/>
         <Node componentID="148" descriptorID="componentNode148" x="1402" y="554"/>
         <Node componentID="103" descriptorID="componentNode103" x="1340" y="704"/>
@@ -1046,7 +1082,7 @@
         <Node componentID="98" descriptorID="componentNode98" x="1153" y="706"/>
         <Node componentID="227" descriptorID="componentNode227" x="333" y="491"/>
         <Node componentID="199" descriptorID="componentNode199" x="724" y="517"/>
-        <Node componentID="14" descriptorID="componentNode14" x="266" y="248"/>
+        <Node componentID="14" descriptorID="componentNode14" x="234" y="209"/>
         <Node componentID="2" descriptorID="componentNode2" x="24" y="26"/>
         <Node componentID="105" descriptorID="componentNode105" x="848" y="66"/>
         <Node componentID="78" descriptorID="componentNode78" x="577" y="142"/>
