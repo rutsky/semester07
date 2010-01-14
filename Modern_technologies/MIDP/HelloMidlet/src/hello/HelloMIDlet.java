@@ -21,17 +21,29 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     private Command okCommand;
     private Command backCommand;
     private Command backCommand1;
-    private Form form;
+    private Command okCommand1;
+    private Command okCommand2;
+    private Command okCommand3;
+    private Form menu;
     private StringItem stringItem;
     private SplashScreen splashScreen;
-    private Form isOOP;
-    private ChoiceGroup choiceGroup;
-    private Form isWeb;
-    private List list;
-    private Form form1;
-    private TextField textField;
+    private List isWeb;
+    private List isVM;
+    private List isBrowser;
+    private List JavaScript;
+    private Form Fail;
+    private StringItem stringItem1;
+    private Form Success;
+    private List isMS;
+    private List CSharp;
+    private List Java;
+    private List isOOP;
+    private List isIndent;
+    private List Python;
+    private List Ruby;
     private Image image1;
     private Font font;
+    private Ticker ticker;
     //</editor-fold>//GEN-END:|fields|0|
 
     /**
@@ -103,40 +115,100 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
      */
     public void commandAction(Command command, Displayable displayable) {//GEN-END:|7-commandAction|0|7-preCommandAction
         // write pre-action user code here
-        if (displayable == form) {//GEN-BEGIN:|7-commandAction|1|19-preAction
-            if (command == exitCommand) {//GEN-END:|7-commandAction|1|19-preAction
+        if (displayable == CSharp) {//GEN-BEGIN:|7-commandAction|1|112-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|1|112-preAction
                 // write pre-action user code here
-                exitMIDlet();//GEN-LINE:|7-commandAction|2|19-postAction
+                CSharpAction();//GEN-LINE:|7-commandAction|2|112-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|3|33-preAction
+            }//GEN-BEGIN:|7-commandAction|3|161-preAction
+        } else if (displayable == Fail) {
+            if (command == okCommand3) {//GEN-END:|7-commandAction|3|161-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getMenu());//GEN-LINE:|7-commandAction|4|161-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|5|120-preAction
+        } else if (displayable == Java) {
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|5|120-preAction
+                // write pre-action user code here
+                JavaAction();//GEN-LINE:|7-commandAction|6|120-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|7|91-preAction
+        } else if (displayable == JavaScript) {
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|7|91-preAction
+                // write pre-action user code here
+                JavaScriptAction();//GEN-LINE:|7-commandAction|8|91-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|9|141-preAction
+        } else if (displayable == Python) {
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|9|141-preAction
+                // write pre-action user code here
+                PythonAction();//GEN-LINE:|7-commandAction|10|141-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|11|149-preAction
+        } else if (displayable == Ruby) {
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|11|149-preAction
+                // write pre-action user code here
+                RubyAction();//GEN-LINE:|7-commandAction|12|149-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|13|157-preAction
+        } else if (displayable == Success) {
+            if (command == okCommand1) {//GEN-END:|7-commandAction|13|157-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getMenu());//GEN-LINE:|7-commandAction|14|157-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|15|85-preAction
+        } else if (displayable == isBrowser) {
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|15|85-preAction
+                // write pre-action user code here
+                isBrowserAction();//GEN-LINE:|7-commandAction|16|85-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|17|135-preAction
+        } else if (displayable == isIndent) {
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|17|135-preAction
+                // write pre-action user code here
+                isIndentAction();//GEN-LINE:|7-commandAction|18|135-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|19|106-preAction
+        } else if (displayable == isMS) {
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|19|106-preAction
+                // write pre-action user code here
+                isMSAction();//GEN-LINE:|7-commandAction|20|106-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|21|128-preAction
         } else if (displayable == isOOP) {
-            if (command == backCommand) {//GEN-END:|7-commandAction|3|33-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|21|128-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getForm());//GEN-LINE:|7-commandAction|4|33-postAction
+                isOOPAction();//GEN-LINE:|7-commandAction|22|128-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|5|50-preAction
+            }//GEN-BEGIN:|7-commandAction|23|79-preAction
+        } else if (displayable == isVM) {
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|23|79-preAction
+                // write pre-action user code here
+                isVMAction();//GEN-LINE:|7-commandAction|24|79-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|25|71-preAction
         } else if (displayable == isWeb) {
-            if (command == backCommand1) {//GEN-END:|7-commandAction|5|50-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|25|71-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getIsOOP());//GEN-LINE:|7-commandAction|6|50-postAction
+                isWebAction();//GEN-LINE:|7-commandAction|26|71-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|7|56-preAction
-        } else if (displayable == list) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|7|56-preAction
+            }//GEN-BEGIN:|7-commandAction|27|19-preAction
+        } else if (displayable == menu) {
+            if (command == exitCommand) {//GEN-END:|7-commandAction|27|19-preAction
                 // write pre-action user code here
-                listAction();//GEN-LINE:|7-commandAction|8|56-postAction
+                exitMIDlet();//GEN-LINE:|7-commandAction|28|19-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|9|24-preAction
+            }//GEN-BEGIN:|7-commandAction|29|24-preAction
         } else if (displayable == splashScreen) {
-            if (command == SplashScreen.DISMISS_COMMAND) {//GEN-END:|7-commandAction|9|24-preAction
+            if (command == SplashScreen.DISMISS_COMMAND) {//GEN-END:|7-commandAction|29|24-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getForm());//GEN-LINE:|7-commandAction|10|24-postAction
+                switchDisplayable(null, getMenu());//GEN-LINE:|7-commandAction|30|24-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|11|7-postCommandAction
-        }//GEN-END:|7-commandAction|11|7-postCommandAction
+            }//GEN-BEGIN:|7-commandAction|31|7-postCommandAction
+        }//GEN-END:|7-commandAction|31|7-postCommandAction
         // write post-action user code here
-    }//GEN-BEGIN:|7-commandAction|12|
-    //</editor-fold>//GEN-END:|7-commandAction|12|
+    }//GEN-BEGIN:|7-commandAction|32|
+    //</editor-fold>//GEN-END:|7-commandAction|32|
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: exitCommand ">//GEN-BEGIN:|18-getter|0|18-preInit
     /**
@@ -153,20 +225,20 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     }
     //</editor-fold>//GEN-END:|18-getter|2|
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: form ">//GEN-BEGIN:|14-getter|0|14-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: menu ">//GEN-BEGIN:|14-getter|0|14-preInit
     /**
-     * Returns an initiliazed instance of form component.
+     * Returns an initiliazed instance of menu component.
      * @return the initialized component instance
      */
-    public Form getForm() {
-        if (form == null) {//GEN-END:|14-getter|0|14-preInit
+    public Form getMenu() {
+        if (menu == null) {//GEN-END:|14-getter|0|14-preInit
             // write pre-init user code here
-            form = new Form("Welcome!", new Item[] { getStringItem() });//GEN-BEGIN:|14-getter|1|14-postInit
-            form.addCommand(getExitCommand());
-            form.setCommandListener(this);//GEN-END:|14-getter|1|14-postInit
+            menu = new Form("Welcome!", new Item[] { getStringItem() });//GEN-BEGIN:|14-getter|1|14-postInit
+            menu.addCommand(getExitCommand());
+            menu.setCommandListener(this);//GEN-END:|14-getter|1|14-postInit
             // write post-init user code here
         }//GEN-BEGIN:|14-getter|2|
-        return form;
+        return menu;
     }
     //</editor-fold>//GEN-END:|14-getter|2|
 
@@ -178,7 +250,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public StringItem getStringItem() {
         if (stringItem == null) {//GEN-END:|16-getter|0|16-preInit
             // write pre-init user code here
-            stringItem = new StringItem("Hello,", "Think of one of popular programming languages, and I\'ll try to guess it");//GEN-BEGIN:|16-getter|1|16-postInit
+            stringItem = new StringItem("", "Think of one of popular programming languages, and I\'ll try to guess it");//GEN-BEGIN:|16-getter|1|16-postInit
             stringItem.addCommand(getOkCommand());
             stringItem.setItemCommandListener(this);//GEN-END:|16-getter|1|16-postInit
             // write post-init user code here
@@ -249,26 +321,17 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
      */
     public void commandAction(Command command, Item item) {//GEN-END:|17-itemCommandAction|0|17-preItemCommandAction
         // write pre-action user code here
-        if (item == choiceGroup) {//GEN-BEGIN:|17-itemCommandAction|1|53-preAction
-            if (command == backCommand1) {//GEN-END:|17-itemCommandAction|1|53-preAction
+        if (item == stringItem) {//GEN-BEGIN:|17-itemCommandAction|1|30-preAction
+            if (command == okCommand) {//GEN-END:|17-itemCommandAction|1|30-preAction
                 // write pre-action user code here
-//GEN-LINE:|17-itemCommandAction|2|53-postAction
+                switchDisplayable(null, getIsWeb());//GEN-LINE:|17-itemCommandAction|2|30-postAction
                 // write post-action user code here
-            } else if (command == okCommand) {//GEN-LINE:|17-itemCommandAction|3|41-preAction
-                // write pre-action user code here
-                method();//GEN-LINE:|17-itemCommandAction|4|41-postAction
-                // write post-action user code here
-            }//GEN-BEGIN:|17-itemCommandAction|5|30-preAction
-        } else if (item == stringItem) {
-            if (command == okCommand) {//GEN-END:|17-itemCommandAction|5|30-preAction
-                // write pre-action user code here
-                switchDisplayable(null, getList());//GEN-LINE:|17-itemCommandAction|6|30-postAction
-                // write post-action user code here
-            }//GEN-BEGIN:|17-itemCommandAction|7|17-postItemCommandAction
-        }//GEN-END:|17-itemCommandAction|7|17-postItemCommandAction
+            }//GEN-BEGIN:|17-itemCommandAction|3|17-postItemCommandAction
+        }//GEN-END:|17-itemCommandAction|3|17-postItemCommandAction
         // write post-action user code here
-    }//GEN-BEGIN:|17-itemCommandAction|8|
-    //</editor-fold>//GEN-END:|17-itemCommandAction|8|
+    }//GEN-BEGIN:|17-itemCommandAction|4|41-postAction
+    //</editor-fold>//GEN-END:|17-itemCommandAction|4|41-postAction
+
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: okCommand ">//GEN-BEGIN:|29-getter|0|29-preInit
     /**
@@ -300,66 +363,13 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     }
     //</editor-fold>//GEN-END:|32-getter|2|
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: isOOP ">//GEN-BEGIN:|28-getter|0|28-preInit
-    /**
-     * Returns an initiliazed instance of isOOP component.
-     * @return the initialized component instance
-     */
-    public Form getIsOOP() {
-        if (isOOP == null) {//GEN-END:|28-getter|0|28-preInit
-            // write pre-init user code here
-            isOOP = new Form("OOP", new Item[] { getChoiceGroup() });//GEN-BEGIN:|28-getter|1|28-postInit
-            isOOP.addCommand(getBackCommand());
-            isOOP.setCommandListener(this);//GEN-END:|28-getter|1|28-postInit
-            // write post-init user code here
-        }//GEN-BEGIN:|28-getter|2|
-        return isOOP;
-    }
-    //</editor-fold>//GEN-END:|28-getter|2|
 
 
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Method: method ">//GEN-BEGIN:|42-if|0|42-preIf
-    /**
-     * Performs an action assigned to the method if-point.
-     */
-    public void method() {//GEN-END:|42-if|0|42-preIf
-        // enter pre-if user code here
-        if (choiceGroup.getSelectedIndex() == 0) {//GEN-LINE:|42-if|1|43-preAction
-            // write pre-action user code here
-            switchDisplayable(null, getIsWeb());//GEN-LINE:|42-if|2|43-postAction
-            // write post-action user code here
-        } else {//GEN-LINE:|42-if|3|44-preAction
-            // write pre-action user code here
-            switchDisplayable(null, getForm());//GEN-LINE:|42-if|4|44-postAction
-            // write post-action user code here
-        }//GEN-LINE:|42-if|5|42-postIf
-        // enter post-if user code here
-    }//GEN-BEGIN:|42-if|6|
-    //</editor-fold>//GEN-END:|42-if|6|
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: choiceGroup ">//GEN-BEGIN:|36-getter|0|36-preInit
-    /**
-     * Returns an initiliazed instance of choiceGroup component.
-     * @return the initialized component instance
-     */
-    public ChoiceGroup getChoiceGroup() {
-        if (choiceGroup == null) {//GEN-END:|36-getter|0|36-preInit
-            // write pre-init user code here
-            choiceGroup = new ChoiceGroup("Is it object oriented?", Choice.EXCLUSIVE);//GEN-BEGIN:|36-getter|1|36-postInit
-            choiceGroup.append("Yes", null);
-            choiceGroup.append("No", null);
-            choiceGroup.addCommand(getOkCommand());
-            choiceGroup.addCommand(getBackCommand1());
-            choiceGroup.setItemCommandListener(this);
-            choiceGroup.setDefaultCommand(getBackCommand1());
-            choiceGroup.setFitPolicy(Choice.TEXT_WRAP_DEFAULT);
-            choiceGroup.setSelectedFlags(new boolean[] { false, false });//GEN-END:|36-getter|1|36-postInit
-            // write post-init user code here
-        }//GEN-BEGIN:|36-getter|2|
-        return choiceGroup;
-    }
-    //</editor-fold>//GEN-END:|36-getter|2|
+
+
+
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand1 ">//GEN-BEGIN:|49-getter|0|49-preInit
     /**
@@ -376,98 +386,576 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     }
     //</editor-fold>//GEN-END:|49-getter|2|
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: isWeb ">//GEN-BEGIN:|47-getter|0|47-preInit
+
+
+
+
+
+
+
+
+
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: okCommand1 ">//GEN-BEGIN:|156-getter|0|156-preInit
+    /**
+     * Returns an initiliazed instance of okCommand1 component.
+     * @return the initialized component instance
+     */
+    public Command getOkCommand1() {
+        if (okCommand1 == null) {//GEN-END:|156-getter|0|156-preInit
+            // write pre-init user code here
+            okCommand1 = new Command("To Menu", Command.OK, 0);//GEN-LINE:|156-getter|1|156-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|156-getter|2|
+        return okCommand1;
+    }
+    //</editor-fold>//GEN-END:|156-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: okCommand2 ">//GEN-BEGIN:|158-getter|0|158-preInit
+    /**
+     * Returns an initiliazed instance of okCommand2 component.
+     * @return the initialized component instance
+     */
+    public Command getOkCommand2() {
+        if (okCommand2 == null) {//GEN-END:|158-getter|0|158-preInit
+            // write pre-init user code here
+            okCommand2 = new Command("To Menu", Command.OK, 0);//GEN-LINE:|158-getter|1|158-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|158-getter|2|
+        return okCommand2;
+    }
+    //</editor-fold>//GEN-END:|158-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: okCommand3 ">//GEN-BEGIN:|160-getter|0|160-preInit
+    /**
+     * Returns an initiliazed instance of okCommand3 component.
+     * @return the initialized component instance
+     */
+    public Command getOkCommand3() {
+        if (okCommand3 == null) {//GEN-END:|160-getter|0|160-preInit
+            // write pre-init user code here
+            okCommand3 = new Command("Ok", Command.OK, 0);//GEN-LINE:|160-getter|1|160-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|160-getter|2|
+        return okCommand3;
+    }
+    //</editor-fold>//GEN-END:|160-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: isWeb ">//GEN-BEGIN:|70-getter|0|70-preInit
     /**
      * Returns an initiliazed instance of isWeb component.
      * @return the initialized component instance
      */
-    public Form getIsWeb() {
-        if (isWeb == null) {//GEN-END:|47-getter|0|47-preInit
+    public List getIsWeb() {
+        if (isWeb == null) {//GEN-END:|70-getter|0|70-preInit
             // write pre-init user code here
-            isWeb = new Form("Web");//GEN-BEGIN:|47-getter|1|47-postInit
-            isWeb.addCommand(getBackCommand1());
-            isWeb.setCommandListener(this);//GEN-END:|47-getter|1|47-postInit
+            isWeb = new List("Is it widely used in Web?", Choice.IMPLICIT);//GEN-BEGIN:|70-getter|1|70-postInit
+            isWeb.append("Yes", null);
+            isWeb.append("No", null);
+            isWeb.setCommandListener(this);
+            isWeb.setSelectedFlags(new boolean[] { false, false });//GEN-END:|70-getter|1|70-postInit
             // write post-init user code here
-        }//GEN-BEGIN:|47-getter|2|
+        }//GEN-BEGIN:|70-getter|2|
         return isWeb;
     }
-    //</editor-fold>//GEN-END:|47-getter|2|
+    //</editor-fold>//GEN-END:|70-getter|2|
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: list ">//GEN-BEGIN:|54-getter|0|54-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Method: isWebAction ">//GEN-BEGIN:|70-action|0|70-preAction
     /**
-     * Returns an initiliazed instance of list component.
-     * @return the initialized component instance
+     * Performs an action assigned to the selected list element in the isWeb component.
      */
-    public List getList() {
-        if (list == null) {//GEN-END:|54-getter|0|54-preInit
-            // write pre-init user code here
-            list = new List("list", Choice.IMPLICIT);//GEN-BEGIN:|54-getter|1|54-postInit
-            list.append("List Element 1", null);
-            list.append("List Element 2", null);
-            list.append("List Element 3", null);
-            list.setCommandListener(this);
-            list.setSelectedFlags(new boolean[] { false, false, false });//GEN-END:|54-getter|1|54-postInit
-            // write post-init user code here
-        }//GEN-BEGIN:|54-getter|2|
-        return list;
-    }
-    //</editor-fold>//GEN-END:|54-getter|2|
-
-    //<editor-fold defaultstate="collapsed" desc=" Generated Method: listAction ">//GEN-BEGIN:|54-action|0|54-preAction
-    /**
-     * Performs an action assigned to the selected list element in the list component.
-     */
-    public void listAction() {//GEN-END:|54-action|0|54-preAction
+    public void isWebAction() {//GEN-END:|70-action|0|70-preAction
         // enter pre-action user code here
-        String __selectedString = getList().getString(getList().getSelectedIndex());//GEN-BEGIN:|54-action|1|58-preAction
+        String __selectedString = getIsWeb().getString(getIsWeb().getSelectedIndex());//GEN-BEGIN:|70-action|1|74-preAction
         if (__selectedString != null) {
-            if (__selectedString.equals("List Element 1")) {//GEN-END:|54-action|1|58-preAction
+            if (__selectedString.equals("Yes")) {//GEN-END:|70-action|1|74-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getIsWeb());//GEN-LINE:|54-action|2|58-postAction
+                switchDisplayable(null, getIsVM());//GEN-LINE:|70-action|2|74-postAction
                 // write post-action user code here
-            } else if (__selectedString.equals("List Element 2")) {//GEN-LINE:|54-action|3|59-preAction
+            } else if (__selectedString.equals("No")) {//GEN-LINE:|70-action|3|75-preAction
                 // write pre-action user code here
-                method();//GEN-LINE:|54-action|4|59-postAction
+//GEN-LINE:|70-action|4|75-postAction
                 // write post-action user code here
-            } else if (__selectedString.equals("List Element 3")) {//GEN-LINE:|54-action|5|60-preAction
-                // write pre-action user code here
-//GEN-LINE:|54-action|6|60-postAction
-                // write post-action user code here
-            }//GEN-BEGIN:|54-action|7|54-postAction
-        }//GEN-END:|54-action|7|54-postAction
+            }//GEN-BEGIN:|70-action|5|70-postAction
+        }//GEN-END:|70-action|5|70-postAction
         // enter post-action user code here
-    }//GEN-BEGIN:|54-action|8|
-    //</editor-fold>//GEN-END:|54-action|8|
+    }//GEN-BEGIN:|70-action|6|
+    //</editor-fold>//GEN-END:|70-action|6|
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: form1 ">//GEN-BEGIN:|61-getter|0|61-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: isVM ">//GEN-BEGIN:|78-getter|0|78-preInit
     /**
-     * Returns an initiliazed instance of form1 component.
+     * Returns an initiliazed instance of isVM component.
      * @return the initialized component instance
      */
-    public Form getForm1() {
-        if (form1 == null) {//GEN-END:|61-getter|0|61-preInit
+    public List getIsVM() {
+        if (isVM == null) {//GEN-END:|78-getter|0|78-preInit
             // write pre-init user code here
-            form1 = new Form("form1", new Item[] { getTextField() });//GEN-LINE:|61-getter|1|61-postInit
+            isVM = new List("Is it runs on virtual machine?", Choice.IMPLICIT);//GEN-BEGIN:|78-getter|1|78-postInit
+            isVM.append("Yes", null);
+            isVM.append("No", null);
+            isVM.setCommandListener(this);
+            isVM.setSelectedFlags(new boolean[] { false, false });//GEN-END:|78-getter|1|78-postInit
             // write post-init user code here
-        }//GEN-BEGIN:|61-getter|2|
-        return form1;
+        }//GEN-BEGIN:|78-getter|2|
+        return isVM;
     }
-    //</editor-fold>//GEN-END:|61-getter|2|
+    //</editor-fold>//GEN-END:|78-getter|2|
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: textField ">//GEN-BEGIN:|63-getter|0|63-preInit
+    //<editor-fold defaultstate="collapsed" desc=" Generated Method: isVMAction ">//GEN-BEGIN:|78-action|0|78-preAction
     /**
-     * Returns an initiliazed instance of textField component.
+     * Performs an action assigned to the selected list element in the isVM component.
+     */
+    public void isVMAction() {//GEN-END:|78-action|0|78-preAction
+        // enter pre-action user code here
+        String __selectedString = getIsVM().getString(getIsVM().getSelectedIndex());//GEN-BEGIN:|78-action|1|81-preAction
+        if (__selectedString != null) {
+            if (__selectedString.equals("Yes")) {//GEN-END:|78-action|1|81-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getIsMS());//GEN-LINE:|78-action|2|81-postAction
+                // write post-action user code here
+            } else if (__selectedString.equals("No")) {//GEN-LINE:|78-action|3|82-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getIsBrowser());//GEN-LINE:|78-action|4|82-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|78-action|5|78-postAction
+        }//GEN-END:|78-action|5|78-postAction
+        // enter post-action user code here
+    }//GEN-BEGIN:|78-action|6|
+    //</editor-fold>//GEN-END:|78-action|6|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: isBrowser ">//GEN-BEGIN:|84-getter|0|84-preInit
+    /**
+     * Returns an initiliazed instance of isBrowser component.
      * @return the initialized component instance
      */
-    public TextField getTextField() {
-        if (textField == null) {//GEN-END:|63-getter|0|63-preInit
+    public List getIsBrowser() {
+        if (isBrowser == null) {//GEN-END:|84-getter|0|84-preInit
             // write pre-init user code here
-            textField = new TextField("textField", null, 32, TextField.ANY);//GEN-LINE:|63-getter|1|63-postInit
+            isBrowser = new List("Is it runs in browser?", Choice.IMPLICIT);//GEN-BEGIN:|84-getter|1|84-postInit
+            isBrowser.append("Yes", null);
+            isBrowser.append("No", null);
+            isBrowser.setCommandListener(this);
+            isBrowser.setSelectedFlags(new boolean[] { false, false });//GEN-END:|84-getter|1|84-postInit
             // write post-init user code here
-        }//GEN-BEGIN:|63-getter|2|
-        return textField;
+        }//GEN-BEGIN:|84-getter|2|
+        return isBrowser;
     }
-    //</editor-fold>//GEN-END:|63-getter|2|
+    //</editor-fold>//GEN-END:|84-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Method: isBrowserAction ">//GEN-BEGIN:|84-action|0|84-preAction
+    /**
+     * Performs an action assigned to the selected list element in the isBrowser component.
+     */
+    public void isBrowserAction() {//GEN-END:|84-action|0|84-preAction
+        // enter pre-action user code here
+        String __selectedString = getIsBrowser().getString(getIsBrowser().getSelectedIndex());//GEN-BEGIN:|84-action|1|87-preAction
+        if (__selectedString != null) {
+            if (__selectedString.equals("Yes")) {//GEN-END:|84-action|1|87-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getJavaScript());//GEN-LINE:|84-action|2|87-postAction
+                // write post-action user code here
+            } else if (__selectedString.equals("No")) {//GEN-LINE:|84-action|3|88-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getIsOOP());//GEN-LINE:|84-action|4|88-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|84-action|5|84-postAction
+        }//GEN-END:|84-action|5|84-postAction
+        // enter post-action user code here
+    }//GEN-BEGIN:|84-action|6|
+    //</editor-fold>//GEN-END:|84-action|6|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: JavaScript ">//GEN-BEGIN:|90-getter|0|90-preInit
+    /**
+     * Returns an initiliazed instance of JavaScript component.
+     * @return the initialized component instance
+     */
+    public List getJavaScript() {
+        if (JavaScript == null) {//GEN-END:|90-getter|0|90-preInit
+            // write pre-init user code here
+            JavaScript = new List("Is is JavaScript?", Choice.IMPLICIT);//GEN-BEGIN:|90-getter|1|90-postInit
+            JavaScript.append("Yes!", null);
+            JavaScript.append("No", null);
+            JavaScript.setCommandListener(this);
+            JavaScript.setSelectedFlags(new boolean[] { false, false });//GEN-END:|90-getter|1|90-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|90-getter|2|
+        return JavaScript;
+    }
+    //</editor-fold>//GEN-END:|90-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Method: JavaScriptAction ">//GEN-BEGIN:|90-action|0|90-preAction
+    /**
+     * Performs an action assigned to the selected list element in the JavaScript component.
+     */
+    public void JavaScriptAction() {//GEN-END:|90-action|0|90-preAction
+        // enter pre-action user code here
+        String __selectedString = getJavaScript().getString(getJavaScript().getSelectedIndex());//GEN-BEGIN:|90-action|1|94-preAction
+        if (__selectedString != null) {
+            if (__selectedString.equals("Yes!")) {//GEN-END:|90-action|1|94-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getSuccess());//GEN-LINE:|90-action|2|94-postAction
+                // write post-action user code here
+            } else if (__selectedString.equals("No")) {//GEN-LINE:|90-action|3|95-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getFail());//GEN-LINE:|90-action|4|95-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|90-action|5|90-postAction
+        }//GEN-END:|90-action|5|90-postAction
+        // enter post-action user code here
+    }//GEN-BEGIN:|90-action|6|
+    //</editor-fold>//GEN-END:|90-action|6|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: Fail ">//GEN-BEGIN:|98-getter|0|98-preInit
+    /**
+     * Returns an initiliazed instance of Fail component.
+     * @return the initialized component instance
+     */
+    public Form getFail() {
+        if (Fail == null) {//GEN-END:|98-getter|0|98-preInit
+            // write pre-init user code here
+            Fail = new Form("Sorry...", new Item[] { getStringItem1() });//GEN-BEGIN:|98-getter|1|98-postInit
+            Fail.addCommand(getOkCommand3());
+            Fail.setCommandListener(this);//GEN-END:|98-getter|1|98-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|98-getter|2|
+        return Fail;
+    }
+    //</editor-fold>//GEN-END:|98-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: stringItem1 ">//GEN-BEGIN:|100-getter|0|100-preInit
+    /**
+     * Returns an initiliazed instance of stringItem1 component.
+     * @return the initialized component instance
+     */
+    public StringItem getStringItem1() {
+        if (stringItem1 == null) {//GEN-END:|100-getter|0|100-preInit
+            // write pre-init user code here
+            stringItem1 = new StringItem("", "I don\'t know this language :(");//GEN-LINE:|100-getter|1|100-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|100-getter|2|
+        return stringItem1;
+    }
+    //</editor-fold>//GEN-END:|100-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: Success ">//GEN-BEGIN:|103-getter|0|103-preInit
+    /**
+     * Returns an initiliazed instance of Success component.
+     * @return the initialized component instance
+     */
+    public Form getSuccess() {
+        if (Success == null) {//GEN-END:|103-getter|0|103-preInit
+            // write pre-init user code here
+            Success = new Form("Hooray!");//GEN-BEGIN:|103-getter|1|103-postInit
+            Success.addCommand(getOkCommand1());
+            Success.setCommandListener(this);//GEN-END:|103-getter|1|103-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|103-getter|2|
+        return Success;
+    }
+    //</editor-fold>//GEN-END:|103-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: isMS ">//GEN-BEGIN:|105-getter|0|105-preInit
+    /**
+     * Returns an initiliazed instance of isMS component.
+     * @return the initialized component instance
+     */
+    public List getIsMS() {
+        if (isMS == null) {//GEN-END:|105-getter|0|105-preInit
+            // write pre-init user code here
+            isMS = new List("Is it created by Microsoft?", Choice.IMPLICIT);//GEN-BEGIN:|105-getter|1|105-postInit
+            isMS.append("Yes", null);
+            isMS.append("No", null);
+            isMS.setCommandListener(this);
+            isMS.setSelectedFlags(new boolean[] { false, false });//GEN-END:|105-getter|1|105-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|105-getter|2|
+        return isMS;
+    }
+    //</editor-fold>//GEN-END:|105-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Method: isMSAction ">//GEN-BEGIN:|105-action|0|105-preAction
+    /**
+     * Performs an action assigned to the selected list element in the isMS component.
+     */
+    public void isMSAction() {//GEN-END:|105-action|0|105-preAction
+        // enter pre-action user code here
+        String __selectedString = getIsMS().getString(getIsMS().getSelectedIndex());//GEN-BEGIN:|105-action|1|109-preAction
+        if (__selectedString != null) {
+            if (__selectedString.equals("Yes")) {//GEN-END:|105-action|1|109-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getCSharp());//GEN-LINE:|105-action|2|109-postAction
+                // write post-action user code here
+            } else if (__selectedString.equals("No")) {//GEN-LINE:|105-action|3|110-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getJava());//GEN-LINE:|105-action|4|110-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|105-action|5|105-postAction
+        }//GEN-END:|105-action|5|105-postAction
+        // enter post-action user code here
+    }//GEN-BEGIN:|105-action|6|
+    //</editor-fold>//GEN-END:|105-action|6|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: CSharp ">//GEN-BEGIN:|111-getter|0|111-preInit
+    /**
+     * Returns an initiliazed instance of CSharp component.
+     * @return the initialized component instance
+     */
+    public List getCSharp() {
+        if (CSharp == null) {//GEN-END:|111-getter|0|111-preInit
+            // write pre-init user code here
+            CSharp = new List("Is it C#?", Choice.IMPLICIT);//GEN-BEGIN:|111-getter|1|111-postInit
+            CSharp.append("Yes!", null);
+            CSharp.append("No", null);
+            CSharp.setCommandListener(this);
+            CSharp.setSelectedFlags(new boolean[] { false, false });//GEN-END:|111-getter|1|111-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|111-getter|2|
+        return CSharp;
+    }
+    //</editor-fold>//GEN-END:|111-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Method: CSharpAction ">//GEN-BEGIN:|111-action|0|111-preAction
+    /**
+     * Performs an action assigned to the selected list element in the CSharp component.
+     */
+    public void CSharpAction() {//GEN-END:|111-action|0|111-preAction
+        // enter pre-action user code here
+        String __selectedString = getCSharp().getString(getCSharp().getSelectedIndex());//GEN-BEGIN:|111-action|1|114-preAction
+        if (__selectedString != null) {
+            if (__selectedString.equals("Yes!")) {//GEN-END:|111-action|1|114-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getSuccess());//GEN-LINE:|111-action|2|114-postAction
+                // write post-action user code here
+            } else if (__selectedString.equals("No")) {//GEN-LINE:|111-action|3|115-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getFail());//GEN-LINE:|111-action|4|115-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|111-action|5|111-postAction
+        }//GEN-END:|111-action|5|111-postAction
+        // enter post-action user code here
+    }//GEN-BEGIN:|111-action|6|
+    //</editor-fold>//GEN-END:|111-action|6|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: Java ">//GEN-BEGIN:|119-getter|0|119-preInit
+    /**
+     * Returns an initiliazed instance of Java component.
+     * @return the initialized component instance
+     */
+    public List getJava() {
+        if (Java == null) {//GEN-END:|119-getter|0|119-preInit
+            // write pre-init user code here
+            Java = new List("Is it Java?", Choice.IMPLICIT);//GEN-BEGIN:|119-getter|1|119-postInit
+            Java.append("Yes!", null);
+            Java.append("No", null);
+            Java.setCommandListener(this);
+            Java.setSelectedFlags(new boolean[] { false, false });//GEN-END:|119-getter|1|119-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|119-getter|2|
+        return Java;
+    }
+    //</editor-fold>//GEN-END:|119-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Method: JavaAction ">//GEN-BEGIN:|119-action|0|119-preAction
+    /**
+     * Performs an action assigned to the selected list element in the Java component.
+     */
+    public void JavaAction() {//GEN-END:|119-action|0|119-preAction
+        // enter pre-action user code here
+        String __selectedString = getJava().getString(getJava().getSelectedIndex());//GEN-BEGIN:|119-action|1|123-preAction
+        if (__selectedString != null) {
+            if (__selectedString.equals("Yes!")) {//GEN-END:|119-action|1|123-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getSuccess());//GEN-LINE:|119-action|2|123-postAction
+                // write post-action user code here
+            } else if (__selectedString.equals("No")) {//GEN-LINE:|119-action|3|124-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getFail());//GEN-LINE:|119-action|4|124-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|119-action|5|119-postAction
+        }//GEN-END:|119-action|5|119-postAction
+        // enter post-action user code here
+    }//GEN-BEGIN:|119-action|6|
+    //</editor-fold>//GEN-END:|119-action|6|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: isOOP ">//GEN-BEGIN:|127-getter|0|127-preInit
+    /**
+     * Returns an initiliazed instance of isOOP component.
+     * @return the initialized component instance
+     */
+    public List getIsOOP() {
+        if (isOOP == null) {//GEN-END:|127-getter|0|127-preInit
+            // write pre-init user code here
+            isOOP = new List("Is it fully object oriented?", Choice.IMPLICIT);//GEN-BEGIN:|127-getter|1|127-postInit
+            isOOP.append("Yes", null);
+            isOOP.append("No", null);
+            isOOP.setTicker(getTicker());
+            isOOP.setCommandListener(this);
+            isOOP.setSelectedFlags(new boolean[] { false, false });//GEN-END:|127-getter|1|127-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|127-getter|2|
+        return isOOP;
+    }
+    //</editor-fold>//GEN-END:|127-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Method: isOOPAction ">//GEN-BEGIN:|127-action|0|127-preAction
+    /**
+     * Performs an action assigned to the selected list element in the isOOP component.
+     */
+    public void isOOPAction() {//GEN-END:|127-action|0|127-preAction
+        // enter pre-action user code here
+        String __selectedString = getIsOOP().getString(getIsOOP().getSelectedIndex());//GEN-BEGIN:|127-action|1|131-preAction
+        if (__selectedString != null) {
+            if (__selectedString.equals("Yes")) {//GEN-END:|127-action|1|131-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getIsIndent());//GEN-LINE:|127-action|2|131-postAction
+                // write post-action user code here
+            } else if (__selectedString.equals("No")) {//GEN-LINE:|127-action|3|132-preAction
+                // write pre-action user code here
+//GEN-LINE:|127-action|4|132-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|127-action|5|127-postAction
+        }//GEN-END:|127-action|5|127-postAction
+        // enter post-action user code here
+    }//GEN-BEGIN:|127-action|6|
+    //</editor-fold>//GEN-END:|127-action|6|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: isIndent ">//GEN-BEGIN:|134-getter|0|134-preInit
+    /**
+     * Returns an initiliazed instance of isIndent component.
+     * @return the initialized component instance
+     */
+    public List getIsIndent() {
+        if (isIndent == null) {//GEN-END:|134-getter|0|134-preInit
+            // write pre-init user code here
+            isIndent = new List("Is its syntax is indentation based?", Choice.IMPLICIT);//GEN-BEGIN:|134-getter|1|134-postInit
+            isIndent.append("Yes", null);
+            isIndent.append("No", null);
+            isIndent.setCommandListener(this);
+            isIndent.setSelectedFlags(new boolean[] { false, false });//GEN-END:|134-getter|1|134-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|134-getter|2|
+        return isIndent;
+    }
+    //</editor-fold>//GEN-END:|134-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Method: isIndentAction ">//GEN-BEGIN:|134-action|0|134-preAction
+    /**
+     * Performs an action assigned to the selected list element in the isIndent component.
+     */
+    public void isIndentAction() {//GEN-END:|134-action|0|134-preAction
+        // enter pre-action user code here
+        String __selectedString = getIsIndent().getString(getIsIndent().getSelectedIndex());//GEN-BEGIN:|134-action|1|138-preAction
+        if (__selectedString != null) {
+            if (__selectedString.equals("Yes")) {//GEN-END:|134-action|1|138-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getPython());//GEN-LINE:|134-action|2|138-postAction
+                // write post-action user code here
+            } else if (__selectedString.equals("No")) {//GEN-LINE:|134-action|3|139-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getRuby());//GEN-LINE:|134-action|4|139-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|134-action|5|134-postAction
+        }//GEN-END:|134-action|5|134-postAction
+        // enter post-action user code here
+    }//GEN-BEGIN:|134-action|6|
+    //</editor-fold>//GEN-END:|134-action|6|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: Python ">//GEN-BEGIN:|140-getter|0|140-preInit
+    /**
+     * Returns an initiliazed instance of Python component.
+     * @return the initialized component instance
+     */
+    public List getPython() {
+        if (Python == null) {//GEN-END:|140-getter|0|140-preInit
+            // write pre-init user code here
+            Python = new List("Is it Python?", Choice.IMPLICIT);//GEN-BEGIN:|140-getter|1|140-postInit
+            Python.append("Yes!", null);
+            Python.append("No", null);
+            Python.setCommandListener(this);
+            Python.setSelectedFlags(new boolean[] { false, false });//GEN-END:|140-getter|1|140-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|140-getter|2|
+        return Python;
+    }
+    //</editor-fold>//GEN-END:|140-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Method: PythonAction ">//GEN-BEGIN:|140-action|0|140-preAction
+    /**
+     * Performs an action assigned to the selected list element in the Python component.
+     */
+    public void PythonAction() {//GEN-END:|140-action|0|140-preAction
+        // enter pre-action user code here
+        String __selectedString = getPython().getString(getPython().getSelectedIndex());//GEN-BEGIN:|140-action|1|143-preAction
+        if (__selectedString != null) {
+            if (__selectedString.equals("Yes!")) {//GEN-END:|140-action|1|143-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getSuccess());//GEN-LINE:|140-action|2|143-postAction
+                // write post-action user code here
+            } else if (__selectedString.equals("No")) {//GEN-LINE:|140-action|3|144-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getFail());//GEN-LINE:|140-action|4|144-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|140-action|5|140-postAction
+        }//GEN-END:|140-action|5|140-postAction
+        // enter post-action user code here
+    }//GEN-BEGIN:|140-action|6|
+    //</editor-fold>//GEN-END:|140-action|6|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: Ruby ">//GEN-BEGIN:|148-getter|0|148-preInit
+    /**
+     * Returns an initiliazed instance of Ruby component.
+     * @return the initialized component instance
+     */
+    public List getRuby() {
+        if (Ruby == null) {//GEN-END:|148-getter|0|148-preInit
+            // write pre-init user code here
+            Ruby = new List("Is it Ruby?", Choice.IMPLICIT);//GEN-BEGIN:|148-getter|1|148-postInit
+            Ruby.append("Yes!", null);
+            Ruby.append("No", null);
+            Ruby.setCommandListener(this);
+            Ruby.setSelectedFlags(new boolean[] { false, false });//GEN-END:|148-getter|1|148-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|148-getter|2|
+        return Ruby;
+    }
+    //</editor-fold>//GEN-END:|148-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Method: RubyAction ">//GEN-BEGIN:|148-action|0|148-preAction
+    /**
+     * Performs an action assigned to the selected list element in the Ruby component.
+     */
+    public void RubyAction() {//GEN-END:|148-action|0|148-preAction
+        // enter pre-action user code here
+        String __selectedString = getRuby().getString(getRuby().getSelectedIndex());//GEN-BEGIN:|148-action|1|152-preAction
+        if (__selectedString != null) {
+            if (__selectedString.equals("Yes!")) {//GEN-END:|148-action|1|152-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getSuccess());//GEN-LINE:|148-action|2|152-postAction
+                // write post-action user code here
+            } else if (__selectedString.equals("No")) {//GEN-LINE:|148-action|3|153-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getFail());//GEN-LINE:|148-action|4|153-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|148-action|5|148-postAction
+        }//GEN-END:|148-action|5|148-postAction
+        // enter post-action user code here
+    }//GEN-BEGIN:|148-action|6|
+    //</editor-fold>//GEN-END:|148-action|6|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: ticker ">//GEN-BEGIN:|133-getter|0|133-preInit
+    /**
+     * Returns an initiliazed instance of ticker component.
+     * @return the initialized component instance
+     */
+    public Ticker getTicker() {
+        if (ticker == null) {//GEN-END:|133-getter|0|133-preInit
+            // write pre-init user code here
+            ticker = new Ticker("Fully object oriented means that it at least support Inheritance, Incapsulation and Polymorphysm");//GEN-LINE:|133-getter|1|133-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|133-getter|2|
+        return ticker;
+    }
+    //</editor-fold>//GEN-END:|133-getter|2|
 
     /**
      * Returns a display instance.
