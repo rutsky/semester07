@@ -12,7 +12,7 @@ import org.netbeans.microedition.lcdui.SplashScreen;
 /**
  * @author bob
  */
-public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandListener {
+public class ZooMIDlet extends MIDlet implements CommandListener, ItemCommandListener {
 
     private boolean midletPaused = false;
 
@@ -97,9 +97,9 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     //</editor-fold>//GEN-END:|fields|0|
 
     /**
-     * The HelloMIDlet constructor.
+     * The ZooMIDlet constructor.
      */
-    public HelloMIDlet() {
+    public ZooMIDlet() {
     }
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Methods ">//GEN-BEGIN:|methods|0|
