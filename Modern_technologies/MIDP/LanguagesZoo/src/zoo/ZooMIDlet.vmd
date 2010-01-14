@@ -1392,7 +1392,7 @@
                 <Component componentID="25" typeID="Cjavax.microedition.lcdui.Image">
                     <Property name="instanceName" typeID="Pjava.lang.String" value="Vimage1"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
-                    <Property name="resourcePath" typeID="Pjava.lang.String" value="V/hello/logo.png"/>
+                    <Property name="resourcePath" typeID="Pjava.lang.String" value="V/zoo/logo.png"/>
                 </Component>
                 <Component componentID="27" typeID="Cjavax.microedition.lcdui.Font">
                     <Property name="instanceName" typeID="Pjava.lang.String" value="Vfont"/>
@@ -1412,12 +1412,12 @@
                 <Component componentID="274" typeID="Cjavax.microedition.lcdui.Image">
                     <Property name="instanceName" typeID="Pjava.lang.String" value="Vimage2"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
-                    <Property name="resourcePath" typeID="Pjava.lang.String" value="V/hello/question.png"/>
+                    <Property name="resourcePath" typeID="Pjava.lang.String" value="V/zoo/question.png"/>
                 </Component>
                 <Component componentID="276" typeID="Cjavax.microedition.lcdui.Image">
                     <Property name="instanceName" typeID="Pjava.lang.String" value="Vimage3"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
-                    <Property name="resourcePath" typeID="Pjava.lang.String" value="V/hello/smile.png"/>
+                    <Property name="resourcePath" typeID="Pjava.lang.String" value="V/zoo/smile.png"/>
                 </Component>
                 <Component componentID="266" typeID="Cjavax.microedition.lcdui.Ticker">
                     <Property name="instanceName" typeID="Pjava.lang.String" value="Vticker2"/>

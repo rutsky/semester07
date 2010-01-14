@@ -25,29 +25,29 @@ public class ZooMIDlet extends MIDlet implements CommandListener, ItemCommandLis
     private Command okCommand2;
     private Command okCommand3;
     private Command backCommand2;
-    private Command backCommand3;
     private Command backCommand4;
+    private Command backCommand3;
     private Command backCommand5;
-    private Command backCommand6;
-    private Command backCommand7;
-    private Command backCommand8;
-    private Command backCommand9;
-    private Command backCommand10;
     private Command backCommand11;
     private Command backCommand12;
     private Command backCommand13;
     private Command backCommand14;
     private Command backCommand15;
     private Command backCommand16;
-    private Command backCommand17;
-    private Command backCommand18;
-    private Command backCommand19;
-    private Command backCommand20;
-    private Command backCommand21;
-    private Command backCommand22;
-    private Command backCommand23;
+    private Command backCommand6;
+    private Command backCommand7;
+    private Command backCommand8;
+    private Command backCommand9;
+    private Command backCommand10;
     private Command backCommand24;
+    private Command backCommand23;
+    private Command backCommand22;
     private Command backCommand25;
+    private Command backCommand18;
+    private Command backCommand17;
+    private Command backCommand21;
+    private Command backCommand20;
+    private Command backCommand19;
     private Form menu;
     private StringItem stringItem;
     private SplashScreen splashScreen;
@@ -55,44 +55,44 @@ public class ZooMIDlet extends MIDlet implements CommandListener, ItemCommandLis
     private List isVM;
     private List isBrowser;
     private List JavaScript;
-    private Form Fail;
-    private StringItem stringItem1;
-    private ImageItem imageItem;
     private Form Success;
     private ImageItem imageItem1;
-    private List isMS;
+    private Form Fail;
+    private ImageItem imageItem;
+    private StringItem stringItem1;
     private List CSharp;
+    private List isMS;
     private List Java;
     private List isOOP;
-    private List isIndent;
     private List Python;
+    private List isIndent;
     private List Ruby;
-    private List isRegexp;
     private List PHP;
-    private List Perl;
+    private List isRegexp;
     private List isCompilable;
-    private List isOOP1;
-    private List isTemplate;
+    private List Perl;
     private List CPlusPLus;
-    private List Delphi;
+    private List isTemplate;
+    private List isOOP1;
     private List isBegin;
-    private List Pascal;
+    private List Delphi;
     private List C;
-    private List isDB;
+    private List Pascal;
     private List PLSQL;
+    private List isDB;
     private List MATLAB;
     private Image image1;
     private Font font;
     private Ticker ticker;
     private Ticker ticker1;
-    private Ticker ticker2;
-    private Ticker ticker3;
-    private Ticker ticker4;
-    private Ticker ticker5;
-    private Ticker ticker6;
-    private Ticker ticker7;
     private Image image2;
     private Image image3;
+    private Ticker ticker2;
+    private Ticker ticker3;
+    private Ticker ticker6;
+    private Ticker ticker7;
+    private Ticker ticker4;
+    private Ticker ticker5;
     private Ticker ticker8;
     //</editor-fold>//GEN-END:|fields|0|
 
@@ -518,7 +518,7 @@ public class ZooMIDlet extends MIDlet implements CommandListener, ItemCommandLis
         if (image1 == null) {//GEN-END:|25-getter|0|25-preInit
             // write pre-init user code here
             try {//GEN-BEGIN:|25-getter|1|25-@java.io.IOException
-                image1 = Image.createImage("/hello/logo.png");
+                image1 = Image.createImage("/zoo/logo.png");
             } catch (java.io.IOException e) {//GEN-END:|25-getter|1|25-@java.io.IOException
                 e.printStackTrace();
             }//GEN-LINE:|25-getter|2|25-postInit
@@ -2300,7 +2300,7 @@ public class ZooMIDlet extends MIDlet implements CommandListener, ItemCommandLis
         if (image2 == null) {//GEN-END:|274-getter|0|274-preInit
             // write pre-init user code here
             try {//GEN-BEGIN:|274-getter|1|274-@java.io.IOException
-                image2 = Image.createImage("/hello/question.png");
+                image2 = Image.createImage("/zoo/question.png");
             } catch (java.io.IOException e) {//GEN-END:|274-getter|1|274-@java.io.IOException
                 e.printStackTrace();
             }//GEN-LINE:|274-getter|2|274-postInit
@@ -2319,7 +2319,7 @@ public class ZooMIDlet extends MIDlet implements CommandListener, ItemCommandLis
         if (image3 == null) {//GEN-END:|276-getter|0|276-preInit
             // write pre-init user code here
             try {//GEN-BEGIN:|276-getter|1|276-@java.io.IOException
-                image3 = Image.createImage("/hello/smile.png");
+                image3 = Image.createImage("/zoo/smile.png");
             } catch (java.io.IOException e) {//GEN-END:|276-getter|1|276-@java.io.IOException
                 e.printStackTrace();
             }//GEN-LINE:|276-getter|2|276-postInit
