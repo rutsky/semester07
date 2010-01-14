@@ -7,6 +7,7 @@ package hello;
 
 import javax.microedition.midlet.*;
 import javax.microedition.lcdui.*;
+import org.netbeans.microedition.lcdui.SplashScreen;
 
 /**
  * @author bob
@@ -19,6 +20,9 @@ public class HelloMIDlet extends MIDlet implements CommandListener {
     private Command exitCommand;
     private Form form;
     private StringItem stringItem;
+    private SplashScreen splashScreen;
+    private Image image1;
+    private Font font;
     //</editor-fold>//GEN-END:|fields|0|
 
     /**
@@ -48,7 +52,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener {
      */
     public void startMIDlet() {//GEN-END:|3-startMIDlet|0|3-preAction
         // write pre-action user code here
-        switchDisplayable(null, getForm());//GEN-LINE:|3-startMIDlet|1|3-postAction
+        switchDisplayable(null, getSplashScreen());//GEN-LINE:|3-startMIDlet|1|3-postAction
         // write post-action user code here
     }//GEN-BEGIN:|3-startMIDlet|2|
     //</editor-fold>//GEN-END:|3-startMIDlet|2|
@@ -95,11 +99,17 @@ public class HelloMIDlet extends MIDlet implements CommandListener {
                 // write pre-action user code here
                 exitMIDlet();//GEN-LINE:|7-commandAction|2|19-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|3|7-postCommandAction
-        }//GEN-END:|7-commandAction|3|7-postCommandAction
+            }//GEN-BEGIN:|7-commandAction|3|24-preAction
+        } else if (displayable == splashScreen) {
+            if (command == SplashScreen.DISMISS_COMMAND) {//GEN-END:|7-commandAction|3|24-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getForm());//GEN-LINE:|7-commandAction|4|24-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|5|7-postCommandAction
+        }//GEN-END:|7-commandAction|5|7-postCommandAction
         // write post-action user code here
-    }//GEN-BEGIN:|7-commandAction|4|
-    //</editor-fold>//GEN-END:|7-commandAction|4|
+    }//GEN-BEGIN:|7-commandAction|6|
+    //</editor-fold>//GEN-END:|7-commandAction|6|
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: exitCommand ">//GEN-BEGIN:|18-getter|0|18-preInit
     /**
@@ -147,6 +157,60 @@ public class HelloMIDlet extends MIDlet implements CommandListener {
         return stringItem;
     }
     //</editor-fold>//GEN-END:|16-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: splashScreen ">//GEN-BEGIN:|22-getter|0|22-preInit
+    /**
+     * Returns an initiliazed instance of splashScreen component.
+     * @return the initialized component instance
+     */
+    public SplashScreen getSplashScreen() {
+        if (splashScreen == null) {//GEN-END:|22-getter|0|22-preInit
+            // write pre-init user code here
+            splashScreen = new SplashScreen(getDisplay());//GEN-BEGIN:|22-getter|1|22-postInit
+            splashScreen.setTitle("splashScreen");
+            splashScreen.setCommandListener(this);
+            splashScreen.setImage(getImage1());
+            splashScreen.setText("Splash screen!");
+            splashScreen.setTextFont(getFont());//GEN-END:|22-getter|1|22-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|22-getter|2|
+        return splashScreen;
+    }
+    //</editor-fold>//GEN-END:|22-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: image1 ">//GEN-BEGIN:|25-getter|0|25-preInit
+    /**
+     * Returns an initiliazed instance of image1 component.
+     * @return the initialized component instance
+     */
+    public Image getImage1() {
+        if (image1 == null) {//GEN-END:|25-getter|0|25-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|25-getter|1|25-@java.io.IOException
+                image1 = Image.createImage("/hello/logo.png");
+            } catch (java.io.IOException e) {//GEN-END:|25-getter|1|25-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|25-getter|2|25-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|25-getter|3|
+        return image1;
+    }
+    //</editor-fold>//GEN-END:|25-getter|3|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: font ">//GEN-BEGIN:|27-getter|0|27-preInit
+    /**
+     * Returns an initiliazed instance of font component.
+     * @return the initialized component instance
+     */
+    public Font getFont() {
+        if (font == null) {//GEN-END:|27-getter|0|27-preInit
+            // write pre-init user code here
+            font = Font.getDefaultFont();//GEN-LINE:|27-getter|1|27-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|27-getter|2|
+        return font;
+    }
+    //</editor-fold>//GEN-END:|27-getter|2|
 
     /**
      * Returns a display instance.
