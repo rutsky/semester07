@@ -2319,7 +2319,7 @@ public class ZooMIDlet extends MIDlet implements CommandListener, ItemCommandLis
         if (image3 == null) {//GEN-END:|276-getter|0|276-preInit
             // write pre-init user code here
             try {//GEN-BEGIN:|276-getter|1|276-@java.io.IOException
-                image3 = Image.createImage("/zoo/smile.png");
+                image3 = Image.createImage("/zoo/question.png");
             } catch (java.io.IOException e) {//GEN-END:|276-getter|1|276-@java.io.IOException
                 e.printStackTrace();
             }//GEN-LINE:|276-getter|2|276-postInit
