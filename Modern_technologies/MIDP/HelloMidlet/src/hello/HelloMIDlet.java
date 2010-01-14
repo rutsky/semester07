@@ -24,6 +24,30 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     private Command okCommand1;
     private Command okCommand2;
     private Command okCommand3;
+    private Command backCommand2;
+    private Command backCommand3;
+    private Command backCommand4;
+    private Command backCommand5;
+    private Command backCommand6;
+    private Command backCommand7;
+    private Command backCommand8;
+    private Command backCommand9;
+    private Command backCommand10;
+    private Command backCommand11;
+    private Command backCommand12;
+    private Command backCommand13;
+    private Command backCommand14;
+    private Command backCommand15;
+    private Command backCommand16;
+    private Command backCommand17;
+    private Command backCommand18;
+    private Command backCommand19;
+    private Command backCommand20;
+    private Command backCommand21;
+    private Command backCommand22;
+    private Command backCommand23;
+    private Command backCommand24;
+    private Command backCommand25;
     private Form menu;
     private StringItem stringItem;
     private SplashScreen splashScreen;
@@ -33,7 +57,9 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     private List JavaScript;
     private Form Fail;
     private StringItem stringItem1;
+    private ImageItem imageItem;
     private Form Success;
+    private ImageItem imageItem1;
     private List isMS;
     private List CSharp;
     private List Java;
@@ -65,6 +91,8 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     private Ticker ticker5;
     private Ticker ticker6;
     private Ticker ticker7;
+    private Image image2;
+    private Image image3;
     //</editor-fold>//GEN-END:|fields|0|
 
     /**
@@ -141,179 +169,275 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
                 // write pre-action user code here
                 CAction();//GEN-LINE:|7-commandAction|2|236-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|3|206-preAction
+            } else if (command == backCommand18) {//GEN-LINE:|7-commandAction|3|326-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getIsBegin());//GEN-LINE:|7-commandAction|4|326-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|5|206-preAction
         } else if (displayable == CPlusPLus) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|3|206-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|5|206-preAction
                 // write pre-action user code here
-                CPlusPLusAction();//GEN-LINE:|7-commandAction|4|206-postAction
+                CPlusPLusAction();//GEN-LINE:|7-commandAction|6|206-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|5|112-preAction
+            } else if (command == backCommand16) {//GEN-LINE:|7-commandAction|7|320-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getIsTemplate());//GEN-LINE:|7-commandAction|8|320-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|9|112-preAction
         } else if (displayable == CSharp) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|5|112-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|9|112-preAction
                 // write pre-action user code here
-                CSharpAction();//GEN-LINE:|7-commandAction|6|112-postAction
+                CSharpAction();//GEN-LINE:|7-commandAction|10|112-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|7|214-preAction
+            } else if (command == backCommand6) {//GEN-LINE:|7-commandAction|11|290-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getIsMS());//GEN-LINE:|7-commandAction|12|290-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|13|214-preAction
         } else if (displayable == Delphi) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|7|214-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|13|214-preAction
                 // write pre-action user code here
-                DelphiAction();//GEN-LINE:|7-commandAction|8|214-postAction
+                DelphiAction();//GEN-LINE:|7-commandAction|14|214-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|9|161-preAction
+            } else if (command == backCommand17) {//GEN-LINE:|7-commandAction|15|323-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getIsTemplate());//GEN-LINE:|7-commandAction|16|323-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|17|161-preAction
         } else if (displayable == Fail) {
-            if (command == okCommand3) {//GEN-END:|7-commandAction|9|161-preAction
+            if (command == okCommand3) {//GEN-END:|7-commandAction|17|161-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getMenu());//GEN-LINE:|7-commandAction|10|161-postAction
+                switchDisplayable(null, getMenu());//GEN-LINE:|7-commandAction|18|161-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|11|120-preAction
+            }//GEN-BEGIN:|7-commandAction|19|120-preAction
         } else if (displayable == Java) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|11|120-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|19|120-preAction
                 // write pre-action user code here
-                JavaAction();//GEN-LINE:|7-commandAction|12|120-postAction
+                JavaAction();//GEN-LINE:|7-commandAction|20|120-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|13|91-preAction
+            } else if (command == backCommand7) {//GEN-LINE:|7-commandAction|21|293-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getIsMS());//GEN-LINE:|7-commandAction|22|293-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|23|91-preAction
         } else if (displayable == JavaScript) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|13|91-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|23|91-preAction
                 // write pre-action user code here
-                JavaScriptAction();//GEN-LINE:|7-commandAction|14|91-postAction
+                JavaScriptAction();//GEN-LINE:|7-commandAction|24|91-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|15|258-preAction
+            } else if (command == backCommand8) {//GEN-LINE:|7-commandAction|25|296-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getIsBrowser());//GEN-LINE:|7-commandAction|26|296-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|27|258-preAction
         } else if (displayable == MATLAB) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|15|258-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|27|258-preAction
                 // write pre-action user code here
-                MATLABAction();//GEN-LINE:|7-commandAction|16|258-postAction
+                MATLABAction();//GEN-LINE:|7-commandAction|28|258-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|17|172-preAction
+            }//GEN-BEGIN:|7-commandAction|29|172-preAction
         } else if (displayable == PHP) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|17|172-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|29|172-preAction
                 // write pre-action user code here
-                PHPAction();//GEN-LINE:|7-commandAction|18|172-postAction
+                PHPAction();//GEN-LINE:|7-commandAction|30|172-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|19|250-preAction
+            } else if (command == backCommand13) {//GEN-LINE:|7-commandAction|31|311-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getIsRegexp());//GEN-LINE:|7-commandAction|32|311-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|33|250-preAction
         } else if (displayable == PLSQL) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|19|250-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|33|250-preAction
                 // write pre-action user code here
-                PLSQLAction();//GEN-LINE:|7-commandAction|20|250-postAction
+                PLSQLAction();//GEN-LINE:|7-commandAction|34|250-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|21|228-preAction
+            } else if (command == backCommand23) {//GEN-LINE:|7-commandAction|35|341-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getIsDB());//GEN-LINE:|7-commandAction|36|341-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|37|228-preAction
         } else if (displayable == Pascal) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|21|228-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|37|228-preAction
                 // write pre-action user code here
-                PascalAction();//GEN-LINE:|7-commandAction|22|228-postAction
+                PascalAction();//GEN-LINE:|7-commandAction|38|228-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|23|180-preAction
+            } else if (command == backCommand19) {//GEN-LINE:|7-commandAction|39|329-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getIsBegin());//GEN-LINE:|7-commandAction|40|329-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|41|180-preAction
         } else if (displayable == Perl) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|23|180-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|41|180-preAction
                 // write pre-action user code here
-                PerlAction();//GEN-LINE:|7-commandAction|24|180-postAction
+                PerlAction();//GEN-LINE:|7-commandAction|42|180-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|25|141-preAction
+            } else if (command == backCommand14) {//GEN-LINE:|7-commandAction|43|314-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getIsRegexp());//GEN-LINE:|7-commandAction|44|314-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|45|141-preAction
         } else if (displayable == Python) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|25|141-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|45|141-preAction
                 // write pre-action user code here
-                PythonAction();//GEN-LINE:|7-commandAction|26|141-postAction
+                PythonAction();//GEN-LINE:|7-commandAction|46|141-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|27|149-preAction
+            } else if (command == backCommand11) {//GEN-LINE:|7-commandAction|47|305-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getIsIndent());//GEN-LINE:|7-commandAction|48|305-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|49|149-preAction
         } else if (displayable == Ruby) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|27|149-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|49|149-preAction
                 // write pre-action user code here
-                RubyAction();//GEN-LINE:|7-commandAction|28|149-postAction
+                RubyAction();//GEN-LINE:|7-commandAction|50|149-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|29|157-preAction
+            } else if (command == backCommand12) {//GEN-LINE:|7-commandAction|51|308-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getIsIndent());//GEN-LINE:|7-commandAction|52|308-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|53|157-preAction
         } else if (displayable == Success) {
-            if (command == okCommand1) {//GEN-END:|7-commandAction|29|157-preAction
+            if (command == okCommand1) {//GEN-END:|7-commandAction|53|157-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getMenu());//GEN-LINE:|7-commandAction|30|157-postAction
+                switchDisplayable(null, getMenu());//GEN-LINE:|7-commandAction|54|157-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|31|222-preAction
+            }//GEN-BEGIN:|7-commandAction|55|222-preAction
         } else if (displayable == isBegin) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|31|222-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|55|222-preAction
                 // write pre-action user code here
-                isBeginAction();//GEN-LINE:|7-commandAction|32|222-postAction
+                isBeginAction();//GEN-LINE:|7-commandAction|56|222-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|33|85-preAction
+            } else if (command == backCommand21) {//GEN-LINE:|7-commandAction|57|335-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getIsOOP1());//GEN-LINE:|7-commandAction|58|335-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|59|85-preAction
         } else if (displayable == isBrowser) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|33|85-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|59|85-preAction
                 // write pre-action user code here
-                isBrowserAction();//GEN-LINE:|7-commandAction|34|85-postAction
+                isBrowserAction();//GEN-LINE:|7-commandAction|60|85-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|35|188-preAction
+            } else if (command == backCommand5) {//GEN-LINE:|7-commandAction|61|287-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getIsVM());//GEN-LINE:|7-commandAction|62|287-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|63|188-preAction
         } else if (displayable == isCompilable) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|35|188-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|63|188-preAction
                 // write pre-action user code here
-                isCompilableAction();//GEN-LINE:|7-commandAction|36|188-postAction
+                isCompilableAction();//GEN-LINE:|7-commandAction|64|188-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|37|244-preAction
+            } else if (command == backCommand25) {//GEN-LINE:|7-commandAction|65|347-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getIsWeb());//GEN-LINE:|7-commandAction|66|347-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|67|244-preAction
         } else if (displayable == isDB) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|37|244-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|67|244-preAction
                 // write pre-action user code here
-                isDBAction();//GEN-LINE:|7-commandAction|38|244-postAction
+                isDBAction();//GEN-LINE:|7-commandAction|68|244-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|39|135-preAction
+            } else if (command == backCommand24) {//GEN-LINE:|7-commandAction|69|344-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getIsCompilable());//GEN-LINE:|7-commandAction|70|344-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|71|135-preAction
         } else if (displayable == isIndent) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|39|135-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|71|135-preAction
                 // write pre-action user code here
-                isIndentAction();//GEN-LINE:|7-commandAction|40|135-postAction
+                isIndentAction();//GEN-LINE:|7-commandAction|72|135-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|41|106-preAction
+            } else if (command == backCommand10) {//GEN-LINE:|7-commandAction|73|302-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getIsOOP());//GEN-LINE:|7-commandAction|74|302-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|75|106-preAction
         } else if (displayable == isMS) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|41|106-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|75|106-preAction
                 // write pre-action user code here
-                isMSAction();//GEN-LINE:|7-commandAction|42|106-postAction
+                isMSAction();//GEN-LINE:|7-commandAction|76|106-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|43|128-preAction
+            } else if (command == backCommand4) {//GEN-LINE:|7-commandAction|77|284-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getIsVM());//GEN-LINE:|7-commandAction|78|284-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|79|128-preAction
         } else if (displayable == isOOP) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|43|128-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|79|128-preAction
                 // write pre-action user code here
-                isOOPAction();//GEN-LINE:|7-commandAction|44|128-postAction
+                isOOPAction();//GEN-LINE:|7-commandAction|80|128-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|45|194-preAction
+            } else if (command == backCommand9) {//GEN-LINE:|7-commandAction|81|299-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getIsBrowser());//GEN-LINE:|7-commandAction|82|299-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|83|194-preAction
         } else if (displayable == isOOP1) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|45|194-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|83|194-preAction
                 // write pre-action user code here
-                isOOP1Action();//GEN-LINE:|7-commandAction|46|194-postAction
+                isOOP1Action();//GEN-LINE:|7-commandAction|84|194-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|47|166-preAction
+            } else if (command == backCommand22) {//GEN-LINE:|7-commandAction|85|338-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getIsCompilable());//GEN-LINE:|7-commandAction|86|338-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|87|166-preAction
         } else if (displayable == isRegexp) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|47|166-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|87|166-preAction
                 // write pre-action user code here
-                isRegexpAction();//GEN-LINE:|7-commandAction|48|166-postAction
+                isRegexpAction();//GEN-LINE:|7-commandAction|88|166-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|49|200-preAction
+            } else if (command == backCommand15) {//GEN-LINE:|7-commandAction|89|317-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getIsOOP());//GEN-LINE:|7-commandAction|90|317-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|91|200-preAction
         } else if (displayable == isTemplate) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|49|200-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|91|200-preAction
                 // write pre-action user code here
-                isTemplateAction();//GEN-LINE:|7-commandAction|50|200-postAction
+                isTemplateAction();//GEN-LINE:|7-commandAction|92|200-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|51|79-preAction
+            } else if (command == backCommand20) {//GEN-LINE:|7-commandAction|93|332-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getIsOOP1());//GEN-LINE:|7-commandAction|94|332-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|95|79-preAction
         } else if (displayable == isVM) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|51|79-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|95|79-preAction
                 // write pre-action user code here
-                isVMAction();//GEN-LINE:|7-commandAction|52|79-postAction
+                isVMAction();//GEN-LINE:|7-commandAction|96|79-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|53|71-preAction
+            } else if (command == backCommand3) {//GEN-LINE:|7-commandAction|97|281-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getIsWeb());//GEN-LINE:|7-commandAction|98|281-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|99|71-preAction
         } else if (displayable == isWeb) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|53|71-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|99|71-preAction
                 // write pre-action user code here
-                isWebAction();//GEN-LINE:|7-commandAction|54|71-postAction
+                isWebAction();//GEN-LINE:|7-commandAction|100|71-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|55|19-preAction
+            } else if (command == backCommand2) {//GEN-LINE:|7-commandAction|101|278-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getMenu());//GEN-LINE:|7-commandAction|102|278-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|103|19-preAction
         } else if (displayable == menu) {
-            if (command == exitCommand) {//GEN-END:|7-commandAction|55|19-preAction
+            if (command == exitCommand) {//GEN-END:|7-commandAction|103|19-preAction
                 // write pre-action user code here
-                exitMIDlet();//GEN-LINE:|7-commandAction|56|19-postAction
+                exitMIDlet();//GEN-LINE:|7-commandAction|104|19-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|57|24-preAction
+            }//GEN-BEGIN:|7-commandAction|105|24-preAction
         } else if (displayable == splashScreen) {
-            if (command == SplashScreen.DISMISS_COMMAND) {//GEN-END:|7-commandAction|57|24-preAction
+            if (command == SplashScreen.DISMISS_COMMAND) {//GEN-END:|7-commandAction|105|24-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getMenu());//GEN-LINE:|7-commandAction|58|24-postAction
+                switchDisplayable(null, getMenu());//GEN-LINE:|7-commandAction|106|24-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|59|7-postCommandAction
-        }//GEN-END:|7-commandAction|59|7-postCommandAction
+            }//GEN-BEGIN:|7-commandAction|107|7-postCommandAction
+        }//GEN-END:|7-commandAction|107|7-postCommandAction
         // write post-action user code here
-    }//GEN-BEGIN:|7-commandAction|60|
-    //</editor-fold>//GEN-END:|7-commandAction|60|
+    }//GEN-BEGIN:|7-commandAction|108|
+    //</editor-fold>//GEN-END:|7-commandAction|108|
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: exitCommand ">//GEN-BEGIN:|18-getter|0|18-preInit
     /**
@@ -509,7 +633,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public Command getOkCommand1() {
         if (okCommand1 == null) {//GEN-END:|156-getter|0|156-preInit
             // write pre-init user code here
-            okCommand1 = new Command("To Menu", Command.OK, 0);//GEN-LINE:|156-getter|1|156-postInit
+            okCommand1 = new Command("Try Again", Command.OK, 0);//GEN-LINE:|156-getter|1|156-postInit
             // write post-init user code here
         }//GEN-BEGIN:|156-getter|2|
         return okCommand1;
@@ -539,7 +663,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public Command getOkCommand3() {
         if (okCommand3 == null) {//GEN-END:|160-getter|0|160-preInit
             // write pre-init user code here
-            okCommand3 = new Command("To Menu", Command.OK, 0);//GEN-LINE:|160-getter|1|160-postInit
+            okCommand3 = new Command("Try Again", Command.OK, 0);//GEN-LINE:|160-getter|1|160-postInit
             // write post-init user code here
         }//GEN-BEGIN:|160-getter|2|
         return okCommand3;
@@ -558,6 +682,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
             isWeb.append("Yes", null);
             isWeb.append("No", null);
             isWeb.setTicker(getTicker2());
+            isWeb.addCommand(getBackCommand2());
             isWeb.setCommandListener(this);
             isWeb.setSelectedFlags(new boolean[] { false, false });//GEN-END:|70-getter|1|70-postInit
             // write post-init user code here
@@ -600,6 +725,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
             isVM.append("Yes", null);
             isVM.append("No", null);
             isVM.setTicker(getTicker3());
+            isVM.addCommand(getBackCommand3());
             isVM.setCommandListener(this);
             isVM.setSelectedFlags(new boolean[] { false, false });//GEN-END:|78-getter|1|78-postInit
             // write post-init user code here
@@ -642,6 +768,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
             isBrowser.append("Yes", null);
             isBrowser.append("No", null);
             isBrowser.setTicker(getTicker5());
+            isBrowser.addCommand(getBackCommand5());
             isBrowser.setCommandListener(this);
             isBrowser.setSelectedFlags(new boolean[] { false, false });//GEN-END:|84-getter|1|84-postInit
             // write post-init user code here
@@ -683,6 +810,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
             JavaScript = new List("JavaScript?", Choice.IMPLICIT);//GEN-BEGIN:|90-getter|1|90-postInit
             JavaScript.append("Yes!", null);
             JavaScript.append("No", null);
+            JavaScript.addCommand(getBackCommand8());
             JavaScript.setCommandListener(this);
             JavaScript.setSelectedFlags(new boolean[] { false, false });//GEN-END:|90-getter|1|90-postInit
             // write post-init user code here
@@ -721,7 +849,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public Form getFail() {
         if (Fail == null) {//GEN-END:|98-getter|0|98-preInit
             // write pre-init user code here
-            Fail = new Form("Sorry...", new Item[] { getStringItem1() });//GEN-BEGIN:|98-getter|1|98-postInit
+            Fail = new Form("Sorry...", new Item[] { getStringItem1(), getImageItem() });//GEN-BEGIN:|98-getter|1|98-postInit
             Fail.addCommand(getOkCommand3());
             Fail.setCommandListener(this);//GEN-END:|98-getter|1|98-postInit
             // write post-init user code here
@@ -730,20 +858,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     }
     //</editor-fold>//GEN-END:|98-getter|2|
 
-    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: stringItem1 ">//GEN-BEGIN:|100-getter|0|100-preInit
-    /**
-     * Returns an initiliazed instance of stringItem1 component.
-     * @return the initialized component instance
-     */
-    public StringItem getStringItem1() {
-        if (stringItem1 == null) {//GEN-END:|100-getter|0|100-preInit
-            // write pre-init user code here
-            stringItem1 = new StringItem("", "I don\'t know this language :(");//GEN-LINE:|100-getter|1|100-postInit
-            // write post-init user code here
-        }//GEN-BEGIN:|100-getter|2|
-        return stringItem1;
-    }
-    //</editor-fold>//GEN-END:|100-getter|2|
+
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: Success ">//GEN-BEGIN:|103-getter|0|103-preInit
     /**
@@ -753,7 +868,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public Form getSuccess() {
         if (Success == null) {//GEN-END:|103-getter|0|103-preInit
             // write pre-init user code here
-            Success = new Form("Hooray!");//GEN-BEGIN:|103-getter|1|103-postInit
+            Success = new Form("Hooray!", new Item[] { getImageItem1() });//GEN-BEGIN:|103-getter|1|103-postInit
             Success.addCommand(getOkCommand1());
             Success.setCommandListener(this);//GEN-END:|103-getter|1|103-postInit
             // write post-init user code here
@@ -774,6 +889,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
             isMS.append("Yes", null);
             isMS.append("No", null);
             isMS.setTicker(getTicker4());
+            isMS.addCommand(getBackCommand4());
             isMS.setCommandListener(this);
             isMS.setSelectedFlags(new boolean[] { false, false });//GEN-END:|105-getter|1|105-postInit
             // write post-init user code here
@@ -815,6 +931,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
             CSharp = new List("C#?", Choice.IMPLICIT);//GEN-BEGIN:|111-getter|1|111-postInit
             CSharp.append("Yes!", null);
             CSharp.append("No", null);
+            CSharp.addCommand(getBackCommand6());
             CSharp.setCommandListener(this);
             CSharp.setSelectedFlags(new boolean[] { false, false });//GEN-END:|111-getter|1|111-postInit
             // write post-init user code here
@@ -856,6 +973,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
             Java = new List("Java?", Choice.IMPLICIT);//GEN-BEGIN:|119-getter|1|119-postInit
             Java.append("Yes!", null);
             Java.append("No", null);
+            Java.addCommand(getBackCommand7());
             Java.setCommandListener(this);
             Java.setSelectedFlags(new boolean[] { false, false });//GEN-END:|119-getter|1|119-postInit
             // write post-init user code here
@@ -898,6 +1016,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
             isOOP.append("Yes", null);
             isOOP.append("No", null);
             isOOP.setTicker(getTicker());
+            isOOP.addCommand(getBackCommand9());
             isOOP.setCommandListener(this);
             isOOP.setSelectedFlags(new boolean[] { false, false });//GEN-END:|127-getter|1|127-postInit
             // write post-init user code here
@@ -940,6 +1059,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
             isIndent.append("Yes", null);
             isIndent.append("No", null);
             isIndent.setTicker(getTicker1());
+            isIndent.addCommand(getBackCommand10());
             isIndent.setCommandListener(this);
             isIndent.setSelectedFlags(new boolean[] { false, false });//GEN-END:|134-getter|1|134-postInit
             // write post-init user code here
@@ -981,6 +1101,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
             Python = new List("Python?", Choice.IMPLICIT);//GEN-BEGIN:|140-getter|1|140-postInit
             Python.append("Yes!", null);
             Python.append("No", null);
+            Python.addCommand(getBackCommand11());
             Python.setCommandListener(this);
             Python.setSelectedFlags(new boolean[] { false, false });//GEN-END:|140-getter|1|140-postInit
             // write post-init user code here
@@ -1022,6 +1143,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
             Ruby = new List("Ruby?", Choice.IMPLICIT);//GEN-BEGIN:|148-getter|1|148-postInit
             Ruby.append("Yes!", null);
             Ruby.append("No", null);
+            Ruby.addCommand(getBackCommand12());
             Ruby.setCommandListener(this);
             Ruby.setSelectedFlags(new boolean[] { false, false });//GEN-END:|148-getter|1|148-postInit
             // write post-init user code here
@@ -1079,6 +1201,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
             isRegexp.append("Yes", null);
             isRegexp.append("No", null);
             isRegexp.setTicker(getTicker6());
+            isRegexp.addCommand(getBackCommand15());
             isRegexp.setCommandListener(this);
             isRegexp.setSelectedFlags(new boolean[] { false, false });//GEN-END:|165-getter|1|165-postInit
             // write post-init user code here
@@ -1120,6 +1243,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
             PHP = new List("PHP?", Choice.IMPLICIT);//GEN-BEGIN:|171-getter|1|171-postInit
             PHP.append("Yes!", null);
             PHP.append("No", null);
+            PHP.addCommand(getBackCommand13());
             PHP.setCommandListener(this);
             PHP.setSelectedFlags(new boolean[] { false, false });//GEN-END:|171-getter|1|171-postInit
             // write post-init user code here
@@ -1161,6 +1285,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
             Perl = new List("Perl?", Choice.IMPLICIT);//GEN-BEGIN:|179-getter|1|179-postInit
             Perl.append("Yes!", null);
             Perl.append("No", null);
+            Perl.addCommand(getBackCommand14());
             Perl.setCommandListener(this);
             Perl.setSelectedFlags(new boolean[] { false, false });//GEN-END:|179-getter|1|179-postInit
             // write post-init user code here
@@ -1202,6 +1327,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
             isCompilable = new List("Is it compilable?", Choice.IMPLICIT);//GEN-BEGIN:|187-getter|1|187-postInit
             isCompilable.append("Yes", null);
             isCompilable.append("No", null);
+            isCompilable.addCommand(getBackCommand25());
             isCompilable.setCommandListener(this);
             isCompilable.setSelectedFlags(new boolean[] { false, false });//GEN-END:|187-getter|1|187-postInit
             // write post-init user code here
@@ -1243,6 +1369,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
             isOOP1 = new List("Is it object oriented?", Choice.IMPLICIT);//GEN-BEGIN:|193-getter|1|193-postInit
             isOOP1.append("Yes", null);
             isOOP1.append("No", null);
+            isOOP1.addCommand(getBackCommand22());
             isOOP1.setCommandListener(this);
             isOOP1.setSelectedFlags(new boolean[] { false, false });//GEN-END:|193-getter|1|193-postInit
             // write post-init user code here
@@ -1284,6 +1411,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
             isTemplate = new List("Have templates?", Choice.IMPLICIT);//GEN-BEGIN:|199-getter|1|199-postInit
             isTemplate.append("Yes", null);
             isTemplate.append("No", null);
+            isTemplate.addCommand(getBackCommand20());
             isTemplate.setCommandListener(this);
             isTemplate.setSelectedFlags(new boolean[] { false, false });//GEN-END:|199-getter|1|199-postInit
             // write post-init user code here
@@ -1325,6 +1453,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
             CPlusPLus = new List("C++?", Choice.IMPLICIT);//GEN-BEGIN:|205-getter|1|205-postInit
             CPlusPLus.append("Yes!", null);
             CPlusPLus.append("No", null);
+            CPlusPLus.addCommand(getBackCommand16());
             CPlusPLus.setCommandListener(this);
             CPlusPLus.setSelectedFlags(new boolean[] { false, false });//GEN-END:|205-getter|1|205-postInit
             // write post-init user code here
@@ -1366,6 +1495,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
             Delphi = new List("Delphi?", Choice.IMPLICIT);//GEN-BEGIN:|213-getter|1|213-postInit
             Delphi.append("Yes!", null);
             Delphi.append("No", null);
+            Delphi.addCommand(getBackCommand17());
             Delphi.setCommandListener(this);
             Delphi.setSelectedFlags(new boolean[] { false, false });//GEN-END:|213-getter|1|213-postInit
             // write post-init user code here
@@ -1408,6 +1538,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
             isBegin.append("Yes", null);
             isBegin.append("No", null);
             isBegin.setTicker(getTicker7());
+            isBegin.addCommand(getBackCommand21());
             isBegin.setCommandListener(this);
             isBegin.setSelectedFlags(new boolean[] { false, false });//GEN-END:|221-getter|1|221-postInit
             // write post-init user code here
@@ -1449,6 +1580,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
             Pascal = new List("Pascal?", Choice.IMPLICIT);//GEN-BEGIN:|227-getter|1|227-postInit
             Pascal.append("Yes!", null);
             Pascal.append("No", null);
+            Pascal.addCommand(getBackCommand19());
             Pascal.setCommandListener(this);
             Pascal.setSelectedFlags(new boolean[] { false, false });//GEN-END:|227-getter|1|227-postInit
             // write post-init user code here
@@ -1490,6 +1622,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
             C = new List("C?", Choice.IMPLICIT);//GEN-BEGIN:|235-getter|1|235-postInit
             C.append("Yes!", null);
             C.append("No", null);
+            C.addCommand(getBackCommand18());
             C.setCommandListener(this);
             C.setSelectedFlags(new boolean[] { false, false });//GEN-END:|235-getter|1|235-postInit
             // write post-init user code here
@@ -1531,6 +1664,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
             isDB = new List("Used in DBs?", Choice.IMPLICIT);//GEN-BEGIN:|243-getter|1|243-postInit
             isDB.append("Yes", null);
             isDB.append("No", null);
+            isDB.addCommand(getBackCommand24());
             isDB.setCommandListener(this);
             isDB.setSelectedFlags(new boolean[] { false, false });//GEN-END:|243-getter|1|243-postInit
             // write post-init user code here
@@ -1572,6 +1706,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
             PLSQL = new List("Is it PL/SQL?", Choice.IMPLICIT);//GEN-BEGIN:|249-getter|1|249-postInit
             PLSQL.append("Yes!", null);
             PLSQL.append("No", null);
+            PLSQL.addCommand(getBackCommand23());
             PLSQL.setCommandListener(this);
             PLSQL.setSelectedFlags(new boolean[] { false, false });//GEN-END:|249-getter|1|249-postInit
             // write post-init user code here
@@ -1747,6 +1882,449 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
         return ticker7;
     }
     //</editor-fold>//GEN-END:|271-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand2 ">//GEN-BEGIN:|277-getter|0|277-preInit
+    /**
+     * Returns an initiliazed instance of backCommand2 component.
+     * @return the initialized component instance
+     */
+    public Command getBackCommand2() {
+        if (backCommand2 == null) {//GEN-END:|277-getter|0|277-preInit
+            // write pre-init user code here
+            backCommand2 = new Command("Back", Command.BACK, 0);//GEN-LINE:|277-getter|1|277-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|277-getter|2|
+        return backCommand2;
+    }
+    //</editor-fold>//GEN-END:|277-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand3 ">//GEN-BEGIN:|280-getter|0|280-preInit
+    /**
+     * Returns an initiliazed instance of backCommand3 component.
+     * @return the initialized component instance
+     */
+    public Command getBackCommand3() {
+        if (backCommand3 == null) {//GEN-END:|280-getter|0|280-preInit
+            // write pre-init user code here
+            backCommand3 = new Command("Back", Command.BACK, 0);//GEN-LINE:|280-getter|1|280-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|280-getter|2|
+        return backCommand3;
+    }
+    //</editor-fold>//GEN-END:|280-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand4 ">//GEN-BEGIN:|283-getter|0|283-preInit
+    /**
+     * Returns an initiliazed instance of backCommand4 component.
+     * @return the initialized component instance
+     */
+    public Command getBackCommand4() {
+        if (backCommand4 == null) {//GEN-END:|283-getter|0|283-preInit
+            // write pre-init user code here
+            backCommand4 = new Command("Back", Command.BACK, 0);//GEN-LINE:|283-getter|1|283-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|283-getter|2|
+        return backCommand4;
+    }
+    //</editor-fold>//GEN-END:|283-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand5 ">//GEN-BEGIN:|286-getter|0|286-preInit
+    /**
+     * Returns an initiliazed instance of backCommand5 component.
+     * @return the initialized component instance
+     */
+    public Command getBackCommand5() {
+        if (backCommand5 == null) {//GEN-END:|286-getter|0|286-preInit
+            // write pre-init user code here
+            backCommand5 = new Command("Back", Command.BACK, 0);//GEN-LINE:|286-getter|1|286-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|286-getter|2|
+        return backCommand5;
+    }
+    //</editor-fold>//GEN-END:|286-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand6 ">//GEN-BEGIN:|289-getter|0|289-preInit
+    /**
+     * Returns an initiliazed instance of backCommand6 component.
+     * @return the initialized component instance
+     */
+    public Command getBackCommand6() {
+        if (backCommand6 == null) {//GEN-END:|289-getter|0|289-preInit
+            // write pre-init user code here
+            backCommand6 = new Command("Back", Command.BACK, 0);//GEN-LINE:|289-getter|1|289-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|289-getter|2|
+        return backCommand6;
+    }
+    //</editor-fold>//GEN-END:|289-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand7 ">//GEN-BEGIN:|292-getter|0|292-preInit
+    /**
+     * Returns an initiliazed instance of backCommand7 component.
+     * @return the initialized component instance
+     */
+    public Command getBackCommand7() {
+        if (backCommand7 == null) {//GEN-END:|292-getter|0|292-preInit
+            // write pre-init user code here
+            backCommand7 = new Command("Back", Command.BACK, 0);//GEN-LINE:|292-getter|1|292-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|292-getter|2|
+        return backCommand7;
+    }
+    //</editor-fold>//GEN-END:|292-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand8 ">//GEN-BEGIN:|295-getter|0|295-preInit
+    /**
+     * Returns an initiliazed instance of backCommand8 component.
+     * @return the initialized component instance
+     */
+    public Command getBackCommand8() {
+        if (backCommand8 == null) {//GEN-END:|295-getter|0|295-preInit
+            // write pre-init user code here
+            backCommand8 = new Command("Back", Command.BACK, 0);//GEN-LINE:|295-getter|1|295-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|295-getter|2|
+        return backCommand8;
+    }
+    //</editor-fold>//GEN-END:|295-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand9 ">//GEN-BEGIN:|298-getter|0|298-preInit
+    /**
+     * Returns an initiliazed instance of backCommand9 component.
+     * @return the initialized component instance
+     */
+    public Command getBackCommand9() {
+        if (backCommand9 == null) {//GEN-END:|298-getter|0|298-preInit
+            // write pre-init user code here
+            backCommand9 = new Command("Back", Command.BACK, 0);//GEN-LINE:|298-getter|1|298-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|298-getter|2|
+        return backCommand9;
+    }
+    //</editor-fold>//GEN-END:|298-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand10 ">//GEN-BEGIN:|301-getter|0|301-preInit
+    /**
+     * Returns an initiliazed instance of backCommand10 component.
+     * @return the initialized component instance
+     */
+    public Command getBackCommand10() {
+        if (backCommand10 == null) {//GEN-END:|301-getter|0|301-preInit
+            // write pre-init user code here
+            backCommand10 = new Command("Back", Command.BACK, 0);//GEN-LINE:|301-getter|1|301-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|301-getter|2|
+        return backCommand10;
+    }
+    //</editor-fold>//GEN-END:|301-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand11 ">//GEN-BEGIN:|304-getter|0|304-preInit
+    /**
+     * Returns an initiliazed instance of backCommand11 component.
+     * @return the initialized component instance
+     */
+    public Command getBackCommand11() {
+        if (backCommand11 == null) {//GEN-END:|304-getter|0|304-preInit
+            // write pre-init user code here
+            backCommand11 = new Command("Back", Command.BACK, 0);//GEN-LINE:|304-getter|1|304-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|304-getter|2|
+        return backCommand11;
+    }
+    //</editor-fold>//GEN-END:|304-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand12 ">//GEN-BEGIN:|307-getter|0|307-preInit
+    /**
+     * Returns an initiliazed instance of backCommand12 component.
+     * @return the initialized component instance
+     */
+    public Command getBackCommand12() {
+        if (backCommand12 == null) {//GEN-END:|307-getter|0|307-preInit
+            // write pre-init user code here
+            backCommand12 = new Command("Back", Command.BACK, 0);//GEN-LINE:|307-getter|1|307-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|307-getter|2|
+        return backCommand12;
+    }
+    //</editor-fold>//GEN-END:|307-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand13 ">//GEN-BEGIN:|310-getter|0|310-preInit
+    /**
+     * Returns an initiliazed instance of backCommand13 component.
+     * @return the initialized component instance
+     */
+    public Command getBackCommand13() {
+        if (backCommand13 == null) {//GEN-END:|310-getter|0|310-preInit
+            // write pre-init user code here
+            backCommand13 = new Command("Back", Command.BACK, 0);//GEN-LINE:|310-getter|1|310-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|310-getter|2|
+        return backCommand13;
+    }
+    //</editor-fold>//GEN-END:|310-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand14 ">//GEN-BEGIN:|313-getter|0|313-preInit
+    /**
+     * Returns an initiliazed instance of backCommand14 component.
+     * @return the initialized component instance
+     */
+    public Command getBackCommand14() {
+        if (backCommand14 == null) {//GEN-END:|313-getter|0|313-preInit
+            // write pre-init user code here
+            backCommand14 = new Command("Back", Command.BACK, 0);//GEN-LINE:|313-getter|1|313-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|313-getter|2|
+        return backCommand14;
+    }
+    //</editor-fold>//GEN-END:|313-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand15 ">//GEN-BEGIN:|316-getter|0|316-preInit
+    /**
+     * Returns an initiliazed instance of backCommand15 component.
+     * @return the initialized component instance
+     */
+    public Command getBackCommand15() {
+        if (backCommand15 == null) {//GEN-END:|316-getter|0|316-preInit
+            // write pre-init user code here
+            backCommand15 = new Command("Back", Command.BACK, 0);//GEN-LINE:|316-getter|1|316-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|316-getter|2|
+        return backCommand15;
+    }
+    //</editor-fold>//GEN-END:|316-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand16 ">//GEN-BEGIN:|319-getter|0|319-preInit
+    /**
+     * Returns an initiliazed instance of backCommand16 component.
+     * @return the initialized component instance
+     */
+    public Command getBackCommand16() {
+        if (backCommand16 == null) {//GEN-END:|319-getter|0|319-preInit
+            // write pre-init user code here
+            backCommand16 = new Command("Back", Command.BACK, 0);//GEN-LINE:|319-getter|1|319-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|319-getter|2|
+        return backCommand16;
+    }
+    //</editor-fold>//GEN-END:|319-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand17 ">//GEN-BEGIN:|322-getter|0|322-preInit
+    /**
+     * Returns an initiliazed instance of backCommand17 component.
+     * @return the initialized component instance
+     */
+    public Command getBackCommand17() {
+        if (backCommand17 == null) {//GEN-END:|322-getter|0|322-preInit
+            // write pre-init user code here
+            backCommand17 = new Command("Back", Command.BACK, 0);//GEN-LINE:|322-getter|1|322-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|322-getter|2|
+        return backCommand17;
+    }
+    //</editor-fold>//GEN-END:|322-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand18 ">//GEN-BEGIN:|325-getter|0|325-preInit
+    /**
+     * Returns an initiliazed instance of backCommand18 component.
+     * @return the initialized component instance
+     */
+    public Command getBackCommand18() {
+        if (backCommand18 == null) {//GEN-END:|325-getter|0|325-preInit
+            // write pre-init user code here
+            backCommand18 = new Command("Back", Command.BACK, 0);//GEN-LINE:|325-getter|1|325-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|325-getter|2|
+        return backCommand18;
+    }
+    //</editor-fold>//GEN-END:|325-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand19 ">//GEN-BEGIN:|328-getter|0|328-preInit
+    /**
+     * Returns an initiliazed instance of backCommand19 component.
+     * @return the initialized component instance
+     */
+    public Command getBackCommand19() {
+        if (backCommand19 == null) {//GEN-END:|328-getter|0|328-preInit
+            // write pre-init user code here
+            backCommand19 = new Command("Back", Command.BACK, 0);//GEN-LINE:|328-getter|1|328-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|328-getter|2|
+        return backCommand19;
+    }
+    //</editor-fold>//GEN-END:|328-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand20 ">//GEN-BEGIN:|331-getter|0|331-preInit
+    /**
+     * Returns an initiliazed instance of backCommand20 component.
+     * @return the initialized component instance
+     */
+    public Command getBackCommand20() {
+        if (backCommand20 == null) {//GEN-END:|331-getter|0|331-preInit
+            // write pre-init user code here
+            backCommand20 = new Command("Back", Command.BACK, 0);//GEN-LINE:|331-getter|1|331-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|331-getter|2|
+        return backCommand20;
+    }
+    //</editor-fold>//GEN-END:|331-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand21 ">//GEN-BEGIN:|334-getter|0|334-preInit
+    /**
+     * Returns an initiliazed instance of backCommand21 component.
+     * @return the initialized component instance
+     */
+    public Command getBackCommand21() {
+        if (backCommand21 == null) {//GEN-END:|334-getter|0|334-preInit
+            // write pre-init user code here
+            backCommand21 = new Command("Back", Command.BACK, 0);//GEN-LINE:|334-getter|1|334-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|334-getter|2|
+        return backCommand21;
+    }
+    //</editor-fold>//GEN-END:|334-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand22 ">//GEN-BEGIN:|337-getter|0|337-preInit
+    /**
+     * Returns an initiliazed instance of backCommand22 component.
+     * @return the initialized component instance
+     */
+    public Command getBackCommand22() {
+        if (backCommand22 == null) {//GEN-END:|337-getter|0|337-preInit
+            // write pre-init user code here
+            backCommand22 = new Command("Back", Command.BACK, 0);//GEN-LINE:|337-getter|1|337-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|337-getter|2|
+        return backCommand22;
+    }
+    //</editor-fold>//GEN-END:|337-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand23 ">//GEN-BEGIN:|340-getter|0|340-preInit
+    /**
+     * Returns an initiliazed instance of backCommand23 component.
+     * @return the initialized component instance
+     */
+    public Command getBackCommand23() {
+        if (backCommand23 == null) {//GEN-END:|340-getter|0|340-preInit
+            // write pre-init user code here
+            backCommand23 = new Command("Back", Command.BACK, 0);//GEN-LINE:|340-getter|1|340-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|340-getter|2|
+        return backCommand23;
+    }
+    //</editor-fold>//GEN-END:|340-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand24 ">//GEN-BEGIN:|343-getter|0|343-preInit
+    /**
+     * Returns an initiliazed instance of backCommand24 component.
+     * @return the initialized component instance
+     */
+    public Command getBackCommand24() {
+        if (backCommand24 == null) {//GEN-END:|343-getter|0|343-preInit
+            // write pre-init user code here
+            backCommand24 = new Command("Back", Command.BACK, 0);//GEN-LINE:|343-getter|1|343-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|343-getter|2|
+        return backCommand24;
+    }
+    //</editor-fold>//GEN-END:|343-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: backCommand25 ">//GEN-BEGIN:|346-getter|0|346-preInit
+    /**
+     * Returns an initiliazed instance of backCommand25 component.
+     * @return the initialized component instance
+     */
+    public Command getBackCommand25() {
+        if (backCommand25 == null) {//GEN-END:|346-getter|0|346-preInit
+            // write pre-init user code here
+            backCommand25 = new Command("Back", Command.BACK, 0);//GEN-LINE:|346-getter|1|346-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|346-getter|2|
+        return backCommand25;
+    }
+    //</editor-fold>//GEN-END:|346-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: stringItem1 ">//GEN-BEGIN:|272-getter|0|272-preInit
+    /**
+     * Returns an initiliazed instance of stringItem1 component.
+     * @return the initialized component instance
+     */
+    public StringItem getStringItem1() {
+        if (stringItem1 == null) {//GEN-END:|272-getter|0|272-preInit
+            // write pre-init user code here
+            stringItem1 = new StringItem("", "I don\'t know that language");//GEN-LINE:|272-getter|1|272-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|272-getter|2|
+        return stringItem1;
+    }
+    //</editor-fold>//GEN-END:|272-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: imageItem ">//GEN-BEGIN:|273-getter|0|273-preInit
+    /**
+     * Returns an initiliazed instance of imageItem component.
+     * @return the initialized component instance
+     */
+    public ImageItem getImageItem() {
+        if (imageItem == null) {//GEN-END:|273-getter|0|273-preInit
+            // write pre-init user code here
+            imageItem = new ImageItem("", getImage2(), ImageItem.LAYOUT_DEFAULT, "<Missing Image>");//GEN-LINE:|273-getter|1|273-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|273-getter|2|
+        return imageItem;
+    }
+    //</editor-fold>//GEN-END:|273-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: imageItem1 ">//GEN-BEGIN:|275-getter|0|275-preInit
+    /**
+     * Returns an initiliazed instance of imageItem1 component.
+     * @return the initialized component instance
+     */
+    public ImageItem getImageItem1() {
+        if (imageItem1 == null) {//GEN-END:|275-getter|0|275-preInit
+            // write pre-init user code here
+            imageItem1 = new ImageItem("", getImage3(), ImageItem.LAYOUT_DEFAULT, "<Missing Image>");//GEN-LINE:|275-getter|1|275-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|275-getter|2|
+        return imageItem1;
+    }
+    //</editor-fold>//GEN-END:|275-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: image2 ">//GEN-BEGIN:|274-getter|0|274-preInit
+    /**
+     * Returns an initiliazed instance of image2 component.
+     * @return the initialized component instance
+     */
+    public Image getImage2() {
+        if (image2 == null) {//GEN-END:|274-getter|0|274-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|274-getter|1|274-@java.io.IOException
+                image2 = Image.createImage("/hello/question.png");
+            } catch (java.io.IOException e) {//GEN-END:|274-getter|1|274-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|274-getter|2|274-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|274-getter|3|
+        return image2;
+    }
+    //</editor-fold>//GEN-END:|274-getter|3|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: image3 ">//GEN-BEGIN:|276-getter|0|276-preInit
+    /**
+     * Returns an initiliazed instance of image3 component.
+     * @return the initialized component instance
+     */
+    public Image getImage3() {
+        if (image3 == null) {//GEN-END:|276-getter|0|276-preInit
+            // write pre-init user code here
+            try {//GEN-BEGIN:|276-getter|1|276-@java.io.IOException
+                image3 = Image.createImage("/hello/smile.png");
+            } catch (java.io.IOException e) {//GEN-END:|276-getter|1|276-@java.io.IOException
+                e.printStackTrace();
+            }//GEN-LINE:|276-getter|2|276-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|276-getter|3|
+        return image3;
+    }
+    //</editor-fold>//GEN-END:|276-getter|3|
 
     /**
      * Returns a display instance.
