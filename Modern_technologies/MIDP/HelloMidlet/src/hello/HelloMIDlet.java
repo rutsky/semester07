@@ -41,9 +41,24 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     private List isIndent;
     private List Python;
     private List Ruby;
+    private List isRegexp;
+    private List PHP;
+    private List Perl;
+    private List isCompilable;
+    private List isOOP1;
+    private List isTemplate;
+    private List CPlusPLus;
+    private List Delphi;
+    private List isBegin;
+    private List Pascal;
+    private List C;
+    private List isDB;
+    private List PLSQL;
+    private List MATLAB;
     private Image image1;
     private Font font;
     private Ticker ticker;
+    private Ticker ticker1;
     //</editor-fold>//GEN-END:|fields|0|
 
     /**
@@ -115,100 +130,184 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
      */
     public void commandAction(Command command, Displayable displayable) {//GEN-END:|7-commandAction|0|7-preCommandAction
         // write pre-action user code here
-        if (displayable == CSharp) {//GEN-BEGIN:|7-commandAction|1|112-preAction
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|1|112-preAction
+        if (displayable == C) {//GEN-BEGIN:|7-commandAction|1|236-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|1|236-preAction
                 // write pre-action user code here
-                CSharpAction();//GEN-LINE:|7-commandAction|2|112-postAction
+                CAction();//GEN-LINE:|7-commandAction|2|236-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|3|161-preAction
+            }//GEN-BEGIN:|7-commandAction|3|206-preAction
+        } else if (displayable == CPlusPLus) {
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|3|206-preAction
+                // write pre-action user code here
+                CPlusPLusAction();//GEN-LINE:|7-commandAction|4|206-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|5|112-preAction
+        } else if (displayable == CSharp) {
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|5|112-preAction
+                // write pre-action user code here
+                CSharpAction();//GEN-LINE:|7-commandAction|6|112-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|7|214-preAction
+        } else if (displayable == Delphi) {
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|7|214-preAction
+                // write pre-action user code here
+                DelphiAction();//GEN-LINE:|7-commandAction|8|214-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|9|161-preAction
         } else if (displayable == Fail) {
-            if (command == okCommand3) {//GEN-END:|7-commandAction|3|161-preAction
+            if (command == okCommand3) {//GEN-END:|7-commandAction|9|161-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getMenu());//GEN-LINE:|7-commandAction|4|161-postAction
+                switchDisplayable(null, getMenu());//GEN-LINE:|7-commandAction|10|161-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|5|120-preAction
+            }//GEN-BEGIN:|7-commandAction|11|120-preAction
         } else if (displayable == Java) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|5|120-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|11|120-preAction
                 // write pre-action user code here
-                JavaAction();//GEN-LINE:|7-commandAction|6|120-postAction
+                JavaAction();//GEN-LINE:|7-commandAction|12|120-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|7|91-preAction
+            }//GEN-BEGIN:|7-commandAction|13|91-preAction
         } else if (displayable == JavaScript) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|7|91-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|13|91-preAction
                 // write pre-action user code here
-                JavaScriptAction();//GEN-LINE:|7-commandAction|8|91-postAction
+                JavaScriptAction();//GEN-LINE:|7-commandAction|14|91-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|9|141-preAction
+            }//GEN-BEGIN:|7-commandAction|15|258-preAction
+        } else if (displayable == MATLAB) {
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|15|258-preAction
+                // write pre-action user code here
+                MATLABAction();//GEN-LINE:|7-commandAction|16|258-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|17|172-preAction
+        } else if (displayable == PHP) {
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|17|172-preAction
+                // write pre-action user code here
+                PHPAction();//GEN-LINE:|7-commandAction|18|172-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|19|250-preAction
+        } else if (displayable == PLSQL) {
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|19|250-preAction
+                // write pre-action user code here
+                PLSQLAction();//GEN-LINE:|7-commandAction|20|250-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|21|228-preAction
+        } else if (displayable == Pascal) {
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|21|228-preAction
+                // write pre-action user code here
+                PascalAction();//GEN-LINE:|7-commandAction|22|228-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|23|180-preAction
+        } else if (displayable == Perl) {
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|23|180-preAction
+                // write pre-action user code here
+                PerlAction();//GEN-LINE:|7-commandAction|24|180-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|25|141-preAction
         } else if (displayable == Python) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|9|141-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|25|141-preAction
                 // write pre-action user code here
-                PythonAction();//GEN-LINE:|7-commandAction|10|141-postAction
+                PythonAction();//GEN-LINE:|7-commandAction|26|141-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|11|149-preAction
+            }//GEN-BEGIN:|7-commandAction|27|149-preAction
         } else if (displayable == Ruby) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|11|149-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|27|149-preAction
                 // write pre-action user code here
-                RubyAction();//GEN-LINE:|7-commandAction|12|149-postAction
+                RubyAction();//GEN-LINE:|7-commandAction|28|149-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|13|157-preAction
+            }//GEN-BEGIN:|7-commandAction|29|157-preAction
         } else if (displayable == Success) {
-            if (command == okCommand1) {//GEN-END:|7-commandAction|13|157-preAction
+            if (command == okCommand1) {//GEN-END:|7-commandAction|29|157-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getMenu());//GEN-LINE:|7-commandAction|14|157-postAction
+                switchDisplayable(null, getMenu());//GEN-LINE:|7-commandAction|30|157-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|15|85-preAction
+            }//GEN-BEGIN:|7-commandAction|31|222-preAction
+        } else if (displayable == isBegin) {
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|31|222-preAction
+                // write pre-action user code here
+                isBeginAction();//GEN-LINE:|7-commandAction|32|222-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|33|85-preAction
         } else if (displayable == isBrowser) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|15|85-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|33|85-preAction
                 // write pre-action user code here
-                isBrowserAction();//GEN-LINE:|7-commandAction|16|85-postAction
+                isBrowserAction();//GEN-LINE:|7-commandAction|34|85-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|17|135-preAction
+            }//GEN-BEGIN:|7-commandAction|35|188-preAction
+        } else if (displayable == isCompilable) {
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|35|188-preAction
+                // write pre-action user code here
+                isCompilableAction();//GEN-LINE:|7-commandAction|36|188-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|37|244-preAction
+        } else if (displayable == isDB) {
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|37|244-preAction
+                // write pre-action user code here
+                isDBAction();//GEN-LINE:|7-commandAction|38|244-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|39|135-preAction
         } else if (displayable == isIndent) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|17|135-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|39|135-preAction
                 // write pre-action user code here
-                isIndentAction();//GEN-LINE:|7-commandAction|18|135-postAction
+                isIndentAction();//GEN-LINE:|7-commandAction|40|135-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|19|106-preAction
+            }//GEN-BEGIN:|7-commandAction|41|106-preAction
         } else if (displayable == isMS) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|19|106-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|41|106-preAction
                 // write pre-action user code here
-                isMSAction();//GEN-LINE:|7-commandAction|20|106-postAction
+                isMSAction();//GEN-LINE:|7-commandAction|42|106-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|21|128-preAction
+            }//GEN-BEGIN:|7-commandAction|43|128-preAction
         } else if (displayable == isOOP) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|21|128-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|43|128-preAction
                 // write pre-action user code here
-                isOOPAction();//GEN-LINE:|7-commandAction|22|128-postAction
+                isOOPAction();//GEN-LINE:|7-commandAction|44|128-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|23|79-preAction
+            }//GEN-BEGIN:|7-commandAction|45|194-preAction
+        } else if (displayable == isOOP1) {
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|45|194-preAction
+                // write pre-action user code here
+                isOOP1Action();//GEN-LINE:|7-commandAction|46|194-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|47|166-preAction
+        } else if (displayable == isRegexp) {
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|47|166-preAction
+                // write pre-action user code here
+                isRegexpAction();//GEN-LINE:|7-commandAction|48|166-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|49|200-preAction
+        } else if (displayable == isTemplate) {
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|49|200-preAction
+                // write pre-action user code here
+                isTemplateAction();//GEN-LINE:|7-commandAction|50|200-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|7-commandAction|51|79-preAction
         } else if (displayable == isVM) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|23|79-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|51|79-preAction
                 // write pre-action user code here
-                isVMAction();//GEN-LINE:|7-commandAction|24|79-postAction
+                isVMAction();//GEN-LINE:|7-commandAction|52|79-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|25|71-preAction
+            }//GEN-BEGIN:|7-commandAction|53|71-preAction
         } else if (displayable == isWeb) {
-            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|25|71-preAction
+            if (command == List.SELECT_COMMAND) {//GEN-END:|7-commandAction|53|71-preAction
                 // write pre-action user code here
-                isWebAction();//GEN-LINE:|7-commandAction|26|71-postAction
+                isWebAction();//GEN-LINE:|7-commandAction|54|71-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|27|19-preAction
+            }//GEN-BEGIN:|7-commandAction|55|19-preAction
         } else if (displayable == menu) {
-            if (command == exitCommand) {//GEN-END:|7-commandAction|27|19-preAction
+            if (command == exitCommand) {//GEN-END:|7-commandAction|55|19-preAction
                 // write pre-action user code here
-                exitMIDlet();//GEN-LINE:|7-commandAction|28|19-postAction
+                exitMIDlet();//GEN-LINE:|7-commandAction|56|19-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|29|24-preAction
+            }//GEN-BEGIN:|7-commandAction|57|24-preAction
         } else if (displayable == splashScreen) {
-            if (command == SplashScreen.DISMISS_COMMAND) {//GEN-END:|7-commandAction|29|24-preAction
+            if (command == SplashScreen.DISMISS_COMMAND) {//GEN-END:|7-commandAction|57|24-preAction
                 // write pre-action user code here
-                switchDisplayable(null, getMenu());//GEN-LINE:|7-commandAction|30|24-postAction
+                switchDisplayable(null, getMenu());//GEN-LINE:|7-commandAction|58|24-postAction
                 // write post-action user code here
-            }//GEN-BEGIN:|7-commandAction|31|7-postCommandAction
-        }//GEN-END:|7-commandAction|31|7-postCommandAction
+            }//GEN-BEGIN:|7-commandAction|59|7-postCommandAction
+        }//GEN-END:|7-commandAction|59|7-postCommandAction
         // write post-action user code here
-    }//GEN-BEGIN:|7-commandAction|32|
-    //</editor-fold>//GEN-END:|7-commandAction|32|
+    }//GEN-BEGIN:|7-commandAction|60|
+    //</editor-fold>//GEN-END:|7-commandAction|60|
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: exitCommand ">//GEN-BEGIN:|18-getter|0|18-preInit
     /**
@@ -329,8 +428,8 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
             }//GEN-BEGIN:|17-itemCommandAction|3|17-postItemCommandAction
         }//GEN-END:|17-itemCommandAction|3|17-postItemCommandAction
         // write post-action user code here
-    }//GEN-BEGIN:|17-itemCommandAction|4|41-postAction
-    //</editor-fold>//GEN-END:|17-itemCommandAction|4|41-postAction
+    }//GEN-BEGIN:|17-itemCommandAction|4|
+    //</editor-fold>//GEN-END:|17-itemCommandAction|4|
 
 
     //<editor-fold defaultstate="collapsed" desc=" Generated Getter: okCommand ">//GEN-BEGIN:|29-getter|0|29-preInit
@@ -434,7 +533,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public Command getOkCommand3() {
         if (okCommand3 == null) {//GEN-END:|160-getter|0|160-preInit
             // write pre-init user code here
-            okCommand3 = new Command("Ok", Command.OK, 0);//GEN-LINE:|160-getter|1|160-postInit
+            okCommand3 = new Command("To Menu", Command.OK, 0);//GEN-LINE:|160-getter|1|160-postInit
             // write post-init user code here
         }//GEN-BEGIN:|160-getter|2|
         return okCommand3;
@@ -474,7 +573,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
                 // write post-action user code here
             } else if (__selectedString.equals("No")) {//GEN-LINE:|70-action|3|75-preAction
                 // write pre-action user code here
-//GEN-LINE:|70-action|4|75-postAction
+                switchDisplayable(null, getIsCompilable());//GEN-LINE:|70-action|4|75-postAction
                 // write post-action user code here
             }//GEN-BEGIN:|70-action|5|70-postAction
         }//GEN-END:|70-action|5|70-postAction
@@ -811,7 +910,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
                 // write post-action user code here
             } else if (__selectedString.equals("No")) {//GEN-LINE:|127-action|3|132-preAction
                 // write pre-action user code here
-//GEN-LINE:|127-action|4|132-postAction
+                switchDisplayable(null, getIsRegexp());//GEN-LINE:|127-action|4|132-postAction
                 // write post-action user code here
             }//GEN-BEGIN:|127-action|5|127-postAction
         }//GEN-END:|127-action|5|127-postAction
@@ -827,9 +926,10 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public List getIsIndent() {
         if (isIndent == null) {//GEN-END:|134-getter|0|134-preInit
             // write pre-init user code here
-            isIndent = new List("Is its syntax is indentation based?", Choice.IMPLICIT);//GEN-BEGIN:|134-getter|1|134-postInit
+            isIndent = new List("Is it indentation based?", Choice.IMPLICIT);//GEN-BEGIN:|134-getter|1|134-postInit
             isIndent.append("Yes", null);
             isIndent.append("No", null);
+            isIndent.setTicker(getTicker1());
             isIndent.setCommandListener(this);
             isIndent.setSelectedFlags(new boolean[] { false, false });//GEN-END:|134-getter|1|134-postInit
             // write post-init user code here
@@ -956,6 +1056,595 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
         return ticker;
     }
     //</editor-fold>//GEN-END:|133-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: isRegexp ">//GEN-BEGIN:|165-getter|0|165-preInit
+    /**
+     * Returns an initiliazed instance of isRegexp component.
+     * @return the initialized component instance
+     */
+    public List getIsRegexp() {
+        if (isRegexp == null) {//GEN-END:|165-getter|0|165-preInit
+            // write pre-init user code here
+            isRegexp = new List("Is it have syntax for regexp?", Choice.IMPLICIT);//GEN-BEGIN:|165-getter|1|165-postInit
+            isRegexp.append("Yes", null);
+            isRegexp.append("No", null);
+            isRegexp.setCommandListener(this);
+            isRegexp.setSelectedFlags(new boolean[] { false, false });//GEN-END:|165-getter|1|165-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|165-getter|2|
+        return isRegexp;
+    }
+    //</editor-fold>//GEN-END:|165-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Method: isRegexpAction ">//GEN-BEGIN:|165-action|0|165-preAction
+    /**
+     * Performs an action assigned to the selected list element in the isRegexp component.
+     */
+    public void isRegexpAction() {//GEN-END:|165-action|0|165-preAction
+        // enter pre-action user code here
+        String __selectedString = getIsRegexp().getString(getIsRegexp().getSelectedIndex());//GEN-BEGIN:|165-action|1|168-preAction
+        if (__selectedString != null) {
+            if (__selectedString.equals("Yes")) {//GEN-END:|165-action|1|168-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getPerl());//GEN-LINE:|165-action|2|168-postAction
+                // write post-action user code here
+            } else if (__selectedString.equals("No")) {//GEN-LINE:|165-action|3|169-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getPHP());//GEN-LINE:|165-action|4|169-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|165-action|5|165-postAction
+        }//GEN-END:|165-action|5|165-postAction
+        // enter post-action user code here
+    }//GEN-BEGIN:|165-action|6|
+    //</editor-fold>//GEN-END:|165-action|6|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: PHP ">//GEN-BEGIN:|171-getter|0|171-preInit
+    /**
+     * Returns an initiliazed instance of PHP component.
+     * @return the initialized component instance
+     */
+    public List getPHP() {
+        if (PHP == null) {//GEN-END:|171-getter|0|171-preInit
+            // write pre-init user code here
+            PHP = new List("Is it PHP?", Choice.IMPLICIT);//GEN-BEGIN:|171-getter|1|171-postInit
+            PHP.append("Yes!", null);
+            PHP.append("No", null);
+            PHP.setCommandListener(this);
+            PHP.setSelectedFlags(new boolean[] { false, false });//GEN-END:|171-getter|1|171-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|171-getter|2|
+        return PHP;
+    }
+    //</editor-fold>//GEN-END:|171-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Method: PHPAction ">//GEN-BEGIN:|171-action|0|171-preAction
+    /**
+     * Performs an action assigned to the selected list element in the PHP component.
+     */
+    public void PHPAction() {//GEN-END:|171-action|0|171-preAction
+        // enter pre-action user code here
+        String __selectedString = getPHP().getString(getPHP().getSelectedIndex());//GEN-BEGIN:|171-action|1|175-preAction
+        if (__selectedString != null) {
+            if (__selectedString.equals("Yes!")) {//GEN-END:|171-action|1|175-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getSuccess());//GEN-LINE:|171-action|2|175-postAction
+                // write post-action user code here
+            } else if (__selectedString.equals("No")) {//GEN-LINE:|171-action|3|176-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getFail());//GEN-LINE:|171-action|4|176-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|171-action|5|171-postAction
+        }//GEN-END:|171-action|5|171-postAction
+        // enter post-action user code here
+    }//GEN-BEGIN:|171-action|6|
+    //</editor-fold>//GEN-END:|171-action|6|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: Perl ">//GEN-BEGIN:|179-getter|0|179-preInit
+    /**
+     * Returns an initiliazed instance of Perl component.
+     * @return the initialized component instance
+     */
+    public List getPerl() {
+        if (Perl == null) {//GEN-END:|179-getter|0|179-preInit
+            // write pre-init user code here
+            Perl = new List("Is it Perl?", Choice.IMPLICIT);//GEN-BEGIN:|179-getter|1|179-postInit
+            Perl.append("Yes!", null);
+            Perl.append("No", null);
+            Perl.setCommandListener(this);
+            Perl.setSelectedFlags(new boolean[] { false, false });//GEN-END:|179-getter|1|179-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|179-getter|2|
+        return Perl;
+    }
+    //</editor-fold>//GEN-END:|179-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Method: PerlAction ">//GEN-BEGIN:|179-action|0|179-preAction
+    /**
+     * Performs an action assigned to the selected list element in the Perl component.
+     */
+    public void PerlAction() {//GEN-END:|179-action|0|179-preAction
+        // enter pre-action user code here
+        String __selectedString = getPerl().getString(getPerl().getSelectedIndex());//GEN-BEGIN:|179-action|1|183-preAction
+        if (__selectedString != null) {
+            if (__selectedString.equals("Yes!")) {//GEN-END:|179-action|1|183-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getSuccess());//GEN-LINE:|179-action|2|183-postAction
+                // write post-action user code here
+            } else if (__selectedString.equals("No")) {//GEN-LINE:|179-action|3|184-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getFail());//GEN-LINE:|179-action|4|184-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|179-action|5|179-postAction
+        }//GEN-END:|179-action|5|179-postAction
+        // enter post-action user code here
+    }//GEN-BEGIN:|179-action|6|
+    //</editor-fold>//GEN-END:|179-action|6|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: isCompilable ">//GEN-BEGIN:|187-getter|0|187-preInit
+    /**
+     * Returns an initiliazed instance of isCompilable component.
+     * @return the initialized component instance
+     */
+    public List getIsCompilable() {
+        if (isCompilable == null) {//GEN-END:|187-getter|0|187-preInit
+            // write pre-init user code here
+            isCompilable = new List("Is it compilable in native executable?", Choice.IMPLICIT);//GEN-BEGIN:|187-getter|1|187-postInit
+            isCompilable.append("Yes", null);
+            isCompilable.append("No", null);
+            isCompilable.setCommandListener(this);
+            isCompilable.setSelectedFlags(new boolean[] { false, false });//GEN-END:|187-getter|1|187-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|187-getter|2|
+        return isCompilable;
+    }
+    //</editor-fold>//GEN-END:|187-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Method: isCompilableAction ">//GEN-BEGIN:|187-action|0|187-preAction
+    /**
+     * Performs an action assigned to the selected list element in the isCompilable component.
+     */
+    public void isCompilableAction() {//GEN-END:|187-action|0|187-preAction
+        // enter pre-action user code here
+        String __selectedString = getIsCompilable().getString(getIsCompilable().getSelectedIndex());//GEN-BEGIN:|187-action|1|190-preAction
+        if (__selectedString != null) {
+            if (__selectedString.equals("Yes")) {//GEN-END:|187-action|1|190-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getIsOOP1());//GEN-LINE:|187-action|2|190-postAction
+                // write post-action user code here
+            } else if (__selectedString.equals("No")) {//GEN-LINE:|187-action|3|191-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getIsDB());//GEN-LINE:|187-action|4|191-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|187-action|5|187-postAction
+        }//GEN-END:|187-action|5|187-postAction
+        // enter post-action user code here
+    }//GEN-BEGIN:|187-action|6|
+    //</editor-fold>//GEN-END:|187-action|6|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: isOOP1 ">//GEN-BEGIN:|193-getter|0|193-preInit
+    /**
+     * Returns an initiliazed instance of isOOP1 component.
+     * @return the initialized component instance
+     */
+    public List getIsOOP1() {
+        if (isOOP1 == null) {//GEN-END:|193-getter|0|193-preInit
+            // write pre-init user code here
+            isOOP1 = new List("Is it object oriented?", Choice.IMPLICIT);//GEN-BEGIN:|193-getter|1|193-postInit
+            isOOP1.append("Yes", null);
+            isOOP1.append("No", null);
+            isOOP1.setCommandListener(this);
+            isOOP1.setSelectedFlags(new boolean[] { false, false });//GEN-END:|193-getter|1|193-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|193-getter|2|
+        return isOOP1;
+    }
+    //</editor-fold>//GEN-END:|193-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Method: isOOP1Action ">//GEN-BEGIN:|193-action|0|193-preAction
+    /**
+     * Performs an action assigned to the selected list element in the isOOP1 component.
+     */
+    public void isOOP1Action() {//GEN-END:|193-action|0|193-preAction
+        // enter pre-action user code here
+        String __selectedString = getIsOOP1().getString(getIsOOP1().getSelectedIndex());//GEN-BEGIN:|193-action|1|197-preAction
+        if (__selectedString != null) {
+            if (__selectedString.equals("Yes")) {//GEN-END:|193-action|1|197-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getIsTemplate());//GEN-LINE:|193-action|2|197-postAction
+                // write post-action user code here
+            } else if (__selectedString.equals("No")) {//GEN-LINE:|193-action|3|198-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getIsBegin());//GEN-LINE:|193-action|4|198-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|193-action|5|193-postAction
+        }//GEN-END:|193-action|5|193-postAction
+        // enter post-action user code here
+    }//GEN-BEGIN:|193-action|6|
+    //</editor-fold>//GEN-END:|193-action|6|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: isTemplate ">//GEN-BEGIN:|199-getter|0|199-preInit
+    /**
+     * Returns an initiliazed instance of isTemplate component.
+     * @return the initialized component instance
+     */
+    public List getIsTemplate() {
+        if (isTemplate == null) {//GEN-END:|199-getter|0|199-preInit
+            // write pre-init user code here
+            isTemplate = new List("Is it have templates?", Choice.IMPLICIT);//GEN-BEGIN:|199-getter|1|199-postInit
+            isTemplate.append("Yes", null);
+            isTemplate.append("No", null);
+            isTemplate.setCommandListener(this);
+            isTemplate.setSelectedFlags(new boolean[] { false, false });//GEN-END:|199-getter|1|199-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|199-getter|2|
+        return isTemplate;
+    }
+    //</editor-fold>//GEN-END:|199-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Method: isTemplateAction ">//GEN-BEGIN:|199-action|0|199-preAction
+    /**
+     * Performs an action assigned to the selected list element in the isTemplate component.
+     */
+    public void isTemplateAction() {//GEN-END:|199-action|0|199-preAction
+        // enter pre-action user code here
+        String __selectedString = getIsTemplate().getString(getIsTemplate().getSelectedIndex());//GEN-BEGIN:|199-action|1|203-preAction
+        if (__selectedString != null) {
+            if (__selectedString.equals("Yes")) {//GEN-END:|199-action|1|203-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getCPlusPLus());//GEN-LINE:|199-action|2|203-postAction
+                // write post-action user code here
+            } else if (__selectedString.equals("No")) {//GEN-LINE:|199-action|3|204-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getDelphi());//GEN-LINE:|199-action|4|204-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|199-action|5|199-postAction
+        }//GEN-END:|199-action|5|199-postAction
+        // enter post-action user code here
+    }//GEN-BEGIN:|199-action|6|
+    //</editor-fold>//GEN-END:|199-action|6|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: CPlusPLus ">//GEN-BEGIN:|205-getter|0|205-preInit
+    /**
+     * Returns an initiliazed instance of CPlusPLus component.
+     * @return the initialized component instance
+     */
+    public List getCPlusPLus() {
+        if (CPlusPLus == null) {//GEN-END:|205-getter|0|205-preInit
+            // write pre-init user code here
+            CPlusPLus = new List("Is it C++?", Choice.IMPLICIT);//GEN-BEGIN:|205-getter|1|205-postInit
+            CPlusPLus.append("Yes!", null);
+            CPlusPLus.append("No", null);
+            CPlusPLus.setCommandListener(this);
+            CPlusPLus.setSelectedFlags(new boolean[] { false, false });//GEN-END:|205-getter|1|205-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|205-getter|2|
+        return CPlusPLus;
+    }
+    //</editor-fold>//GEN-END:|205-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Method: CPlusPLusAction ">//GEN-BEGIN:|205-action|0|205-preAction
+    /**
+     * Performs an action assigned to the selected list element in the CPlusPLus component.
+     */
+    public void CPlusPLusAction() {//GEN-END:|205-action|0|205-preAction
+        // enter pre-action user code here
+        String __selectedString = getCPlusPLus().getString(getCPlusPLus().getSelectedIndex());//GEN-BEGIN:|205-action|1|208-preAction
+        if (__selectedString != null) {
+            if (__selectedString.equals("Yes!")) {//GEN-END:|205-action|1|208-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getSuccess());//GEN-LINE:|205-action|2|208-postAction
+                // write post-action user code here
+            } else if (__selectedString.equals("No")) {//GEN-LINE:|205-action|3|209-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getFail());//GEN-LINE:|205-action|4|209-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|205-action|5|205-postAction
+        }//GEN-END:|205-action|5|205-postAction
+        // enter post-action user code here
+    }//GEN-BEGIN:|205-action|6|
+    //</editor-fold>//GEN-END:|205-action|6|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: Delphi ">//GEN-BEGIN:|213-getter|0|213-preInit
+    /**
+     * Returns an initiliazed instance of Delphi component.
+     * @return the initialized component instance
+     */
+    public List getDelphi() {
+        if (Delphi == null) {//GEN-END:|213-getter|0|213-preInit
+            // write pre-init user code here
+            Delphi = new List("Is it Delphi?", Choice.IMPLICIT);//GEN-BEGIN:|213-getter|1|213-postInit
+            Delphi.append("Yes!", null);
+            Delphi.append("No", null);
+            Delphi.setCommandListener(this);
+            Delphi.setSelectedFlags(new boolean[] { false, false });//GEN-END:|213-getter|1|213-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|213-getter|2|
+        return Delphi;
+    }
+    //</editor-fold>//GEN-END:|213-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Method: DelphiAction ">//GEN-BEGIN:|213-action|0|213-preAction
+    /**
+     * Performs an action assigned to the selected list element in the Delphi component.
+     */
+    public void DelphiAction() {//GEN-END:|213-action|0|213-preAction
+        // enter pre-action user code here
+        String __selectedString = getDelphi().getString(getDelphi().getSelectedIndex());//GEN-BEGIN:|213-action|1|217-preAction
+        if (__selectedString != null) {
+            if (__selectedString.equals("Yes!")) {//GEN-END:|213-action|1|217-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getSuccess());//GEN-LINE:|213-action|2|217-postAction
+                // write post-action user code here
+            } else if (__selectedString.equals("No")) {//GEN-LINE:|213-action|3|218-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getFail());//GEN-LINE:|213-action|4|218-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|213-action|5|213-postAction
+        }//GEN-END:|213-action|5|213-postAction
+        // enter post-action user code here
+    }//GEN-BEGIN:|213-action|6|
+    //</editor-fold>//GEN-END:|213-action|6|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: isBegin ">//GEN-BEGIN:|221-getter|0|221-preInit
+    /**
+     * Returns an initiliazed instance of isBegin component.
+     * @return the initialized component instance
+     */
+    public List getIsBegin() {
+        if (isBegin == null) {//GEN-END:|221-getter|0|221-preInit
+            // write pre-init user code here
+            isBegin = new List("Is it have keywork \"begin\"?", Choice.IMPLICIT);//GEN-BEGIN:|221-getter|1|221-postInit
+            isBegin.append("Yes", null);
+            isBegin.append("No", null);
+            isBegin.setCommandListener(this);
+            isBegin.setSelectedFlags(new boolean[] { false, false });//GEN-END:|221-getter|1|221-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|221-getter|2|
+        return isBegin;
+    }
+    //</editor-fold>//GEN-END:|221-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Method: isBeginAction ">//GEN-BEGIN:|221-action|0|221-preAction
+    /**
+     * Performs an action assigned to the selected list element in the isBegin component.
+     */
+    public void isBeginAction() {//GEN-END:|221-action|0|221-preAction
+        // enter pre-action user code here
+        String __selectedString = getIsBegin().getString(getIsBegin().getSelectedIndex());//GEN-BEGIN:|221-action|1|225-preAction
+        if (__selectedString != null) {
+            if (__selectedString.equals("Yes")) {//GEN-END:|221-action|1|225-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getPascal());//GEN-LINE:|221-action|2|225-postAction
+                // write post-action user code here
+            } else if (__selectedString.equals("No")) {//GEN-LINE:|221-action|3|226-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getC());//GEN-LINE:|221-action|4|226-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|221-action|5|221-postAction
+        }//GEN-END:|221-action|5|221-postAction
+        // enter post-action user code here
+    }//GEN-BEGIN:|221-action|6|
+    //</editor-fold>//GEN-END:|221-action|6|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: Pascal ">//GEN-BEGIN:|227-getter|0|227-preInit
+    /**
+     * Returns an initiliazed instance of Pascal component.
+     * @return the initialized component instance
+     */
+    public List getPascal() {
+        if (Pascal == null) {//GEN-END:|227-getter|0|227-preInit
+            // write pre-init user code here
+            Pascal = new List("Is it Pascal?", Choice.IMPLICIT);//GEN-BEGIN:|227-getter|1|227-postInit
+            Pascal.append("Yes!", null);
+            Pascal.append("No", null);
+            Pascal.setCommandListener(this);
+            Pascal.setSelectedFlags(new boolean[] { false, false });//GEN-END:|227-getter|1|227-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|227-getter|2|
+        return Pascal;
+    }
+    //</editor-fold>//GEN-END:|227-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Method: PascalAction ">//GEN-BEGIN:|227-action|0|227-preAction
+    /**
+     * Performs an action assigned to the selected list element in the Pascal component.
+     */
+    public void PascalAction() {//GEN-END:|227-action|0|227-preAction
+        // enter pre-action user code here
+        String __selectedString = getPascal().getString(getPascal().getSelectedIndex());//GEN-BEGIN:|227-action|1|231-preAction
+        if (__selectedString != null) {
+            if (__selectedString.equals("Yes!")) {//GEN-END:|227-action|1|231-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getSuccess());//GEN-LINE:|227-action|2|231-postAction
+                // write post-action user code here
+            } else if (__selectedString.equals("No")) {//GEN-LINE:|227-action|3|232-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getFail());//GEN-LINE:|227-action|4|232-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|227-action|5|227-postAction
+        }//GEN-END:|227-action|5|227-postAction
+        // enter post-action user code here
+    }//GEN-BEGIN:|227-action|6|
+    //</editor-fold>//GEN-END:|227-action|6|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: C ">//GEN-BEGIN:|235-getter|0|235-preInit
+    /**
+     * Returns an initiliazed instance of C component.
+     * @return the initialized component instance
+     */
+    public List getC() {
+        if (C == null) {//GEN-END:|235-getter|0|235-preInit
+            // write pre-init user code here
+            C = new List("Is it C?", Choice.IMPLICIT);//GEN-BEGIN:|235-getter|1|235-postInit
+            C.append("Yes!", null);
+            C.append("No", null);
+            C.setCommandListener(this);
+            C.setSelectedFlags(new boolean[] { false, false });//GEN-END:|235-getter|1|235-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|235-getter|2|
+        return C;
+    }
+    //</editor-fold>//GEN-END:|235-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Method: CAction ">//GEN-BEGIN:|235-action|0|235-preAction
+    /**
+     * Performs an action assigned to the selected list element in the C component.
+     */
+    public void CAction() {//GEN-END:|235-action|0|235-preAction
+        // enter pre-action user code here
+        String __selectedString = getC().getString(getC().getSelectedIndex());//GEN-BEGIN:|235-action|1|239-preAction
+        if (__selectedString != null) {
+            if (__selectedString.equals("Yes!")) {//GEN-END:|235-action|1|239-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getSuccess());//GEN-LINE:|235-action|2|239-postAction
+                // write post-action user code here
+            } else if (__selectedString.equals("No")) {//GEN-LINE:|235-action|3|240-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getFail());//GEN-LINE:|235-action|4|240-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|235-action|5|235-postAction
+        }//GEN-END:|235-action|5|235-postAction
+        // enter post-action user code here
+    }//GEN-BEGIN:|235-action|6|
+    //</editor-fold>//GEN-END:|235-action|6|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: isDB ">//GEN-BEGIN:|243-getter|0|243-preInit
+    /**
+     * Returns an initiliazed instance of isDB component.
+     * @return the initialized component instance
+     */
+    public List getIsDB() {
+        if (isDB == null) {//GEN-END:|243-getter|0|243-preInit
+            // write pre-init user code here
+            isDB = new List("Is it used in databases?", Choice.IMPLICIT);//GEN-BEGIN:|243-getter|1|243-postInit
+            isDB.append("Yes", null);
+            isDB.append("No", null);
+            isDB.setCommandListener(this);
+            isDB.setSelectedFlags(new boolean[] { false, false });//GEN-END:|243-getter|1|243-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|243-getter|2|
+        return isDB;
+    }
+    //</editor-fold>//GEN-END:|243-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Method: isDBAction ">//GEN-BEGIN:|243-action|0|243-preAction
+    /**
+     * Performs an action assigned to the selected list element in the isDB component.
+     */
+    public void isDBAction() {//GEN-END:|243-action|0|243-preAction
+        // enter pre-action user code here
+        String __selectedString = getIsDB().getString(getIsDB().getSelectedIndex());//GEN-BEGIN:|243-action|1|247-preAction
+        if (__selectedString != null) {
+            if (__selectedString.equals("Yes")) {//GEN-END:|243-action|1|247-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getPLSQL());//GEN-LINE:|243-action|2|247-postAction
+                // write post-action user code here
+            } else if (__selectedString.equals("No")) {//GEN-LINE:|243-action|3|248-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getMATLAB());//GEN-LINE:|243-action|4|248-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|243-action|5|243-postAction
+        }//GEN-END:|243-action|5|243-postAction
+        // enter post-action user code here
+    }//GEN-BEGIN:|243-action|6|
+    //</editor-fold>//GEN-END:|243-action|6|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: PLSQL ">//GEN-BEGIN:|249-getter|0|249-preInit
+    /**
+     * Returns an initiliazed instance of PLSQL component.
+     * @return the initialized component instance
+     */
+    public List getPLSQL() {
+        if (PLSQL == null) {//GEN-END:|249-getter|0|249-preInit
+            // write pre-init user code here
+            PLSQL = new List("Is it PL/SQL?", Choice.IMPLICIT);//GEN-BEGIN:|249-getter|1|249-postInit
+            PLSQL.append("Yes!", null);
+            PLSQL.append("No", null);
+            PLSQL.setCommandListener(this);
+            PLSQL.setSelectedFlags(new boolean[] { false, false });//GEN-END:|249-getter|1|249-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|249-getter|2|
+        return PLSQL;
+    }
+    //</editor-fold>//GEN-END:|249-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Method: PLSQLAction ">//GEN-BEGIN:|249-action|0|249-preAction
+    /**
+     * Performs an action assigned to the selected list element in the PLSQL component.
+     */
+    public void PLSQLAction() {//GEN-END:|249-action|0|249-preAction
+        // enter pre-action user code here
+        String __selectedString = getPLSQL().getString(getPLSQL().getSelectedIndex());//GEN-BEGIN:|249-action|1|252-preAction
+        if (__selectedString != null) {
+            if (__selectedString.equals("Yes!")) {//GEN-END:|249-action|1|252-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getSuccess());//GEN-LINE:|249-action|2|252-postAction
+                // write post-action user code here
+            } else if (__selectedString.equals("No")) {//GEN-LINE:|249-action|3|253-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getFail());//GEN-LINE:|249-action|4|253-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|249-action|5|249-postAction
+        }//GEN-END:|249-action|5|249-postAction
+        // enter post-action user code here
+    }//GEN-BEGIN:|249-action|6|
+    //</editor-fold>//GEN-END:|249-action|6|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: MATLAB ">//GEN-BEGIN:|257-getter|0|257-preInit
+    /**
+     * Returns an initiliazed instance of MATLAB component.
+     * @return the initialized component instance
+     */
+    public List getMATLAB() {
+        if (MATLAB == null) {//GEN-END:|257-getter|0|257-preInit
+            // write pre-init user code here
+            MATLAB = new List("Is it MATLAB?", Choice.IMPLICIT);//GEN-BEGIN:|257-getter|1|257-postInit
+            MATLAB.append("Yes!", null);
+            MATLAB.append("No", null);
+            MATLAB.setCommandListener(this);
+            MATLAB.setSelectedFlags(new boolean[] { false, false });//GEN-END:|257-getter|1|257-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|257-getter|2|
+        return MATLAB;
+    }
+    //</editor-fold>//GEN-END:|257-getter|2|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Method: MATLABAction ">//GEN-BEGIN:|257-action|0|257-preAction
+    /**
+     * Performs an action assigned to the selected list element in the MATLAB component.
+     */
+    public void MATLABAction() {//GEN-END:|257-action|0|257-preAction
+        // enter pre-action user code here
+        String __selectedString = getMATLAB().getString(getMATLAB().getSelectedIndex());//GEN-BEGIN:|257-action|1|261-preAction
+        if (__selectedString != null) {
+            if (__selectedString.equals("Yes!")) {//GEN-END:|257-action|1|261-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getSuccess());//GEN-LINE:|257-action|2|261-postAction
+                // write post-action user code here
+            } else if (__selectedString.equals("No")) {//GEN-LINE:|257-action|3|262-preAction
+                // write pre-action user code here
+                switchDisplayable(null, getFail());//GEN-LINE:|257-action|4|262-postAction
+                // write post-action user code here
+            }//GEN-BEGIN:|257-action|5|257-postAction
+        }//GEN-END:|257-action|5|257-postAction
+        // enter post-action user code here
+    }//GEN-BEGIN:|257-action|6|
+    //</editor-fold>//GEN-END:|257-action|6|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: ticker1 ">//GEN-BEGIN:|164-getter|0|164-preInit
+    /**
+     * Returns an initiliazed instance of ticker1 component.
+     * @return the initialized component instance
+     */
+    public Ticker getTicker1() {
+        if (ticker1 == null) {//GEN-END:|164-getter|0|164-preInit
+            // write pre-init user code here
+            ticker1 = new Ticker("Does indentation plays significant role in syntax?");//GEN-LINE:|164-getter|1|164-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|164-getter|2|
+        return ticker1;
+    }
+    //</editor-fold>//GEN-END:|164-getter|2|
 
     /**
      * Returns a display instance.
