@@ -39,7 +39,7 @@
                 <Component componentID="29" typeID="Cjavax.microedition.lcdui.Command">
                     <Property name="instanceName" typeID="Pjava.lang.String" value="VokCommand"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
-                    <Property name="label" typeID="Pjava.lang.String" value="VNext"/>
+                    <Property name="label" typeID="Pjava.lang.String" value="VStart"/>
                     <Property name="type" typeID="Pint" value="V4"/>
                 </Component>
                 <Component componentID="32" typeID="Cjavax.microedition.lcdui.Command">
@@ -63,7 +63,7 @@
                 <Component componentID="156" typeID="Cjavax.microedition.lcdui.Command">
                     <Property name="instanceName" typeID="Pjava.lang.String" value="VokCommand1"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
-                    <Property name="label" typeID="Pjava.lang.String" value="VTry Again"/>
+                    <Property name="label" typeID="Pjava.lang.String" value="VAgain"/>
                     <Property name="type" typeID="Pint" value="V4"/>
                 </Component>
                 <Component componentID="158" typeID="Cjavax.microedition.lcdui.Command">
@@ -75,7 +75,7 @@
                 <Component componentID="160" typeID="Cjavax.microedition.lcdui.Command">
                     <Property name="instanceName" typeID="Pjava.lang.String" value="VokCommand3"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
-                    <Property name="label" typeID="Pjava.lang.String" value="VTry Again"/>
+                    <Property name="label" typeID="Pjava.lang.String" value="VAgain"/>
                     <Property name="type" typeID="Pint" value="V4"/>
                 </Component>
                 <Component componentID="277" typeID="Cjavax.microedition.lcdui.Command">
@@ -468,6 +468,7 @@
                         <Property name="instanceName" typeID="Pjava.lang.String" value="VstringItem1"/>
                         <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
                         <Property name="label" typeID="Pjava.lang.String" value="V"/>
+                        <Property name="layout" typeID="Pint" value="V19"/>
                         <Property name="itemCommandListener" typeID="C#ItemCommandListener" value="R17"/>
                         <Property name="text" typeID="Pjava.lang.String" value="VI don't know that language"/>
                     </Component>
@@ -475,6 +476,7 @@
                         <Property name="instanceName" typeID="Pjava.lang.String" value="VimageItem"/>
                         <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
                         <Property name="label" typeID="Pjava.lang.String" value="V"/>
+                        <Property name="layout" typeID="Pint" value="V3"/>
                         <Property name="itemCommandListener" typeID="C#ItemCommandListener" value="R17"/>
                         <Property name="image" typeID="Cjavax.microedition.lcdui.Image" value="R274"/>
                         <Property name="altText" typeID="Pjava.lang.String" value="V&lt;Missing Image&gt;"/>
@@ -500,6 +502,7 @@
                         <Property name="instanceName" typeID="Pjava.lang.String" value="VimageItem1"/>
                         <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
                         <Property name="label" typeID="Pjava.lang.String" value="V"/>
+                        <Property name="layout" typeID="Pint" value="V51"/>
                         <Property name="itemCommandListener" typeID="C#ItemCommandListener" value="R17"/>
                         <Property name="image" typeID="Cjavax.microedition.lcdui.Image" value="R276"/>
                         <Property name="altText" typeID="Pjava.lang.String" value="V&lt;Missing Image&gt;"/>
@@ -636,7 +639,7 @@
                     <Property name="instanceName" typeID="Pjava.lang.String" value="VisOOP"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
                     <Property name="commands" typeID="1C#CommandEventSource" value="A2:4_R1284_R299"/>
-                    <Property name="title" typeID="Pjava.lang.String" value="VObject Oriented?"/>
+                    <Property name="title" typeID="Pjava.lang.String" value="VOOP?"/>
                     <Property name="ticker" typeID="Cjavax.microedition.lcdui.Ticker" value="R133"/>
                     <Property name="commandListener" typeID="C#CommandListener" value="R7"/>
                     <Property name="elements" typeID="1C#ListElementEventSource" value="A2:4_R1314_R132"/>
@@ -933,7 +936,7 @@
                     <Property name="instanceName" typeID="Pjava.lang.String" value="VisCompilable"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
                     <Property name="commands" typeID="1C#CommandEventSource" value="A2:4_R1884_R347"/>
-                    <Property name="title" typeID="Pjava.lang.String" value="VIs it compilable?"/>
+                    <Property name="title" typeID="Pjava.lang.String" value="VСompilable?"/>
                     <Property name="commandListener" typeID="C#CommandListener" value="R7"/>
                     <Property name="elements" typeID="1C#ListElementEventSource" value="A2:4_R1904_R191"/>
                     <Property name="selectCommand" typeID="C#CommandEventSource" value="R188"/>
@@ -975,7 +978,8 @@
                     <Property name="instanceName" typeID="Pjava.lang.String" value="VisOOP1"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
                     <Property name="commands" typeID="1C#CommandEventSource" value="A2:4_R1944_R338"/>
-                    <Property name="title" typeID="Pjava.lang.String" value="VIs it object oriented?"/>
+                    <Property name="title" typeID="Pjava.lang.String" value="VOOP?"/>
+                    <Property name="ticker" typeID="Cjavax.microedition.lcdui.Ticker" value="R349"/>
                     <Property name="commandListener" typeID="C#CommandListener" value="R7"/>
                     <Property name="elements" typeID="1C#ListElementEventSource" value="A2:4_R1974_R198"/>
                     <Property name="selectCommand" typeID="C#CommandEventSource" value="R194"/>
@@ -1398,7 +1402,7 @@
                 <Component componentID="133" typeID="Cjavax.microedition.lcdui.Ticker">
                     <Property name="instanceName" typeID="Pjava.lang.String" value="Vticker"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
-                    <Property name="string" typeID="Pjava.lang.String" value="VSupport Inheritance, Incapsulation and Polymorphysm?"/>
+                    <Property name="string" typeID="Pjava.lang.String" value="VObject Oriented? Support Inheritance, Incapsulation and Polymorphysm?"/>
                 </Component>
                 <Component componentID="164" typeID="Cjavax.microedition.lcdui.Ticker">
                     <Property name="instanceName" typeID="Pjava.lang.String" value="Vticker1"/>
@@ -1444,6 +1448,11 @@
                     <Property name="instanceName" typeID="Pjava.lang.String" value="Vimage3"/>
                     <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
                     <Property name="resourcePath" typeID="Pjava.lang.String" value="V/hello/smile.png"/>
+                </Component>
+                <Component componentID="349" typeID="Cjavax.microedition.lcdui.Ticker">
+                    <Property name="instanceName" typeID="Pjava.lang.String" value="Vticker8"/>
+                    <Property name="codeGenerated" typeID="Pboolean" value="Vtrue"/>
+                    <Property name="string" typeID="Pjava.lang.String" value="VObject oriented?"/>
                 </Component>
             </Component>
             <Component componentID="21" typeID="C#DatabindingCategory"/>

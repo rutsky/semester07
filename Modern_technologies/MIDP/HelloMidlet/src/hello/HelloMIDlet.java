@@ -93,6 +93,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     private Ticker ticker7;
     private Image image2;
     private Image image3;
+    private Ticker ticker8;
     //</editor-fold>//GEN-END:|fields|0|
 
     /**
@@ -570,7 +571,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public Command getOkCommand() {
         if (okCommand == null) {//GEN-END:|29-getter|0|29-preInit
             // write pre-init user code here
-            okCommand = new Command("Next", Command.OK, 0);//GEN-LINE:|29-getter|1|29-postInit
+            okCommand = new Command("Start", Command.OK, 0);//GEN-LINE:|29-getter|1|29-postInit
             // write post-init user code here
         }//GEN-BEGIN:|29-getter|2|
         return okCommand;
@@ -633,7 +634,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public Command getOkCommand1() {
         if (okCommand1 == null) {//GEN-END:|156-getter|0|156-preInit
             // write pre-init user code here
-            okCommand1 = new Command("Try Again", Command.OK, 0);//GEN-LINE:|156-getter|1|156-postInit
+            okCommand1 = new Command("Again", Command.OK, 0);//GEN-LINE:|156-getter|1|156-postInit
             // write post-init user code here
         }//GEN-BEGIN:|156-getter|2|
         return okCommand1;
@@ -663,7 +664,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public Command getOkCommand3() {
         if (okCommand3 == null) {//GEN-END:|160-getter|0|160-preInit
             // write pre-init user code here
-            okCommand3 = new Command("Try Again", Command.OK, 0);//GEN-LINE:|160-getter|1|160-postInit
+            okCommand3 = new Command("Again", Command.OK, 0);//GEN-LINE:|160-getter|1|160-postInit
             // write post-init user code here
         }//GEN-BEGIN:|160-getter|2|
         return okCommand3;
@@ -1012,7 +1013,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public List getIsOOP() {
         if (isOOP == null) {//GEN-END:|127-getter|0|127-preInit
             // write pre-init user code here
-            isOOP = new List("Object Oriented?", Choice.IMPLICIT);//GEN-BEGIN:|127-getter|1|127-postInit
+            isOOP = new List("OOP?", Choice.IMPLICIT);//GEN-BEGIN:|127-getter|1|127-postInit
             isOOP.append("Yes", null);
             isOOP.append("No", null);
             isOOP.setTicker(getTicker());
@@ -1182,7 +1183,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public Ticker getTicker() {
         if (ticker == null) {//GEN-END:|133-getter|0|133-preInit
             // write pre-init user code here
-            ticker = new Ticker("Support Inheritance, Incapsulation and Polymorphysm?");//GEN-LINE:|133-getter|1|133-postInit
+            ticker = new Ticker("Object Oriented? Support Inheritance, Incapsulation and Polymorphysm?");//GEN-LINE:|133-getter|1|133-postInit
             // write post-init user code here
         }//GEN-BEGIN:|133-getter|2|
         return ticker;
@@ -1324,7 +1325,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public List getIsCompilable() {
         if (isCompilable == null) {//GEN-END:|187-getter|0|187-preInit
             // write pre-init user code here
-            isCompilable = new List("Is it compilable?", Choice.IMPLICIT);//GEN-BEGIN:|187-getter|1|187-postInit
+            isCompilable = new List("\u0421ompilable?", Choice.IMPLICIT);//GEN-BEGIN:|187-getter|1|187-postInit
             isCompilable.append("Yes", null);
             isCompilable.append("No", null);
             isCompilable.addCommand(getBackCommand25());
@@ -1366,9 +1367,10 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public List getIsOOP1() {
         if (isOOP1 == null) {//GEN-END:|193-getter|0|193-preInit
             // write pre-init user code here
-            isOOP1 = new List("Is it object oriented?", Choice.IMPLICIT);//GEN-BEGIN:|193-getter|1|193-postInit
+            isOOP1 = new List("OOP?", Choice.IMPLICIT);//GEN-BEGIN:|193-getter|1|193-postInit
             isOOP1.append("Yes", null);
             isOOP1.append("No", null);
+            isOOP1.setTicker(getTicker8());
             isOOP1.addCommand(getBackCommand22());
             isOOP1.setCommandListener(this);
             isOOP1.setSelectedFlags(new boolean[] { false, false });//GEN-END:|193-getter|1|193-postInit
@@ -2251,7 +2253,8 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public StringItem getStringItem1() {
         if (stringItem1 == null) {//GEN-END:|272-getter|0|272-preInit
             // write pre-init user code here
-            stringItem1 = new StringItem("", "I don\'t know that language");//GEN-LINE:|272-getter|1|272-postInit
+            stringItem1 = new StringItem("", "I don\'t know that language");//GEN-BEGIN:|272-getter|1|272-postInit
+            stringItem1.setLayout(ImageItem.LAYOUT_CENTER | Item.LAYOUT_TOP | Item.LAYOUT_VCENTER);//GEN-END:|272-getter|1|272-postInit
             // write post-init user code here
         }//GEN-BEGIN:|272-getter|2|
         return stringItem1;
@@ -2266,7 +2269,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public ImageItem getImageItem() {
         if (imageItem == null) {//GEN-END:|273-getter|0|273-preInit
             // write pre-init user code here
-            imageItem = new ImageItem("", getImage2(), ImageItem.LAYOUT_DEFAULT, "<Missing Image>");//GEN-LINE:|273-getter|1|273-postInit
+            imageItem = new ImageItem("", getImage2(), ImageItem.LAYOUT_CENTER, "<Missing Image>");//GEN-LINE:|273-getter|1|273-postInit
             // write post-init user code here
         }//GEN-BEGIN:|273-getter|2|
         return imageItem;
@@ -2281,7 +2284,7 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
     public ImageItem getImageItem1() {
         if (imageItem1 == null) {//GEN-END:|275-getter|0|275-preInit
             // write pre-init user code here
-            imageItem1 = new ImageItem("", getImage3(), ImageItem.LAYOUT_DEFAULT, "<Missing Image>");//GEN-LINE:|275-getter|1|275-postInit
+            imageItem1 = new ImageItem("", getImage3(), ImageItem.LAYOUT_CENTER | Item.LAYOUT_TOP | Item.LAYOUT_BOTTOM | Item.LAYOUT_VCENTER, "<Missing Image>");//GEN-LINE:|275-getter|1|275-postInit
             // write post-init user code here
         }//GEN-BEGIN:|275-getter|2|
         return imageItem1;
@@ -2325,6 +2328,21 @@ public class HelloMIDlet extends MIDlet implements CommandListener, ItemCommandL
         return image3;
     }
     //</editor-fold>//GEN-END:|276-getter|3|
+
+    //<editor-fold defaultstate="collapsed" desc=" Generated Getter: ticker8 ">//GEN-BEGIN:|349-getter|0|349-preInit
+    /**
+     * Returns an initiliazed instance of ticker8 component.
+     * @return the initialized component instance
+     */
+    public Ticker getTicker8() {
+        if (ticker8 == null) {//GEN-END:|349-getter|0|349-preInit
+            // write pre-init user code here
+            ticker8 = new Ticker("Object oriented?");//GEN-LINE:|349-getter|1|349-postInit
+            // write post-init user code here
+        }//GEN-BEGIN:|349-getter|2|
+        return ticker8;
+    }
+    //</editor-fold>//GEN-END:|349-getter|2|
 
     /**
      * Returns a display instance.
