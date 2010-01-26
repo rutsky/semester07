@@ -1,0 +1,5 @@
+*.user
+Out/
+D3DBase[DR].*
+D3DBase.bsc
+D3DBase.ncb
