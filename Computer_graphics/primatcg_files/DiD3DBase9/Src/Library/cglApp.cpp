@@ -177,7 +177,7 @@ void cglApp::update(void)
     float rFPS = float(m_nFrameCount) / rTime;
     // Show fps
     char fpsString[50];
-    sprintf(fpsString, "%s FPS = %3.6f", getWindowText(), rFPS);
+    sprintf_s(fpsString, "%s FPS = %3.6f", getWindowText(), rFPS);
     SetWindowText(HWND(m_hWnd), fpsString);
     // Drop
     m_rPrevTime   = m_timer.getTime();
