@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual C++ Express 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "D3DBase", "D3DBase.vcproj", "{31BAF437-A5A0-4904-BAF3-8F1968A27EAC}"
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lab", "lab.vcproj", "{31BAF437-A5A0-4904-BAF3-8F1968A27EAC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
