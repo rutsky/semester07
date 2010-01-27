@@ -4,5 +4,6 @@ Source: http://sites.google.com/site/primatcg/fajly-i-ssylki
   D3DBase9UserGuide.pdf
   basic_tasks.pdf
   XMeshUserGuide.pdf
+  individual_tasks_4057_2.pdf 
   individual_tasks_4057_1_3.pdf
 
