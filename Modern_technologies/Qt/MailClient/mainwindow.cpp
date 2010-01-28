@@ -20,7 +20,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->treeView->setColumnHidden(1, true);
     ui->treeView->setColumnHidden(2, true);
     ui->treeView->setColumnHidden(3, true);
-    //ui->treeView->header()->hide();
 }
 
 MainWindow::~MainWindow()
