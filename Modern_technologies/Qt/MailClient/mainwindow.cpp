@@ -44,3 +44,21 @@ void MainWindow::on_actionAbout_triggered()
     AboutDialog aboutDialog(this);
     aboutDialog.exec();
 }
+
+void MainWindow::on_treeView_customContextMenuRequested(QPoint pos)
+{
+    QMenu *menu = new QMenu;
+    menu->addAction(tr("&New"), this, SLOT(newDirectory()))->setToolTip(tr("Create a new directory"));
+    menu->addAction(tr("&Remove"), this, SLOT(newDirectory()))->setToolTip(tr("Remove directory"));
+    menu->exec(ui->treeView->mapToGlobal(pos));
+}
+
+void MainWindow::newDirectory()
+{
+
+}
+
+void MainWindow::removeDirectory()
+{
+
+}

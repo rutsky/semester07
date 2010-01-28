@@ -8,6 +8,7 @@ namespace Ui {
 }
 
 class QFileSystemModel;
+class QAction;
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -22,7 +23,10 @@ private:
     Ui::MainWindow *ui;
 
 private slots:
+    void on_treeView_customContextMenuRequested(QPoint pos);
     void on_actionAbout_triggered();
+    void newDirectory();
+    void removeDirectory();
 
 private:
     QFileSystemModel *fileSystemModel;

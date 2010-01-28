@@ -16,6 +16,9 @@
   <property name="windowTitle">
    <string>About...</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <property name="modal">
    <bool>true</bool>
   </property>
