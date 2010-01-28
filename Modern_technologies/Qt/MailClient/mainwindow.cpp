@@ -12,9 +12,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     fileSystemModel = new QFileSystemModel;
-    fileSystemModel->setRootPath(QDir::currentPath());
+    fileSystemModel->setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
+    QString const maildir = QDir("../maildir").absolutePath();
+    fileSystemModel->setRootPath(maildir);
     ui->treeView->setModel(fileSystemModel);
-    ui->treeView->setRootIndex(fileSystemModel->index(QDir::currentPath()));
+    ui->treeView->setRootIndex(fileSystemModel->index(maildir));
+    //ui->treeView->header()->hide();
 }
 
 MainWindow::~MainWindow()
