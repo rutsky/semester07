@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     fileSystemModel = new QFileSystemModel;
-    fileSystemModel->setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
+    fileSystemModel->setFilter(QDir::AllDirs | QDir::NoDotAndDotDot);
     QString const maildir = QDir("../maildir").absolutePath();
     fileSystemModel->setRootPath(maildir);
     ui->treeView->setModel(fileSystemModel);
@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->treeView->setColumnHidden(1, true);
     ui->treeView->setColumnHidden(2, true);
     ui->treeView->setColumnHidden(3, true);
-    ui->treeView->header()->hide();
+    //ui->treeView->header()->hide();
 }
 
 MainWindow::~MainWindow()
