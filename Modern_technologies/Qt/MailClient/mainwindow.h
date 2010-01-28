@@ -7,6 +7,8 @@ namespace Ui {
     class MainWindow;
 }
 
+class QFileSystemModel;
+
 class MainWindow : public QMainWindow {
     Q_OBJECT
 public:
@@ -21,6 +23,9 @@ private:
 
 private slots:
     void on_actionAbout_triggered();
+
+private:
+    QFileSystemModel *fileSystemModel;
 };
 
 #endif // MAINWINDOW_H

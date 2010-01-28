@@ -1,3 +1,5 @@
+ #include <QFileSystemModel>
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -8,6 +10,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    fileSystemModel = new QFileSystemModel;
+    fileSystemModel->setRootPath(QDir::currentPath());
+    ui->treeView->setModel(fileSystemModel);
+    ui->treeView->setRootIndex(fileSystemModel->index(QDir::currentPath()));
 }
 
 MainWindow::~MainWindow()
