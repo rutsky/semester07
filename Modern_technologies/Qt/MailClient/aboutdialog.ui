@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>164</width>
-    <height>128</height>
+    <width>133</width>
+    <height>102</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -78,12 +78,12 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>154</x>
-     <y>108</y>
+     <x>248</x>
+     <y>254</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
-     <y>127</y>
+     <y>274</y>
     </hint>
    </hints>
   </connection>

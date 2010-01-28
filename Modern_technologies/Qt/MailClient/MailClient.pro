@@ -9,4 +9,4 @@ SOURCES += main.cpp \
 HEADERS += mainwindow.h \
     aboutdialog.h
 FORMS += mainwindow.ui \
-    about.ui
+    aboutdialog.ui
