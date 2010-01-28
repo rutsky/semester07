@@ -17,7 +17,9 @@ MainWindow::MainWindow(QWidget *parent) :
     fileSystemModel->setRootPath(maildir);
     ui->treeView->setModel(fileSystemModel);
     ui->treeView->setRootIndex(fileSystemModel->index(maildir));
-    //ui->treeView->header()->hide();
+    ui->treeView->setColumnHidden(1, true);
+    ui->treeView->setColumnHidden(2, true);
+    ui->treeView->setColumnHidden(3, true);
 }
 
 MainWindow::~MainWindow()
