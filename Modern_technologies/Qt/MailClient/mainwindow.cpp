@@ -24,10 +24,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->treeView->setModel(directoryProxyModel);
     ui->treeView->setRootIndex(directoryProxyModel->mapFromSource(rootIndex));
-    // TODO:
-    ui->treeView->setColumnHidden(1, true);
-    ui->treeView->setColumnHidden(2, true);
-    ui->treeView->setColumnHidden(3, true);
+    // TODO: Some items can have other number of columns!
+    for (int i = 1; i < fileSystemModel->columnCount(QModelIndex()); ++i)
+        ui->treeView->setColumnHidden(i, true);
+
+    ui->listView->setModel(fileSystemModel);
+    ui->listView->setRootIndex(rootIndex);
 }
 
 MainWindow::~MainWindow()
