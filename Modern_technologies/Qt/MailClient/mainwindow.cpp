@@ -4,6 +4,7 @@
 #include "ui_mainwindow.h"
 
 #include "aboutdialog.h"
+#include "directoryproxymodel.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -11,14 +12,18 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    fileSystemModel = new QFileSystemModel;
-    fileSystemModel->setFilter(QDir::AllDirs | QDir::NoDotAndDotDot);
+    fileSystemModel = new QFileSystemModel; // TODO: Check is memory is managed correctly
+    fileSystemModel->setFilter(QDir::AllEntries | QDir::NoDotAndDotDot);
     QString const maildir = QDir("../maildir").absolutePath();
-    fileSystemModel->setRootPath(maildir);
+    QModelIndex rootIndex = fileSystemModel->setRootPath(maildir);
     fileSystemModel->setReadOnly(false);
-    ui->treeView->setModel(fileSystemModel);
-    ui->treeView->setRootIndex(fileSystemModel->index(maildir));
 
+    directoryProxyModel = new DirectoryProxyModel; // TODO: Check is memory is managed correctly
+    directoryProxyModel->setDynamicSortFilter(true);
+    directoryProxyModel->setSourceModel(fileSystemModel);
+
+    ui->treeView->setModel(directoryProxyModel);
+    ui->treeView->setRootIndex(directoryProxyModel->mapFromSource(rootIndex));
     // TODO:
     ui->treeView->setColumnHidden(1, true);
     ui->treeView->setColumnHidden(2, true);

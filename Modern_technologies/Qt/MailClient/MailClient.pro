@@ -5,8 +5,10 @@ TARGET = MailClient
 TEMPLATE = app
 SOURCES += main.cpp \
     mainwindow.cpp \
-    aboutdialog.cpp
+    aboutdialog.cpp \
+    directoryproxymodel.cpp
 HEADERS += mainwindow.h \
-    aboutdialog.h
+    aboutdialog.h \
+    directoryproxymodel.h
 FORMS += mainwindow.ui \
     aboutdialog.ui

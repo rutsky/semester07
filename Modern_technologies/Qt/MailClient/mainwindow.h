@@ -10,6 +10,8 @@ namespace Ui {
 class QFileSystemModel;
 class QAction;
 
+class DirectoryProxyModel;
+
 class MainWindow : public QMainWindow {
     Q_OBJECT
 public:
@@ -30,6 +32,7 @@ private slots:
 
 private:
     QFileSystemModel *fileSystemModel;
+    DirectoryProxyModel *directoryProxyModel;
 };
 
 #endif // MAINWINDOW_H
