@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
     fileSystemModel->setFilter(QDir::AllDirs | QDir::NoDotAndDotDot);
     QString const maildir = QDir("../maildir").absolutePath();
     fileSystemModel->setRootPath(maildir);
+    fileSystemModel->setReadOnly(false);
     ui->treeView->setModel(fileSystemModel);
     ui->treeView->setRootIndex(fileSystemModel->index(maildir));
     ui->treeView->setColumnHidden(1, true);
