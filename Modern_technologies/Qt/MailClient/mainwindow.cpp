@@ -18,6 +18,8 @@ MainWindow::MainWindow(QWidget *parent) :
     fileSystemModel->setReadOnly(false);
     ui->treeView->setModel(fileSystemModel);
     ui->treeView->setRootIndex(fileSystemModel->index(maildir));
+
+    // TODO:
     ui->treeView->setColumnHidden(1, true);
     ui->treeView->setColumnHidden(2, true);
     ui->treeView->setColumnHidden(3, true);
