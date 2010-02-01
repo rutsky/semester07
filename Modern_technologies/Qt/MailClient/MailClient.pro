@@ -7,10 +7,14 @@ SOURCES += main.cpp \
     mainwindow.cpp \
     aboutdialog.cpp \
     directoryproxymodel.cpp \
-    letterproxymodel.cpp
+    letterproxymodel.cpp \
+    directorytreeview.cpp \
+    lettertableview.cpp
 HEADERS += mainwindow.h \
     aboutdialog.h \
     directoryproxymodel.h \
-    letterproxymodel.h
+    letterproxymodel.h \
+    directorytreeview.h \
+    lettertableview.h
 FORMS += mainwindow.ui \
     aboutdialog.ui

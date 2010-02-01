@@ -51,7 +51,7 @@
        <property name="childrenCollapsible">
         <bool>false</bool>
        </property>
-       <widget class="QTreeView" name="treeView">
+       <widget class="DirectoryTreeView" name="treeView">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
           <horstretch>1</horstretch>
@@ -80,7 +80,7 @@
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QTableView" name="tableView">
+       <widget class="LetterTableView" name="tableView">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
           <horstretch>3</horstretch>
@@ -177,6 +177,18 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>DirectoryTreeView</class>
+   <extends>QTreeView</extends>
+   <header>directorytreeview.h</header>
+  </customwidget>
+  <customwidget>
+   <class>LetterTableView</class>
+   <extends>QTableView</extends>
+   <header>lettertableview.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>
