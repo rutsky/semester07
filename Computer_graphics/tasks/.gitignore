@@ -1,0 +1,8 @@
+*.user
+Out/
+*.exe
+*.ilk
+*.bsc
+*.ncb
+*.pdb
+*.suo
