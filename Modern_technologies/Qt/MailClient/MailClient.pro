@@ -10,7 +10,8 @@ SOURCES += main.cpp \
     letterproxymodel.cpp \
     directorytreeview.cpp \
     lettertableview.cpp \
-    letterobject.cpp
+    letterobject.cpp \
+    letterheaderview.cpp
 HEADERS += mainwindow.h \
     aboutdialog.h \
     directoryproxymodel.h \
@@ -18,7 +19,8 @@ HEADERS += mainwindow.h \
     directorytreeview.h \
     lettertableview.h \
     letterobject.h \
-    precompiledheader.h
+    precompiledheader.h \
+    letterheaderview.h
 FORMS += mainwindow.ui \
     aboutdialog.ui
 QMAKE_CXXFLAGS += -Winvalid-pch

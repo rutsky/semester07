@@ -37,6 +37,7 @@ MainWindow::MainWindow(QWidget *parent) :
     letterProxyModel->setRootPath(maildir);
 
     ui->tableView->setModel(letterProxyModel);
+    ui->tableView->horizontalHeader()->reset();
     ui->tableView->setRootIndex(letterProxyModel->mapFromSource(rootIndex));
 
     connect(ui->treeView->selectionModel(), SIGNAL(currentRowChanged(QModelIndex, QModelIndex)),
