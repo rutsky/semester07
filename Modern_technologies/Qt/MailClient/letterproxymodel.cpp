@@ -50,8 +50,7 @@ bool LetterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &source
     if (isDir)
         return rootPath().contains(sourceFileSystemModel()->filePath(childIndex), Qt::CaseSensitive);
 
-    //return QSortFilterProxyModel::filterAcceptsRow(sourceRow, sourceParent);
-    return true;
+    return QSortFilterProxyModel::filterAcceptsRow(sourceRow, sourceParent);
 }
 
 QFileSystemModel const * LetterProxyModel::sourceFileSystemModel() const

@@ -1,4 +1,3 @@
-LetterObject
 Drag'n'Drop
 New/Delete folder
 Letter content
