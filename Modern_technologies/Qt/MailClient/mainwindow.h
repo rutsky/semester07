@@ -9,10 +9,11 @@ namespace Ui {
 
 class QFileSystemModel;
 class QAction;
+class QModelIndex;
+class QSortFilterProxyModel;
 
 class DirectoryProxyModel;
 class LetterProxyModel;
-class QSortFilterProxyModel;
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -31,12 +32,12 @@ private slots:
     void on_actionAbout_triggered();
     void newDirectory();
     void removeDirectory();
+    void directoryChanged(QModelIndex const &current, QModelIndex const &previous);
 
 private:
     QFileSystemModel    *fileSystemModel;
     DirectoryProxyModel *directoryProxyModel;
-    //LetterProxyModel    *letterProxyModel;
-    QSortFilterProxyModel *letterProxyModel;
+    LetterProxyModel    *letterProxyModel;
 };
 
 #endif // MAINWINDOW_H

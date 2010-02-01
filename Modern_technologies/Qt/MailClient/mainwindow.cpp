@@ -34,9 +34,13 @@ MainWindow::MainWindow(QWidget *parent) :
     letterProxyModel->setSourceModel(fileSystemModel);
     letterProxyModel->setFilterRegExp(QRegExp("\\.letter$", Qt::CaseInsensitive, QRegExp::RegExp));
     letterProxyModel->setFilterKeyColumn(0);
+    letterProxyModel->setRootPath(maildir);
 
     ui->tableView->setModel(letterProxyModel);
     ui->tableView->setRootIndex(letterProxyModel->mapFromSource(rootIndex));
+
+    connect(ui->treeView->selectionModel(), SIGNAL(currentRowChanged(QModelIndex, QModelIndex)),
+            this, SLOT(directoryChanged(QModelIndex, QModelIndex)));
 }
 
 MainWindow::~MainWindow()
@@ -78,4 +82,11 @@ void MainWindow::newDirectory()
 void MainWindow::removeDirectory()
 {
 
+}
+
+void MainWindow::directoryChanged(QModelIndex const &current, QModelIndex const &previous)
+{
+    QModelIndex const sourceIndex = directoryProxyModel->mapToSource(current);
+    letterProxyModel->setRootPath(fileSystemModel->filePath(sourceIndex));
+    ui->tableView->setRootIndex(letterProxyModel->mapFromSource(sourceIndex));
 }

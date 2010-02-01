@@ -9,6 +9,9 @@ class DirectoryTreeView : public QTreeView
 public:
     explicit DirectoryTreeView(QWidget *parent = 0);
 
+protected:
+    void currentChanged(const QModelIndex & current, const QModelIndex & previous);
+
 signals:
 
 public slots:

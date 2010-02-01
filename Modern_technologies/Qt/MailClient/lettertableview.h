@@ -12,7 +12,7 @@ public:
 signals:
 
 public slots:
-
+    void rootDirectoryChanged(QString const &);
 };
 
 #endif // LETTERTABLEVIEW_H

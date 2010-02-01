@@ -7,6 +7,17 @@ LetterProxyModel::LetterProxyModel(QObject *parent) :
 {
 }
 
+QString LetterProxyModel::rootPath() const
+{
+    return rootPath_;
+}
+
+void LetterProxyModel::setRootPath(QString const &path)
+{
+    rootPath_ = path;
+    invalidateFilter();
+}
+
 bool LetterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
 {
     if (!sourceParent.isValid())
@@ -15,7 +26,8 @@ bool LetterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &source
     QModelIndex const childIndex = sourceParent.child(sourceRow, 0);
     bool const isDir = fileSystemModel->isDir(childIndex);
     if (isDir)
-        return fileSystemModel->rootPath().contains(fileSystemModel->filePath(childIndex), Qt::CaseSensitive);
+        return rootPath().contains(fileSystemModel->filePath(childIndex), Qt::CaseSensitive);
 
-    return QSortFilterProxyModel::filterAcceptsRow(sourceRow, sourceParent);
+    //return QSortFilterProxyModel::filterAcceptsRow(sourceRow, sourceParent);
+    return true;
 }
