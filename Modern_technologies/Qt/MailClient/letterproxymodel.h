@@ -3,6 +3,8 @@
 
 #include <QSortFilterProxyModel>
 
+#include <QStringList>
+
 class QFileSystemModel;
 
 class LetterProxyModel : public QSortFilterProxyModel
@@ -16,6 +18,7 @@ public:
 
     QVariant data(const QModelIndex &index, int role) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+    int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
 public:
     QString rootPath() const;
@@ -28,6 +31,7 @@ protected:
     QFileSystemModel const *sourceFileSystemModel() const;
 
 private:
+    QStringList columns_;
     QString rootPath_;
 };
 
