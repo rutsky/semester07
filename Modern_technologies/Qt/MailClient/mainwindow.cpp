@@ -84,7 +84,7 @@ void MainWindow::removeDirectory()
 
 }
 
-void MainWindow::directoryChanged(QModelIndex const &current, QModelIndex const &previous)
+void MainWindow::directoryChanged(QModelIndex const &current, QModelIndex const &/* previous */)
 {
     QModelIndex const sourceIndex = directoryProxyModel->mapToSource(current);
     letterProxyModel->setRootPath(fileSystemModel->filePath(sourceIndex));

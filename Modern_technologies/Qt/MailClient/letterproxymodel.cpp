@@ -7,6 +7,18 @@ LetterProxyModel::LetterProxyModel(QObject *parent) :
 {
 }
 
+QVariant LetterProxyModel::data(const QModelIndex &index, int role) const
+{
+    if (!index.isValid())
+        return QVariant();
+
+    if (role == Qt::DisplayRole)
+        //return sourceFileSystemModel()->fileName(mapToSource(index));
+        return QString("Index: (%1,%2)").arg(index.row()).arg(index.column());
+    else
+        return QVariant();
+}
+
 QString LetterProxyModel::rootPath() const
 {
     return rootPath_;
@@ -22,12 +34,16 @@ bool LetterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &source
 {
     if (!sourceParent.isValid())
         return QSortFilterProxyModel::filterAcceptsRow(sourceRow, sourceParent);
-    QFileSystemModel const *fileSystemModel = static_cast<QFileSystemModel const *>(sourceModel());
     QModelIndex const childIndex = sourceParent.child(sourceRow, 0);
-    bool const isDir = fileSystemModel->isDir(childIndex);
+    bool const isDir = sourceFileSystemModel()->isDir(childIndex);
     if (isDir)
-        return rootPath().contains(fileSystemModel->filePath(childIndex), Qt::CaseSensitive);
+        return rootPath().contains(sourceFileSystemModel()->filePath(childIndex), Qt::CaseSensitive);
 
     //return QSortFilterProxyModel::filterAcceptsRow(sourceRow, sourceParent);
     return true;
+}
+
+QFileSystemModel const * LetterProxyModel::sourceFileSystemModel() const
+{
+    return static_cast<QFileSystemModel const *>(sourceModel());
 }

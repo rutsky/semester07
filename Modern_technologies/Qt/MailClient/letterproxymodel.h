@@ -3,6 +3,8 @@
 
 #include <QSortFilterProxyModel>
 
+class QFileSystemModel;
+
 class LetterProxyModel : public QSortFilterProxyModel
 {
     Q_OBJECT
@@ -12,12 +14,18 @@ class LetterProxyModel : public QSortFilterProxyModel
 public:
     explicit LetterProxyModel(QObject *parent = 0);
 
+    QVariant data(const QModelIndex &index, int role) const;
+    //QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+
 public:
     QString rootPath() const;
     void setRootPath(QString const &path);
 
 protected:
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const;
+
+protected:
+    QFileSystemModel const *sourceFileSystemModel() const;
 
 private:
     QString rootPath_;
