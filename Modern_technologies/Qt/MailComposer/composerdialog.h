@@ -20,6 +20,7 @@ private:
     Ui::ComposerDialog *ui;
 
 private slots:
+    void on_loadButton_clicked();
     void on_fileName_textChanged(QString );
     void on_saveButton_clicked();
 };

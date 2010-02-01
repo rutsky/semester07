@@ -31,7 +31,7 @@ void LetterObject::save(QString const &filePath) const
     // TODO: Handle loading errors.
     QFile file(filePath);
     file.open(QIODevice::WriteOnly);
-    QDataStream stream(&file);    // read the data serialized from the file
+    QDataStream stream(&file);
 
     stream << sender() << sentDate() << receivedDate() << subject() << text();
 }

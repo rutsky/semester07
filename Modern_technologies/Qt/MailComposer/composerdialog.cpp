@@ -10,6 +10,9 @@ ComposerDialog::ComposerDialog(QWidget *parent) :
     ui(new Ui::ComposerDialog)
 {
     ui->setupUi(this);
+
+    ui->saveButton->setEnabled(!ui->fileName->text().isEmpty());
+    ui->loadButton->setEnabled(!ui->fileName->text().isEmpty());
 }
 
 ComposerDialog::~ComposerDialog()
@@ -36,11 +39,22 @@ void ComposerDialog::on_saveButton_clicked()
     letter.setSentDate(ui->sentDateTimeEdit->dateTime());
     letter.setReceivedDate(ui->receiveDateTimeEdit->dateTime());
     letter.setSubject(ui->subjectEdit->text());
-    letter.setSubject(ui->textEdit->toHtml());
+    letter.setText(ui->textEdit->toHtml());
     letter.save(ui->fileName->text());
 }
 
 void ComposerDialog::on_fileName_textChanged(QString newText)
 {
     ui->saveButton->setEnabled(!newText.isEmpty());
+    ui->loadButton->setEnabled(!newText.isEmpty());
+}
+
+void ComposerDialog::on_loadButton_clicked()
+{
+    QScopedPointer<LetterObject> letter(LetterObject::load(ui->fileName->text()));
+    ui->senderEdit->setText(letter->sender());
+    ui->sentDateTimeEdit->setDateTime(letter->sentDate());
+    ui->receiveDateTimeEdit->setDateTime(letter->receivedDate());
+    ui->subjectEdit->setText(letter->subject());
+    ui->textEdit->setHtml(letter->text());
 }

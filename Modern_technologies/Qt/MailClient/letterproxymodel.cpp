@@ -2,6 +2,8 @@
 
 #include "letterproxymodel.h"
 
+#include "letterobject.h"
+
 LetterProxyModel::LetterProxyModel(QObject *parent) :
     QSortFilterProxyModel(parent)
 {
@@ -14,8 +16,30 @@ QVariant LetterProxyModel::data(const QModelIndex &index, int role) const
         return QVariant();
 
     if (role == Qt::DisplayRole)
+    {
+        QModelIndex const sourceIndex = mapToSource(index);
+        QString const filePath = sourceFileSystemModel()->filePath(sourceIndex);
+        QScopedPointer<LetterObject> letter(LetterObject::load(filePath));
+        switch (index.column())
+        {
+        case 0:
+            return letter->sender();
+        case 1:
+            return letter->subject();
+        case 2:
+            return letter->sentDate();
+        case 3:
+            return letter->receivedDate();
+        case 4:
+            return letter->size();
+        default:
+            Q_ASSERT(0);
+            return QVariant();
+        }
+
         //return sourceFileSystemModel()->fileName(mapToSource(index));
-        return QString("Index: (%1,%2)").arg(index.row()).arg(index.column());
+        //return QString("Index: (%1,%2)").arg(index.row()).arg(index.column());
+    }
     else
         return QVariant();
 }
