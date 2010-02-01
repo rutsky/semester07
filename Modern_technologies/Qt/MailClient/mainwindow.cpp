@@ -30,12 +30,9 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->treeView->setColumnHidden(i, true);
 
     letterProxyModel = new LetterProxyModel; // TODO: Check is memory is managed correctly
-    //letterProxyModel = new QSortFilterProxyModel; // TODO: Check is memory is managed correctly
     letterProxyModel->setDynamicSortFilter(true);
     letterProxyModel->setSourceModel(fileSystemModel);
     letterProxyModel->setFilterRegExp(QRegExp("\\.letter$", Qt::CaseInsensitive, QRegExp::RegExp));
-
-    //letterProxyModel->setFilterRegExp(QRegExp("1.letter", Qt::CaseInsensitive, QRegExp::FixedString));
     letterProxyModel->setFilterKeyColumn(0);
 
     ui->tableView->setModel(letterProxyModel);
