@@ -5,6 +5,7 @@
 
 #include "aboutdialog.h"
 #include "directoryproxymodel.h"
+#include "letterproxymodel.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -28,8 +29,17 @@ MainWindow::MainWindow(QWidget *parent) :
     for (int i = 1; i < fileSystemModel->columnCount(QModelIndex()); ++i)
         ui->treeView->setColumnHidden(i, true);
 
-    ui->listView->setModel(fileSystemModel);
-    ui->listView->setRootIndex(rootIndex);
+    letterProxyModel = new LetterProxyModel; // TODO: Check is memory is managed correctly
+    //letterProxyModel = new QSortFilterProxyModel; // TODO: Check is memory is managed correctly
+    letterProxyModel->setDynamicSortFilter(true);
+    letterProxyModel->setSourceModel(fileSystemModel);
+    letterProxyModel->setFilterRegExp(QRegExp("\\.letter$", Qt::CaseInsensitive, QRegExp::RegExp));
+
+    //letterProxyModel->setFilterRegExp(QRegExp("1.letter", Qt::CaseInsensitive, QRegExp::FixedString));
+    letterProxyModel->setFilterKeyColumn(0);
+
+    ui->tableView->setModel(letterProxyModel);
+    ui->tableView->setRootIndex(letterProxyModel->mapFromSource(rootIndex));
 }
 
 MainWindow::~MainWindow()

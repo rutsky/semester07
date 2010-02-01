@@ -6,9 +6,11 @@ TEMPLATE = app
 SOURCES += main.cpp \
     mainwindow.cpp \
     aboutdialog.cpp \
-    directoryproxymodel.cpp
+    directoryproxymodel.cpp \
+    letterproxymodel.cpp
 HEADERS += mainwindow.h \
     aboutdialog.h \
-    directoryproxymodel.h
+    directoryproxymodel.h \
+    letterproxymodel.h
 FORMS += mainwindow.ui \
     aboutdialog.ui

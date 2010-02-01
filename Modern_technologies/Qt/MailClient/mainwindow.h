@@ -11,6 +11,8 @@ class QFileSystemModel;
 class QAction;
 
 class DirectoryProxyModel;
+class LetterProxyModel;
+class QSortFilterProxyModel;
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -31,8 +33,10 @@ private slots:
     void removeDirectory();
 
 private:
-    QFileSystemModel *fileSystemModel;
+    QFileSystemModel    *fileSystemModel;
     DirectoryProxyModel *directoryProxyModel;
+    //LetterProxyModel    *letterProxyModel;
+    QSortFilterProxyModel *letterProxyModel;
 };
 
 #endif // MAINWINDOW_H
