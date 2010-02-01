@@ -1,0 +1,8 @@
+*.user
+debug/
+release/
+Makefile
+Makefile.Debug
+Makefile.Release
+ui_*.h
+object_script.*
