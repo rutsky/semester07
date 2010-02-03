@@ -5,5 +5,7 @@
 LetterTableView::LetterTableView(QWidget *parent) :
     QTableView(parent)
 {
-    setHorizontalHeader(new LetterHeaderView()); // TODO: Check is memory is managed correctly
+    QHeaderView *horizontal = new LetterHeaderView(); // TODO: Check is memory is managed correctly
+    horizontal->setClickable(true);
+    setHorizontalHeader(horizontal);
 }
