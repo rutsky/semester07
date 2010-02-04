@@ -1,5 +1,6 @@
 #include <QFileSystemModel>
 #include <QDebug>
+#include <QInputDialog>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -79,19 +80,44 @@ void MainWindow::on_actionAbout_triggered()
 void MainWindow::on_treeView_customContextMenuRequested(QPoint pos)
 {
     QMenu *menu = new QMenu;
-    menu->addAction(tr("&New"), this, SLOT(newDirectory()))->setToolTip(tr("Create a new directory"));
-    menu->addAction(tr("&Remove"), this, SLOT(newDirectory()))->setToolTip(tr("Remove directory"));
+    QAction *action;
+
+    action = new QAction(tr("&New"), this);
+    action->setToolTip(tr("Create a new directory"));
+    connect(action, SIGNAL(triggered()), this, SLOT(newDirectory()));
+    menu->addAction(action);
+
+    action = new QAction(tr("&Remove"), this);
+    action->setToolTip(tr("Remove directory"));
+    if (ui->treeView->selectionModel()->selection().isEmpty())
+        action->setEnabled(false);
+    connect(action, SIGNAL(triggered()), this, SLOT(removeDirectory()));
+    menu->addAction(action);
+
     menu->exec(ui->treeView->mapToGlobal(pos));
 }
 
 void MainWindow::newDirectory()
 {
+    QModelIndex parentTreeIndex;
+    if (ui->treeView->selectionModel()->selection().indexes().isEmpty())
+        parentTreeIndex = ui->treeView->rootIndex();
+    else
+        parentTreeIndex = ui->treeView->selectionModel()->selection().indexes()[0];
+    QModelIndex const fileSystemIndex = directoryProxyModel->mapToSource(parentTreeIndex);
 
+    bool ok;
+    QString const directoryName = QInputDialog::getText(this, tr("New directory"),
+                                         tr("New directory name:"), QLineEdit::Normal,
+                                            "New Folder", &ok);
+    if (ok && !directoryName.isEmpty())
+        fileSystemModel->mkdir(fileSystemIndex, directoryName);
 }
 
 void MainWindow::removeDirectory()
 {
-    //ui->treeView->selectionModel()->selection()
+    QModelIndex const index = ui->treeView->selectionModel()->selection().indexes()[0];
+    qDebug() << fileSystemModel->remove(directoryProxyModel->mapToSource(index));
 }
 
 void MainWindow::directoryChanged(QModelIndex const &current, QModelIndex const &/* previous */)
