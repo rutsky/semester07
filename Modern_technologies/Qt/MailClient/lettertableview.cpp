@@ -27,14 +27,17 @@ void LetterTableView::on_customContextMenuRequested(const QPoint &pos)
 
     QSignalMapper *signalMapper = new QSignalMapper(this);
 
-
+    bool const oneSectionShown = (horizontalHeader()->hiddenSectionCount() == horizontalHeader()->count() - 1);
     for (int section = 0; section < horizontalHeader()->count(); ++section)
     {
         QString const columnName = model()->headerData(section, Qt::Horizontal, Qt::DisplayRole).toString();
 
         QAction *action = new QAction(columnName, menu);
         action->setCheckable(true);
-        action->setChecked(horizontalHeader()->isSectionHidden(section));
+        bool const hidden = horizontalHeader()->isSectionHidden(section);
+        action->setChecked(!hidden);
+        if (oneSectionShown && !hidden)
+            action->setEnabled(false);
 
         connect(action, SIGNAL(toggled(bool)), signalMapper, SLOT(map()));
         signalMapper->setMapping(action, section);
