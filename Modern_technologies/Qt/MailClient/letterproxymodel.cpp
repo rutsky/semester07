@@ -7,7 +7,8 @@
 LetterProxyModel::LetterProxyModel(QObject *parent) :
     QSortFilterProxyModel(parent)
 {
-    columns_ << tr("From") << tr("Subject") << tr("Date") << tr("Received") << tr("Size");
+    //columns_ << tr("From") << tr("Subject") << tr("Date") << tr("Received") << tr("Size");
+    columns_ << tr("From") << tr("Subject") << tr("Received") << tr("Size");
 }
 
 QVariant LetterProxyModel::data(const QModelIndex &index, int role) const
@@ -20,6 +21,7 @@ QVariant LetterProxyModel::data(const QModelIndex &index, int role) const
         QModelIndex const sourceIndex = mapToSource(index);
         QString const filePath = sourceFileSystemModel()->filePath(sourceIndex);
         QScopedPointer<LetterObject> letter(LetterObject::load(filePath));
+        /*
         switch (index.column())
         {
         case 0:
@@ -31,6 +33,21 @@ QVariant LetterProxyModel::data(const QModelIndex &index, int role) const
         case 3:
             return letter->receivedDate();
         case 4:
+            return letter->size();
+        default:
+            Q_ASSERT(0);
+            return QVariant();
+        }
+        */
+        switch (index.column())
+        {
+        case 0:
+            return letter->sender();
+        case 1:
+            return letter->subject();
+        case 2:
+            return letter->receivedDate();
+        case 3:
             return letter->size();
         default:
             Q_ASSERT(0);

@@ -1,4 +1,5 @@
 #include <QFileSystemModel>
+#include <QDebug>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -33,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent) :
     letterProxyModel->setDynamicSortFilter(true);
     letterProxyModel->setSourceModel(fileSystemModel);
     letterProxyModel->setFilterRegExp(QRegExp("\\.letter$", Qt::CaseInsensitive, QRegExp::RegExp));
-    letterProxyModel->setFilterKeyColumn(0);
+    letterProxyModel->setFilterKeyColumn(0); // TODO
     letterProxyModel->setRootPath(maildir);
 
     ui->tableView->setModel(letterProxyModel);
