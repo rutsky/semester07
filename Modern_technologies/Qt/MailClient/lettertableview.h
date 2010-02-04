@@ -11,8 +11,9 @@ public:
 
 signals:
 
-public slots:
-
+private slots:
+    void on_customContextMenuRequested(const QPoint &);
+    void on_contextMenu_toggled(int section);
 };
 
 #endif // LETTERTABLEVIEW_H
