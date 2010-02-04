@@ -1,4 +1,6 @@
 #include <QFileSystemModel>
+#include <QVariant>
+#include <QDebug>
 
 #include "letterproxymodel.h"
 
@@ -11,14 +13,13 @@ LetterProxyModel::LetterProxyModel(QObject *parent) :
     columns_ << tr("From") << tr("Subject") << tr("Received") << tr("Size");
 }
 
-QVariant LetterProxyModel::data(const QModelIndex &index, int role) const
+QVariant LetterProxyModel::dataFromSource(const QModelIndex &sourceIndex, int role) const
 {
-    if (!index.isValid())
+    if (!sourceIndex.isValid())
         return QVariant();
 
     if (role == Qt::DisplayRole)
     {
-        QModelIndex const sourceIndex = mapToSource(index);
         QString const filePath = sourceFileSystemModel()->filePath(sourceIndex);
         QScopedPointer<LetterObject> letter(LetterObject::load(filePath));
         /*
@@ -39,7 +40,7 @@ QVariant LetterProxyModel::data(const QModelIndex &index, int role) const
             return QVariant();
         }
         */
-        switch (index.column())
+        switch (sourceIndex.column())
         {
         case 0:
             return letter->sender();
@@ -56,6 +57,15 @@ QVariant LetterProxyModel::data(const QModelIndex &index, int role) const
     }
     else
         return QVariant();
+}
+
+QVariant LetterProxyModel::data(const QModelIndex &index, int role) const
+{
+    if (!index.isValid())
+        return QVariant();
+
+    QModelIndex const sourceIndex = mapToSource(index);
+    return dataFromSource(sourceIndex, role);
 }
 
 QVariant LetterProxyModel::headerData(int section, Qt::Orientation orientation, int role) const
@@ -84,7 +94,7 @@ void LetterProxyModel::setRootPath(QString const &path)
 
 bool LetterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
 {
-    if (!sourceParent.isValid())
+    //if (!sourceParent.isValid())
         return QSortFilterProxyModel::filterAcceptsRow(sourceRow, sourceParent);
     QModelIndex const childIndex = sourceParent.child(sourceRow, 0);
     bool const isDir = sourceFileSystemModel()->isDir(childIndex);
@@ -97,4 +107,28 @@ bool LetterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &source
 QFileSystemModel const * LetterProxyModel::sourceFileSystemModel() const
 {
     return static_cast<QFileSystemModel const *>(sourceModel());
+}
+
+void LetterProxyModel::sort(int column, Qt::SortOrder order)
+{
+    qDebug() << "sort";
+    QSortFilterProxyModel::sort(column, order);
+}
+
+bool LetterProxyModel::lessThan(const QModelIndex &left,
+                                const QModelIndex &right) const
+{
+    if (!left.isValid() || !right.isValid())
+        return false;
+
+    //qDebug() << "lessThan";
+    QVariant const leftData = dataFromSource(left, (int)Qt::DisplayRole);
+    QVariant const rightData = dataFromSource(right, (int)Qt::DisplayRole);
+
+    if (leftData.type() == QVariant::DateTime)
+        return leftData.toDateTime() < rightData.toDateTime();
+    else if (leftData.type() == QVariant::Int)
+        return leftData.toInt() < rightData.toInt();
+    else
+        return leftData.toString() < rightData.toString();
 }

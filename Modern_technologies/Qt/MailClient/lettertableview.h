@@ -9,6 +9,8 @@ class LetterTableView : public QTableView
 public:
     explicit LetterTableView(QWidget *parent = 0);
 
+    //void setSortingEnabled(bool _enable);
+
 signals:
     void showLetter(QString const &letterFilePath);
 

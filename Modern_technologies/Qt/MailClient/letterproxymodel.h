@@ -23,12 +23,15 @@ public:
 public:
     QString rootPath() const;
     void setRootPath(QString const &path);
+    void sort(int column, Qt::SortOrder order = Qt::AscendingOrder);
 
 protected:
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const;
+    bool lessThan(const QModelIndex &left, const QModelIndex &right) const;
 
-protected:
+private:
     QFileSystemModel const *sourceFileSystemModel() const;
+    QVariant dataFromSource(const QModelIndex &sourceIndex, int role) const;
 
 private:
     QStringList columns_;

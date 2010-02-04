@@ -65,3 +65,30 @@ void LetterTableView::currentChanged(const QModelIndex &current, const QModelInd
     QFileSystemModel *fileSystemModel = static_cast<QFileSystemModel *>(proxyModel->sourceModel());
     emit showLetter(fileSystemModel->filePath(proxyModel->mapToSource(current)));
 }
+
+// From http://www.qtcentre.org/threads/4270-QSortFilterProxyModel-lessThan-method-doesn-t-work!
+/*
+void LetterTableView::setSortingEnabled(bool _enable)
+{
+     horizontalHeader()->setSortIndicatorShown(_enable);
+
+     if (_enable)
+     {
+         disconnect(horizontalHeader(), SIGNAL(sectionPressed(int)),
+                    this, SLOT(selectColumn(int)));
+
+         connect(horizontalHeader(), SIGNAL(sectionClicked(int)),
+                    this, SLOT(sortByColumn(int)));
+
+         sortByColumn(horizontalHeader()->sortIndicatorSection());
+     }
+     else
+     {
+         connect(horizontalHeader(), SIGNAL(sectionPressed(int)),
+                    this, SLOT(selectColumn(int)));
+
+         disconnect(horizontalHeader(), SIGNAL(sectionClicked(int)),
+                    this, SLOT(sortByColumn(int)));
+     }
+}
+*/

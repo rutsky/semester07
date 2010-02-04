@@ -33,15 +33,18 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->treeView->setColumnHidden(i, true);
 
     letterProxyModel = new LetterProxyModel; // TODO: Check is memory is managed correctly
-    letterProxyModel->setDynamicSortFilter(true);
     letterProxyModel->setSourceModel(fileSystemModel);
-    letterProxyModel->setFilterRegExp(QRegExp("\\.letter$", Qt::CaseInsensitive, QRegExp::RegExp));
-    letterProxyModel->setFilterKeyColumn(0); // TODO
+    //letterProxyModel->setFilterRegExp(QRegExp("\\.letter$", Qt::CaseInsensitive, QRegExp::RegExp));
+    //letterProxyModel->setFilterKeyColumn(0); // TODO
     letterProxyModel->setRootPath(maildir);
 
     ui->tableView->setModel(letterProxyModel);
-    ui->tableView->horizontalHeader()->reset();
     ui->tableView->setRootIndex(letterProxyModel->mapFromSource(rootIndex));
+    letterProxyModel->setDynamicSortFilter(true);
+    ui->tableView->setSortingEnabled(true);
+    //ui->tableView->sortByColumn(0, Qt::AscendingOrder);
+    //ui->tableView->sortByColumn(0);
+    //letterProxyModel->sort(0, Qt::DescendingOrder);
 
     connect(ui->treeView->selectionModel(), SIGNAL(currentRowChanged(QModelIndex, QModelIndex)),
             this, SLOT(directoryChanged(QModelIndex, QModelIndex)));
