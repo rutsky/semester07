@@ -67,6 +67,9 @@
         <property name="dragEnabled">
          <bool>true</bool>
         </property>
+        <property name="dragDropOverwriteMode">
+         <bool>true</bool>
+        </property>
         <property name="dragDropMode">
          <enum>QAbstractItemView::DragDrop</enum>
         </property>
@@ -75,6 +78,9 @@
         </property>
         <property name="selectionMode">
          <enum>QAbstractItemView::SingleSelection</enum>
+        </property>
+        <property name="verticalScrollMode">
+         <enum>QAbstractItemView::ScrollPerPixel</enum>
         </property>
         <property name="headerHidden">
          <bool>true</bool>
