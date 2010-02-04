@@ -2,6 +2,8 @@
 #include <QMenu>
 #include <QAction>
 #include <QSignalMapper>
+#include <QFileSystemModel>
+#include <QSortFilterProxyModel>
 
 #include "lettertableview.h"
 
@@ -53,4 +55,13 @@ void LetterTableView::on_customContextMenuRequested(const QPoint &pos)
 void LetterTableView::on_contextMenu_toggled(int section)
 {
     horizontalHeader()->setSectionHidden(section, !horizontalHeader()->isSectionHidden(section));
+}
+
+void LetterTableView::currentChanged(const QModelIndex &current, const QModelIndex &previous)
+{
+    QTableView::currentChanged(current, previous);
+
+    QSortFilterProxyModel *proxyModel = static_cast<QSortFilterProxyModel *>(model());
+    QFileSystemModel *fileSystemModel = static_cast<QFileSystemModel *>(proxyModel->sourceModel());
+    emit showLetter(fileSystemModel->filePath(proxyModel->mapToSource(current)));
 }

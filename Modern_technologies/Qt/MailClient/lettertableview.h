@@ -10,6 +10,10 @@ public:
     explicit LetterTableView(QWidget *parent = 0);
 
 signals:
+    void showLetter(QString const &letterFilePath);
+
+protected slots:
+    void currentChanged(const QModelIndex &current, const QModelIndex &previous);
 
 private slots:
     void on_customContextMenuRequested(const QPoint &);

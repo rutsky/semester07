@@ -7,6 +7,7 @@
 #include "aboutdialog.h"
 #include "directoryproxymodel.h"
 #include "letterproxymodel.h"
+#include "letterobject.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -43,6 +44,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->treeView->selectionModel(), SIGNAL(currentRowChanged(QModelIndex, QModelIndex)),
             this, SLOT(directoryChanged(QModelIndex, QModelIndex)));
+
+    connect(ui->tableView, SIGNAL(showLetter(QString const &)), this, SLOT(on_showLetter(QString const &)));
 }
 
 MainWindow::~MainWindow()
@@ -91,4 +94,10 @@ void MainWindow::directoryChanged(QModelIndex const &current, QModelIndex const 
     QModelIndex const sourceIndex = directoryProxyModel->mapToSource(current);
     letterProxyModel->setRootPath(fileSystemModel->filePath(sourceIndex));
     ui->tableView->setRootIndex(letterProxyModel->mapFromSource(sourceIndex));
+}
+
+void MainWindow::on_showLetter(QString const &letterFilePath)
+{
+    QScopedPointer<LetterObject> letter(LetterObject::load(letterFilePath));
+    ui->textBrowser->setHtml(letter->text());
 }
