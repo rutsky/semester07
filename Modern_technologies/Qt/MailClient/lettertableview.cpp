@@ -19,6 +19,8 @@ LetterTableView::LetterTableView(QWidget *parent) :
             SLOT(on_customContextMenuRequested(const QPoint &)));
 
     setHorizontalHeader(horizontal);
+
+    setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
 }
 
 void LetterTableView::on_customContextMenuRequested(const QPoint &pos)
