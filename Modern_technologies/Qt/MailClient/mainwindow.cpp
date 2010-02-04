@@ -45,7 +45,12 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->treeView->selectionModel(), SIGNAL(currentRowChanged(QModelIndex, QModelIndex)),
             this, SLOT(directoryChanged(QModelIndex, QModelIndex)));
 
-    connect(ui->tableView, SIGNAL(showLetter(QString const &)), this, SLOT(on_showLetter(QString const &)));
+    //connect(ui->tableView->selectionModel(), SIGNAL(currentChanged(const QModelIndex &, const QModelIndex &)),
+    //        this, SLOT(updateLetter()));
+    connect(ui->tableView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+            this, SLOT(updateLetter()));
+    //connect(ui->treeView->selectionModel(),  SIGNAL(currentChanged(const QModelIndex &, const QModelIndex &)),
+    //        this, SLOT(updateLetter()));
 }
 
 MainWindow::~MainWindow()
@@ -86,7 +91,7 @@ void MainWindow::newDirectory()
 
 void MainWindow::removeDirectory()
 {
-
+    //ui->treeView->selectionModel()->selection()
 }
 
 void MainWindow::directoryChanged(QModelIndex const &current, QModelIndex const &/* previous */)
@@ -94,10 +99,32 @@ void MainWindow::directoryChanged(QModelIndex const &current, QModelIndex const 
     QModelIndex const sourceIndex = directoryProxyModel->mapToSource(current);
     letterProxyModel->setRootPath(fileSystemModel->filePath(sourceIndex));
     ui->tableView->setRootIndex(letterProxyModel->mapFromSource(sourceIndex));
+
+    //if (ui->tableView->model()->hasChildren(ui->tableView->rootIndex()))
+    {
+        //QModelIndex const firstChild = ui->tableView->model()->index(0, 0, ui->tableView->rootIndex());
+        QModelIndex const topLeft = ui->tableView->model()->index(0, 0, ui->tableView->rootIndex());
+        QModelIndex const bottomRight = ui->tableView->model()->index(0, 10, ui->tableView->rootIndex());
+        ui->tableView->selectionModel()->select(QItemSelection(topLeft, bottomRight), QItemSelectionModel::ClearAndSelect);
+        //ui->tableView->selectionModel()->setCurrentIndex(firstChild, QItemSelectionModel::Clear);
+        //for (int i = 0; i < 10 /* TODO! */; ++i)
+        //    ;//ui->tableView->selectionModel()->select(ui->tableView->model()->index(0, i, ui->tableView->rootIndex()), QItemSelectionModel::Select);
+    }
+    //else
+    //    ;//ui->tableView->selectionModel()->setCurrentIndex(QModelIndex(), QItemSelectionModel::Clear);
 }
 
-void MainWindow::on_showLetter(QString const &letterFilePath)
+void MainWindow::updateLetter()
 {
-    QScopedPointer<LetterObject> letter(LetterObject::load(letterFilePath));
-    ui->textBrowser->setHtml(letter->text());
+    QModelIndexList const selection = ui->tableView->selectionModel()->selection().indexes();
+    if (selection.empty() || !selection[0].isValid())
+        //ui->textBrowser->setHtml("<h1>Select letter from list</h1>");
+        ui->textBrowser->setHtml("");
+    else
+    {
+        QModelIndex const index = selection[0];
+        QString const letterFilePath = fileSystemModel->filePath(letterProxyModel->mapToSource(index));
+        QScopedPointer<LetterObject> letter(LetterObject::load(letterFilePath));
+        ui->textBrowser->setHtml(letter->text());
+    }
 }

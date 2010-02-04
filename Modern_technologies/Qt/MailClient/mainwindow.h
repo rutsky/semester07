@@ -33,7 +33,7 @@ private slots:
     void newDirectory();
     void removeDirectory();
     void directoryChanged(QModelIndex const &current, QModelIndex const &previous);
-    void on_showLetter(QString const &);
+    void updateLetter();
 
 private:
     QFileSystemModel    *fileSystemModel;
