@@ -94,7 +94,7 @@ void LetterProxyModel::setRootPath(QString const &path)
 
 bool LetterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
 {
-    //if (!sourceParent.isValid())
+    if (!sourceParent.isValid())
         return QSortFilterProxyModel::filterAcceptsRow(sourceRow, sourceParent);
     QModelIndex const childIndex = sourceParent.child(sourceRow, 0);
     bool const isDir = sourceFileSystemModel()->isDir(childIndex);
@@ -121,7 +121,6 @@ bool LetterProxyModel::lessThan(const QModelIndex &left,
     if (!left.isValid() || !right.isValid())
         return false;
 
-    //qDebug() << "lessThan";
     QVariant const leftData = dataFromSource(left, (int)Qt::DisplayRole);
     QVariant const rightData = dataFromSource(right, (int)Qt::DisplayRole);
 
