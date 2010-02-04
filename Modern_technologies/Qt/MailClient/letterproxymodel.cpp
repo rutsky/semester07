@@ -36,9 +36,6 @@ QVariant LetterProxyModel::data(const QModelIndex &index, int role) const
             Q_ASSERT(0);
             return QVariant();
         }
-
-        //return sourceFileSystemModel()->fileName(mapToSource(index));
-        //return QString("Index: (%1,%2)").arg(index.row()).arg(index.column());
     }
     else
         return QVariant();
