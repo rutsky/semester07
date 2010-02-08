@@ -207,6 +207,14 @@
 			Name="Application"
 			>
 			<File
+				RelativePath=".\Src\Application\application.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Src\Application\application.h"
+				>
+			</File>
+			<File
 				RelativePath="Src\Application\main.cpp"
 				>
 			</File>

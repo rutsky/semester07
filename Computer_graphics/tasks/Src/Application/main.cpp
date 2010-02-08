@@ -11,7 +11,7 @@
 
 #include "windows.h"
 
-#include "myApp.h"
+#include "application.h"
 
 /**
   @brief    This function is WinMain for D3DBase project
@@ -27,7 +27,7 @@
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInsatnce,
                    LPTSTR lpszCommandLine, int nCmdShow)
 {
-  myApp app(800, 600, (void*)hInstance, nCmdShow);
+  Application app(800, 600, (void*)hInstance, nCmdShow);
   if (!app.isFailed())
     app.theLoop();
 } // end of WinMain
