@@ -77,7 +77,7 @@ cglApp::cglApp(int nW, int nH, void* hInst, int nCmdShow)
   
   // Create main window
   m_hWnd = NULL;
-  m_hWnd = (void*)CreateWindow(s_windowClassName, getWindowText(), nStyle,
+  m_hWnd = (void*)CreateWindow(s_windowClassName, getWindowText() /* Calling virtual function from constructor, L :P */, nStyle,
                                CW_USEDEFAULT, CW_USEDEFAULT, 
                                (rRect.right - rRect.left), (rRect.bottom - rRect.top),
                                NULL, NULL, HINSTANCE(hInst), NULL);
@@ -176,7 +176,7 @@ void cglApp::update(void)
     // Calculate FPS
     float rFPS = float(m_nFrameCount) / rTime;
     // Show fps
-    char fpsString[50];
+    static char fpsString[1024]; // TODO, L
     sprintf_s(fpsString, "%s FPS = %3.6f", getWindowText(), rFPS);
     SetWindowText(HWND(m_hWnd), fpsString);
     // Drop

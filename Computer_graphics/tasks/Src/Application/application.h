@@ -13,6 +13,9 @@ class Application : public cglApp
 public:
   Application( int windowWidth, int windowHeight, void* hInstance, int nCmdShow );
   virtual ~Application();
+
+protected:
+  char const * getWindowText();
 };
 
 #endif // APPLICATION_H
