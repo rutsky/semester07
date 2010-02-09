@@ -16,6 +16,7 @@ public:
 
 protected:
   char const * getWindowText();
+  void renderInternal();
 };
 
 #endif // APPLICATION_H

@@ -1,4 +1,4 @@
-// application.h
+// application.cpp
 // Main application class definition.
 // Vladimir Rutsky, 4057/2
 // 09.02.2010
@@ -21,4 +21,8 @@ Application::~Application()
 char const * Application::getWindowText()
 {
   return "CG labs. Vladimir Rutsky, 4057/2, 09.02.2010";
+}
+
+void Application::renderInternal()
+{
 }

@@ -215,6 +215,22 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Src\Application\camera.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Src\Application\cs.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Src\Application\hierarchy.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Src\Application\hierarchy.h"
+				>
+			</File>
+			<File
 				RelativePath="Src\Application\main.cpp"
 				>
 			</File>
@@ -224,6 +240,10 @@
 			</File>
 			<File
 				RelativePath="Src\Application\myApp.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Src\Application\object.h"
 				>
 			</File>
 		</Filter>
