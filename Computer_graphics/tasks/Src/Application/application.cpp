@@ -3,6 +3,8 @@
 // Vladimir Rutsky, 4057/2
 // 09.02.2010
 
+#include "precompiled.h"
+
 #include <cassert>
 
 #include <windows.h>
@@ -23,15 +25,66 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
 
   m_triangle = std::auto_ptr<xobject::XTriangle>(xobject::XTriangle::create(m_device));
   m_mesh = std::auto_ptr<xobject::XMesh>(xobject::XMesh::create(m_device, "data", "Tiger.x"));
+
+  sceneNodes.push_back(new hierarchy::SimpleSceneNode(m_triangle.get()));
+  rootSceneNode.addChildNode(sceneNodes.back());
+
+  sceneNodes.push_back(new hierarchy::SimpleSceneNode(m_mesh.get()));
+  rootSceneNode.addChildNode(sceneNodes.back());
 }
 
 Application::~Application()
 {
+  for (size_t i = 0; i < sceneNodes.size(); ++i)
+    delete sceneNodes[i];
 }
 
 char const * Application::getWindowText()
 {
-  return "CG labs. Vladimir Rutsky, 4057/2, 09.02.2010    ";
+  return "CG labs. Vladimir Rutsky, 4057/2, 2010    ";
+}
+
+static void updateScene( hierarchy::ISceneNode *node, double time, D3DXMATRIX const *world = 0 )
+{
+  if (!node)
+    return;
+
+  D3DXMATRIX identity;
+  D3DXMatrixIdentity(&identity);
+  if (!world)
+    world = &identity;
+
+  if (node->object())
+  {
+    node->object()->update(world);
+    node->object()->update(time);
+  }
+
+  D3DXMATRIX const newWorld = *world * node->matrix();
+
+  for (size_t i = 0; i < node->childNodesNum(); ++i)
+    updateScene(node->childNode(i), time, &newWorld);
+}
+
+static void drawScene( IDirect3DDevice9 *device, hierarchy::ISceneNode *node, D3DXMATRIX const *world = 0 )
+{
+  if (!node)
+    return;
+
+  D3DXMATRIX newWorld;
+  if (!world)
+    newWorld = node->matrix();
+  else
+    newWorld = *world * node->matrix();
+
+  if (node->object())
+  {
+    device->SetTransform(D3DTS_WORLD, &newWorld);
+    node->object()->draw();
+  }
+
+  for (size_t i = 0; i < node->childNodesNum(); ++i)
+    drawScene(device, node->childNode(i), &newWorld);
 }
 
 void Application::renderInternal()
@@ -77,7 +130,7 @@ void Application::renderInternal()
   D3DXMatrixTranslation(&world, -5, -5, 5);
   m_device->SetTransform(D3DTS_WORLD, &world);
   m_triangle->draw();*/
-
+/*
     // Part of DirectX tiger example.
       // Set up world matrix
     D3DXMATRIXA16 matWorld;
@@ -103,7 +156,11 @@ void Application::renderInternal()
     // what distances geometry should be no longer be rendered).
     D3DXMATRIXA16 matProj;
     D3DXMatrixPerspectiveFovLH( &matProj, D3DX_PI / 4, 1.0f, 1.0f, 100.0f );
-    m_device->SetTransform( D3DTS_PROJECTION, &matProj );
+    m_device->SetTransform( D3DTS_PROJECTION, &matProj );*/
 
-  m_mesh->draw();
+  //m_mesh->draw();
+  //m_triangle->draw();
+
+  updateScene(&rootSceneNode, m_timer.getTime());
+  drawScene(m_device, &rootSceneNode);
 }

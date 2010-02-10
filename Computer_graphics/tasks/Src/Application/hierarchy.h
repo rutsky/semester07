@@ -11,6 +11,9 @@
 
 #include <d3dx9math.h>
 
+#include "object.h"
+#include "cs.h"
+
 namespace hierarchy
 {
   template< class Node >
@@ -20,13 +23,12 @@ namespace hierarchy
     typedef Node * node_ptr_type;
 
     virtual size_t childNodesNum() const = 0;
-    virtual node_ptr_type getChildNode( size_t idx ) const = 0;
+    virtual node_ptr_type childNode( size_t idx ) const = 0;
     virtual void addChildNode( node_ptr_type node ) = 0;
     virtual void removeChildNode( size_t idx ) = 0;
 
     virtual ~IChildNodePtrsManager() {}
   };
-
 
   template< class Node >
   class IParentNodeManager
@@ -46,8 +48,7 @@ namespace hierarchy
   public:
     typedef Node * node_ptr_type;
 
-  protected:
-    virtual void setParent( node_ptr_type node ) const = 0;
+    virtual void setParent( node_ptr_type node ) = 0;
   };
 
   template< class Object >
@@ -71,23 +72,24 @@ namespace hierarchy
     virtual void setObject( object_type object ) = 0;
   };
 
-  template< class Object >
+  template< class NodeType, class Object >
   class IHierarchyNode 
-    : public virtual IChildNodePtrsManager<IHierarchyNode<Object> >
-    , public virtual IWritableParentNodeManager<IHierarchyNode<Object> >
-    , public virtual ICoordinateSystem
+    : public virtual IChildNodePtrsManager<NodeType>
+    , public virtual IWritableParentNodeManager<NodeType>
+    , public virtual cs::ICoordinateSystem
     , public virtual IObjectManager<Object>
   {
   public:
-    typedef IHierarchyNode<Object> node_type;
+    typedef NodeType node_type;
     typedef node_type * node_ptr_type;
     typedef Object object_type;
   };
 
   template< class Node >
   class VectorChildNodesManager
-    : IChildNodePtrsManager<Node>
+    : public virtual IChildNodePtrsManager<Node>
   {
+  public:
     typedef Node * node_ptr_type;
 
     size_t childNodesNum() const
@@ -95,19 +97,19 @@ namespace hierarchy
       return childs.size();
     }
 
-    node_ptr_type getChild( size_t idx ) const
+    node_ptr_type childNode( size_t idx ) const
     {
       assert(idx < childs.size());
       return childs[idx];
     }
 
-    void addChild( node_ptr_type node )
+    void addChildNode( node_ptr_type node )
     {
       childs.push_back(node);
-      node->setParent(static_cast<node_ptr_type>(this));
+      node->setParent(dynamic_cast<node_ptr_type>(this));
     }
 
-    void removeChild( size_t idx )
+    void removeChildNode( size_t idx )
     {
       assert(idx < childs.size());
       node_ptr_type child = childs[idx];
@@ -140,7 +142,7 @@ namespace hierarchy
 
     // IWritableParentNodeManager
   protected:
-    void setParent( node_ptr_type node ) const
+    void setParent( node_ptr_type node )
     {
       m_parent = node;
     }
@@ -172,6 +174,51 @@ namespace hierarchy
 
   protected:
     object_type m_object;
+  };
+
+  template< class Node >
+  inline D3DXMATRIX evaluateWorldMatrix( Node *node )
+  {
+    D3DXMATRIX result;
+    D3DXMatrixIdentity(&result);
+
+    if (node)
+    {
+      node = node->parent();
+      while (node)
+        result = node->matrix() * result;
+    }
+    
+    return result;
+  }
+
+  class ISceneNode
+    : public virtual IHierarchyNode<ISceneNode, object::ISceneObject *>
+  {
+  };
+
+  class BaseSceneNode
+    : public virtual ISceneNode
+    , public VectorChildNodesManager<ISceneNode>
+    , public BaseWritableParentNodeManager<ISceneNode>
+  {
+  };
+
+  class SimpleSceneNode
+    : public BaseSceneNode
+    , public cs::BaseCoordinateSystem
+    , public BaseWritableObjectManager<object::ISceneObject *>
+  {
+  public:
+    SimpleSceneNode()
+    {
+      setObject(0);
+    }
+
+    SimpleSceneNode( object::ISceneObject *sceneObject )
+    {
+      setObject(sceneObject);
+    }
   };
 } // End of namespace 'hierarchy'
 

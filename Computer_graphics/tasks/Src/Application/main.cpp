@@ -9,6 +9,8 @@
 // *******************************************************************
 // includes
 
+#include "precompiled.h"
+
 #include "windows.h"
 
 #include "application.h"

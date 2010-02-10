@@ -32,6 +32,7 @@ namespace xobject
 
   class BaseXObject
     : public virtual object::IDrawableObject
+    , public virtual object::ISceneObject
   {
   protected:
     BaseXObject(IDirect3DDevice9 *device)

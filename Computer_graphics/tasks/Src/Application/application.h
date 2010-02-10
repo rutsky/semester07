@@ -7,11 +7,14 @@
 #define APPLICATION_H
 
 #include <memory>
+#include <vector>
 
 #include <d3d9.h>
 
 #include "Library/cglApp.h"
+
 #include "xobject.h"
+#include "hierarchy.h"
 
 class Application : public cglApp
 {
@@ -25,6 +28,9 @@ protected:
 
 private:
   IDirect3DDevice9 *m_device;
+
+  hierarchy::SimpleSceneNode rootSceneNode;
+  std::vector<hierarchy::ISceneNode *> sceneNodes;
 
   std::auto_ptr<xobject::XMesh> m_mesh;
   std::auto_ptr<xobject::XTriangle> m_triangle;

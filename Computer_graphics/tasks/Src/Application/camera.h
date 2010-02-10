@@ -10,6 +10,7 @@
 
 #include "constants.h"
 #include "cs.h"
+#include "control.h"
 
 namespace camera
 {
@@ -232,6 +233,11 @@ namespace camera
       double m_theta; // latitude:  -pi/2 <= theta <= pi/2
     };
   } // End of namespace 'lcs'
+
+  class SphericCamera
+  {
+
+  };
 } // End of namespace 'camera'
 
 #endif // CAMERA_H

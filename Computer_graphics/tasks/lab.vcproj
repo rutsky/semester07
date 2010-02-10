@@ -223,7 +223,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Src\Application\config.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Src\Application\config.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Src\Application\constants.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Src\Application\control.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Src\Application\control.h"
 				>
 			</File>
 			<File
@@ -260,6 +276,10 @@
 			</File>
 			<File
 				RelativePath=".\Src\Application\object.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Src\Application\precompiled.h"
 				>
 			</File>
 			<File
