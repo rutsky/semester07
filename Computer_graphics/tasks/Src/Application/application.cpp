@@ -23,14 +23,20 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
 
   assert(m_device);
 
+  
   m_triangle = std::auto_ptr<xobject::XTriangle>(xobject::XTriangle::create(m_device));
   m_mesh = std::auto_ptr<xobject::XMesh>(xobject::XMesh::create(m_device, "data", "Tiger.x"));
 
-  sceneNodes.push_back(new hierarchy::SimpleSceneNode(m_triangle.get()));
+  sceneNodes.push_back(hierarchy::newSceneNode<hierarchy::SimpleSceneNode>(m_triangle.get()));
   rootSceneNode.addChildNode(sceneNodes.back());
 
-  sceneNodes.push_back(new hierarchy::SimpleSceneNode(m_mesh.get()));
+  sceneNodes.push_back(hierarchy::newSceneNode<hierarchy::SimpleSceneNode>(m_mesh.get()));
   rootSceneNode.addChildNode(sceneNodes.back());
+
+  hierarchy::RotatingSceneNode *rotatingNode = new hierarchy::RotatingSceneNode(D3DXVECTOR3(1, 0, 0), 1.0);
+  rotatingNode->setObject(m_triangle.get());
+  sceneNodes.push_back(rotatingNode);
+  rootSceneNode.addChildNode(rotatingNode);
 }
 
 Application::~Application()
@@ -53,6 +59,9 @@ static void updateScene( hierarchy::ISceneNode *node, double time, D3DXMATRIX co
   D3DXMatrixIdentity(&identity);
   if (!world)
     world = &identity;
+
+  node->update(world);
+  node->update(time);
 
   if (node->object())
   {

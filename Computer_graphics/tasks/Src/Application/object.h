@@ -27,7 +27,7 @@ namespace object
   };
 
   class BaseDynamicObject
-    : public virtual IDynamicObject
+    : public IDynamicObject
   {
   public:
     BaseDynamicObject()
@@ -66,19 +66,19 @@ namespace object
   class ISceneObject
     : public virtual IDrawableObject
     , public virtual IWorldMatrixDependentObject
-    , public virtual IDynamicObject
+    , public IDynamicObject
   {
     // IDrawableObject
   public:
-    void draw() {}
+    virtual void draw() {}
 
     // IDynamicObject
   public:
-    void update( double time ) {}
+    virtual void update( double time ) {}
 
     // IWorldMatrixDependentObject
   public:
-    void update( D3DXMATRIX const *worldMatrix ) {}
+    virtual void update( D3DXMATRIX const *worldMatrix ) {}
   };
 } // End of namespace 'object'
 

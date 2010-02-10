@@ -176,6 +176,37 @@ namespace hierarchy
     object_type m_object;
   };
 
+  template< class DereferencedObject >
+  class BaseWritableObjectManager<DereferencedObject *>
+    : public virtual IWritableObjectManager<DereferencedObject *>
+  {
+  public:
+    typedef DereferencedObject dereferenced_object;
+    typedef dereferenced_object * object_type;
+
+    BaseWritableObjectManager()
+      : m_object(0)
+    {
+    }
+
+    // IObjectManager
+  public:
+    object_type object()
+    {
+      return m_object;
+    }
+
+  // IWritableObjectManager
+  public:
+    void setObject( object_type object )
+    {
+      m_object = object;
+    }
+
+  protected:
+    dereferenced_object *m_object;
+  };
+
   template< class Node >
   inline D3DXMATRIX evaluateWorldMatrix( Node *node )
   {
@@ -194,6 +225,7 @@ namespace hierarchy
 
   class ISceneNode
     : public virtual IHierarchyNode<ISceneNode, object::ISceneObject *>
+    , public virtual object::ISceneObject
   {
   };
 
@@ -201,25 +233,50 @@ namespace hierarchy
     : public virtual ISceneNode
     , public VectorChildNodesManager<ISceneNode>
     , public BaseWritableParentNodeManager<ISceneNode>
+    , public object::BaseDynamicObject
   {
   };
 
   class SimpleSceneNode
     : public BaseSceneNode
     , public cs::BaseCoordinateSystem
-    , public BaseWritableObjectManager<object::ISceneObject *>
+    , public virtual BaseWritableObjectManager<object::ISceneObject *>
+  {
+  };
+
+  class RotatingSceneNode
+    : public SimpleSceneNode
   {
   public:
-    SimpleSceneNode()
+    RotatingSceneNode( D3DXVECTOR3 axis, double speed )
+      : m_axis(axis)
+      , m_speed(speed)
     {
-      setObject(0);
     }
 
-    SimpleSceneNode( object::ISceneObject *sceneObject )
+    // IDynamicObject 
+  public:
+    void update( double time )
     {
-      setObject(sceneObject);
+      BaseDynamicObject::update(time);
+
+      D3DXMATRIX rotation;
+      D3DXMatrixRotationAxis(&rotation, &m_axis, (float)(m_speed * dtime()));
+      m_matrix *= rotation;
     }
+
+  protected:
+    D3DXVECTOR3 m_axis;
+    double m_speed;
   };
+
+  template< class SceneNode >
+  inline SceneNode * newSceneNode( object::ISceneObject *sceneObject )
+  {
+    SceneNode *newSceneNode = new SceneNode;
+    newSceneNode->setObject(sceneObject);
+    return newSceneNode;
+  }
 } // End of namespace 'hierarchy'
 
 #endif // HIERARCHY_H
