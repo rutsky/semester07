@@ -30,7 +30,7 @@ public:
   // Allows to check if constructor failed
   bool isFailed(); 
   // Contains main application loop
-  void theLoop();
+  int theLoop();
   // This function performs input processing. Returns true if input is handled
   virtual bool processInput(unsigned int nMsg, int wParam, long lParam);
 protected:

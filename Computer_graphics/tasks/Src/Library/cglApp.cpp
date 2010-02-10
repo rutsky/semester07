@@ -26,8 +26,7 @@
 namespace
 {
   const char * s_windowClassName = "D3DBase9";
-  const float  s_fpsMeasurementTime = 5.0f;
-
+  const float  s_fpsMeasurementTime = 0.5f;
 }
 
 // *******************************************************************
@@ -121,11 +120,11 @@ cglApp::~cglApp()
     DestroyWindow(HWND(m_hWnd));
 } 
 
-void cglApp::theLoop()
+int cglApp::theLoop()
 {
+  MSG nMsg;
   while (TRUE)
   {
-    MSG nMsg;
     if (PeekMessage(&nMsg, NULL, 0U, 0U, PM_REMOVE))
     {
       if (nMsg.message == WM_QUIT)
@@ -140,6 +139,8 @@ void cglApp::theLoop()
       render();
     } // end if (PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))
   } // end while (TRUE)
+
+  return nMsg.wParam;
 }
 
 bool cglApp::isFailed()

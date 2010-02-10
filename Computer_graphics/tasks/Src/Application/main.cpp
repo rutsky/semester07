@@ -29,6 +29,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInsatnce,
 {
   Application app(800, 600, (void*)hInstance, nCmdShow);
   if (!app.isFailed())
-    app.theLoop();
+    return app.theLoop();
+  return 0;
 } // end of WinMain
 

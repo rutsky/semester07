@@ -117,7 +117,7 @@ namespace xobject
       memcpy(verticesMem, vertices, sizeof(vertices));
       vertexBuffer->Unlock();
 
-      return new XTriangle(device, vertexBuffer, vertex_xyzcolor::vertexFormat, verticesNum, D3DPT_TRIANGLELIST, 1);
+      return new XTriangle(device, vertexBuffer, vertex_xyzcolor::vertexFormat, sizeof(vertex_xyzcolor::Vertex), D3DPT_TRIANGLELIST, 1);
     }
 
     static XTriangle * create( IDirect3DDevice9 *device,
