@@ -26,6 +26,7 @@ protected:
 private:
   IDirect3DDevice9 *m_device;
 
+  std::auto_ptr<xobject::XMesh> m_mesh;
   std::auto_ptr<xobject::XTriangle> m_triangle;
 };
 

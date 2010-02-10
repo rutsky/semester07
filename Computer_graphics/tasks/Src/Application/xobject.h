@@ -6,6 +6,11 @@
 #ifndef XOBJECT_H
 #define XOBJECT_H
 
+#include <vector>
+#include <cassert>
+#include <ostream>
+#include <sstream>
+
 #include <d3d9.h>
 #include <d3dx9math.h>
 
@@ -75,6 +80,107 @@ namespace xobject
     size_t m_vertexSize;
     D3DPRIMITIVETYPE m_primitiveType;
     size_t m_primitiveCount;
+  };
+
+  class XMesh
+    : public BaseXObject
+  {
+  public:
+    XMesh( IDirect3DDevice9 *device, 
+           ID3DXMesh *mesh,
+           std::vector<D3DMATERIAL9> materials,
+           std::vector<IDirect3DTexture9 *> textures )
+      : BaseXObject(device)
+      , m_mesh(mesh)
+      , m_materials(materials)
+      , m_textures(textures)
+    {
+      assert(materials.size() == textures.size());
+    }
+
+    ~XMesh()
+    {
+      for (size_t i = 0; i < m_materials.size(); ++i)
+      {
+        if (m_textures[i])
+          m_textures[i]->Release();
+      }
+      m_mesh->Release();
+    }
+
+  public:
+    static XMesh * create( IDirect3DDevice9 *device, char const *dataDirectory, char const *fileName )
+    {
+      // Based on DirectX Meshes example.
+
+      ID3DXMesh *mesh;
+      DWORD materialsNum;
+      LPD3DXBUFFER materialsBuffer;
+
+
+      {
+        std::ostringstream ostr;
+        ostr << dataDirectory << "/" << fileName;
+
+        // Load the mesh from the specified file.
+        if (FAILED(D3DXLoadMeshFromX(ostr.str().c_str(), D3DXMESH_SYSTEMMEM,
+                                     device, NULL,
+                                     &materialsBuffer, NULL, &materialsNum,
+                                     &mesh)))
+          return 0;
+      }
+
+      // Extracting the material properties and texture names from the materialsBuffer.
+      D3DXMATERIAL *xmaterials = (D3DXMATERIAL *)materialsBuffer->GetBufferPointer();
+      std::vector<D3DMATERIAL9>       materials(materialsNum);
+      std::vector<IDirect3DTexture9 *> textures(materialsNum);
+      
+      for (size_t i = 0; i < materialsNum; ++i)
+      {
+        // Copy the material.
+        materials[i] = xmaterials[i].MatD3D;
+
+        // Set the ambient color for the material (D3DX does not do this).
+        materials[i].Ambient = materials[i].Diffuse;
+
+        textures[i] = NULL;
+        if (xmaterials[i].pTextureFilename != NULL &&
+            lstrlenA(xmaterials[i].pTextureFilename) > 0)
+        {
+          std::ostringstream ostr;
+          ostr << dataDirectory << "/" << xmaterials[i].pTextureFilename;
+
+          // Create the texture.
+          if (FAILED(D3DXCreateTextureFromFileA(device,
+                                                ostr.str().c_str(),
+                                                &textures[i])))
+            OutputDebugString("Failed to load some texture\n");
+        }
+      }
+
+      // Done with the material buffer.
+      materialsBuffer->Release();
+
+      return new XMesh(device, mesh, materials, textures);
+    }
+
+    // object::IDrawableObject
+  public:
+    void draw()
+    {
+      for (size_t i = 0; i < m_materials.size(); ++i)
+      {
+        m_device->SetMaterial(&m_materials[i]);
+        m_device->SetTexture(0, m_textures[i]);
+
+        m_mesh->DrawSubset(i);
+      }
+    }
+
+  protected:
+    ID3DXMesh *m_mesh;
+    std::vector<D3DMATERIAL9> m_materials;
+    std::vector<IDirect3DTexture9 *> m_textures;
   };
 
   class XTriangle
