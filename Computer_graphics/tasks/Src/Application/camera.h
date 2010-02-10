@@ -1,142 +1,237 @@
 // camera.h
-// Camera description classes declaration.
+// Camera description.
 // Vladimir Rutsky, 4057/2
 // 09.02.2010
 
+#ifndef CAMERA_H
+#define CAMERA_H
+
 #include <d3dx9math.h>
 
+#include "constants.h"
 #include "cs.h"
 
 namespace camera
 {
-  class ICamera
+  namespace lcs
   {
-    virtual D3DXMATRIX viewMatrix() const = 0;
-  };
-
-  class IWritableCamera
-    : public virtual ICamera
-  {
-    virtual void setViewMatrix( D3DXMATRIX const *newViewMatrix ) const = 0;
-  };
-
-  // Camera with separate view and position matrices.
-  class BaseCamera
-    : public virtual IWritableCamera
-    , public cs::BaseCoordinateSystem
-  {
-    // ICamera
-  public:
-    D3DXMATRIX viewMatrix() const
+    class ICamera
     {
-      return matrix() * m_viewMatrix;
-    }
+      // Returns matrix in local CS.
+      virtual D3DXMATRIX viewMatrix() const = 0;
+    };
 
-    // IWritableCamera
-  public:
-    void setViewMatrix( D3DXMATRIX const *newViewMatrix ) const
+    class IWritableCamera
+      : public virtual ICamera
     {
-      m_viewMatrix = *newViewMatrix;
-    }
+      // Sets local CS matrix
+      virtual void setViewMatrix( D3DXMATRIX const *newViewMatrix ) = 0;
+    };
 
-  protected:
-    D3DXMatrix m_viewMatrix;
-  };
-
-  // Camera with single view/position matrix.
-  class BaseCSCamera
-    : public virtual IWritableCamera
-    , public cs::BaseCoordinateSystem
-  {
-    // ICamera
-  public:
-    D3DXMATRIX viewMatrix() const
+    class BaseCamera
+      : public virtual ICamera
     {
-      return matrix();
-    }
-
-    // IWritableCamera
-  public:
-    void setViewMatrix( D3DXMATRIX const *newViewMatrix ) const
-    {
-      setMatrix(newViewMatrix);
-    }
-  };
-
-  class ILookAtCamera
-    : public virtual IWritableCamera
-  {
-  public:
-    virtual void lookAt( D3DXVECTOR3 const *lookAtPoint, D3DXVECTOR3 const *upVector = 0 ) = 0;
-  };
-
-  class LookAtCamera
-    : public virtual BaseCamera
-  {
-    // ICameraLookAt
-  public:
-    void lookAt( D3DXVECTOR3 const *lookAtPoint, D3DXVECTOR3 const *upVector = 0 )
-    {
-      static D3DXVECTOR3 eyePoint(0, 0, 0);
-
-      if (upVector)
-        D3DXMatrixLookAtLH(&m_viewMatrix, &eyePoint, &lookAtPoint, &upVector);
-      else
+      // ICamera
+    public:
+      D3DXMATRIX viewMatrix() const
       {
-        D3DXVECTOR3 up(0, 0, 1);
-        D3DXMatrixLookAtLH(&viewMatrix, &eyePoint, &lookAtPoint, &up);
+        return m_viewMatrix;
       }
 
-      m_lookAtPoint = *lookAtPoint;
-    }
+    protected:
+      D3DXMATRIX m_viewMatrix;
+    };
 
-  protected:
-    D3DXVECTOR3 m_lookAtPoint;
-  };
-
-  class ISphericCamera
-    : public virtual IWritableCamera
-  {
-  public:
-    virtual void setCoordinates( double r, double theta, double phi ) = 0;
-    virtual void moveOnSphere( double dr, double dtheta, double dphi ) = 0;
-  }
-
-  class SphericCamera
-    : public ISphericCamera
-    , public BaseCamera
-  {
-  public:
-    SphericCamera()
-      : m_r(1.0)
-      , m_theta(0.0)
-      , m_phi(0.0)
-      , m_upVector(0, 0, 1)
+    class BaseWritableCamera
+      : public BaseCamera
+      , public virtual IWritableCamera
     {
-    }
+      // IWritableCamera
+    public:
+      void setViewMatrix( D3DXMATRIX const *newViewMatrix )
+      {
+        m_viewMatrix = *newViewMatrix;
+      }
+    };
 
-    // ISphericCamera
-  public:
-    void setCoordinates( double r, double theta, double phi )
+    class IFreeViewCamera
+      : public virtual ICamera
     {
-      m_r = r;
-      m_theta = theta;
-      m_phi = phi;
-    }
+    public:
+      // longitude:   0   <=  phi  <= 2pi
+      // latitude:  -pi/2 <= theta <= pi/2
+      virtual void setSphericCoordinates( double phi, double theta ) = 0;
+      virtual void moveInSphericCoordinates( double dphi, double dtheta ) = 0;
+    };
 
-    void moveOnSphere( double dr, double dtheta, double dphi ) = 0;
-
-  protected:
-    void calculateViewMatrix()
+    class FreeViewCamera
+      : public virtual BaseCamera
     {
+    public:
+      FreeViewCamera()
+        : m_phi(0)
+        , m_theta(0)
+      {
+      }
+
+      // IFreeViewCamera
+    public:
+      void setSphericCoordinates( double phi, double theta )
+      {
+        m_phi = constrainedPhi(phi);
+        m_theta = constrainedTheta(theta);
+        updateViewMatrix();
+      }
+
+      void moveInSphericCoordinates( double dphi, double dtheta )
+      {
+        m_phi = constrainedPhi(m_phi + dphi);
+        m_theta = constrainedTheta(m_theta + dtheta);
+        updateViewMatrix();
+      }
+
+    protected:
+      static D3DXMATRIX evalViewMatrix( double phi, double theta )
+      {
+        D3DXMATRIX yRot;
+        D3DXMatrixRotationY(&yRot, (float)theta);
+
+        D3DXMATRIX zRot;
+        D3DXMatrixRotationZ(&zRot, (float)phi);
+
+        D3DXMATRIX axis(
+           0,  0,  1,  0,
+          -1,  0,  0,  0,
+           0,  1,  0,  0,
+           0,  0,  0,  1);
+
+        return axis * yRot * zRot;
+      }
       
-    }
+      static double constrainedPhi( double phi )
+      {
+        phi = fmod(phi, 2 * constants::pi);
+        if (phi < 0)
+          phi += 2 * constants::pi;
+        return phi;
+      }
 
-  protected:
-    double m_r;     // r >= 0
-    double m_theta; // latitude:  -pi/2 <= theta <= pi/2
-    double m_phi;   // longitude:   0   <=  phi  <= 2pi
+      static double constrainedTheta( double theta )
+      {
+        if (theta < -constants::pi / 2.0)
+          return -constants::pi / 2.0;
+        else if (theta > constants::pi / 2.0)
+          return constants::pi / 2.0;
+        else
+          return theta;
+      }
 
-    D3DXVECTOR3 m_upVector;
-  };
+      void updateViewMatrix()
+      {
+        m_viewMatrix = evalViewMatrix(m_phi, m_theta);
+      }
+
+    protected:
+      double m_phi;   // longitude:   0   <=  phi  <= 2pi
+      double m_theta; // latitude:  -pi/2 <= theta <= pi/2
+    };
+
+    class ISphericCamera
+      : public virtual ICamera
+    {
+    public:
+      virtual void setSphericCoordinates( double r, double phi, double theta ) = 0;
+      virtual void moveInSphericCoordinates( double dr, double dphi, double dtheta ) = 0;
+    };
+
+    class SphericCamera
+      : public ISphericCamera
+      , public BaseCamera
+    {
+    public:
+      SphericCamera()
+        : m_r(1.0)
+        , m_phi(0.0)
+        , m_theta(0.0)
+      {
+      }
+
+      // ISphericCamera
+    public:
+      void setSphericCoordinates( double r, double phi, double theta )
+      {
+        m_r = constrainedR(r);
+        m_phi = constrainedPhi(phi);
+        m_theta = constrainedTheta(theta);
+        updateViewMatrix();
+      }
+
+      void moveInSphericCoordinates( double dr, double dphi, double dtheta )
+      {
+        m_r = constrainedR(m_r + dr);
+        m_phi = constrainedPhi(m_phi + dphi);
+        m_theta = constrainedTheta(m_theta + dphi);
+        updateViewMatrix();
+      }
+
+    protected:
+      static D3DXMATRIX evalViewMatrix( double r, double phi, double theta )
+      {
+        D3DXMATRIX translate;
+        D3DXMatrixTranslation(&translate, (float)-r, 0, 0);
+
+        D3DXMATRIX yRot;
+        D3DXMatrixRotationY(&yRot, (float)theta);
+
+        D3DXMATRIX zRot;
+        D3DXMatrixRotationZ(&zRot, (float)phi);
+
+        D3DXMATRIX axis(
+           0,  0,  1,  0,
+          -1,  0,  0,  0,
+           0,  1,  0,  0,
+           0,  0,  0,  1);
+
+        return axis * translate * yRot * zRot;
+      }
+      
+      static double constrainedR( double r )
+      {
+        if (r < 0)
+          return 0.0;
+        else
+          return r;
+      }
+
+      static double constrainedPhi( double phi )
+      {
+        phi = fmod(phi, 2 * constants::pi);
+        if (phi < 0)
+          phi += 2 * constants::pi;
+        return phi;
+      }
+
+      static double constrainedTheta( double theta )
+      {
+        if (theta < -constants::pi / 2.0)
+          return -constants::pi / 2.0;
+        else if (theta > constants::pi / 2.0)
+          return constants::pi / 2.0;
+        else
+          return theta;
+      }
+
+      void updateViewMatrix()
+      {
+        m_viewMatrix = evalViewMatrix(m_r, m_phi, m_theta);
+      }
+
+    protected:
+      double m_r;     // r >= 0
+      double m_phi;   // longitude:   0   <=  phi  <= 2pi
+      double m_theta; // latitude:  -pi/2 <= theta <= pi/2
+    };
+  } // End of namespace 'lcs'
 } // End of namespace 'camera'
+
+#endif // CAMERA_H

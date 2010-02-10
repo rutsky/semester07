@@ -1,5 +1,5 @@
 // cs.h
-// Coordinate system class.
+// Coordinate system.
 // Vladimir Rutsky, 4057/2
 // 09.02.2010
 
@@ -25,7 +25,7 @@ namespace cs
   };
 
   class BaseCoordinateSystem
-    : public virtual IWritableCoordinateSystem
+    : public virtual ICoordinateSystem
   {
   public:
     BaseCoordinateSystem()
@@ -40,13 +40,20 @@ namespace cs
       return m_matrix;
     }
 
+  protected:
+    D3DXMATRIX m_matrix;
+  };
+
+  class BaseWritableCoordinateSystem
+    : public virtual IWritableCoordinateSystem
+    , public BaseCoordinateSystem
+  {
+    // IWritableCoordinateSystem
+  public:
     void setMatrix( D3DXMATRIX const *newMatrix )
     {
       m_matrix = *newMatrix;
     }
-
-  protected:
-    D3DXMATRIX m_matrix;
   };
 } // End of namespace 'cs'
 

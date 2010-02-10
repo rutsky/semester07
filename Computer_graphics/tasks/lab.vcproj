@@ -215,7 +215,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Src\Application\camera.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Src\Application\camera.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Src\Application\constants.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Src\Application\cs.cpp"
 				>
 			</File>
 			<File
@@ -243,7 +255,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Src\Application\object.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Src\Application\object.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Src\Application\util.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Src\Application\xobject.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Src\Application\xobject.h"
 				>
 			</File>
 		</Filter>

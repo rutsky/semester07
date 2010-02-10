@@ -1,34 +1,39 @@
 // object.h
-// Object description classes declaration.
+// Object description.
 // Vladimir Rutsky, 4057/2
 // 09.02.2010
 
 #ifndef OBJECT_H
 #define OBJECT_H
 
-class IDrawableObject
-{
-public:
-  virtual void draw( IDirect3DDevice9 *device ) = 0;
-  virtual ~IDrawableObject() {};
-};
+#include <d3d9.h>
 
-class IDynamicObject
+namespace object
 {
-public:
-  virtual void update( double time ) = 0;
-  virtual ~IDynamicObject() {};
-};
+  class IDrawableObject
+  {
+  public:
+    virtual void draw() = 0;
+    virtual ~IDrawableObject() {};
+  };
 
-class ISceneObject
-  : public IDrawableObject
-  , public IDynamicObject
-{
-  // IDynamicObject
-public:
-  void update( double time ) {};
+  class IDynamicObject
+  {
+  public:
+    virtual void update( double time ) = 0;
+    virtual ~IDynamicObject() {};
+  };
 
-  virtual ~ISceneObject() {};
-};
+  class ISceneObject
+    : public virtual IDrawableObject
+    , public virtual IDynamicObject
+  {
+    // IDynamicObject
+  public:
+    void update( double time ) {};
+
+    virtual ~ISceneObject() {};
+  };
+} // End of namespace 'object'
 
 #endif // OBJECT_H
