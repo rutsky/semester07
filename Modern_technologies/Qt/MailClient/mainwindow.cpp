@@ -1,6 +1,7 @@
 #include <QFileSystemModel>
 #include <QDebug>
 #include <QInputDialog>
+#include <QMessageBox>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -120,7 +121,15 @@ void MainWindow::newDirectory()
 void MainWindow::removeDirectory()
 {
     QModelIndex const index = ui->treeView->selectionModel()->selection().indexes()[0];
-    qDebug() << fileSystemModel->remove(directoryProxyModel->mapToSource(index));
+    QModelIndex const fileSystemIndex = directoryProxyModel->mapToSource(index);
+
+    int const result =
+            QMessageBox::question(this, tr("Remove directory"),
+                    tr("Are you sure want to remove '%1'?").arg(fileSystemModel->fileName(fileSystemIndex)),
+                    QMessageBox::Yes,
+                    QMessageBox::No | QMessageBox::Default | QMessageBox::Escape);
+    if (result == QMessageBox::Yes)
+        qDebug() << fileSystemModel->remove(directoryProxyModel->mapToSource(index));
 }
 
 void MainWindow::directoryChanged(QModelIndex const &current, QModelIndex const &/* previous */)
