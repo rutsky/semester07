@@ -124,10 +124,11 @@ bool LetterProxyModel::lessThan(const QModelIndex &left,
     QVariant const leftData = dataFromSource(left, (int)Qt::DisplayRole);
     QVariant const rightData = dataFromSource(right, (int)Qt::DisplayRole);
 
+    // FIXME: Inverted as workaround for column sort order arrow.
     if (leftData.type() == QVariant::DateTime)
-        return leftData.toDateTime() < rightData.toDateTime();
+        return !(leftData.toDateTime() < rightData.toDateTime());
     else if (leftData.type() == QVariant::Int)
-        return leftData.toInt() < rightData.toInt();
+        return !(leftData.toInt() < rightData.toInt());
     else
-        return leftData.toString() < rightData.toString();
+        return !(leftData.toString() < rightData.toString());
 }
