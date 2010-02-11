@@ -44,6 +44,27 @@ namespace xobject
     IDirect3DDevice9 *m_device;
   };
 
+  inline IDirect3DVertexBuffer9 * createAndFillVertexBuffer( IDirect3DDevice9 *device, 
+    void *vertices, size_t bufferSize, DWORD vertexFormat )
+  {
+    IDirect3DVertexBuffer9 *vertexBuffer;
+    if (FAILED(device->CreateVertexBuffer(bufferSize,
+                 0, vertexFormat,
+                 D3DPOOL_DEFAULT, &vertexBuffer, NULL)))
+      return 0;
+
+    void *verticesMem;
+    if (FAILED(vertexBuffer->Lock(0, bufferSize, &verticesMem, 0)))
+    {
+      vertexBuffer->Release();
+      return 0;
+    }
+    memcpy(verticesMem, vertices, bufferSize);
+    vertexBuffer->Unlock();
+
+    return vertexBuffer;
+  }
+
   class XPrimitive
     : public BaseXObject
   {
@@ -209,6 +230,52 @@ namespace xobject
         };
       size_t const verticesNum = util::array_size(vertices);
 
+      IDirect3DVertexBuffer9 *vertexBuffer = 
+        createAndFillVertexBuffer(device, (void *)vertices, sizeof(vertices), vertex_xyzcolor::vertexFormat);
+      if (!vertexBuffer)
+        return 0;
+
+      return new XTriangle(device, vertexBuffer, vertex_xyzcolor::vertexFormat, 
+        sizeof(vertex_xyzcolor::Vertex), D3DPT_TRIANGLELIST, 1);
+    }
+
+    static XTriangle * create( IDirect3DDevice9 *device,
+      D3DXVECTOR3 const &p0, D3DXVECTOR3 const &p1, D3DXVECTOR3 const &p2 )
+    {
+      return create(device, p0, p1, p2, RGB(255, 0, 0), RGB(0, 255, 0), RGB(0, 0, 255));
+    }
+
+    static XTriangle * create( IDirect3DDevice9 *device )
+    {
+      return create(device, D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(0, 1, 0), D3DXVECTOR3(1, 0, 0));
+    }
+  };
+
+  /*
+  class XLine
+    : public XPrimitive
+  {
+  protected:
+    XLine( IDirect3DDevice9 *device, 
+               IDirect3DVertexBuffer9* streamData, 
+               DWORD vertexFormat, size_t vertexSize,
+               D3DPRIMITIVETYPE primitiveType, size_t primitiveCount )
+      : XPrimitive(device, streamData, vertexFormat, vertexSize, primitiveType, primitiveCount)
+    {
+    }
+
+  public:
+    static XTriangle * create( IDirect3DDevice9 *device,
+      D3DXVECTOR3 const &p0, D3DXVECTOR3 const &p1, 
+      DWORD color0, DWORD color1 )
+    {
+      vertex_xyzcolor::Vertex const vertices[] = 
+        {
+          {p0[0], p0[1], p0[2], color0},
+          {p1[0], p1[1], p1[2], color1},
+        };
+      size_t const verticesNum = util::array_size(vertices);
+
       IDirect3DVertexBuffer9 *vertexBuffer;
       if (FAILED(device->CreateVertexBuffer(verticesNum * sizeof(vertex_xyzcolor::Vertex),
                    0, vertex_xyzcolor::vertexFormat,
@@ -238,6 +305,7 @@ namespace xobject
       return create(device, D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(0, 1, 0), D3DXVECTOR3(1, 0, 0));
     }
   };
+  */
 } // End of namespace 'xobject'
 
 #endif // XOBJECT_H

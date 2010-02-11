@@ -27,7 +27,7 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
   assert(m_device);
 
   m_rootSceneNode.reset(new scene::SimpleSceneNode);
-  m_projectionMatrix.reset(new projection::PerspectiveProjection(constants::pi / 2.0, windowWidth / windowHeight, 1.0, 100.0));
+  m_projectionMatrix.reset(new projection::PerspectiveProjection(constants::pi / 2.0, windowWidth / windowHeight, 1.0, 10000.0));
 
   m_sphericCamera.reset(new camera::SphericCamera);
   m_rootSceneNode->addChildNode(scene::ISceneNodePtr(hierarchy::newSceneNode<scene::SimpleSceneNode>(m_sphericCamera.get())));
@@ -37,15 +37,15 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
   m_triangle.reset(xobject::XTriangle::create(m_device));
   m_mesh.reset(xobject::XMesh::create(m_device, "data", "Tiger.x"));
 
+  /*
   scene::ISceneNodePtr node;
 
-  /*
   node = scene::ISceneNodePtr(hierarchy::newSceneNode<scene::SimpleSceneNode>(m_triangle.get()));
-  m_rootSceneNode->addChildNode(node);
+  m_rootSceneNode->addChildNode(node);*/
 
-  scene::RotatingSceneNode *rotatingNode = new scene::RotatingSceneNode(D3DXVECTOR3(0, 1, 1), 1.0);
+  scene::RotatingSceneNode *rotatingNode = new scene::RotatingSceneNode(D3DXVECTOR3(0, 0, 1), 1.0);
   rotatingNode->setObject(m_triangle.get());
-  m_rootSceneNode->addChildNode(scene::ISceneNodePtr(rotatingNode));*/
+  m_rootSceneNode->addChildNode(scene::ISceneNodePtr(rotatingNode));
 
   scene::LCSArrowPgUpPgDownMoveSceneNode *arrowsControl = new scene::LCSArrowPgUpPgDownMoveSceneNode;
   arrowsControl->setObject(m_mesh.get());

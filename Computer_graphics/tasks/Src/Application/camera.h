@@ -210,7 +210,8 @@ namespace camera
            0,  1,  0,  0,
            0,  0,  0,  1);
 
-        return axis * translate * yRot * zRot;
+        //return axis * translate * yRot * zRot;
+        return zRot * yRot * translate * axis;
       }
       
       static double constrainedR( double r )
