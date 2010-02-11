@@ -6,3 +6,11 @@
 #include "precompiled.h"
 
 #include "config.h"
+
+namespace config
+{
+  extern double const keyboardTranslationSpeed = 2.0;
+  extern double const mouseRotationSpeedX = 2 * constants::pi / 400.0;
+  extern double const mouseRotationSpeedY = 2 * constants::pi / 400.0;
+  extern double const mouseWheelZoomFactor = 1.1;
+} // End of namespace 'config'

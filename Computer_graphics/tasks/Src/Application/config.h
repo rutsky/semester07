@@ -10,9 +10,10 @@
 
 namespace config
 {
-  double const keyboardTranslationSpeed = 2.0;
-  double const mouseRotationSpeedX = 2 * constants::pi / 400.0;
-  double const mouseRotationSpeedY = 2 * constants::pi / 400.0;
+  extern double const keyboardTranslationSpeed;
+  extern double const mouseRotationSpeedX;
+  extern double const mouseRotationSpeedY;
+  extern double const mouseWheelZoomFactor;
 } // End of namespace 'config'
 
 #endif // CONFIG_H

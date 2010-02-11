@@ -118,7 +118,7 @@ namespace control
         int keys = GET_KEYSTATE_WPARAM(wParam);
         int zDelta = GET_WHEEL_DELTA_WPARAM(wParam);
 
-        return onMouseWheel(zDelta, keys);
+        return onMouseWheel(zDelta / 120, keys);
       }
 
       return false; 

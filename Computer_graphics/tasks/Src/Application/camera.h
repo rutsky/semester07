@@ -272,7 +272,7 @@ namespace camera
     {
       if (keys & MK_LBUTTON)
       {
-        moveInSphericCoordinates(0, dx * config::mouseRotationSpeedX, dy * config::mouseRotationSpeedY);
+        moveInSphericCoordinates(0, dx * config::mouseRotationSpeedX, -dy * config::mouseRotationSpeedY);
         return true;
       }
 
@@ -281,9 +281,12 @@ namespace camera
 
     // IOnMouseWheelHandler
   public:
-    virtual bool onMouseWheel( int zDelta, int keys )
+    virtual bool onMouseWheel( int steps, int keys )
     {
-      return false;
+      double const dr = ::pow(config::mouseWheelZoomFactor, steps);
+      moveInSphericCoordinates(m_r * (dr - 1.0), 0, 0);
+
+      return true;
     }
   };
 } // End of namespace 'camera'
