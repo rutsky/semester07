@@ -11,20 +11,31 @@
 #include "constants.h"
 #include "cs.h"
 #include "control.h"
+#include "object.h"
+#include "config.h"
 
 namespace camera
 {
+  class IViewMatrix
+  {
+  public:
+    virtual D3DXMATRIX viewMatrix() const = 0;
+    ~IViewMatrix() {}
+  };
+
   namespace lcs
   {
     class ICamera
     {
-      // Returns matrix in local CS.
+    public:
       virtual D3DXMATRIX viewMatrix() const = 0;
+      ~ICamera() {}
     };
 
     class IWritableCamera
       : public virtual ICamera
     {
+    public:
       // Sets local CS matrix
       virtual void setViewMatrix( D3DXMATRIX const *newViewMatrix ) = 0;
     };
@@ -32,6 +43,12 @@ namespace camera
     class BaseCamera
       : public virtual ICamera
     {
+    public:
+      BaseCamera()
+      {
+        D3DXMatrixIdentity(&m_viewMatrix);
+      }
+
       // ICamera
     public:
       D3DXMATRIX viewMatrix() const
@@ -171,7 +188,7 @@ namespace camera
       {
         m_r = constrainedR(m_r + dr);
         m_phi = constrainedPhi(m_phi + dphi);
-        m_theta = constrainedTheta(m_theta + dphi);
+        m_theta = constrainedTheta(m_theta + dtheta);
         updateViewMatrix();
       }
 
@@ -235,8 +252,39 @@ namespace camera
   } // End of namespace 'lcs'
 
   class SphericCamera
+    : public IViewMatrix
+    , public virtual object::ISceneObject
+    , public virtual object::BaseWorldMatrixDependentObject
+    , public lcs::SphericCamera
+    , public control::BaseMouseControl
   {
+    // IViewMatrix
+  public:
+    D3DXMATRIX viewMatrix() const
+    {
+      // FIXME: Don't allow to rotate Z-axis -- use m_worldMatrix.
+      return lcs::SphericCamera::viewMatrix();
+    }
 
+    // IOnMouseMoveHandler
+  public:
+    bool onMouseMove( int dx, int dy, int keys )
+    {
+      if (keys & MK_LBUTTON)
+      {
+        moveInSphericCoordinates(0, dx * config::mouseRotationSpeedX, dy * config::mouseRotationSpeedY);
+        return true;
+      }
+
+      return false;
+    }
+
+    // IOnMouseWheelHandler
+  public:
+    virtual bool onMouseWheel( int zDelta, int keys )
+    {
+      return false;
+    }
   };
 } // End of namespace 'camera'
 

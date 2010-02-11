@@ -17,6 +17,7 @@
 
 #include "xobject.h"
 #include "scene.h"
+#include "camera.h"
 #include "camera_projection.h"
 
 class Application : public cglApp
@@ -39,7 +40,8 @@ private:
   IDirect3DDevice9 *m_device;
 
   scene::ISceneNodePtr m_rootSceneNode;
-  boost::shared_ptr<projection::IProjectionMatrix> projectionMatrix;
+  boost::shared_ptr<projection::IProjectionMatrix> m_projectionMatrix;
+  boost::shared_ptr<camera::SphericCamera> m_sphericCamera;
 
   boost::shared_ptr<xobject::XMesh> m_mesh;
   boost::shared_ptr<xobject::XTriangle> m_triangle;

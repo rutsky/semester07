@@ -20,6 +20,14 @@ namespace object
     virtual ~IDrawableObject() {}
   };
 
+  class DummyDrawableObject
+    : public virtual IDrawableObject
+  {
+    // IDrawableObject
+  public:
+    void draw() {}
+  };
+
   class IDynamicObject
   {
   public:
@@ -79,15 +87,26 @@ namespace object
     virtual void updateWorldMatrix( D3DXMATRIX const *worldMatrix ) {}
   };
 
+  class BaseWorldMatrixDependentObject
+    : public virtual DummyWorldMatrixDependentObject
+  {
+    // IWorldMatrixDependentObject
+  public:
+    void updateWorldMatrix( D3DXMATRIX const *worldMatrix )
+    {
+      m_worldMatrix = *worldMatrix;
+    }
+
+  protected:
+    D3DXMATRIX m_worldMatrix;
+  };
+
   class ISceneObject
-    : public virtual IDrawableObject
+    : public virtual DummyDrawableObject
     , public virtual DummyWorldMatrixDependentObject
     , public virtual DummyDynamicObject
-    , public control::IControlHandler
+    , public virtual control::DummyControlHandler
   {
-    // IDrawableObject
-  public:
-    virtual void draw() {}
   };
 } // End of namespace 'object'
 

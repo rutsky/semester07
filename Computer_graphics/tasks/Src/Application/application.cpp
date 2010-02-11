@@ -27,10 +27,15 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
   assert(m_device);
 
   m_rootSceneNode.reset(new scene::SimpleSceneNode);
-  projectionMatrix.reset(new projection::PerspectiveProjection(constants::pi / 2.0, windowWidth / windowHeight, 1.0, 100.0));
+  m_projectionMatrix.reset(new projection::PerspectiveProjection(constants::pi / 2.0, windowWidth / windowHeight, 1.0, 100.0));
 
-  m_triangle = boost::shared_ptr<xobject::XTriangle>(xobject::XTriangle::create(m_device));
-  m_mesh = boost::shared_ptr<xobject::XMesh>(xobject::XMesh::create(m_device, "data", "Tiger.x"));
+  m_sphericCamera.reset(new camera::SphericCamera);
+  m_rootSceneNode->addChildNode(scene::ISceneNodePtr(hierarchy::newSceneNode<scene::SimpleSceneNode>(m_sphericCamera.get())));
+
+  //m_sphericCamera->handleMessage(0, 0, 0);
+
+  m_triangle.reset(xobject::XTriangle::create(m_device));
+  m_mesh.reset(xobject::XMesh::create(m_device, "data", "Tiger.x"));
 
   scene::ISceneNodePtr node;
 
@@ -128,7 +133,12 @@ void Application::renderInternal()
   m_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
   m_device->SetRenderState(D3DRS_LIGHTING, FALSE);
 
-  m_device->SetTransform(D3DTS_PROJECTION, &projectionMatrix->projectionMatrix());
+  D3DXMATRIX initialWorld;
+  D3DXMatrixIdentity(&initialWorld);
+
+  m_device->SetTransform(D3DTS_WORLD, &initialWorld);
+  m_device->SetTransform(D3DTS_VIEW, &m_sphericCamera->viewMatrix());
+  m_device->SetTransform(D3DTS_PROJECTION, &m_projectionMatrix->projectionMatrix());
   drawScene(m_device, m_rootSceneNode);
 }
 

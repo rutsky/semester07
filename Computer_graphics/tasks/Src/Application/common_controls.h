@@ -15,8 +15,7 @@
 namespace control
 {
   class LCSArrowPgUpPgDownMove
-    : public IControlHandler
-    , public virtual cs::BaseCoordinateSystem
+    : public virtual cs::BaseCoordinateSystem
     , public virtual object::BaseDynamicObject
   {
     // IDynamicObject
