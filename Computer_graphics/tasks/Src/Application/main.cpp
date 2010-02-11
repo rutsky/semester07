@@ -12,10 +12,12 @@
 #include "precompiled.h"
 
 #include <cassert>
+#include <memory>
 
 #include "windows.h"
 
 #include "application.h"
+#include "myApp.h"
 
 /**
   @brief    This function is WinMain for D3DBase project
@@ -38,11 +40,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInsatnce,
 
   bool failed = false;
 
-  Application app(800, 600, (void*)hInstance, nCmdShow);
-  if (!app.isFailed())
-    failed = failed || app.theLoop();
-  else
-    failed = true;
+  {
+    //std::auto_ptr<cglApp> app(new myApp(800, 600, (void*)hInstance, nCmdShow));
+    std::auto_ptr<cglApp> app(new Application(800, 600, (void*)hInstance, nCmdShow));
+    if (!app->isFailed())
+      failed = failed || app->theLoop();
+    else
+      failed = true;
+  }
   
 #ifndef NDEBUG
   _CrtSetReportMode(_CRT_ERROR, _CRTDBG_MODE_DEBUG);

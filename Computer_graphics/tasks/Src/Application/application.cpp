@@ -23,7 +23,7 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
 
   assert(m_device);
 
-  //m_rootSceneNode = scene::ISceneNodePtr(new scene::SimpleSceneNode);
+  m_rootSceneNode = scene::ISceneNodePtr(new scene::SimpleSceneNode);
 
   /*
   boost::shared_ptr<xobject::XTriangle> sp;
@@ -121,21 +121,23 @@ void Application::update()
 {
   cglApp::update();
 
-  //updateScene(m_rootSceneNode, m_timer.getTime());
+  updateScene(m_rootSceneNode, m_timer.getTime());
 }
 
 void Application::renderInternal()
 {
-  //m_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-  //m_device->SetRenderState(D3DRS_LIGHTING, FALSE);
+  m_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+  m_device->SetRenderState(D3DRS_LIGHTING, FALSE);
 
-  //drawScene(m_device, m_rootSceneNode);
+  drawScene(m_device, m_rootSceneNode);
 }
 
 bool Application::processInput( unsigned int message, int wParam, long lParam )
 {
-  //return processInputOnScene(m_rootSceneNode, message, wParam, lParam);
-  return false;
+  if (cglApp::processInput(message, wParam, lParam))
+    return true;
+
+  return processInputOnScene(m_rootSceneNode, message, wParam, lParam);
 }
 
 char const * Application::getWindowText()
