@@ -26,37 +26,67 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
 
   assert(m_device);
 
+  // Root node.
   m_rootSceneNode.reset(new scene::SimpleSceneNode);
 
+  // Projection matrix.
   m_projectionMatrix.reset(new projection::PerspectiveProjection(constants::pi / 2.0, windowWidth / windowHeight, 1.0, 10000.0));
 
+  // Camera (view matrix).
   m_sphericCamera.reset(new camera::SphericCamera);
   m_sphericCamera->setSphericCoordinates(10, util::deg2rad(30), util::deg2rad(60));
+  // Attaching camera to root node.
   m_rootSceneNode->addChildNode(scene::ISceneNodePtr(hierarchy::newSceneNode<scene::SimpleSceneNode>(m_sphericCamera.get())));
 
-  m_coordinateSystem.reset(xobject::XCoordinateSystem::create(m_device));
-  //m_rootSceneNode->addObject(m_coordinateSystem.get());
+  {
+    // Scene objects.
 
-  m_triangle.reset(xobject::XTriangle::create(m_device));
-  //m_triangle->setShow(false);
+    m_coordinateSystem.reset(xobject::XCoordinateSystem::create(m_device));
+    //m_rootSceneNode->addObject(m_coordinateSystem.get());
 
-  m_mesh.reset(xobject::XMesh::create(m_device, "data", "Tiger.x"));
-  //m_mesh->setShow(false);
+    m_triangle.reset(xobject::XTriangle::create(m_device));
+    //m_triangle->setShow(false);
 
-  /*
-  scene::ISceneNodePtr node;
+    m_mesh.reset(xobject::XMesh::create(m_device, "data", "Tiger.x"));
+    //m_mesh->setShow(false);
+  }
 
-  node = scene::ISceneNodePtr(hierarchy::newSceneNode<scene::SimpleSceneNode>(m_triangle.get()));
-  m_rootSceneNode->addChildNode(node);*/
+  {
+    // Scene hierarchy.
 
-  scene::RotatingSceneNode *rotatingNode = new scene::RotatingSceneNode(D3DXVECTOR3(1, 0, 0), 1.0);
-  rotatingNode->addObject(m_triangle.get());
-  rotatingNode->addObject(m_coordinateSystem.get());
-  m_rootSceneNode->addChildNode(scene::ISceneNodePtr(rotatingNode));
+    if (1)
+    {
+      m_rootSceneNode->addObject(m_coordinateSystem.get());
+    }
 
-  scene::LCSArrowPgUpPgDownMoveSceneNode *arrowsControl = new scene::LCSArrowPgUpPgDownMoveSceneNode;
-  arrowsControl->addObject(m_mesh.get());
-  m_rootSceneNode->addChildNode(scene::ISceneNodePtr(arrowsControl));
+    if (0)
+    {
+      scene::ISceneNodePtr node;
+      node = scene::ISceneNodePtr(hierarchy::newSceneNode<scene::SimpleSceneNode>(m_triangle.get()));
+      m_rootSceneNode->addChildNode(node);
+    }
+
+    if (0)
+    {
+      scene::RotatingSceneNode *node = new scene::RotatingSceneNode(D3DXVECTOR3(1, 0, 0), 1.0);
+      node->addObject(m_triangle.get());
+      m_rootSceneNode->addChildNode(scene::ISceneNodePtr(node));
+    }
+
+    if (0)
+    {
+      scene::LCSArrowPgUpPgDownMoveSceneNode *node = new scene::LCSArrowPgUpPgDownMoveSceneNode;
+      node->addObject(m_mesh.get());
+      m_rootSceneNode->addChildNode(scene::ISceneNodePtr(node));
+    }
+
+    if (1)
+    {
+      scene::LCSArrowPgUpPgDownRotateNode *node = new scene::LCSArrowPgUpPgDownRotateNode;
+      node->addObject(m_mesh.get());
+      m_rootSceneNode->addChildNode(scene::ISceneNodePtr(node));
+    }
+  }
 }
 
 Application::~Application()
@@ -158,7 +188,7 @@ void Application::renderInternal()
 
   drawScene(m_device, m_rootSceneNode);
 
-  m_coordinateSystem->draw();
+  //m_coordinateSystem->draw();
 }
 
 bool Application::processInput( unsigned int message, int wParam, long lParam )

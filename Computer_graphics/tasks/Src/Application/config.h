@@ -6,11 +6,10 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#include "constants.h"
-
 namespace config
 {
   extern double const keyboardTranslationSpeed;
+  extern double const keyboardRotationSpeed;
   extern double const mouseRotationSpeedX;
   extern double const mouseRotationSpeedY;
   extern double const mouseWheelZoomFactor;

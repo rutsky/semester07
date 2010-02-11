@@ -229,6 +229,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Src\Application\common_controls.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Src\Application\common_controls.h"
 				>
 			</File>

@@ -64,6 +64,12 @@ namespace scene
     , public control::LCSArrowPgUpPgDownMove
   {
   };
+
+  class LCSArrowPgUpPgDownRotateNode
+    : public SimpleSceneNode
+    , public control::LCSArrowPgUpPgDownRotate
+  {
+  };
 } // End of namespace 'scene'
 
 #endif // SCENE_H
