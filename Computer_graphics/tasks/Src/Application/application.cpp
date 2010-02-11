@@ -10,11 +10,14 @@
 #include <windows.h>
 
 #include "application.h"
-
 #include "Library/cglD3D.h"
+
+#include "constants.h"
 
 Application::Application( int windowWidth, int windowHeight, void* hInstance, int nCmdShow )
   : cglApp(windowWidth, windowHeight, hInstance, nCmdShow)  
+  , m_windowWidth(windowWidth)
+  , m_windowHeight(windowHeight)
   , m_device(m_pD3D->getDevice())
 {
   // Updating caption first time.
@@ -23,7 +26,8 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
 
   assert(m_device);
 
-  m_rootSceneNode = scene::ISceneNodePtr(new scene::SimpleSceneNode);
+  m_rootSceneNode.reset(new scene::SimpleSceneNode);
+  projectionMatrix.reset(new projection::PerspectiveProjection(constants::pi / 2.0, windowWidth / windowHeight, 1.0, 100.0));
 
   m_triangle = boost::shared_ptr<xobject::XTriangle>(xobject::XTriangle::create(m_device));
   m_mesh = boost::shared_ptr<xobject::XMesh>(xobject::XMesh::create(m_device, "data", "Tiger.x"));
@@ -124,6 +128,7 @@ void Application::renderInternal()
   m_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
   m_device->SetRenderState(D3DRS_LIGHTING, FALSE);
 
+  m_device->SetTransform(D3DTS_PROJECTION, &projectionMatrix->projectionMatrix());
   drawScene(m_device, m_rootSceneNode);
 }
 

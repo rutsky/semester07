@@ -17,6 +17,7 @@
 
 #include "xobject.h"
 #include "scene.h"
+#include "camera_projection.h"
 
 class Application : public cglApp
 {
@@ -33,9 +34,12 @@ protected:
   void update();
 
 private:
+  int m_windowWidth, m_windowHeight;
+
   IDirect3DDevice9 *m_device;
 
   scene::ISceneNodePtr m_rootSceneNode;
+  boost::shared_ptr<projection::IProjectionMatrix> projectionMatrix;
 
   boost::shared_ptr<xobject::XMesh> m_mesh;
   boost::shared_ptr<xobject::XTriangle> m_triangle;

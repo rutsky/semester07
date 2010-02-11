@@ -223,6 +223,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Src\Application\camera_projection.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Src\Application\common_controls.h"
 				>
 			</File>
