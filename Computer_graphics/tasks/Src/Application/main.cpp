@@ -11,6 +11,8 @@
 
 #include "precompiled.h"
 
+#include <cassert>
+
 #include "windows.h"
 
 #include "application.h"
@@ -29,9 +31,25 @@
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInsatnce,
                    LPTSTR lpszCommandLine, int nCmdShow)
 {
+#ifndef NDEBUG
+  //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+  //_CrtSetReportMode(_CRT_ERROR, _CRTDBG_MODE_DEBUG);
+#endif // NDEBUG
+
+  bool failed = false;
+
   Application app(800, 600, (void*)hInstance, nCmdShow);
   if (!app.isFailed())
-    return app.theLoop();
-  return 0;
+    failed = failed || app.theLoop();
+  else
+    failed = true;
+  
+#ifndef NDEBUG
+  _CrtSetReportMode(_CRT_ERROR, _CRTDBG_MODE_DEBUG);
+  failed = failed || (_CrtDumpMemoryLeaks() != 0);
+#endif // NDEBUG
+
+  assert(!failed);
+  return (int)failed;
 } // end of WinMain
 

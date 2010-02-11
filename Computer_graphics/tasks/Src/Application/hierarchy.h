@@ -13,14 +13,16 @@
 
 #include "object.h"
 #include "cs.h"
+#include "control.h"
+#include "common_controls.h"
 
 namespace hierarchy
 {
-  template< class Node >
+  template< class NodePtr >
   class IChildNodePtrsManager
   {
   public:
-    typedef Node * node_ptr_type;
+    typedef NodePtr node_ptr_type;
 
     virtual size_t childNodesNum() const = 0;
     virtual node_ptr_type childNode( size_t idx ) const = 0;
@@ -30,23 +32,23 @@ namespace hierarchy
     virtual ~IChildNodePtrsManager() {}
   };
 
-  template< class Node >
+  template< class NodePtr >
   class IParentNodeManager
   {
   public:
-    typedef Node * node_ptr_type;
+    typedef NodePtr node_ptr_type;
 
     virtual node_ptr_type parent() const = 0;
 
     virtual ~IParentNodeManager() {}
   };
 
-  template< class Node >
+  template< class NodePtr >
   class IWritableParentNodeManager
-    : public virtual IParentNodeManager<Node>
+    : public virtual IParentNodeManager<NodePtr>
   {
   public:
-    typedef Node * node_ptr_type;
+    typedef NodePtr node_ptr_type;
 
     virtual void setParent( node_ptr_type node ) = 0;
   };
@@ -72,25 +74,25 @@ namespace hierarchy
     virtual void setObject( object_type object ) = 0;
   };
 
-  template< class NodeType, class Object >
+  template< class NodeType, class NodePtrType, class ObjectType >
   class IHierarchyNode 
-    : public virtual IChildNodePtrsManager<NodeType>
-    , public virtual IWritableParentNodeManager<NodeType>
+    : public virtual IChildNodePtrsManager<NodePtrType>
+    , public virtual IWritableParentNodeManager<NodeType *>
     , public virtual cs::ICoordinateSystem
-    , public virtual IObjectManager<Object>
+    , public virtual IObjectManager<ObjectType>
   {
   public:
     typedef NodeType node_type;
-    typedef node_type * node_ptr_type;
-    typedef Object object_type;
+    typedef NodePtrType node_ptr_type;
+    typedef ObjectType object_type;
   };
 
-  template< class Node >
+  template< class NodePtr >
   class VectorChildNodesManager
-    : public virtual IChildNodePtrsManager<Node>
+    : public virtual IChildNodePtrsManager<NodePtr>
   {
   public:
-    typedef Node * node_ptr_type;
+    typedef NodePtr node_ptr_type;
 
     size_t childNodesNum() const
     {
@@ -106,7 +108,7 @@ namespace hierarchy
     void addChildNode( node_ptr_type node )
     {
       childs.push_back(node);
-      node->setParent(dynamic_cast<node_ptr_type>(this));
+      node->setParent(dynamic_cast<node_ptr_type::value_type *>(this));
     }
 
     void removeChildNode( size_t idx )
@@ -121,12 +123,12 @@ namespace hierarchy
     std::vector<node_ptr_type> childs;
   };
 
-  template< class Node >
+  template< class NodePtr >
   class BaseWritableParentNodeManager
-    : public virtual IWritableParentNodeManager<Node>
+    : public virtual IWritableParentNodeManager<NodePtr>
   {
   public:
-    typedef Node * node_ptr_type;
+    typedef NodePtr node_ptr_type;
 
     BaseWritableParentNodeManager()
       : m_parent(0)
@@ -207,8 +209,8 @@ namespace hierarchy
     dereferenced_object *m_object;
   };
 
-  template< class Node >
-  inline D3DXMATRIX evaluateWorldMatrix( Node *node )
+  template< class NodePtr >
+  inline D3DXMATRIX evaluateWorldMatrix( NodePtr node )
   {
     D3DXMATRIX result;
     D3DXMatrixIdentity(&result);
@@ -222,53 +224,6 @@ namespace hierarchy
     
     return result;
   }
-
-  class ISceneNode
-    : public virtual IHierarchyNode<ISceneNode, object::ISceneObject *>
-    , public virtual object::ISceneObject
-  {
-  };
-
-  class BaseSceneNode
-    : public virtual ISceneNode
-    , public VectorChildNodesManager<ISceneNode>
-    , public BaseWritableParentNodeManager<ISceneNode>
-    , public object::BaseDynamicObject
-  {
-  };
-
-  class SimpleSceneNode
-    : public BaseSceneNode
-    , public cs::BaseCoordinateSystem
-    , public virtual BaseWritableObjectManager<object::ISceneObject *>
-  {
-  };
-
-  class RotatingSceneNode
-    : public SimpleSceneNode
-  {
-  public:
-    RotatingSceneNode( D3DXVECTOR3 axis, double speed )
-      : m_axis(axis)
-      , m_speed(speed)
-    {
-    }
-
-    // IDynamicObject 
-  public:
-    void update( double time )
-    {
-      BaseDynamicObject::update(time);
-
-      D3DXMATRIX rotation;
-      D3DXMatrixRotationAxis(&rotation, &m_axis, (float)(m_speed * dtime()));
-      m_matrix *= rotation;
-    }
-
-  protected:
-    D3DXVECTOR3 m_axis;
-    double m_speed;
-  };
 
   template< class SceneNode >
   inline SceneNode * newSceneNode( object::ISceneObject *sceneObject )

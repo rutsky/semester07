@@ -6,15 +6,17 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
-#include <memory>
 #include <vector>
+
+#include <boost/shared_ptr.hpp>
+#include <boost/scoped_ptr.hpp>
 
 #include <d3d9.h>
 
 #include "Library/cglApp.h"
 
 #include "xobject.h"
-#include "hierarchy.h"
+#include "scene.h"
 
 class Application : public cglApp
 {
@@ -22,18 +24,21 @@ public:
   Application( int windowWidth, int windowHeight, void* hInstance, int nCmdShow );
   ~Application();
 
+public:
+  bool processInput( unsigned int message, int wParam, long lParam );
+
 protected:
   char const * getWindowText();
   void renderInternal();
+  void update();
 
 private:
   IDirect3DDevice9 *m_device;
 
-  hierarchy::SimpleSceneNode rootSceneNode;
-  std::vector<hierarchy::ISceneNode *> sceneNodes;
+  scene::ISceneNodePtr m_rootSceneNode;
 
-  std::auto_ptr<xobject::XMesh> m_mesh;
-  std::auto_ptr<xobject::XTriangle> m_triangle;
+  boost::shared_ptr<xobject::XMesh> m_mesh;
+  boost::shared_ptr<xobject::XTriangle> m_triangle;
 };
 
 #endif // APPLICATION_H

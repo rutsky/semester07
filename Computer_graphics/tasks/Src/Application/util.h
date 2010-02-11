@@ -3,6 +3,9 @@
 // Vladimir Rutsky, 4057/2
 // 10.02.2010
 
+#ifndef UTIL_H
+#define UTIL_H
+
 namespace util
 {
   template< class T, int N >
@@ -11,3 +14,5 @@ namespace util
     return N;
   }
 } // End of namespace 'util'
+
+#endif // UTIL_H

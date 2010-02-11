@@ -1,0 +1,67 @@
+// scene.h
+// Scene.
+// Vladimir Rutsky, 4057/2
+// 11.02.2010
+
+#ifndef SCENE_H
+#define SCENE_H
+
+#include "hierarchy.h"
+
+namespace scene
+{
+  class ISceneNode
+    : public virtual hierarchy::IHierarchyNode<ISceneNode, boost::shared_ptr<ISceneNode>, object::ISceneObject *>
+    , public virtual object::ISceneObject
+  {
+  };
+
+  typedef boost::shared_ptr<ISceneNode> ISceneNodePtr;
+
+  class BaseSceneNode
+    : public virtual ISceneNode
+    , public hierarchy::VectorChildNodesManager<ISceneNodePtr>
+    , public hierarchy::BaseWritableParentNodeManager<ISceneNode *>
+    , public object::BaseDynamicObject
+  {
+  };
+
+  class SimpleSceneNode
+    : public BaseSceneNode
+    , public cs::BaseCoordinateSystem
+    , public virtual hierarchy::BaseWritableObjectManager<object::ISceneObject *>
+  {
+  };
+
+  class RotatingSceneNode
+    : public SimpleSceneNode
+  {
+  public:
+    RotatingSceneNode( D3DXVECTOR3 axis, double speed )
+      : m_axis(axis)
+      , m_speed(speed)
+    {
+    }
+
+    // IDynamicObject 
+  public:
+    void update( double time )
+    {
+      BaseDynamicObject::update(time);
+
+      D3DXMatrixRotationAxis(&m_matrix, &m_axis, (float)(m_speed * time)); // FIXME: Overflows
+    }
+
+  protected:
+    D3DXVECTOR3 m_axis;
+    double m_speed;
+  };
+
+  class LCSArrowPgUpPgDownMoveSceneNode
+    : public SimpleSceneNode
+    , public control::LCSArrowPgUpPgDownMove
+  {
+  };
+} // End of namespace 'scene'
+
+#endif // SCENE_H

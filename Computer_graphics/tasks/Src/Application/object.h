@@ -9,6 +9,7 @@
 #include <d3d9.h>
 
 #include "cs.h"
+#include "control.h"
 
 namespace object
 {
@@ -67,6 +68,7 @@ namespace object
     : public virtual IDrawableObject
     , public virtual IWorldMatrixDependentObject
     , public IDynamicObject
+    , public control::IControlHandler
   {
     // IDrawableObject
   public:
