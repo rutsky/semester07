@@ -31,16 +31,17 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
   m_projectionMatrix.reset(new projection::PerspectiveProjection(constants::pi / 2.0, windowWidth / windowHeight, 1.0, 10000.0));
 
   m_sphericCamera.reset(new camera::SphericCamera);
+  m_sphericCamera->setSphericCoordinates(10, util::deg2rad(30), util::deg2rad(60));
   m_rootSceneNode->addChildNode(scene::ISceneNodePtr(hierarchy::newSceneNode<scene::SimpleSceneNode>(m_sphericCamera.get())));
 
   m_coordinateSystem.reset(xobject::XCoordinateSystem::create(m_device));
   //m_rootSceneNode->addObject(m_coordinateSystem.get());
 
   m_triangle.reset(xobject::XTriangle::create(m_device));
-  m_triangle->setShow(false);
+  //m_triangle->setShow(false);
 
   m_mesh.reset(xobject::XMesh::create(m_device, "data", "Tiger.x"));
-  m_mesh->setShow(false);
+  //m_mesh->setShow(false);
 
   /*
   scene::ISceneNodePtr node;
@@ -144,8 +145,8 @@ void Application::renderInternal()
   //D3DXMatrixIdentity(&identity);
   //m_device->SetTransform(D3DTS_WORLD, &initialWorld);
   
-  //m_device->SetTransform(D3DTS_VIEW, &m_sphericCamera->viewMatrix());
-  //m_device->SetTransform(D3DTS_PROJECTION, &m_projectionMatrix->projectionMatrix());
+  m_device->SetTransform(D3DTS_VIEW, &m_sphericCamera->viewMatrix());
+  m_device->SetTransform(D3DTS_PROJECTION, &m_projectionMatrix->projectionMatrix());
 
   /*
   D3DXVECTOR3 vEyePt( 0.0f, 3.0f,-5.0f );
@@ -153,9 +154,9 @@ void Application::renderInternal()
   D3DXVECTOR3 vUpVec( 0.0f, 1.0f, 0.0f );
   D3DXMATRIXA16 matView;
   D3DXMatrixLookAtLH( &matView, &vEyePt, &vLookatPt, &vUpVec );
-  m_device->SetTransform( D3DTS_VIEW, &matView );
+  m_device->SetTransform( D3DTS_VIEW, &matView );*/
 
-  drawScene(m_device, m_rootSceneNode);*/
+  drawScene(m_device, m_rootSceneNode);
 
   m_coordinateSystem->draw();
 }

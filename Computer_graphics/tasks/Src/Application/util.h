@@ -8,6 +8,8 @@
 
 #include <cassert>
 
+#include "constants.h"
+
 namespace util
 {
   template< class T, int N >
@@ -78,6 +80,16 @@ namespace util
   private:
     T *m_p;
   };
+
+  inline double rad2deg( double rad )
+  {
+    return (rad / constants::pi) * 180.0;
+  }
+
+  inline double deg2rad( double deg )
+  {
+    return (deg / 180.0) * constants::pi;
+  }
 } // End of namespace 'util'
 
 #endif // UTIL_H

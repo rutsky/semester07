@@ -14,30 +14,25 @@ namespace camera
     D3DXMATRIX SphericCamera::evalViewMatrix( double r, double phi, double theta )
     {
       D3DXMATRIX translate;
-      D3DXMatrixTranslation(&translate, (float)-r, 0, 0);
+      D3DXMatrixTranslation(&translate, 0, 0, (float)r);
 
       D3DXMATRIX yRot;
-      D3DXMatrixRotationY(&yRot, (float)theta);
+      D3DXMatrixRotationY(&yRot, (float)phi);
 
-      D3DXMATRIX zRot;
-      D3DXMatrixRotationZ(&zRot, (float)phi);
-
-      /*
-      D3DXMATRIX axis(
-         0,  0,  1,  0,
-        -1,  0,  0,  0,
-         0,  1,  0,  0,
-         0,  0,  0,  1);*/
+      D3DXMATRIX xRot;
+      D3DXMatrixRotationX(&xRot, (float)theta);
 
       D3DXMATRIX axis(
          1,  0,  0,  0,
-         0,  1,  0,  0,
          0,  0,  1,  0,
+         0,  1,  0,  0,
          0,  0,  0,  1);
 
       //return axis * translate * yRot * zRot;
       //return zRot * yRot * translate * axis;
-      return axis;
+      return axis * yRot * xRot * translate;
+      //return yRot * xRot;
+      //return translate;
     }
   } // End of namespace 'lcs'
 } // End of namespace 'camera'
