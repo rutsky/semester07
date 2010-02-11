@@ -22,14 +22,14 @@ namespace scene
     : public virtual ISceneNode
     , public hierarchy::VectorChildNodesManager<ISceneNodePtr>
     , public hierarchy::BaseWritableParentNodeManager<ISceneNode *>
-    , public object::BaseDynamicObject
+    , public virtual object::BaseDynamicObject
   {
   };
 
   class SimpleSceneNode
     : public BaseSceneNode
-    , public cs::BaseCoordinateSystem
-    , public virtual hierarchy::BaseWritableObjectManager<object::ISceneObject *>
+    , public virtual cs::BaseCoordinateSystem
+    , public hierarchy::BaseWritableObjectManager<object::ISceneObject *>
   {
   };
 

@@ -23,7 +23,8 @@ namespace control
 
   inline bool isKeyDown( int nVirtKey )
   {
-    return (GetAsyncKeyState(nVirtKey) & 0x80) != 0;
+    //return (GetAsyncKeyState(nVirtKey) & 0x80) != 0;
+    return (GetKeyState(nVirtKey) & 0x80) != 0;
   }
 } // End of namespace 'control'
 

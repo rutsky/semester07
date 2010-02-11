@@ -25,27 +25,22 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
 
   m_rootSceneNode = scene::ISceneNodePtr(new scene::SimpleSceneNode);
 
+  m_triangle = boost::shared_ptr<xobject::XTriangle>(xobject::XTriangle::create(m_device));
+  m_mesh = boost::shared_ptr<xobject::XMesh>(xobject::XMesh::create(m_device, "data", "Tiger.x"));
+
+  scene::ISceneNodePtr node;
+
   /*
-  boost::shared_ptr<xobject::XTriangle> sp;
-  
-  m_triangle = std::auto_ptr<xobject::XTriangle>(xobject::XTriangle::create(m_device));
-  m_mesh = std::auto_ptr<xobject::XMesh>(xobject::XMesh::create(m_device, "data", "Tiger.x"));
+  node = scene::ISceneNodePtr(hierarchy::newSceneNode<scene::SimpleSceneNode>(m_triangle.get()));
+  m_rootSceneNode->addChildNode(node);
 
-  sceneNodes.push_back(hierarchy::newSceneNode<hierarchy::SimpleSceneNode>(m_triangle.get()));
-  rootSceneNode.addChildNode(sceneNodes.back());
-
-  sceneNodes.push_back(hierarchy::newSceneNode<hierarchy::SimpleSceneNode>(m_mesh.get()));
-  rootSceneNode.addChildNode(sceneNodes.back());
-
-  hierarchy::RotatingSceneNode *rotatingNode = new hierarchy::RotatingSceneNode(D3DXVECTOR3(0, 0, 1), 1.0);
+  scene::RotatingSceneNode *rotatingNode = new scene::RotatingSceneNode(D3DXVECTOR3(0, 1, 1), 1.0);
   rotatingNode->setObject(m_triangle.get());
-  sceneNodes.push_back(rotatingNode);
-  rootSceneNode.addChildNode(rotatingNode);
+  m_rootSceneNode->addChildNode(scene::ISceneNodePtr(rotatingNode));*/
 
-  hierarchy::LCSArrowPgUpPgDownMoveSceneNode *arrowsControl = new hierarchy::LCSArrowPgUpPgDownMoveSceneNode;
+  scene::LCSArrowPgUpPgDownMoveSceneNode *arrowsControl = new scene::LCSArrowPgUpPgDownMoveSceneNode;
   arrowsControl->setObject(m_mesh.get());
-  controls.push_back(arrowsControl);
-  rootSceneNode.addChildNode(arrowsControl);*/
+  m_rootSceneNode->addChildNode(scene::ISceneNodePtr(arrowsControl));
 }
 
 Application::~Application()
@@ -81,12 +76,12 @@ static void updateScene( scene::ISceneNodePtr node, double time, D3DXMATRIX cons
   if (!world)
     world = &identity;
 
-  node->update(world);
+  node->updateWorldMatrix(world);
   node->update(time);
 
   if (node->object())
   {
-    node->object()->update(world);
+    node->object()->updateWorldMatrix(world);
     node->object()->update(time);
   }
 

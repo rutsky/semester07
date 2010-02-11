@@ -46,7 +46,7 @@ namespace cs
 
   class BaseWritableCoordinateSystem
     : public virtual IWritableCoordinateSystem
-    , public BaseCoordinateSystem
+    , public virtual BaseCoordinateSystem
   {
     // IWritableCoordinateSystem
   public:
