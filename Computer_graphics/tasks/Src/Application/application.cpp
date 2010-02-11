@@ -140,14 +140,10 @@ void Application::renderInternal()
   m_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
   m_device->SetRenderState(D3DRS_LIGHTING, FALSE);
 
-  D3DXMATRIX identity;
-  D3DXMatrixIdentity(&identity);
-
-  m_device->SetTransform(D3DTS_WORLD, &identity);
-  m_device->SetTransform(D3DTS_VIEW, &identity);
-  m_device->SetTransform(D3DTS_PROJECTION, &identity);
-
+  //D3DXMATRIX identity;
+  //D3DXMatrixIdentity(&identity);
   //m_device->SetTransform(D3DTS_WORLD, &initialWorld);
+  
   //m_device->SetTransform(D3DTS_VIEW, &m_sphericCamera->viewMatrix());
   //m_device->SetTransform(D3DTS_PROJECTION, &m_projectionMatrix->projectionMatrix());
 

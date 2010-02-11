@@ -6,6 +6,8 @@
 #ifndef SCENE_H
 #define SCENE_H
 
+#include <boost/shared_ptr.hpp>
+
 #include "hierarchy.h"
 
 namespace scene

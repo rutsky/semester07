@@ -52,8 +52,9 @@
 				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
-				UsePrecompiledHeader="0"
-				PrecompiledHeaderFile=".\Out\Debug/D3DBase.pch"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="precompiled.h"
+				PrecompiledHeaderFile="Out\Debug\precompiled.pch"
 				AssemblerListingLocation=".\Out\Debug/"
 				ObjectFile=".\Out\Debug/"
 				ProgramDataBaseFileName=".\Out\Debug/"
@@ -146,8 +147,9 @@
 				StringPooling="true"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
-				UsePrecompiledHeader="0"
-				PrecompiledHeaderFile=".\Out\Release/D3DBase.pch"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="precompiled.h"
+				PrecompiledHeaderFile="Out\Release\precompiled.pch"
 				AssemblerListingLocation=".\Out\Release/"
 				ObjectFile=".\Out\Release/"
 				ProgramDataBaseFileName=".\Out\Release/"
@@ -287,7 +289,31 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Src\Application\precompiled.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\Src\Application\precompiled.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Src\Application\scene.cpp"
 				>
 			</File>
 			<File

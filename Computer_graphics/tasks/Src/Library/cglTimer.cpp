@@ -5,6 +5,9 @@
   @project  D3DBase
   @author   Bvs
 */
+
+#include "precompiled.h"
+
 // *******************************************************
 // compiler specific
 

@@ -22,6 +22,8 @@
  *  D. K. KIM at jamesdk.kim@samsung.com.
  */
 
+#include "precompiled.h"
+
 /**
   @file
   @brief    @documentme
