@@ -302,7 +302,7 @@ namespace xobject
   typedef boost::shared_ptr<XLine> xline_ptr_type;
 
   class XCoordinateSystem
-    : BaseXObject
+    : public BaseXObject
   {
   protected:
     XCoordinateSystem( IDirect3DDevice9 *device, xline_ptr_type xAxis, xline_ptr_type yAxis, xline_ptr_type zAxis )

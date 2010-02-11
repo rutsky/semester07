@@ -107,6 +107,19 @@ namespace object
     , public virtual DummyDynamicObject
     , public virtual control::DummyControlHandler
   {
+  public:
+    bool show()
+    {
+      return m_show;
+    }
+
+    void setShow( bool show )
+    {
+      m_show = show;
+    }
+
+  private:
+    bool m_show;
   };
 } // End of namespace 'object'
 

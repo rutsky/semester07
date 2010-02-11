@@ -27,14 +27,18 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
   assert(m_device);
 
   m_rootSceneNode.reset(new scene::SimpleSceneNode);
+
   m_projectionMatrix.reset(new projection::PerspectiveProjection(constants::pi / 2.0, windowWidth / windowHeight, 1.0, 10000.0));
 
   m_sphericCamera.reset(new camera::SphericCamera);
   m_rootSceneNode->addChildNode(scene::ISceneNodePtr(hierarchy::newSceneNode<scene::SimpleSceneNode>(m_sphericCamera.get())));
 
-  //m_sphericCamera->handleMessage(0, 0, 0);
+  m_coordinateSystem.reset(xobject::XCoordinateSystem::create(m_device));
+  m_rootSceneNode->addObject(m_coordinateSystem.get());
 
   m_triangle.reset(xobject::XTriangle::create(m_device));
+  m_triangle->setShow(false);
+
   m_mesh.reset(xobject::XMesh::create(m_device, "data", "Tiger.x"));
 
   /*
@@ -112,8 +116,11 @@ static void drawScene( IDirect3DDevice9 *device, scene::ISceneNodePtr node, D3DX
     newWorld = *world * node->matrix();
 
   device->SetTransform(D3DTS_WORLD, &newWorld);
+  if (node->show())
+    node->draw();
   for (size_t i = 0; i < node->objectsNum(); ++i)
-    node->object(i)->draw();
+    if (node->object(i)->show())
+      node->object(i)->draw();
 
   for (size_t i = 0; i < node->childNodesNum(); ++i)
     drawScene(device, node->childNode(i), &newWorld);
@@ -136,7 +143,7 @@ void Application::renderInternal()
 
   m_device->SetTransform(D3DTS_WORLD, &initialWorld);
   m_device->SetTransform(D3DTS_VIEW, &m_sphericCamera->viewMatrix());
-  m_device->SetTransform(D3DTS_PROJECTION, &m_projectionMatrix->projectionMatrix());
+  //m_device->SetTransform(D3DTS_PROJECTION, &m_projectionMatrix->projectionMatrix());
   drawScene(m_device, m_rootSceneNode);
 }
 
