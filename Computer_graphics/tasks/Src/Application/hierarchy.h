@@ -54,24 +54,17 @@ namespace hierarchy
   };
 
   template< class Object >
-  class IObjectManager
+  class IObjectsManager
   {
   public:
     typedef Object object_type;
 
-    virtual object_type object() = 0;
+    virtual size_t objectsNum() const = 0;
+    virtual object_type object( size_t idx ) const = 0;
+    virtual void addObject( object_type node ) = 0;
+    virtual void removeObject( size_t idx ) = 0;
 
-    virtual ~IObjectManager() {}
-  };
-
-  template< class Object >
-  class IWritableObjectManager
-    : public virtual IObjectManager<Object>
-  {
-  public:
-    typedef Object object_type;
-
-    virtual void setObject( object_type object ) = 0;
+    virtual ~IObjectsManager() {}
   };
 
   template< class NodeType, class NodePtrType, class ObjectType >
@@ -79,7 +72,7 @@ namespace hierarchy
     : public virtual IChildNodePtrsManager<NodePtrType>
     , public virtual IWritableParentNodeManager<NodeType *>
     , public virtual cs::ICoordinateSystem
-    , public virtual IObjectManager<ObjectType>
+    , public virtual IObjectsManager<ObjectType>
   {
   public:
     typedef NodeType node_type;
@@ -123,6 +116,39 @@ namespace hierarchy
     std::vector<node_ptr_type> childs;
   };
 
+  template< class Object >
+  class VectorObjectsManager
+    : public virtual IObjectsManager<Object>
+  {
+  public:
+    typedef Object object_type;
+
+    size_t objectsNum() const
+    {
+      return objects.size();
+    }
+
+    object_type object( size_t idx ) const
+    {
+      assert(idx < objects.size());
+      return objects[idx];
+    }
+
+    void addObject( object_type object )
+    {
+      objects.push_back(object);
+    }
+
+    void removeObject( size_t idx )
+    {
+      assert(idx < objects.size());
+      objects.erase(objects.begin() + idx);
+    }
+
+  protected:
+    std::vector<object_type> objects;
+  };
+
   template< class NodePtr >
   class BaseWritableParentNodeManager
     : public virtual IWritableParentNodeManager<NodePtr>
@@ -153,62 +179,6 @@ namespace hierarchy
     node_ptr_type m_parent;
   };
 
-  template< class Object >
-  class BaseWritableObjectManager
-    : public virtual IWritableObjectManager<Object>
-  {
-  public:
-    typedef Object object_type;
-
-    // IObjectManager
-  public:
-    object_type object()
-    {
-      return m_object;
-    }
-
-  // IWritableObjectManager
-  public:
-    void setObject( object_type object )
-    {
-      m_object = object;
-    }
-
-  protected:
-    object_type m_object;
-  };
-
-  template< class DereferencedObject >
-  class BaseWritableObjectManager<DereferencedObject *>
-    : public virtual IWritableObjectManager<DereferencedObject *>
-  {
-  public:
-    typedef DereferencedObject dereferenced_object;
-    typedef dereferenced_object * object_type;
-
-    BaseWritableObjectManager()
-      : m_object(0)
-    {
-    }
-
-    // IObjectManager
-  public:
-    object_type object()
-    {
-      return m_object;
-    }
-
-  // IWritableObjectManager
-  public:
-    void setObject( object_type object )
-    {
-      m_object = object;
-    }
-
-  protected:
-    dereferenced_object *m_object;
-  };
-
   template< class NodePtr >
   inline D3DXMATRIX evaluateWorldMatrix( NodePtr node )
   {
@@ -229,7 +199,7 @@ namespace hierarchy
   inline SceneNode * newSceneNode( object::ISceneObject *sceneObject )
   {
     SceneNode *newSceneNode = new SceneNode;
-    newSceneNode->setObject(sceneObject);
+    newSceneNode->addObject(sceneObject);
     return newSceneNode;
   }
 } // End of namespace 'hierarchy'

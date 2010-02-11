@@ -23,13 +23,13 @@ namespace scene
     , public hierarchy::VectorChildNodesManager<ISceneNodePtr>
     , public hierarchy::BaseWritableParentNodeManager<ISceneNode *>
     , public virtual object::BaseDynamicObject
+    , public virtual hierarchy::VectorObjectsManager<object::ISceneObject *>
   {
   };
 
   class SimpleSceneNode
     : public BaseSceneNode
     , public virtual cs::BaseCoordinateSystem
-    , public hierarchy::BaseWritableObjectManager<object::ISceneObject *>
   {
   };
 

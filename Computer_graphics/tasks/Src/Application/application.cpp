@@ -44,11 +44,11 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
   m_rootSceneNode->addChildNode(node);*/
 
   scene::RotatingSceneNode *rotatingNode = new scene::RotatingSceneNode(D3DXVECTOR3(0, 0, 1), 1.0);
-  rotatingNode->setObject(m_triangle.get());
+  rotatingNode->addObject(m_triangle.get());
   m_rootSceneNode->addChildNode(scene::ISceneNodePtr(rotatingNode));
 
   scene::LCSArrowPgUpPgDownMoveSceneNode *arrowsControl = new scene::LCSArrowPgUpPgDownMoveSceneNode;
-  arrowsControl->setObject(m_mesh.get());
+  arrowsControl->addObject(m_mesh.get());
   m_rootSceneNode->addChildNode(scene::ISceneNodePtr(arrowsControl));
 }
 
@@ -64,8 +64,8 @@ static bool processInputOnScene( scene::ISceneNodePtr node, unsigned int message
   if (node->handleMessage(message, wParam, lParam))
     return true;
 
-  if (node->object())
-    if (node->object()->handleMessage(message, wParam, lParam))
+  for (size_t i = 0; i < node->objectsNum(); ++i)
+    if (node->object(i)->handleMessage(message, wParam, lParam))
       return true;
 
   for (size_t i = 0; i < node->childNodesNum(); ++i)
@@ -88,10 +88,10 @@ static void updateScene( scene::ISceneNodePtr node, double time, D3DXMATRIX cons
   node->updateWorldMatrix(world);
   node->update(time);
 
-  if (node->object())
+  for (size_t i = 0; i < node->objectsNum(); ++i)
   {
-    node->object()->updateWorldMatrix(world);
-    node->object()->update(time);
+    node->object(i)->updateWorldMatrix(world);
+    node->object(i)->update(time);
   }
 
   D3DXMATRIX const newWorld = *world * node->matrix();
@@ -111,11 +111,9 @@ static void drawScene( IDirect3DDevice9 *device, scene::ISceneNodePtr node, D3DX
   else
     newWorld = *world * node->matrix();
 
-  if (node->object())
-  {
-    device->SetTransform(D3DTS_WORLD, &newWorld);
-    node->object()->draw();
-  }
+  device->SetTransform(D3DTS_WORLD, &newWorld);
+  for (size_t i = 0; i < node->objectsNum(); ++i)
+    node->object(i)->draw();
 
   for (size_t i = 0; i < node->childNodesNum(); ++i)
     drawScene(device, node->childNode(i), &newWorld);

@@ -11,11 +11,14 @@
 #include <ostream>
 #include <sstream>
 
+#include <boost/shared_ptr.hpp>
+
 #include <d3d9.h>
 #include <d3dx9math.h>
 
 #include "util.h"
 #include "object.h"
+#include "constants.h"
 
 namespace xobject
 {
@@ -251,7 +254,6 @@ namespace xobject
     }
   };
 
-  /*
   class XLine
     : public XPrimitive
   {
@@ -265,7 +267,7 @@ namespace xobject
     }
 
   public:
-    static XTriangle * create( IDirect3DDevice9 *device,
+    static XLine * create( IDirect3DDevice9 *device,
       D3DXVECTOR3 const &p0, D3DXVECTOR3 const &p1, 
       DWORD color0, DWORD color1 )
     {
@@ -276,36 +278,75 @@ namespace xobject
         };
       size_t const verticesNum = util::array_size(vertices);
 
-      IDirect3DVertexBuffer9 *vertexBuffer;
-      if (FAILED(device->CreateVertexBuffer(verticesNum * sizeof(vertex_xyzcolor::Vertex),
-                   0, vertex_xyzcolor::vertexFormat,
-                   D3DPOOL_DEFAULT, &vertexBuffer, NULL)))
+      IDirect3DVertexBuffer9 *vertexBuffer = 
+        createAndFillVertexBuffer(device, (void *)vertices, sizeof(vertices), vertex_xyzcolor::vertexFormat);
+      if (!vertexBuffer)
         return 0;
 
-      void *verticesMem;
-      if (FAILED(vertexBuffer->Lock(0, sizeof(vertices), &verticesMem, 0)))
-      {
-        vertexBuffer->Release();
-        return 0;
-      }
-      memcpy(verticesMem, vertices, sizeof(vertices));
-      vertexBuffer->Unlock();
-
-      return new XTriangle(device, vertexBuffer, vertex_xyzcolor::vertexFormat, sizeof(vertex_xyzcolor::Vertex), D3DPT_TRIANGLELIST, 1);
+      return new XLine(device, vertexBuffer, vertex_xyzcolor::vertexFormat, 
+        sizeof(vertex_xyzcolor::Vertex), D3DPT_LINELIST, 1);
     }
 
-    static XTriangle * create( IDirect3DDevice9 *device,
-      D3DXVECTOR3 const &p0, D3DXVECTOR3 const &p1, D3DXVECTOR3 const &p2 )
+    static XLine * create( IDirect3DDevice9 *device,
+      D3DXVECTOR3 const &p0, D3DXVECTOR3 const &p1 )
     {
-      return create(device, p0, p1, p2, RGB(255, 0, 0), RGB(0, 255, 0), RGB(0, 0, 255));
+      return create(device, p0, p1, RGB(255, 0, 0), RGB(0, 255, 0));
     }
 
-    static XTriangle * create( IDirect3DDevice9 *device )
+    static XLine * create( IDirect3DDevice9 *device )
     {
-      return create(device, D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(0, 1, 0), D3DXVECTOR3(1, 0, 0));
+      return create(device, D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(0, 1, 0));
     }
   };
-  */
+
+  typedef boost::shared_ptr<XLine> xline_ptr_type;
+
+  class XCoordinateSystem
+    : BaseXObject
+  {
+  protected:
+    XCoordinateSystem( IDirect3DDevice9 *device, xline_ptr_type xAxis, xline_ptr_type yAxis, xline_ptr_type zAxis )
+      : BaseXObject(device)
+      , m_xAxis(xAxis)
+      , m_yAxis(yAxis)
+      , m_zAxis(zAxis)
+    {
+      assert(m_xAxis);
+      assert(m_yAxis);
+      assert(m_zAxis);
+    }
+
+  public:
+    static XCoordinateSystem * create( IDirect3DDevice9 *device )
+    {
+      xline_ptr_type xAxis(XLine::create(device, 
+        D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(1, 0, 0), 
+        constants::dword_red, constants::dword_red));
+      xline_ptr_type yAxis(XLine::create(device, 
+        D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(0, 1, 0), 
+        constants::dword_green, constants::dword_green));
+      xline_ptr_type zAxis(XLine::create(device, 
+        D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(0, 0, 1), 
+        constants::dword_blue, constants::dword_blue));
+
+      if (!xAxis || !yAxis || !zAxis)
+        return 0;
+      else
+        return new XCoordinateSystem(device, xAxis, yAxis, zAxis);
+    }
+
+    // object::IDrawableObject
+  public:
+    void draw()
+    {
+      m_xAxis->draw();
+      m_yAxis->draw();
+      m_zAxis->draw();
+    }
+
+  protected:
+    xline_ptr_type m_xAxis, m_yAxis, m_zAxis;
+  };
 } // End of namespace 'xobject'
 
 #endif // XOBJECT_H
