@@ -321,13 +321,13 @@ namespace xobject
     {
       xline_ptr_type xAxis(XLine::create(device, 
         D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(1, 0, 0), 
-        constants::dword_red, constants::dword_red));
+        constants::color::red, constants::color::red));
       xline_ptr_type yAxis(XLine::create(device, 
         D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(0, 1, 0), 
-        constants::dword_green, constants::dword_green));
+        constants::color::green, constants::color::green));
       xline_ptr_type zAxis(XLine::create(device, 
         D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(0, 0, 1), 
-        constants::dword_blue, constants::dword_blue));
+        constants::color::blue, constants::color::blue));
 
       if (!xAxis || !yAxis || !zAxis)
         return 0;

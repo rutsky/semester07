@@ -7,16 +7,20 @@
 #define CONSTANTS_H
 
 #include <windows.h>
+#include <d3d9types.h>
 
 namespace constants
 {
   double const pi = 3.14159265358979323846;
 
-  DWORD const dword_black = RGB(  0,   0,   0);
-  DWORD const dword_white = RGB(255, 255, 255);
-  DWORD const dword_red   = RGB(255,   0,   0);
-  DWORD const dword_green = RGB(0,   255,   0);
-  DWORD const dword_blue  = RGB(0,     0, 255);
+  namespace color
+  {
+    D3DCOLOR const black = D3DCOLOR_ARGB(255,   0,   0,   0);
+    D3DCOLOR const white = D3DCOLOR_ARGB(255, 255, 255, 255);
+    D3DCOLOR const red   = D3DCOLOR_ARGB(255, 255,   0,   0);
+    D3DCOLOR const green = D3DCOLOR_ARGB(255,   0, 255,   0);
+    D3DCOLOR const blue  = D3DCOLOR_ARGB(255,   0,   0, 255);
+  } // End of namespace 'color'
 } // End of namespace 'constants'
 
 #endif // CONSTANTS_H

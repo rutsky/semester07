@@ -172,6 +172,7 @@ namespace camera
         , m_phi(0.0)
         , m_theta(0.0)
       {
+        updateViewMatrix();
       }
 
       // ISphericCamera
@@ -193,26 +194,7 @@ namespace camera
       }
 
     protected:
-      static D3DXMATRIX evalViewMatrix( double r, double phi, double theta )
-      {
-        D3DXMATRIX translate;
-        D3DXMatrixTranslation(&translate, (float)-r, 0, 0);
-
-        D3DXMATRIX yRot;
-        D3DXMatrixRotationY(&yRot, (float)theta);
-
-        D3DXMATRIX zRot;
-        D3DXMatrixRotationZ(&zRot, (float)phi);
-
-        D3DXMATRIX axis(
-           0,  0,  1,  0,
-          -1,  0,  0,  0,
-           0,  1,  0,  0,
-           0,  0,  0,  1);
-
-        //return axis * translate * yRot * zRot;
-        return zRot * yRot * translate * axis;
-      }
+      static D3DXMATRIX evalViewMatrix( double r, double phi, double theta );
       
       static double constrainedR( double r )
       {
