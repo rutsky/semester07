@@ -33,6 +33,15 @@ namespace scene
     : public BaseSceneNode
     , public virtual cs::BaseCoordinateSystem
   {
+  public:
+    SimpleSceneNode()
+    {
+    }
+
+    SimpleSceneNode( D3DXVECTOR3 const &translation )
+    {
+      D3DXMatrixTranslation(&m_matrix, translation[0], translation[1], translation[2]);
+    }
   };
 
   class RotatingSceneNode
@@ -69,6 +78,15 @@ namespace scene
     : public SimpleSceneNode
     , public control::LCSArrowPgUpPgDownRotate
   {
+  public:
+    LCSArrowPgUpPgDownRotateNode()
+    {
+    }
+
+    LCSArrowPgUpPgDownRotateNode( D3DXVECTOR3 const &translation )
+      : SimpleSceneNode(translation)
+    {
+    }
   };
 } // End of namespace 'scene'
 

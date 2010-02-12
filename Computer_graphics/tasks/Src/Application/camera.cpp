@@ -20,7 +20,7 @@ namespace camera
       D3DXMatrixRotationY(&yRot, (float)phi);
 
       D3DXMATRIX xRot;
-      D3DXMatrixRotationX(&xRot, (float)theta);
+      D3DXMatrixRotationX(&xRot, (float)-theta);
 
       /*
       // Natural CS:

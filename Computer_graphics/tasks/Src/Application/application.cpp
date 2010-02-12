@@ -34,7 +34,7 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
 
   // Camera (view matrix).
   m_sphericCamera.reset(new camera::SphericCamera);
-  m_sphericCamera->setSphericCoordinates(10, util::deg2rad(30), util::deg2rad(60));
+  m_sphericCamera->setSphericCoordinates(7, util::deg2rad(30), util::deg2rad(45));
   // Attaching camera to root node.
   m_rootSceneNode->addChildNode(scene::ISceneNodePtr(hierarchy::newSceneNode<scene::SimpleSceneNode>(m_sphericCamera.get())));
 
@@ -82,7 +82,7 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
 
     if (1)
     {
-      scene::LCSArrowPgUpPgDownRotateNode *node = new scene::LCSArrowPgUpPgDownRotateNode;
+      scene::LCSArrowPgUpPgDownRotateNode *node = new scene::LCSArrowPgUpPgDownRotateNode(D3DXVECTOR3(1, 0, 2));
       node->addObject(m_mesh.get());
       m_rootSceneNode->addChildNode(scene::ISceneNodePtr(node));
     }

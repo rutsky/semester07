@@ -255,7 +255,7 @@ namespace camera
     {
       if (keys & MK_LBUTTON)
       {
-        moveInSphericCoordinates(0, dx * config::mouseRotationSpeedX, -dy * config::mouseRotationSpeedY);
+        moveInSphericCoordinates(0, dx * config::mouseRotationSpeedX, dy * config::mouseRotationSpeedY);
         return true;
       }
 
