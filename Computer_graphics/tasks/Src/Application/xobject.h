@@ -22,16 +22,30 @@
 
 namespace xobject
 {
+#pragma pack ( push, 1 )
   namespace vertex_xyzcolor
   {
     struct Vertex
     {
-      float x, y, z;
+      D3DXVECTOR3 v;
       DWORD color;
     };
 
     DWORD const vertexFormat = D3DFVF_XYZ | D3DFVF_DIFFUSE;
   } // End of namespace 'vertex_xyzcolor'
+
+  namespace vertex_xyznormalcolor
+  {
+    struct Vertex
+    {
+      D3DXVECTOR3 v;
+      D3DXVECTOR3 n;
+      DWORD color;
+    };
+
+    DWORD const vertexFormat = D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE;
+  } // End of namespace 'vertex_xyznormalcolor'
+#pragma pack ( pop )
 
   class BaseXObject
     : public virtual object::IDrawableObject
@@ -66,6 +80,27 @@ namespace xobject
     vertexBuffer->Unlock();
 
     return vertexBuffer;
+  }
+
+  inline IDirect3DIndexBuffer9 * createAndFillIndexBuffer( IDirect3DDevice9 *device, 
+    void *indices, size_t bufferSize, D3DFORMAT indexFormat )
+  {
+    IDirect3DIndexBuffer9 *indexBuffer;
+    if (FAILED(device->CreateIndexBuffer(bufferSize,
+                 0, indexFormat,
+                 D3DPOOL_DEFAULT, &indexBuffer, NULL)))
+      return 0;
+
+    void *indicesMem;
+    if (FAILED(indexBuffer->Lock(0, bufferSize, &indicesMem, 0)))
+    {
+      indexBuffer->Release();
+      return 0;
+    }
+    memcpy(indicesMem, indices, bufferSize);
+    indexBuffer->Unlock();
+
+    return indexBuffer;
   }
 
   class XPrimitive
@@ -227,9 +262,9 @@ namespace xobject
     {
       vertex_xyzcolor::Vertex const vertices[] = 
         {
-          {p0[0], p0[1], p0[2], color0},
-          {p1[0], p1[1], p1[2], color1},
-          {p2[0], p2[1], p2[2], color2},
+          {p0, color0},
+          {p1, color1},
+          {p2, color2},
         };
       size_t const verticesNum = util::array_size(vertices);
 
@@ -273,8 +308,8 @@ namespace xobject
     {
       vertex_xyzcolor::Vertex const vertices[] = 
         {
-          {p0[0], p0[1], p0[2], color0},
-          {p1[0], p1[1], p1[2], color1},
+          {p0, color0},
+          {p1, color1},
         };
       size_t const verticesNum = util::array_size(vertices);
 
