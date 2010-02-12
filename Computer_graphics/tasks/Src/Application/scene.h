@@ -78,15 +78,6 @@ namespace scene
     : public SimpleSceneNode
     , public control::LCSArrowPgUpPgDownRotate
   {
-  public:
-    LCSArrowPgUpPgDownRotateNode()
-    {
-    }
-
-    LCSArrowPgUpPgDownRotateNode( D3DXVECTOR3 const &translation )
-      : SimpleSceneNode(translation)
-    {
-    }
   };
 } // End of namespace 'scene'
 

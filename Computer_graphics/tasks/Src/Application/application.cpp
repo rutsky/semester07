@@ -82,9 +82,12 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
 
     if (1)
     {
-      scene::LCSArrowPgUpPgDownRotateNode *node = new scene::LCSArrowPgUpPgDownRotateNode(D3DXVECTOR3(1, 0, 2));
-      node->addObject(m_mesh.get());
-      m_rootSceneNode->addChildNode(scene::ISceneNodePtr(node));
+      scene::SimpleSceneNode *translationNode = new scene::SimpleSceneNode(D3DXVECTOR3(1, 0, 2));
+      m_rootSceneNode->addChildNode(scene::ISceneNodePtr(translationNode));
+
+      scene::LCSArrowPgUpPgDownRotateNode *rotatingNode = new scene::LCSArrowPgUpPgDownRotateNode;
+      rotatingNode->addObject(m_mesh.get());
+      translationNode->addChildNode(scene::ISceneNodePtr(rotatingNode));
     }
   }
 }
@@ -131,7 +134,7 @@ static void updateScene( scene::ISceneNodePtr node, double time, D3DXMATRIX cons
     node->object(i)->update(time);
   }
 
-  D3DXMATRIX const newWorld = *world * node->matrix();
+  D3DXMATRIX const newWorld = node->matrix() * *world;
 
   for (size_t i = 0; i < node->childNodesNum(); ++i)
     updateScene(node->childNode(i), time, &newWorld);
@@ -146,7 +149,7 @@ static void drawScene( IDirect3DDevice9 *device, scene::ISceneNodePtr node, D3DX
   if (!world)
     newWorld = node->matrix();
   else
-    newWorld = *world * node->matrix();
+    newWorld = node->matrix() * *world;
 
   device->SetTransform(D3DTS_WORLD, &newWorld);
   if (node->show())
