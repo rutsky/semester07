@@ -50,7 +50,8 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
     m_mesh.reset(xobject::XMesh::create(m_device, "data", "Tiger.x"));
     //m_mesh->setShow(false);
 
-    m_surface.reset(xobject::xsurface::createPlane(m_device, 3, 4));
+    //m_surface.reset(xobject::xsurface::createPlane(m_device, 3, 4));
+    m_surface.reset(xobject::xsurface::createTorus(m_device, 1.5, 0.5, 10, 20));
   }
 
   {
@@ -176,7 +177,7 @@ void Application::update()
 
 void Application::renderInternal()
 {
-  m_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+  //m_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
   m_device->SetRenderState(D3DRS_LIGHTING, FALSE);
   //m_device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 

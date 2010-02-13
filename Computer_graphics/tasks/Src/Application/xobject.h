@@ -525,20 +525,63 @@ namespace xobject
     {
       struct vertex
       {
-        D3DXVECTOR3 operator () ( double x, double y )
+        D3DXVECTOR3 operator () ( double u, double v )
         {
-         return D3DXVECTOR3((float)(x - 0.5), (float)(y - 0.5), 0);
+          return D3DXVECTOR3((float)(u - 0.5), (float)(v - 0.5), 0);
         }
       };
 
       struct normal
       {
-        D3DXVECTOR3 operator () ( double x, double y )
+        D3DXVECTOR3 operator () ( double u, double v )
         {
-         return D3DXVECTOR3(0, 0, 1);
+          return D3DXVECTOR3(0, 0, 1);
         }
       };
     } // End of namespace 'plane_generator'
+
+    namespace torus_generator
+    {
+      struct vertex
+      {
+        vertex( double outerR, double innerR )
+          : m_outerR(outerR)
+          , m_innerR(innerR)
+        {
+        }
+
+        D3DXVECTOR3 operator () ( double u, double v )
+        {
+          double const phi   = u * 2.0 * constants::pi;
+          double const theta = v * 2.0 * constants::pi;
+
+          double const x = (m_outerR - m_innerR * cos(phi)) * cos(theta);
+          double const y = (m_outerR - m_innerR * cos(phi)) * sin(theta);
+          double const z = m_innerR * sin(phi);
+
+          return D3DXVECTOR3((float)x, (float)y, (float)z);
+        }
+
+      private:
+        double m_outerR;
+        double m_innerR;
+      };
+
+      struct normal
+      {
+        D3DXVECTOR3 operator () ( double u, double v )
+        {
+          double const phi   = u * 2.0 * constants::pi;
+          double const theta = v * 2.0 * constants::pi;
+
+          double const x = -cos(phi) * cos(theta);
+          double const y = -cos(phi) * sin(theta);
+          double const z = sin(phi);
+
+          return D3DXVECTOR3((float)x, (float)y, (float)z);
+        }
+      };
+    } // End of namespace 'torus_generator'
 
     namespace color_generator
     {
@@ -554,13 +597,13 @@ namespace xobject
         {
         }
 
-        DWORD operator () ( double x, double y )
+        DWORD operator () ( double u, double v )
         {
           // By some formula from 
           // http://en.wikipedia.org/wiki/YUV
-          int const r = (int)(255 * util::clamp<double>()(m_y + 1.402 * (y - 0.5)));
-          int const g = (int)(255 * util::clamp<double>()(m_y - 0.344 * (x - 0.5) - 0.714 * (y - 0.5)));
-          int const b = (int)(255 * util::clamp<double>()(m_y + 1.772 * (x - 0.5)));
+          int const r = (int)(255 * util::clamp<double>()(m_y + 1.402 * (v - 0.5)));
+          int const g = (int)(255 * util::clamp<double>()(m_y - 0.344 * (u - 0.5) - 0.714 * (v - 0.5)));
+          int const b = (int)(255 * util::clamp<double>()(m_y + 1.772 * (u - 0.5)));
 
           return D3DCOLOR_ARGB(255, r, g, b);
         }
@@ -574,6 +617,12 @@ namespace xobject
     {
       return XSurface::create(device, nX, nY, 
         plane_generator::vertex(), plane_generator::normal(), color_generator::yuv());
+    }
+
+    inline XSurface * createTorus( IDirect3DDevice9 *device, double outerR, double innerR, size_t nX, size_t nY )
+    {
+      return XSurface::create(device, nX, nY, 
+        torus_generator::vertex(outerR, innerR), torus_generator::normal(), color_generator::yuv());
     }
   } // End of namespace 'xsurface'
 
