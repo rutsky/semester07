@@ -22,7 +22,6 @@ namespace camera
       D3DXMATRIX xRot;
       D3DXMatrixRotationX(&xRot, (float)-theta);
 
-      /*
       // Natural CS:
       //   North - Y, East - X, Up - Z.
       D3DXMATRIX axis(
@@ -30,15 +29,16 @@ namespace camera
          0,  0,  1,  0,
          0,  1,  0,  0,
          0,  0,  0,  1);
-      */
-
+      
       // DirectX camera CS:
       //   North - Z, East - X, Up - Y.
+      /*
       D3DXMATRIX axis(
          1,  0,  0,  0,
          0,  1,  0,  0,
          0,  0,  1,  0,
          0,  0,  0,  1);
+         */
 
       //return axis * translate * yRot * zRot;
       //return zRot * yRot * translate * axis;
