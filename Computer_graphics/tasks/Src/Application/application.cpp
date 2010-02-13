@@ -38,7 +38,7 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
   // Attaching camera to root node.
   m_rootSceneNode->addChildNode(scene::ISceneNodePtr(hierarchy::newSceneNode<scene::SimpleSceneNode>(m_sphericCamera.get())));
 
-  if (1)
+  if (0)
   {
     // Task 1.
 
@@ -63,67 +63,70 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
     // Attaching surface to rotating node.
     rotatingNode->addObject(m_surface.get());
   }
-
-  if (0)
+  else if (1)
   {
-    // Scene objects.
+    // Debug
 
-    m_coordinateSystem.reset(xobject::XCoordinateSystem::create(m_device));
-    //m_rootSceneNode->addObject(m_coordinateSystem.get());
-
-    m_triangle.reset(xobject::XTriangle::create(m_device));
-    //m_triangle->setShow(false);
-
-    m_mesh.reset(xobject::XMesh::create(m_device, "data", "Tiger.x"));
-    //m_mesh->setShow(false);
-
-    //m_surface.reset(xobject::xsurface::createPlane(m_device, 3, 4));
-    //m_surface.reset(xobject::xsurface::createTorus(m_device, 1.5, 0.5, 100, 100, xobject::xsurface::color_generator::chessboard()));
-    //typedef xobject::xsurface::color_generator::yuv colorspace_type;
-    typedef xobject::xsurface::color_generator::chessboard colorspace_type;
-    //typedef xobject::xsurface::color_generator::yuv colorspace_type;
-    m_surface.reset(xobject::xsurface::createTorus(m_device, 1.5, 0.5, 100, 50, 
-      xobject::xsurface::ScaleColorSpace<colorspace_type>(colorspace_type(), 1 / 10.0, 1 / 5.0)));
-  }
-
-  {
-    // Scene hierarchy.
-
-    if (1)
     {
-      m_rootSceneNode->addObject(m_coordinateSystem.get());
+      // Scene objects.
+
+      m_coordinateSystem.reset(xobject::XCoordinateSystem::create(m_device));
+      //m_rootSceneNode->addObject(m_coordinateSystem.get());
+
+      m_triangle.reset(xobject::XTriangle::create(m_device));
+      //m_triangle->setShow(false);
+
+      m_mesh.reset(xobject::XMesh::create(m_device, "data", "Tiger.x"));
+      //m_mesh->setShow(false);
+
+      //m_surface.reset(xobject::xsurface::createPlane(m_device, 3, 4));
+      //m_surface.reset(xobject::xsurface::createTorus(m_device, 1.5, 0.5, 100, 100, xobject::xsurface::color_generator::chessboard()));
+      //typedef xobject::xsurface::color_generator::yuv colorspace_type;
+      typedef xobject::xsurface::color_generator::chessboard colorspace_type;
+      //typedef xobject::xsurface::color_generator::yuv colorspace_type;
+      m_surface.reset(xobject::xsurface::createTorus(m_device, 1.5, 0.5, 100, 50, 
+        xobject::xsurface::ScaleColorSpace<colorspace_type>(colorspace_type(), 1 / 10.0, 1 / 5.0)));
     }
 
-    if (0)
     {
-      scene::ISceneNodePtr node;
-      node = scene::ISceneNodePtr(hierarchy::newSceneNode<scene::SimpleSceneNode>(m_triangle.get()));
-      m_rootSceneNode->addChildNode(node);
-    }
+      // Scene hierarchy.
 
-    if (0)
-    {
-      scene::RotatingSceneNode *node = new scene::RotatingSceneNode(D3DXVECTOR3(1, 0, 0), 1.0);
-      node->addObject(m_triangle.get());
-      m_rootSceneNode->addChildNode(scene::ISceneNodePtr(node));
-    }
+      if (1)
+      {
+        m_rootSceneNode->addObject(m_coordinateSystem.get());
+      }
 
-    if (0)
-    {
-      scene::LCSArrowPgUpPgDownMoveSceneNode *node = new scene::LCSArrowPgUpPgDownMoveSceneNode;
-      node->addObject(m_mesh.get());
-      m_rootSceneNode->addChildNode(scene::ISceneNodePtr(node));
-    }
+      if (0)
+      {
+        scene::ISceneNodePtr node;
+        node = scene::ISceneNodePtr(hierarchy::newSceneNode<scene::SimpleSceneNode>(m_triangle.get()));
+        m_rootSceneNode->addChildNode(node);
+      }
 
-    if (1)
-    {
-      // Task 1.
-      scene::SimpleSceneNode *translationNode = new scene::SimpleSceneNode(D3DXVECTOR3(1, 3, 0));
-      m_rootSceneNode->addChildNode(scene::ISceneNodePtr(translationNode));
+      if (0)
+      {
+        scene::RotatingSceneNode *node = new scene::RotatingSceneNode(D3DXVECTOR3(1, 0, 0), 1.0);
+        node->addObject(m_triangle.get());
+        m_rootSceneNode->addChildNode(scene::ISceneNodePtr(node));
+      }
 
-      scene::LCSArrowPgUpPgDownRotateNode *rotatingNode = new scene::LCSArrowPgUpPgDownRotateNode;
-      rotatingNode->addObject(m_surface.get());
-      translationNode->addChildNode(scene::ISceneNodePtr(rotatingNode));
+      if (0)
+      {
+        scene::LCSArrowPgUpPgDownMoveSceneNode *node = new scene::LCSArrowPgUpPgDownMoveSceneNode;
+        node->addObject(m_mesh.get());
+        m_rootSceneNode->addChildNode(scene::ISceneNodePtr(node));
+      }
+
+      if (1)
+      {
+        // Task 1.
+        scene::SimpleSceneNode *translationNode = new scene::SimpleSceneNode(D3DXVECTOR3(1, 3, 0));
+        m_rootSceneNode->addChildNode(scene::ISceneNodePtr(translationNode));
+
+        scene::LCSArrowPgUpPgDownRotateNode *rotatingNode = new scene::LCSArrowPgUpPgDownRotateNode;
+        rotatingNode->addObject(m_surface.get());
+        translationNode->addChildNode(scene::ISceneNodePtr(rotatingNode));
+      }
     }
   }
 }
@@ -166,6 +169,7 @@ static void updateScene( scene::ISceneNodePtr node, double time, D3DXMATRIX cons
 
   for (size_t i = 0; i < node->objectsNum(); ++i)
   {
+    assert(node->object(i));
     node->object(i)->updateWorldMatrix(world);
     node->object(i)->update(time);
   }
