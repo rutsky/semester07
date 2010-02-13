@@ -50,7 +50,7 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
     m_mesh.reset(xobject::XMesh::create(m_device, "data", "Tiger.x"));
     //m_mesh->setShow(false);
 
-    m_surface.reset(xobject::xsurface::createPlane(m_device, 2, 2));
+    m_surface.reset(xobject::xsurface::createPlane(m_device, 3, 4));
   }
 
   {
@@ -175,6 +175,7 @@ void Application::renderInternal()
 {
   //m_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
   m_device->SetRenderState(D3DRS_LIGHTING, FALSE);
+  m_device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 
   //D3DXMATRIX identity;
   //D3DXMatrixIdentity(&identity);
