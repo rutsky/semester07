@@ -90,6 +90,41 @@ namespace util
   {
     return (deg / 180.0) * constants::pi;
   }
+
+  template< class T >
+  struct clamp_impl
+  {
+    clamp_impl( T lo, T hi )
+      : m_lo(lo)
+      , m_hi(hi)
+    {
+    }
+
+    T operator () ( T v )
+    {
+      if (v < m_lo)
+        return m_lo;
+      else if (v > m_hi)
+        return m_hi;
+      else
+        return v;
+    }
+
+  private:
+    T m_lo, m_hi;
+  };
+
+  template< class T >
+  inline clamp_impl<T> clamp( T lo, T hi )
+  {
+    return clamp_impl<T>(lo, hi);
+  }
+
+  template< class T >
+  inline clamp_impl<T> clamp()
+  {
+    return clamp_impl<T>(T(0), T(1));
+  }
 } // End of namespace 'util'
 
 #endif // UTIL_H
