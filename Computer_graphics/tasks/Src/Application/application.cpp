@@ -49,6 +49,8 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
 
     m_mesh.reset(xobject::XMesh::create(m_device, "data", "Tiger.x"));
     //m_mesh->setShow(false);
+
+    m_surface.reset(xobject::xsurface::createPlane(m_device, 2, 2));
   }
 
   {
@@ -82,11 +84,11 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
 
     if (1)
     {
-      scene::SimpleSceneNode *translationNode = new scene::SimpleSceneNode(D3DXVECTOR3(1, 0, 2));
+      scene::SimpleSceneNode *translationNode = new scene::SimpleSceneNode(D3DXVECTOR3(0, 0, 0));
       m_rootSceneNode->addChildNode(scene::ISceneNodePtr(translationNode));
 
       scene::LCSArrowPgUpPgDownRotateNode *rotatingNode = new scene::LCSArrowPgUpPgDownRotateNode;
-      rotatingNode->addObject(m_mesh.get());
+      rotatingNode->addObject(m_surface.get());
       translationNode->addChildNode(scene::ISceneNodePtr(rotatingNode));
     }
   }
@@ -171,7 +173,7 @@ void Application::update()
 
 void Application::renderInternal()
 {
-  m_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+  //m_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
   m_device->SetRenderState(D3DRS_LIGHTING, FALSE);
 
   //D3DXMATRIX identity;
