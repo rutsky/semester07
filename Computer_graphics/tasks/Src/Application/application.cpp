@@ -38,6 +38,33 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
   // Attaching camera to root node.
   m_rootSceneNode->addChildNode(scene::ISceneNodePtr(hierarchy::newSceneNode<scene::SimpleSceneNode>(m_sphericCamera.get())));
 
+  if (1)
+  {
+    // Task 1.
+
+    // Coordinate system rendering object.
+    m_coordinateSystem.reset(xobject::XCoordinateSystem::create(m_device));
+    
+    // Chessboard-colored torus.
+    typedef xobject::xsurface::color_generator::chessboard colorspace_type;
+    m_surface.reset(xobject::xsurface::createTorus(m_device, 1.5, 0.5, 100, 50, 
+      xobject::xsurface::ScaleColorSpace<colorspace_type>(colorspace_type(), 1 / 10.0, 1 / 5.0)));
+
+    // Adding CS to root node.
+    m_rootSceneNode->addObject(m_coordinateSystem.get());
+
+    // Adding translation node to root node.
+    scene::SimpleSceneNode *translationNode = new scene::SimpleSceneNode(D3DXVECTOR3(1, 3, 0));
+    m_rootSceneNode->addChildNode(scene::ISceneNodePtr(translationNode));
+
+    // Adding keyboard-rotating node to translation node.
+    scene::LCSArrowPgUpPgDownRotateNode *rotatingNode = new scene::LCSArrowPgUpPgDownRotateNode;
+    translationNode->addChildNode(scene::ISceneNodePtr(rotatingNode));
+    // Attaching surface to rotating node.
+    rotatingNode->addObject(m_surface.get());
+  }
+
+  if (0)
   {
     // Scene objects.
 
@@ -90,6 +117,7 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
 
     if (1)
     {
+      // Task 1.
       scene::SimpleSceneNode *translationNode = new scene::SimpleSceneNode(D3DXVECTOR3(1, 3, 0));
       m_rootSceneNode->addChildNode(scene::ISceneNodePtr(translationNode));
 
