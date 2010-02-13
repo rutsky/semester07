@@ -468,7 +468,7 @@ namespace xobject
         std::vector<index_type> indices;
         BOOST_STATIC_ASSERT(sizeof(indices[0]) == sizeof(index_type)); // To be sure that packing is expected.
 
-        size_t const primitiveCount = (nY - 1) * ((nX - 1) * 2 + 2) - 2;
+        size_t const primitiveCount = indicesNum - 2;
 
         {
           // Filling vertex buffer.
