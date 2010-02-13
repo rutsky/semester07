@@ -16,34 +16,64 @@
 #include <d3d9.h>
 #include <d3dx9math.h>
 
+#include "FVF_Gen.h"
+
 #include "util.h"
 #include "object.h"
 #include "constants.h"
 
 namespace xobject
 {
+  namespace
+  {
+    struct FVFGenConfig
+    {
+        struct Pos          {D3DXVECTOR3 v;};
+        struct RHW          {float rhw;};
+        template<int n>
+        struct Weights_Gen  {float weights[n]; typedef Weights_Gen<n> Res;};
+        struct Normal       {D3DXVECTOR3 n;};
+        struct Diffuse      {DWORD diffuse;};
+        struct Specular     {DWORD specular;};
+        template<int n>
+        struct Tex_1_Gen    {float tex_1[n]; typedef Tex_1_Gen<n> Res;};
+        template<int n>
+        struct Tex_2_Gen    {float tex_2[n]; typedef Tex_2_Gen<n> Res;};
+        template<int n>
+        struct Tex_3_Gen    {float tex_3[n]; typedef Tex_3_Gen<n> Res;};
+        template<int n>
+        struct Tex_4_Gen    {float tex_4[n]; typedef Tex_4_Gen<n> Res;};
+    };
+  } // End of anonymous namespace
+
 #pragma pack ( push, 1 )
   namespace vertex_xyzcolor
   {
-    struct Vertex
-    {
-      D3DXVECTOR3 v;
-      DWORD color;
-    };
-
     DWORD const vertexFormat = D3DFVF_XYZ | D3DFVF_DIFFUSE;
+    typedef D3D_Util::FVF_Gen<vertexFormat, FVFGenConfig>::Res Vertex;
+
+    inline Vertex fill( D3DXVECTOR3 const &v, DWORD diffuse )
+    {
+      Vertex result;
+      result.v = v;
+      result.diffuse = diffuse;
+      return result;
+    }
   } // End of namespace 'vertex_xyzcolor'
 
   namespace vertex_xyznormalcolor
   {
-    struct Vertex
-    {
-      D3DXVECTOR3 v;
-      D3DXVECTOR3 n;
-      DWORD color;
-    };
-
     DWORD const vertexFormat = D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE;
+    typedef D3D_Util::FVF_Gen<vertexFormat, FVFGenConfig>::Res Vertex;
+
+    inline Vertex fill( D3DXVECTOR3 const &v, D3DXVECTOR3 const &n, DWORD diffuse )
+    {
+      Vertex result;
+      result.v = v;
+      result.n = n;
+      result.diffuse = diffuse;
+      return result;
+    }
   } // End of namespace 'vertex_xyznormalcolor'
 #pragma pack ( pop )
 
@@ -262,9 +292,9 @@ namespace xobject
     {
       vertex_xyzcolor::Vertex const vertices[] = 
         {
-          {p0, color0},
-          {p1, color1},
-          {p2, color2},
+          vertex_xyzcolor::fill(p0, color0),
+          vertex_xyzcolor::fill(p1, color1),
+          vertex_xyzcolor::fill(p2, color2),
         };
       size_t const verticesNum = util::array_size(vertices);
 
@@ -308,8 +338,8 @@ namespace xobject
     {
       vertex_xyzcolor::Vertex const vertices[] = 
         {
-          {p0, color0},
-          {p1, color1},
+          vertex_xyzcolor::fill(p0, color0),
+          vertex_xyzcolor::fill(p1, color1),
         };
       size_t const verticesNum = util::array_size(vertices);
 
