@@ -80,37 +80,37 @@ namespace control
 
       if (isKeyDown(VK_UP))
       {
-        D3DXMatrixRotationX(&rotation, angle);
+        D3DXMatrixRotationX(&rotation, -angle);
         m_matrix = m_matrix * rotation;
       }
 
       if (isKeyDown(VK_DOWN))
       {
-        D3DXMatrixRotationX(&rotation, -angle);
+        D3DXMatrixRotationX(&rotation, angle);
         m_matrix = m_matrix * rotation;
       }
 
       if (isKeyDown(VK_LEFT))
       {
-        D3DXMatrixRotationZ(&rotation, angle);
+        D3DXMatrixRotationY(&rotation, -angle);
         m_matrix = m_matrix * rotation;
       }
 
       if (isKeyDown(VK_RIGHT))
       {
-        D3DXMatrixRotationZ(&rotation, -angle);
+        D3DXMatrixRotationY(&rotation, angle);
         m_matrix = m_matrix * rotation;
       }
 
       if (isKeyDown(VK_PRIOR)) // Page Up
       {
-        D3DXMatrixRotationY(&rotation, angle);
+        D3DXMatrixRotationZ(&rotation, -angle);
         m_matrix = m_matrix * rotation;
       }
 
       if (isKeyDown(VK_NEXT)) // Page Down
       {
-        D3DXMatrixRotationY(&rotation, -angle);
+        D3DXMatrixRotationZ(&rotation, angle);
         m_matrix = m_matrix * rotation;
       }
     }
