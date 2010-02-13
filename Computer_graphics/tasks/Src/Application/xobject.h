@@ -12,6 +12,7 @@
 #include <sstream>
 
 #include <boost/shared_ptr.hpp>
+#include <boost/static_assert.hpp>
 
 #include <d3d9.h>
 #include <d3dx9math.h>
@@ -47,7 +48,7 @@ namespace xobject
   } // End of anonymous namespace
 
 #pragma pack ( push, 1 )
-  namespace vertex_xyzcolor
+  namespace vertex_v_diffuse
   {
     DWORD const vertexFormat = D3DFVF_XYZ | D3DFVF_DIFFUSE;
     typedef D3D_Util::FVF_Gen<vertexFormat, FVFGenConfig>::Res Vertex;
@@ -59,9 +60,9 @@ namespace xobject
       result.diffuse = diffuse;
       return result;
     }
-  } // End of namespace 'vertex_xyzcolor'
+  } // End of namespace 'vertex_v_diffuse'
 
-  namespace vertex_xyznormalcolor
+  namespace vertex_v_n_diffuse
   {
     DWORD const vertexFormat = D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE;
     typedef D3D_Util::FVF_Gen<vertexFormat, FVFGenConfig>::Res Vertex;
@@ -74,7 +75,7 @@ namespace xobject
       result.diffuse = diffuse;
       return result;
     }
-  } // End of namespace 'vertex_xyznormalcolor'
+  } // End of namespace 'vertex_v_n_diffuse'
 #pragma pack ( pop )
 
   class BaseXObject
@@ -177,12 +178,13 @@ namespace xobject
   {
   public:
     XIndexedPrimitive( IDirect3DDevice9 *device, 
-                IDirect3DVertexBuffer9 *vertexBuffer, 
-                IDirect3DIndexBuffer9 *indexBuffer, 
-                DWORD vertexFormat,
-                size_t vertexSize,
-                size_t verticesNum,
-                D3DPRIMITIVETYPE primitiveType, size_t primitiveCount )
+                       IDirect3DVertexBuffer9 *vertexBuffer, 
+                       IDirect3DIndexBuffer9 *indexBuffer, 
+                       DWORD vertexFormat,
+                       size_t vertexSize,
+                       size_t verticesNum,
+                       D3DPRIMITIVETYPE primitiveType, 
+                       size_t primitiveCount )
       : BaseXObject(device)
       , m_vertexBuffer(vertexBuffer)
       , m_indexBuffer(indexBuffer)
@@ -338,21 +340,21 @@ namespace xobject
       D3DXVECTOR3 const &p0, D3DXVECTOR3 const &p1, D3DXVECTOR3 const &p2,
       DWORD color0, DWORD color1, DWORD color2 )
     {
-      vertex_xyzcolor::Vertex const vertices[] = 
+      vertex_v_diffuse::Vertex const vertices[] = 
         {
-          vertex_xyzcolor::fill(p0, color0),
-          vertex_xyzcolor::fill(p1, color1),
-          vertex_xyzcolor::fill(p2, color2),
+          vertex_v_diffuse::fill(p0, color0),
+          vertex_v_diffuse::fill(p1, color1),
+          vertex_v_diffuse::fill(p2, color2),
         };
       size_t const verticesNum = util::array_size(vertices);
 
       IDirect3DVertexBuffer9 *vertexBuffer = 
-        createAndFillVertexBuffer(device, (void *)vertices, sizeof(vertices), vertex_xyzcolor::vertexFormat);
+        createAndFillVertexBuffer(device, (void *)vertices, sizeof(vertices), vertex_v_diffuse::vertexFormat);
       if (!vertexBuffer)
         return 0;
 
-      return new XTriangle(device, vertexBuffer, vertex_xyzcolor::vertexFormat, 
-        sizeof(vertex_xyzcolor::Vertex), D3DPT_TRIANGLELIST, 1);
+      return new XTriangle(device, vertexBuffer, vertex_v_diffuse::vertexFormat, 
+        sizeof(vertex_v_diffuse::Vertex), D3DPT_TRIANGLELIST, 1);
     }
 
     static XTriangle * create( IDirect3DDevice9 *device,
@@ -372,9 +374,9 @@ namespace xobject
   {
   protected:
     XLine( IDirect3DDevice9 *device, 
-               IDirect3DVertexBuffer9* streamData, 
-               DWORD vertexFormat, size_t vertexSize,
-               D3DPRIMITIVETYPE primitiveType, size_t primitiveCount )
+           IDirect3DVertexBuffer9* streamData, 
+           DWORD vertexFormat, size_t vertexSize,
+           D3DPRIMITIVETYPE primitiveType, size_t primitiveCount )
       : XPrimitive(device, streamData, vertexFormat, vertexSize, primitiveType, primitiveCount)
     {
     }
@@ -384,20 +386,20 @@ namespace xobject
       D3DXVECTOR3 const &p0, D3DXVECTOR3 const &p1, 
       DWORD color0, DWORD color1 )
     {
-      vertex_xyzcolor::Vertex const vertices[] = 
+      vertex_v_diffuse::Vertex const vertices[] = 
         {
-          vertex_xyzcolor::fill(p0, color0),
-          vertex_xyzcolor::fill(p1, color1),
+          vertex_v_diffuse::fill(p0, color0),
+          vertex_v_diffuse::fill(p1, color1),
         };
       size_t const verticesNum = util::array_size(vertices);
 
       IDirect3DVertexBuffer9 *vertexBuffer = 
-        createAndFillVertexBuffer(device, (void *)vertices, sizeof(vertices), vertex_xyzcolor::vertexFormat);
+        createAndFillVertexBuffer(device, (void *)vertices, sizeof(vertices), vertex_v_diffuse::vertexFormat);
       if (!vertexBuffer)
         return 0;
 
-      return new XLine(device, vertexBuffer, vertex_xyzcolor::vertexFormat, 
-        sizeof(vertex_xyzcolor::Vertex), D3DPT_LINELIST, 1);
+      return new XLine(device, vertexBuffer, vertex_v_diffuse::vertexFormat, 
+        sizeof(vertex_v_diffuse::Vertex), D3DPT_LINELIST, 1);
     }
 
     static XLine * create( IDirect3DDevice9 *device,
@@ -411,6 +413,169 @@ namespace xobject
       return create(device, D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(0, 1, 0));
     }
   };
+
+  namespace xsurface
+  {
+    class XSurface
+      : public XIndexedPrimitive
+    {
+    protected:
+      XSurface( IDirect3DDevice9 *device, 
+                IDirect3DVertexBuffer9 *vertexBuffer, 
+                IDirect3DIndexBuffer9 *indexBuffer, 
+                DWORD vertexFormat,
+                size_t vertexSize,
+                size_t verticesNum,
+                D3DPRIMITIVETYPE primitiveType, 
+                size_t primitiveCount )
+        : XIndexedPrimitive(device, vertexBuffer, indexBuffer, vertexFormat, 
+            vertexSize, verticesNum, primitiveType, primitiveCount)
+      {
+      }
+
+    public:
+      template< typename VertexGenerator, typename NormalGenerator, typename ColorGenerator >
+      static XSurface * create( IDirect3DDevice9 *device,
+        size_t nX, size_t nY,
+        VertexGenerator vertexGen, NormalGenerator normalGen, ColorGenerator colorGen )
+      {
+        if (nY < 2 || nY < 2)
+          return 0;
+
+        D3DPRIMITIVETYPE const primitiveType = D3DPT_TRIANGLESTRIP;
+        typedef vertex_v_n_diffuse::Vertex vertex_type;
+        DWORD const vertexFormat = vertex_v_n_diffuse::vertexFormat;
+        size_t const verticesNum = nX * nY;
+        std::vector<vertex_type> vertices(verticesNum);
+        BOOST_STATIC_ASSERT(sizeof(vertices[0]) == sizeof(vertex_type)); // To be sure that packing is expected.
+
+        // Indexing:
+        //    9 
+        //    | \    ...
+        // 1,7,8- 3 - 5,6
+        //    | \ | \ |
+        //    0 - 2 - 4
+        //
+        // Alternative (not used currently):
+        //  7,8-10
+        //   | /    ...
+        //  0,9- 2 - 4
+        //   | / | / |
+        //   1 - 3 - 5,6
+        D3DFORMAT indexFormat = D3DFMT_INDEX16;
+        typedef unsigned short index_type;
+        size_t const indicesNum = (nY - 1) * (nX * 2 + 2) - 2;
+        std::vector<index_type> indices;
+        BOOST_STATIC_ASSERT(sizeof(indices[0]) == sizeof(index_type)); // To be sure that packing is expected.
+
+        size_t const primitiveCount = (nY - 1) * ((nX - 1) * 2 + 2) - 2;
+
+        {
+          // Filling vertex buffer.
+          for (size_t y = 0; y < nY; ++y)
+            for (size_t x = 0; x < nX; ++x)
+            {
+              vertex_type &vertex = vertices[y * nX + x];
+
+              double const rx = (double)x / (nX - 1);
+              double const ry = (double)y / (nY - 1);
+
+              vertex.v = vertexGen(rx, ry);
+              vertex.n = normalGen(rx, ry);
+              vertex.diffuse = colorGen(rx, ry);
+            }
+
+          // Filling index buffer.
+          for (size_t y = 0; y < nY - 1; ++y)
+          {
+            for (size_t x = 0; x < nX; ++x)
+            {
+              indices.push_back(index_type((y + 0) * nX + x));
+              indices.push_back(index_type((y + 1) * nX + x));
+            }
+
+            if ((y + 1) < nY - 1)
+            {
+              indices.push_back(indices.back());
+              indices.push_back(index_type((y + 1) * nX));
+            }
+          }
+        }
+        assert(indices.size() == indicesNum);
+
+        IDirect3DVertexBuffer9 *vertexBuffer = 
+          createAndFillVertexBuffer(device, (void *)&(vertices[0]), sizeof(vertex_type) * verticesNum, vertexFormat);
+        if (!vertexBuffer)
+          return 0;
+
+        IDirect3DIndexBuffer9 *indexBuffer = 
+          createAndFillIndexBuffer(device, (void *)&(indices[0]), sizeof(index_type) * indicesNum, indexFormat);
+        if (!indexBuffer)
+        {
+          vertexBuffer->Release();
+          return 0;
+        }
+
+        return new XSurface(device, vertexBuffer, indexBuffer, vertexFormat, sizeof(vertex_type),
+                verticesNum, primitiveType, primitiveCount);
+      }
+    };
+
+    namespace plane_generator
+    {
+      struct vertex
+      {
+        D3DXVECTOR3 operator () ( double x, double y )
+        {
+         return D3DXVECTOR3((float)(x - 0.5), (float)(y - 0.5), 0);
+        }
+      };
+
+      struct normal
+      {
+        D3DXVECTOR3 operator () ( double x, double y )
+        {
+         return D3DXVECTOR3(0, 0, 1);
+        }
+      };
+    } // End of namespace 'plane_generator'
+
+    namespace color_generator
+    {
+      struct yuv
+      {
+        yuv()
+          : m_y(1)
+        {
+        }
+
+        yuv( double y )
+          : m_y(util::clamp(0.0, 1.0)(y))
+        {
+        }
+
+        DWORD operator () ( double x, double y )
+        {
+          // By some formula from 
+          // http://en.wikipedia.org/wiki/YUV
+          int const r = (int)(255 * util::clamp<double>()(m_y + 1.402 * (y - 0.5)));
+          int const g = (int)(255 * util::clamp<double>()(m_y - 0.344 * (x - 0.5) - 0.714 * (y - 0.5)));
+          int const b = (int)(255 * util::clamp<double>()(m_y + 1.772 * (x - 0.5)));
+
+          return D3DCOLOR_ARGB(255, r, g, b);
+        }
+
+      private:
+        double m_y;
+      };
+    };
+
+    inline XSurface * createPlane( IDirect3DDevice9 *device, size_t nX, size_t nY )
+    {
+      return XSurface::create(device, nX, nY, 
+        plane_generator::vertex(), plane_generator::normal(), color_generator::yuv());
+    }
+  } // End of namespace 'xsurface'
 
   typedef boost::shared_ptr<XLine> xline_ptr_type;
 
