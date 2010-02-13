@@ -138,11 +138,11 @@ namespace xobject
   {
   public:
     XPrimitive( IDirect3DDevice9 *device, 
-                IDirect3DVertexBuffer9* streamData, 
+                IDirect3DVertexBuffer9 *vertexBuffer, 
                 DWORD vertexFormat, size_t vertexSize,
                 D3DPRIMITIVETYPE primitiveType, size_t primitiveCount )
       : BaseXObject(device)
-      , m_streamData(streamData)
+      , m_vertexBuffer(vertexBuffer)
       , m_vertexFormat(vertexFormat)
       , m_vertexSize(vertexSize)
       , m_primitiveType(primitiveType)
@@ -152,22 +152,70 @@ namespace xobject
 
     ~XPrimitive()
     {
-      m_streamData->Release();
+      m_vertexBuffer->Release();
     }
 
     // object::IDrawableObject
   public:
     void draw()
     {
-      m_device->SetStreamSource(0, m_streamData, 0, m_vertexSize);
+      m_device->SetStreamSource(0, m_vertexBuffer, 0, m_vertexSize);
       m_device->SetFVF(m_vertexFormat);
       m_device->DrawPrimitive(m_primitiveType, 0, m_primitiveCount);
     }
 
   protected:
-    IDirect3DVertexBuffer9 *m_streamData;
+    IDirect3DVertexBuffer9 *m_vertexBuffer;
     DWORD m_vertexFormat;
     size_t m_vertexSize;
+    D3DPRIMITIVETYPE m_primitiveType;
+    size_t m_primitiveCount;
+  };
+
+  class XIndexedPrimitive
+    : public BaseXObject
+  {
+  public:
+    XIndexedPrimitive( IDirect3DDevice9 *device, 
+                IDirect3DVertexBuffer9 *vertexBuffer, 
+                IDirect3DIndexBuffer9 *indexBuffer, 
+                DWORD vertexFormat,
+                size_t vertexSize,
+                size_t verticesNum,
+                D3DPRIMITIVETYPE primitiveType, size_t primitiveCount )
+      : BaseXObject(device)
+      , m_vertexBuffer(vertexBuffer)
+      , m_indexBuffer(indexBuffer)
+      , m_vertexFormat(vertexFormat)
+      , m_vertexSize(vertexSize)
+      , m_verticesNum(verticesNum)
+      , m_primitiveType(primitiveType)
+      , m_primitiveCount(primitiveCount)
+    {
+    }
+
+    ~XIndexedPrimitive()
+    {
+      m_vertexBuffer->Release();
+      m_indexBuffer->Release();
+    }
+
+    // object::IDrawableObject
+  public:
+    void draw()
+    {
+      m_device->SetStreamSource(0, m_vertexBuffer, 0, m_vertexSize);
+      m_device->SetFVF(m_vertexFormat);
+      m_device->SetIndices(m_indexBuffer);
+      m_device->DrawIndexedPrimitive(m_primitiveType, 0, 0, m_verticesNum, 0, m_primitiveCount);
+    }
+
+  protected:
+    IDirect3DVertexBuffer9 *m_vertexBuffer;
+    IDirect3DIndexBuffer9 *m_indexBuffer;
+    DWORD m_vertexFormat;
+    size_t m_vertexSize;
+    size_t m_verticesNum;
     D3DPRIMITIVETYPE m_primitiveType;
     size_t m_primitiveCount;
   };
