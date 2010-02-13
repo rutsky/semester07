@@ -90,7 +90,7 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
 
     if (1)
     {
-      scene::SimpleSceneNode *translationNode = new scene::SimpleSceneNode(D3DXVECTOR3(0, 0, 0));
+      scene::SimpleSceneNode *translationNode = new scene::SimpleSceneNode(D3DXVECTOR3(1, 3, 0));
       m_rootSceneNode->addChildNode(scene::ISceneNodePtr(translationNode));
 
       scene::LCSArrowPgUpPgDownRotateNode *rotatingNode = new scene::LCSArrowPgUpPgDownRotateNode;
