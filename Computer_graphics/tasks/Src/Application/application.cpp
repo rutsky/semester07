@@ -27,10 +27,10 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
   assert(m_device);
 
   // Root node.
-  m_rootSceneNode.reset(new scene::SimpleSceneNode);
+  m_rootSceneNode.reset(new scene::RootNode);
 
   // Projection matrix.
-  m_projectionMatrix.reset(new projection::PerspectiveProjection(constants::pi / 2.0, windowWidth / windowHeight, 1.0, 10000.0));
+  m_projectionMatrix.reset(new projection::PerspectiveProjection(constants::pi / 2.0, (double)windowWidth / windowHeight, 1.0, 10000.0));
 
   // Camera (view matrix).
   m_sphericCamera.reset(new camera::SphericCamera);
@@ -156,12 +156,15 @@ static void drawScene( IDirect3DDevice9 *device, scene::ISceneNodePtr node, D3DX
   device->SetTransform(D3DTS_WORLD, &newWorld);
   if (node->show())
     node->draw();
+
+  node->beginChildsDrawing(device);
   for (size_t i = 0; i < node->objectsNum(); ++i)
     if (node->object(i)->show())
       node->object(i)->draw();
 
   for (size_t i = 0; i < node->childNodesNum(); ++i)
     drawScene(device, node->childNode(i), &newWorld);
+  node->endChildsDrawing(device);
 }
 
 void Application::update()
@@ -173,9 +176,9 @@ void Application::update()
 
 void Application::renderInternal()
 {
-  //m_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+  m_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
   m_device->SetRenderState(D3DRS_LIGHTING, FALSE);
-  m_device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+  //m_device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 
   //D3DXMATRIX identity;
   //D3DXMatrixIdentity(&identity);

@@ -71,7 +71,6 @@ namespace hierarchy
   class IHierarchyNode 
     : public virtual IChildNodePtrsManager<NodePtrType>
     , public virtual IWritableParentNodeManager<NodeType *>
-    , public virtual cs::ICoordinateSystem
     , public virtual IObjectsManager<ObjectType>
   {
   public:

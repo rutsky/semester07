@@ -35,6 +35,21 @@ namespace object
     virtual ~IDynamicObject() {}
   };
 
+  template< class U, class V >
+  class CombineDynamicObjects
+    : public U
+    , public V
+    , public virtual IDynamicObject
+  {
+    // IDynamicObject
+  public:
+    void update( double time )
+    {
+      U::update(time);
+      V::update(time);
+    }
+  };
+
   class DummyDynamicObject
     : public virtual IDynamicObject
   {

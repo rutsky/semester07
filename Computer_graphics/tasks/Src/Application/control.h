@@ -6,6 +6,8 @@
 #ifndef CONTROL_H
 #define CONTROL_H
 
+#include <vector>
+
 #include <windows.h>
 #include <windowsx.h>
 
@@ -16,6 +18,22 @@ namespace control
   public:
     virtual bool handleMessage( unsigned int message, int wParam, long lParam ) = 0;
     virtual ~IControlHandler() {}
+  };
+
+  template< class U, class V >
+  class CombineControlHandlers
+    : public U
+    , public V
+    , public virtual IControlHandler
+  {
+    // IControlHandler
+  public:
+    bool handleMessage( unsigned int message, int wParam, long lParam )
+    {
+      return 
+        U::handleMessage(message, wParam, lParam) || 
+        V::handleMessage(message, wParam, lParam);
+    }
   };
 
   class DummyControlHandler
@@ -122,7 +140,7 @@ namespace control
       }
 
       return false; 
-    };
+    }
 
     // IOnMouseWheelHandler
   public:
@@ -133,16 +151,126 @@ namespace control
   };
 
   class BaseMouseControl
-    : public BaseMouseMoveControl
-    , public BaseMouseWheelControl
+    : public CombineControlHandlers<BaseMouseMoveControl, BaseMouseWheelControl>
+  {
+  };
+
+  class IOnKeyDownHandler
+  {
+  public:
+    bool onKeyDown( int key, long lParam );
+    ~IOnKeyDownHandler() {}
+  };
+
+  class BaseOnKeyDownHandler
+    : public virtual DummyControlHandler
+    , public virtual IOnKeyDownHandler
   {
     // IControlHandler
   public:
     virtual bool handleMessage( unsigned int message, int wParam, long lParam )
     {
-      return BaseMouseMoveControl::handleMessage(message, wParam, lParam) ||
-          BaseMouseWheelControl::handleMessage(message, wParam, lParam);
+      if (message == WM_KEYDOWN)
+        return onKeyDown(wParam, lParam);
+
+      return false; 
     }
+
+    // IOnKeyDownHandler
+  public:
+    virtual bool onKeyDown( int key, long lParam )
+    {
+      return false;
+    }
+  };
+
+  /*
+  class IOnSpecifiedKeyDownHandler
+  {
+  public:
+    bool onSpecifiedKeyDown( long lParam );
+    ~IOnSpecifiedKeyDownHandler() {}
+  };
+
+  template< int specifiedKey >
+  class OnSpecifiedKeyDown
+    : public BaseOnKeyDownHandler
+    , public IOnSpecifiedKeyDownHandler
+  {
+    // IOnKeyDownHandler
+  public:
+    bool onKeyDown( int key, long lParam )
+    {
+      if (key == specifiedKey)
+        return onSpecifiedKeyDown(lParam);
+      return false;
+    }
+  };
+  */
+
+  template< class T, int key >
+  class SwitchByKey
+    : public BaseOnKeyDownHandler
+  {
+  public:
+    SwitchByKey()
+      : m_initialized(false)
+      , m_key(key)
+      , m_index(0)
+    {
+    }
+
+    void init( T *var, T val0, T val1 )
+    {
+      m_var = var;
+      m_values.push_back(val0);
+      m_values.push_back(val1);
+
+      m_initialized = true;
+    }
+
+    void init( T *var, T val0, T val1, T val2 )
+    {
+      m_var = var;
+      m_values.push_back(val0);
+      m_values.push_back(val1);
+      m_values.push_back(val2);
+
+      m_initialized = true;
+    }
+
+    void init( T *var, T val0, T val1, T val2, T val3 )
+    {
+      m_var = var;
+      m_values.push_back(val0);
+      m_values.push_back(val1);
+      m_values.push_back(val2);
+      m_values.push_back(val3);
+
+      m_initialized = true;
+    }
+
+    // IOnKeyDownHandler
+  public:
+    bool onKeyDown( int key, long lParam )
+    {
+      assert(m_initialized);
+
+      if (key == m_key)
+      {
+        m_index = (m_index + 1) % m_values.size();
+        *m_var = m_values[m_index];
+        return true;
+      }
+      return false;
+    }
+
+  private:
+    bool m_initialized;
+    int m_key;
+    T *m_var;
+    size_t m_index;
+    std::vector<T> m_values;
   };
 } // End of namespace 'control'
 
