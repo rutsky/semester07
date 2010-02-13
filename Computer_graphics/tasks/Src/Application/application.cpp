@@ -51,7 +51,12 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
     //m_mesh->setShow(false);
 
     //m_surface.reset(xobject::xsurface::createPlane(m_device, 3, 4));
-    m_surface.reset(xobject::xsurface::createTorus(m_device, 1.5, 0.5, 10, 20));
+    //m_surface.reset(xobject::xsurface::createTorus(m_device, 1.5, 0.5, 100, 100, xobject::xsurface::color_generator::chessboard()));
+    //typedef xobject::xsurface::color_generator::yuv colorspace_type;
+    typedef xobject::xsurface::color_generator::chessboard colorspace_type;
+    //typedef xobject::xsurface::color_generator::yuv colorspace_type;
+    m_surface.reset(xobject::xsurface::createTorus(m_device, 1.5, 0.5, 100, 50, 
+      xobject::xsurface::ScaleColorSpace<colorspace_type>(colorspace_type(), 1 / 10.0, 1 / 5.0)));
   }
 
   {

@@ -552,11 +552,11 @@ namespace xobject
 
         D3DXVECTOR3 operator () ( double u, double v )
         {
-          double const phi   = u * 2.0 * constants::pi;
-          double const theta = v * 2.0 * constants::pi;
+          double const phi   = -v * 2.0 * constants::pi;
+          double const theta = -u * 2.0 * constants::pi;
 
-          double const x = (m_outerR - m_innerR * cos(phi)) * cos(theta);
-          double const y = (m_outerR - m_innerR * cos(phi)) * sin(theta);
+          double const x = (m_outerR + m_innerR * cos(phi)) * cos(theta);
+          double const y = (m_outerR + m_innerR * cos(phi)) * sin(theta);
           double const z = m_innerR * sin(phi);
 
           return D3DXVECTOR3((float)x, (float)y, (float)z);
@@ -571,11 +571,11 @@ namespace xobject
       {
         D3DXVECTOR3 operator () ( double u, double v )
         {
-          double const phi   = u * 2.0 * constants::pi;
-          double const theta = v * 2.0 * constants::pi;
+          double const phi   = -v * 2.0 * constants::pi;
+          double const theta = -u * 2.0 * constants::pi;
 
-          double const x = -cos(phi) * cos(theta);
-          double const y = -cos(phi) * sin(theta);
+          double const x = cos(phi) * cos(theta);
+          double const y = cos(phi) * sin(theta);
           double const z = sin(phi);
 
           return D3DXVECTOR3((float)x, (float)y, (float)z);
@@ -587,12 +587,7 @@ namespace xobject
     {
       struct yuv
       {
-        yuv()
-          : m_y(1)
-        {
-        }
-
-        yuv( double y )
+        yuv( double y = 1.0 )
           : m_y(util::clamp(0.0, 1.0)(y))
         {
         }
@@ -611,18 +606,79 @@ namespace xobject
       private:
         double m_y;
       };
+
+      struct chessboard
+      {
+        chessboard( size_t uCells = 2, size_t vCells = 2 )
+          : m_uCells(uCells)
+          , m_vCells(vCells)
+        {
+          assert(m_uCells > 0);
+          assert(m_vCells > 0);
+        }
+
+        DWORD operator () ( double u, double v )
+        {
+          if (((int)(u * m_uCells) + (int)(v * m_vCells)) % 2 == 0)
+            return constants::color::black;
+          else
+            return constants::color::white;
+        }
+
+      private:
+        size_t m_uCells;
+        size_t m_vCells;
+      };
     };
+
+    template< class G >
+    class ScaleColorSpace
+    {
+    public:
+      ScaleColorSpace( G generator, double uFactor, double vFactor )
+        : m_generator(generator)
+        , m_uFactor(uFactor)
+        , m_vFactor(vFactor)
+      {
+        assert(m_uFactor > 0);
+        assert(m_vFactor > 0);
+      }
+
+      DWORD operator () ( double u, double v ) 
+      {
+        return m_generator(fmod(u, m_uFactor) / m_uFactor, fmod(v, m_vFactor) / m_vFactor);
+      }
+
+    private:
+      G m_generator;
+      double m_uFactor;
+      double m_vFactor;
+    };
+
+    template< class ColorGenerator >
+    inline XSurface * createPlane( IDirect3DDevice9 *device, size_t nX, size_t nY, 
+      ColorGenerator colorGen )
+    {
+      return XSurface::create(device, nX, nY, 
+        plane_generator::vertex(), plane_generator::normal(), colorGen);
+    }
 
     inline XSurface * createPlane( IDirect3DDevice9 *device, size_t nX, size_t nY )
     {
+      return createPlane(device, nX, nY, color_generator::yuv());
+    }
+
+    template< class ColorGenerator >
+    inline XSurface * createTorus( IDirect3DDevice9 *device, double outerR, double innerR, size_t nX, size_t nY,
+      ColorGenerator colorGen )
+    {
       return XSurface::create(device, nX, nY, 
-        plane_generator::vertex(), plane_generator::normal(), color_generator::yuv());
+        torus_generator::vertex(outerR, innerR), torus_generator::normal(), colorGen);
     }
 
     inline XSurface * createTorus( IDirect3DDevice9 *device, double outerR, double innerR, size_t nX, size_t nY )
     {
-      return XSurface::create(device, nX, nY, 
-        torus_generator::vertex(outerR, innerR), torus_generator::normal(), color_generator::yuv());
+      return createTorus(device, outerR, innerR, nX, nY, color_generator::yuv());
     }
   } // End of namespace 'xsurface'
 
