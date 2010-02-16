@@ -270,7 +270,7 @@ namespace camera
     {
       if (keys & MK_LBUTTON)
       {
-        moveInSphericCoordinates(0, -dx * config::mouseRotationSpeedX, dy * config::mouseRotationSpeedY);
+        moveInSphericCoordinates(0, -dx * config::centerMouseRotationSpeedX, dy * config::centerMouseRotationSpeedY);
         return true;
       }
 
@@ -325,7 +325,7 @@ namespace camera
     {
       if (keys & MK_LBUTTON)
       {
-        moveInSphericCoordinates(-dx * config::mouseRotationSpeedX, -dy * config::mouseRotationSpeedY);
+        moveInSphericCoordinates(-dx * config::freeViewMouseRotationSpeedX, -dy * config::freeViewMouseRotationSpeedY);
         return true;
       }
 

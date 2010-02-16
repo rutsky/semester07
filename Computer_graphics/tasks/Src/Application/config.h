@@ -10,8 +10,10 @@ namespace config
 {
   extern double const keyboardTranslationSpeed;
   extern double const keyboardRotationSpeed;
-  extern double const mouseRotationSpeedX;
-  extern double const mouseRotationSpeedY;
+  extern double const centerMouseRotationSpeedX;
+  extern double const centerMouseRotationSpeedY;
+  extern double const freeViewMouseRotationSpeedX;
+  extern double const freeViewMouseRotationSpeedY;
   extern double const mouseWheelZoomFactor;
 } // End of namespace 'config'
 
