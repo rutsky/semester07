@@ -125,6 +125,12 @@ namespace util
   {
     return clamp_impl<T>(T(0), T(1));
   }
+
+  template< class T >
+  inline T sqr( T x )
+  {
+    return x * x;
+  }
 } // End of namespace 'util'
 
 #endif // UTIL_H

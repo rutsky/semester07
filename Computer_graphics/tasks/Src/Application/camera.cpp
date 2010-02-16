@@ -11,16 +11,16 @@ namespace camera
 {
   namespace lcs
   {
-    D3DXMATRIX SphericCamera::evalViewMatrix( double r, double phi, double theta )
+    D3DXMATRIX SphericCamera::evalCameraMatrix( double r, double phi, double theta )
     {
       D3DXMATRIX translate;
-      D3DXMatrixTranslation(&translate, 0, 0, (float)r);
+      D3DXMatrixTranslation(&translate, (float)(r * cos(phi) * cos(theta)), (float)(r * sin(phi) * cos(theta)), (float)(r * sin(theta)));
 
-      D3DXMATRIX yRot;
-      D3DXMatrixRotationY(&yRot, (float)phi);
+      D3DXMATRIX zRot;
+      D3DXMatrixRotationZ(&zRot, (float)(phi + constants::pi / 2.0));
 
       D3DXMATRIX xRot;
-      D3DXMatrixRotationX(&xRot, (float)-theta);
+      D3DXMatrixRotationX(&xRot, (float)(-theta));
 
       // Natural CS:
       //   North - Y, East - X, Up - Z.
@@ -37,14 +37,28 @@ namespace camera
          1,  0,  0,  0,
          0,  1,  0,  0,
          0,  0,  1,  0,
-         0,  0,  0,  1);
-         */
+         0,  0,  0,  1);*/
+         
+      return axis * xRot * zRot * translate;
+    }
 
-      //return axis * translate * yRot * zRot;
-      //return zRot * yRot * translate * axis;
-      return axis * yRot * xRot * translate;
-      //return yRot * xRot;
-      //return translate;
+    D3DXMATRIX FreeViewCamera::evalCameraMatrix( double phi, double theta )
+    {
+      D3DXMATRIX zRot;
+      D3DXMatrixRotationZ(&zRot, (float)phi);
+
+      D3DXMATRIX xRot;
+      D3DXMatrixRotationX(&xRot, (float)theta);
+
+      // Natural CS:
+      //   North - Y, East - X, Up - Z.
+      D3DXMATRIX axis(
+         1,  0,  0,  0,
+         0,  0,  1,  0,
+         0,  1,  0,  0,
+         0,  0,  0,  1);
+
+      return axis * xRot * zRot;
     }
   } // End of namespace 'lcs'
 } // End of namespace 'camera'

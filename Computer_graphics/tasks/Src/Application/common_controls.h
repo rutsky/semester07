@@ -115,6 +115,57 @@ namespace control
       }
     }
   };
+
+  class LCSWSADMove
+    : public virtual cs::BaseCoordinateSystem
+    , public virtual object::BaseDynamicObject
+  {
+    // IDynamicObject
+  public:
+    void update( double time )
+    {
+      object::BaseDynamicObject::update(time);
+
+      D3DXMATRIX translation;
+      float const distance = (float)(config::keyboardTranslationSpeed * dtime());
+
+      if (isKeyDown('Q'))
+      {
+        D3DXMatrixTranslation(&translation, 0, -distance, 0);
+        m_matrix = m_matrix * translation;
+      }
+
+      if (isKeyDown('Z'))
+      {
+        D3DXMatrixTranslation(&translation, 0, distance, 0);
+        m_matrix = m_matrix * translation;
+      }
+
+      if (isKeyDown('A'))
+      {
+        D3DXMatrixTranslation(&translation, distance, 0, 0);
+        m_matrix = m_matrix * translation;
+      }
+
+      if (isKeyDown('D'))
+      {
+        D3DXMatrixTranslation(&translation, -distance, 0, 0);
+        m_matrix = m_matrix * translation;
+      }
+
+      if (isKeyDown('W'))
+      {
+        D3DXMatrixTranslation(&translation, 0, 0, -distance);
+        m_matrix = m_matrix * translation;
+      }
+
+      if (isKeyDown('S'))
+      {
+        D3DXMatrixTranslation(&translation, 0, 0, distance);
+        m_matrix = m_matrix * translation;
+      }
+    }
+  };
 } // End of namespace 'control'
 
 #endif // COMMON_CONTROLS_H

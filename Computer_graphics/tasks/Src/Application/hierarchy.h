@@ -135,7 +135,7 @@ namespace hierarchy
 
     void addObject( object_type object )
     {
-      //assert(object != NULL); // DEBUG
+      assert(object != NULL); // DEBUG
       objects.push_back(object);
     }
 

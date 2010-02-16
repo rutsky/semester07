@@ -42,6 +42,7 @@ private:
   scene::ISceneNodePtr m_rootSceneNode;
   boost::shared_ptr<projection::IProjectionMatrix> m_projectionMatrix;
   boost::shared_ptr<camera::SphericCamera> m_sphericCamera;
+  boost::shared_ptr<camera::FreeViewCamera> m_freeViewCamera;
 
   boost::shared_ptr<xobject::XMesh> m_mesh;
   boost::shared_ptr<xobject::XTriangle> m_triangle;
