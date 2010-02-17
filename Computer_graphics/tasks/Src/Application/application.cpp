@@ -100,9 +100,11 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
       m_triangle.reset(xobject::XTriangle::create(m_device));
       //m_triangle->setShow(false);
 
-      m_mesh.reset(xobject::XMesh::create(m_device, "data", "car00.x"));
+      m_mesh.reset(xobject::XMesh::create(m_device, "data", "car00.x", false));
       //m_mesh.reset(xobject::XMesh::create(m_device, "data", "tiger.x"));
       //m_mesh->setShow(false);
+
+      m_groundMesh.reset(xobject::XMesh::create(m_device, "data", "ground_paletted.x", false));
 
       //m_surface.reset(xobject::xsurface::createPlane(m_device, 3, 4));
       //m_surface.reset(xobject::xsurface::createTorus(m_device, 1.5, 0.5, 100, 100, xobject::xsurface::color_generator::chessboard()));
@@ -144,11 +146,22 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
 
       if (1)
       {
-        scene::SimpleSceneNode *translationNode = new scene::SimpleSceneNode(D3DXVECTOR3(1, 3, 0));
-        m_rootSceneNode->addChildNode(scene::ISceneNodePtr(translationNode));
+        scene::RotatingSceneNode *rotatingNode = new scene::RotatingSceneNode(D3DXVECTOR3(0, 0, 1), 0.4);
+        m_rootSceneNode->addChildNode(scene::ISceneNodePtr(rotatingNode));
 
-        scene::LCSArrowPgUpPgDownRotateNode *rotatingNode = new scene::LCSArrowPgUpPgDownRotateNode;
-        translationNode->addChildNode(scene::ISceneNodePtr(rotatingNode));
+        scene::SimpleSceneNode *translationNode = new scene::SimpleSceneNode(D3DXVECTOR3(0, 30.0f, 2.4f));
+        rotatingNode->addChildNode(scene::ISceneNodePtr(translationNode));
+
+        scene::SimpleSceneNode *groundNode = new scene::SimpleSceneNode(D3DXMATRIX(
+            1,  0,  0,  0,
+            0,  0, -1,  0,
+            0,  1,  0,  0,
+            0,  0,  0,  1));
+        groundNode->addObject(m_groundMesh.get());
+        m_rootSceneNode->addChildNode(scene::ISceneNodePtr(groundNode));
+
+        scene::LCSArrowPgUpPgDownRotateNode *keyboardRotatingNode = new scene::LCSArrowPgUpPgDownRotateNode;
+        translationNode->addChildNode(scene::ISceneNodePtr(keyboardRotatingNode));
 
         scene::SimpleSceneNode *xmeshNode = new scene::SimpleSceneNode(D3DXMATRIX(
             1,  0,  0,  0,
@@ -156,7 +169,7 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
             0,  1,  0,  0,
             0,  0,  0,  1));
         xmeshNode->addObject(m_mesh.get());
-        rotatingNode->addChildNode(scene::ISceneNodePtr(xmeshNode));
+        keyboardRotatingNode->addChildNode(scene::ISceneNodePtr(xmeshNode));
       }
     }
   }

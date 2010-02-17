@@ -249,7 +249,7 @@ namespace xobject
     }
 
   public:
-    static XMesh * create( IDirect3DDevice9 *device, char const *dataDirectory, char const *fileName )
+    static XMesh * create( IDirect3DDevice9 *device, char const *dataDirectory, char const *fileName, bool loadTextures = true )
     {
       // Based on DirectX Meshes example.
 
@@ -284,7 +284,8 @@ namespace xobject
         materials[i].Ambient = materials[i].Diffuse;
 
         textures[i] = NULL;
-        if (xmaterials[i].pTextureFilename != NULL &&
+        if (loadTextures &&
+            xmaterials[i].pTextureFilename != NULL &&
             lstrlenA(xmaterials[i].pTextureFilename) > 0)
         {
           std::ostringstream ostr;
