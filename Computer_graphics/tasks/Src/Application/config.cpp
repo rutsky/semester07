@@ -10,7 +10,7 @@
 
 namespace config
 {
-  extern double const keyboardTranslationSpeed = 10.0;
+  extern double const keyboardTranslationSpeed = 13.0;
   extern double const keyboardRotationSpeed = 2 * constants::pi / 1.5;
   extern double const centerMouseRotationSpeedX = 2 * constants::pi / 400.0;
   extern double const centerMouseRotationSpeedY = 2 * constants::pi / 400.0;

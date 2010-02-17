@@ -129,15 +129,23 @@ namespace camera
 
       void lookAt( D3DXVECTOR3 const &dir )
       {
-        assert(D3DXVec3LengthSq(&dir) > 1e-6);
-        m_phi = constrainedPhi(atan2(dir[1], dir[0]) - constants::pi / 2.0);
-        m_theta = constrainedTheta(atan2(dir[2], sqrt(util::sqr(dir[0]) + util::sqr(dir[1]))));
+        if (D3DXVec3LengthSq(&dir) <= 1e-6)
+        {
+          m_phi = 0;
+          m_theta = 0;
+        }
+        else
+        {
+          m_phi = constrainedPhi(atan2(dir[1], dir[0]) - constants::pi / 2.0);
+          m_theta = constrainedTheta(atan2(dir[2], sqrt(util::sqr(dir[0]) + util::sqr(dir[1]))));
+        }
         updateCameraMatrix();
       }
 
     protected:
       static D3DXMATRIX evalCameraMatrix( double phi, double theta );
       
+    protected:
       static double constrainedPhi( double phi )
       {
         phi = fmod(phi, 2 * constants::pi);
@@ -171,6 +179,7 @@ namespace camera
     {
     public:
       virtual void setSphericCoordinates( double r, double phi, double theta ) = 0;
+      virtual void setEyePosition( D3DXVECTOR3 const &eye ) = 0;
       virtual void moveInSphericCoordinates( double dr, double dphi, double dtheta ) = 0;
     };
 
@@ -197,6 +206,22 @@ namespace camera
         updateCameraMatrix();
       }
 
+      void setEyePosition( D3DXVECTOR3 const &eye )
+      {
+        m_r = constrainedR(D3DXVec3Length(&eye));
+        if (m_r <= 1e-6)
+        {
+          m_phi = 0;
+          m_theta = 0;
+        }
+        else
+        {
+          m_phi = constrainedPhi(atan2(eye[1], eye[0]) - constants::pi / 2.0);
+          m_theta = constrainedTheta(atan2(eye[2], sqrt(util::sqr(eye[0]) + util::sqr(eye[1]))));
+        }
+        updateCameraMatrix();
+      }
+
       void moveInSphericCoordinates( double dr, double dphi, double dtheta )
       {
         m_r = constrainedR(m_r + dr);
@@ -207,7 +232,14 @@ namespace camera
 
     protected:
       static D3DXMATRIX evalCameraMatrix( double r, double phi, double theta );
-      
+      static D3DXVECTOR3 eyePosition( double r, double phi, double theta )
+      {
+        return D3DXVECTOR3(
+          (float)(r * cos(phi) * cos(theta)), 
+          (float)(r * sin(phi) * cos(theta)), 
+          (float)(r * sin(theta)));
+      }     
+
       static double constrainedR( double r )
       {
         if (r < 0)
@@ -265,26 +297,39 @@ namespace camera
     }
 
     // IOnMouseMoveHandler
-  public:
+  protected: // TODO: Made protected in parent.
     bool onMouseMove( int dx, int dy, int keys )
     {
       if (keys & MK_LBUTTON)
       {
         moveInSphericCoordinates(0, -dx * config::centerMouseRotationSpeedX, dy * config::centerMouseRotationSpeedY);
-        return true;
+        //return true;
+        return false; // TODO
       }
 
       return false;
     }
 
     // IOnMouseWheelHandler
-  public:
+  protected: // TODO: Made protected in parent.
     virtual bool onMouseWheel( int steps, int keys )
     {
       double const dr = ::pow(config::mouseWheelZoomFactor, steps);
       moveInSphericCoordinates(m_r * (dr - 1.0), 0, 0);
 
       return true;
+    }
+
+  public:
+    // In LCS.
+    D3DXVECTOR3 eyePosition() const
+    {
+      return lcs::SphericCamera::eyePosition(m_r, m_phi, m_theta);
+    }
+
+    void setEyePosition( D3DXVECTOR3 const &eye )
+    {
+      lcs::SphericCamera::setEyePosition(eye);
     }
   };
 
@@ -302,6 +347,7 @@ namespace camera
     {
     }
 
+  public:
     void lookAt( D3DXVECTOR3 const &eye, D3DXVECTOR3 const &lookAt )
     {
       D3DXMatrixTranslation(&m_matrix, eye[0], eye[1], eye[2]);
@@ -326,7 +372,8 @@ namespace camera
       if (keys & MK_LBUTTON)
       {
         moveInSphericCoordinates(-dx * config::freeViewMouseRotationSpeedX, -dy * config::freeViewMouseRotationSpeedY);
-        return true;
+        //return true;
+        return true; // TODO
       }
 
       return false;
@@ -339,7 +386,7 @@ namespace camera
       object::BaseDynamicObject::update(time);
 
       float const distance = (float)(config::keyboardTranslationSpeed * dtime());
-      D3DXVECTOR4 cameraTranslation(0, 0, 0, 0);
+      D3DXVECTOR4 cameraTranslation(0, 0, 0, 1);
 
       {
         enum {x = 0, y = 1, z = 2};
@@ -368,6 +415,13 @@ namespace camera
       D3DXMatrixTranslation(&worldTranslationMatrix, worldTranslation[0], worldTranslation[1], worldTranslation[2]);
 
       m_matrix = worldTranslationMatrix * m_matrix;
+    }
+
+  public:
+    // In LCS.
+    D3DXVECTOR3 eyePosition() const
+    {
+      return D3DXVECTOR3(m_matrix(3, 0), m_matrix(3, 1), m_matrix(3, 2));
     }
   };
 } // End of namespace 'camera'

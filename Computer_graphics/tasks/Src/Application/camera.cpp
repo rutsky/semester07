@@ -15,8 +15,10 @@ namespace camera
   {
     D3DXMATRIX SphericCamera::evalCameraMatrix( double r, double phi, double theta )
     {
+      D3DXVECTOR3 const eyePosition = SphericCamera::eyePosition(r, phi, theta);
+
       D3DXMATRIX translate;
-      D3DXMatrixTranslation(&translate, (float)(r * cos(phi) * cos(theta)), (float)(r * sin(phi) * cos(theta)), (float)(r * sin(theta)));
+      D3DXMatrixTranslation(&translate, eyePosition[0], eyePosition[1], eyePosition[2]);
 
       D3DXMATRIX zRot;
       D3DXMatrixRotationZ(&zRot, (float)(phi + constants::pi / 2.0));

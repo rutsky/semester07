@@ -26,6 +26,7 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
   , m_windowWidth(windowWidth)
   , m_windowHeight(windowHeight)
   , m_device(m_pD3D->getDevice())
+  , m_usingSphericCamera(true)
 {
   // Updating caption first time.
   SetWindowText(HWND(m_hWnd), Application::getWindowText());
@@ -80,10 +81,10 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
     m_projectionMatrix.reset(new projection::PerspectiveProjection(constants::pi / 2.0, (double)windowWidth / windowHeight, 1.0, 10000.0));
 
     // Camera (view matrix).
-    //m_sphericCamera.reset(new camera::SphericCamera);
-    //m_sphericCamera->setSphericCoordinates(7, util::deg2rad(30), util::deg2rad(45));
+    m_sphericCamera.reset(new camera::SphericCamera);
+    m_sphericCamera->setSphericCoordinates(50, util::deg2rad(30), util::deg2rad(45));
     // Attaching camera to root node.
-    //m_rootSceneNode->addChildNode(scene::ISceneNodePtr(hierarchy::newSceneNode<scene::SimpleSceneNode>(m_sphericCamera.get())));
+    m_rootSceneNode->addChildNode(scene::ISceneNodePtr(hierarchy::newSceneNode<scene::SimpleSceneNode>(m_sphericCamera.get())));
 
     m_freeViewCamera.reset(new camera::FreeViewCamera);
     m_freeViewCamera->lookAt(D3DXVECTOR3(10, 0, 0), D3DXVECTOR3(0, 0, 0));
@@ -286,8 +287,11 @@ void Application::renderInternal()
     //D3DXMatrixIdentity(&identity);
     //m_device->SetTransform(D3DTS_WORLD, &initialWorld);
     
-    //m_device->SetTransform(D3DTS_VIEW, &m_sphericCamera->viewMatrix());
-    m_device->SetTransform(D3DTS_VIEW, &m_freeViewCamera->viewMatrix());
+    if (m_usingSphericCamera)
+      m_device->SetTransform(D3DTS_VIEW, &m_sphericCamera->viewMatrix());
+    else
+      m_device->SetTransform(D3DTS_VIEW, &m_freeViewCamera->viewMatrix());
+
     m_device->SetTransform(D3DTS_PROJECTION, &m_projectionMatrix->projectionMatrix());
 
     /*
@@ -308,6 +312,17 @@ bool Application::processInput( unsigned int message, int wParam, long lParam )
 {
   if (cglApp::processInput(message, wParam, lParam))
     return true;
+
+  if (message == WM_KEYDOWN && wParam == VK_F1)
+  {
+    // FIXME: Not using world matrix information.
+    if (m_usingSphericCamera)
+      m_freeViewCamera->lookAt(m_sphericCamera->eyePosition(), D3DXVECTOR3(0, 0, 0));
+    else
+      m_sphericCamera->setEyePosition(m_freeViewCamera->eyePosition());
+   
+    m_usingSphericCamera = !m_usingSphericCamera;
+  }
 
   return processInputOnScene(m_rootSceneNode, message, wParam, lParam);
 }

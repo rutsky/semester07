@@ -41,6 +41,8 @@ private:
 
   scene::ISceneNodePtr m_rootSceneNode;
   boost::shared_ptr<projection::IProjectionMatrix> m_projectionMatrix;
+
+  bool m_usingSphericCamera;
   boost::shared_ptr<camera::SphericCamera> m_sphericCamera;
   boost::shared_ptr<camera::FreeViewCamera> m_freeViewCamera;
 
