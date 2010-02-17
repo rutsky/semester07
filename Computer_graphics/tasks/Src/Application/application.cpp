@@ -14,6 +14,13 @@
 
 #include "constants.h"
 
+// DEBUG
+bool const doingTask1 = false;
+bool const doingTask2 = false;
+bool const doingTask3 = false;
+bool const doingTask4 = false;
+bool const doingTask5 = false;
+
 Application::Application( int windowWidth, int windowHeight, void* hInstance, int nCmdShow )
   : cglApp(windowWidth, windowHeight, hInstance, nCmdShow)  
   , m_windowWidth(windowWidth)
@@ -26,7 +33,7 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
 
   assert(m_device);
 
-  if (0)
+  if (doingTask1)
   {
     // Task 1.
 
@@ -94,6 +101,7 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
       //m_triangle->setShow(false);
 
       m_mesh.reset(xobject::XMesh::create(m_device, "data", "car00.x"));
+      //m_mesh.reset(xobject::XMesh::create(m_device, "data", "tiger.x"));
       //m_mesh->setShow(false);
 
       //m_surface.reset(xobject::xsurface::createPlane(m_device, 3, 4));
@@ -140,8 +148,15 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
         m_rootSceneNode->addChildNode(scene::ISceneNodePtr(translationNode));
 
         scene::LCSArrowPgUpPgDownRotateNode *rotatingNode = new scene::LCSArrowPgUpPgDownRotateNode;
-        rotatingNode->addObject(m_mesh.get());
         translationNode->addChildNode(scene::ISceneNodePtr(rotatingNode));
+
+        scene::SimpleSceneNode *xmeshNode = new scene::SimpleSceneNode(D3DXMATRIX(
+            1,  0,  0,  0,
+            0,  0, -1,  0,
+            0,  1,  0,  0,
+            0,  0,  0,  1));
+        xmeshNode->addObject(m_mesh.get());
+        rotatingNode->addChildNode(scene::ISceneNodePtr(xmeshNode));
       }
     }
   }
@@ -230,7 +245,7 @@ void Application::update()
 
 void Application::renderInternal()
 {
-  if (0)
+  if (doingTask1)
   {
     // Task 1.
 

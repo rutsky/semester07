@@ -11,6 +11,7 @@
 #include <d3d9.h>
 
 #include "hierarchy.h"
+#include "static_matrices.h"
 
 namespace scene
 {
@@ -82,6 +83,21 @@ namespace scene
     SimpleSceneNode( D3DXVECTOR3 const &translation )
     {
       D3DXMatrixTranslation(&m_matrix, translation[0], translation[1], translation[2]);
+    }
+
+    SimpleSceneNode( D3DXMATRIX const &transform )
+    {
+      m_matrix = transform;
+    }
+  };
+
+  class XMeshNode
+    : public SimpleSceneNode
+  {
+  public:
+    XMeshNode()
+    {
+      m_matrix = constants::matrix::naturalCS;
     }
   };
 

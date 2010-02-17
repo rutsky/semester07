@@ -54,7 +54,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInsatnce,
   failed = failed || (_CrtDumpMemoryLeaks() != 0);
 #endif // NDEBUG
 
+  // Asserting that there is no memory leak.
   assert(!failed);
+
   return (int)failed;
 } // end of WinMain
 
