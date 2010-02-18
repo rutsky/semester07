@@ -275,6 +275,35 @@ namespace scene
     D3DTEXTUREFILTERTYPE m_prevMinFilter;
   };
 
+  class MipFilterSwitch
+    : public virtual DummyChildRenderWrapper
+  {
+  public:
+    MipFilterSwitch()
+      : m_mipFilter(D3DTEXF_LINEAR)
+    {
+    }
+
+    // IChildRenderWrapper
+  public:
+    void beginChildsDrawing( IDirect3DDevice9 *device )
+    {
+      device->GetSamplerState(0, D3DSAMP_MIPFILTER, (DWORD *)&m_prevMipFilter);
+      device->SetSamplerState(0, D3DSAMP_MIPFILTER, m_mipFilter);
+    }
+
+    void endChildsDrawing( IDirect3DDevice9 *device )
+    {
+      device->SetSamplerState(0, D3DSAMP_MIPFILTER, m_prevMipFilter);
+    }
+
+  protected:
+    D3DTEXTUREFILTERTYPE m_mipFilter;
+
+  private:
+    D3DTEXTUREFILTERTYPE m_prevMipFilter;
+  };
+
   class LightsNode
     : public virtual BaseSceneNode 
     , public virtual cs::BaseCoordinateSystem
@@ -398,7 +427,10 @@ namespace scene
             LightsNode,
             MultipleChildRenderWrapper<
               MagFilterSwitch,
-              MinFilterSwitch>
+              MultipleChildRenderWrapper<
+                MinFilterSwitch,
+                MipFilterSwitch>
+              >
             >
           >
         >
@@ -408,7 +440,10 @@ namespace scene
           control::SwitchByKey<D3DCULL, VK_F7>, 
           control::CombineControlHandlers<
             control::SwitchByKey<D3DTEXTUREFILTERTYPE, 'G'>,
-            control::SwitchByKey<D3DTEXTUREFILTERTYPE, 'F'>
+            control::CombineControlHandlers<
+              control::SwitchByKey<D3DTEXTUREFILTERTYPE, 'F'>,
+              control::SwitchByKey<D3DTEXTUREFILTERTYPE, 'M'>
+            >
           >
         >
       >
@@ -420,6 +455,7 @@ namespace scene
       control::SwitchByKey<D3DCULL, VK_F7>::init(&m_cullMode, D3DCULL_NONE, D3DCULL_CW, D3DCULL_CCW);
       control::SwitchByKey<D3DTEXTUREFILTERTYPE, 'G'>::init(&m_magFilter, D3DTEXF_LINEAR, D3DTEXF_POINT);
       control::SwitchByKey<D3DTEXTUREFILTERTYPE, 'F'>::init(&m_minFilter, D3DTEXF_LINEAR, D3DTEXF_POINT);
+      control::SwitchByKey<D3DTEXTUREFILTERTYPE, 'M'>::init(&m_mipFilter, D3DTEXF_LINEAR, D3DTEXF_POINT, D3DTEXF_NONE);
     }
   };
 } // End of namespace 'scene'
