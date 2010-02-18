@@ -417,6 +417,70 @@ namespace xobject
     }
   };
 
+  class XTrapezoid
+    : public XPrimitive
+  {
+  protected:
+    XTrapezoid( IDirect3DDevice9 *device, 
+                IDirect3DVertexBuffer9* streamData, 
+                DWORD vertexFormat, size_t vertexSize,
+                D3DPRIMITIVETYPE primitiveType, size_t primitiveCount )
+      : XPrimitive(device, streamData, vertexFormat, vertexSize, primitiveType, primitiveCount)
+    {
+    }
+
+  public:
+    static XTrapezoid * create( IDirect3DDevice9 *device,
+      double lowerSide, double upperSide, double trapezoidHeight, double zdepth,
+      DWORD forwardFaceColor, DWORD rightFaceColor, 
+      DWORD topFaceColor, DWORD leftFaceColor, 
+      DWORD bottomFaceColor, DWORD backFaceColor )
+    {
+      float const l = (float)(lowerSide / 2.0);
+      float const u = (float)(upperSide / 2.0);
+      float const h = (float)(trapezoidHeight / 2.0);
+      float const d = (float)(zdepth / 2.0);
+      vertex_v_n_diffuse::Vertex const vertices[] = 
+        {
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-l, -h,  d), D3DXVECTOR3( 0,  0,  1), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-u, +h,  d), D3DXVECTOR3( 0,  0,  1), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+l, -h,  d), D3DXVECTOR3( 0,  0,  1), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+l, -h,  d), D3DXVECTOR3( 0,  0,  1), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-u, +h,  d), D3DXVECTOR3( 0,  0,  1), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+u, +h,  d), D3DXVECTOR3( 0,  0,  1), forwardFaceColor),
+        };
+      size_t const verticesNum = util::array_size(vertices);
+
+      IDirect3DVertexBuffer9 *vertexBuffer = 
+        createAndFillVertexBuffer(device, (void *)vertices, sizeof(vertices), vertex_v_n_diffuse::vertexFormat);
+      if (!vertexBuffer)
+        return 0;
+
+      return new XTrapezoid(device, vertexBuffer, vertex_v_n_diffuse::vertexFormat, 
+        sizeof(vertex_v_n_diffuse::Vertex), D3DPT_TRIANGLELIST, 1);
+    }
+
+    static XTrapezoid * create( IDirect3DDevice9 *device,
+      double lowerSide, double upperSide, double trapezoidHeight, double zdepth,
+      DWORD color )
+    {
+      return create(device, lowerSide, upperSide, trapezoidHeight, zdepth,
+        color, color, 
+        color, color, 
+        color, color);
+    }
+
+    static XTrapezoid * create( IDirect3DDevice9 *device,
+      double lowerSide, double upperSide, double trapezoidHeight, double zdepth )
+    {
+      DWORD color = constants::color::white();
+      return create(device, lowerSide, upperSide, trapezoidHeight, zdepth,
+        color, color, 
+        color, color, 
+        color, color);
+    }
+  };
+
   class XLine
     : public XPrimitive
   {

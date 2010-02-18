@@ -18,8 +18,8 @@
 // DEBUG
 bool const doingTask1 = false;
 bool const doingTask2 = false;
-bool const doingTask3 = true;
-bool const doingTask4 = false;
+bool const doingTask3 = false;
+bool const doingTask4 = true;
 bool const doingTask5 = false;
 
 Application::Application( int windowWidth, int windowHeight, void* hInstance, int nCmdShow )
@@ -262,6 +262,90 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
     pointLight.setMaterial(constants::color::gray(0.6f), constants::color::gray(0.6f), constants::color::gray(0.6f));
     m_carLight->addLight(2, spotLight.light());
     textureTransformNode->addChildNode(scene::ISceneNodePtr(m_carLight));
+  }
+  else if (doingTask4)
+  {
+    // Task 4.
+
+    // Root node.
+    m_weakRootNode = new scene::RootNode;
+    m_rootSceneNode.reset(m_weakRootNode);
+
+    // Projection matrix.
+    m_projectionMatrix.reset(new projection::PerspectiveProjection(constants::pi / 2.0, (double)windowWidth / windowHeight, 1.0, 10000.0));
+
+    // Spheric camera (view matrix).
+    m_sphericCamera.reset(new camera::SphericCamera);
+    m_sphericCamera->setSphericCoordinates(12, util::deg2rad(30), util::deg2rad(45));
+    // Attaching camera to root node.
+    m_rootSceneNode->addChildNode(scene::ISceneNodePtr(hierarchy::newSceneNode<scene::SimpleSceneNode>(m_sphericCamera.get())));
+
+    // Free view camera (view matrix)
+    m_freeViewCamera.reset(new camera::FreeViewCamera);
+    m_freeViewCamera->lookAt(D3DXVECTOR3(10, 0, 0), D3DXVECTOR3(0, 0, 0));
+    // Attaching camera to root node.
+    m_rootSceneNode->addChildNode(scene::ISceneNodePtr(hierarchy::newSceneNode<scene::SimpleSceneNode>(m_freeViewCamera.get())));
+
+    // Direction light (Sun).
+    light::DirectionLight directionLight;
+    directionLight.setDirection(D3DXVECTOR3(-0.3f, 0.0f, -1.0f));
+    directionLight.setMaterial(constants::color::gray(0.5f), constants::color::gray(0.5f), constants::color::gray(0.5f));
+    // Attaching light to root node.
+    m_weakRootNode->addLight(0, directionLight.light());
+
+    // Coordinate system object.
+    m_coordinateSystem.reset(xobject::XCoordinateSystem::create(m_device));
+
+    // Adding coordinate system model to root.
+    m_rootSceneNode->addObject(m_coordinateSystem.get());
+    
+    // Scene hierarchy.
+
+    // Attaching ground.
+    /*
+    scene::SimpleSceneNode *groundNode = new scene::SimpleSceneNode(D3DXMATRIX(
+        1,  0,  0,  0,
+        0,  0, -1,  0,
+        0,  1,  0,  0,
+        0,  0,  0,  1));
+    groundNode->addObject(m_groundMesh.get());
+    m_rootSceneNode->addChildNode(scene::ISceneNodePtr(groundNode));
+
+    // Attaching car.
+    m_rotatingNode = new scene::RotatingSceneNode(D3DXVECTOR3(0, 0, 1), 0.4);
+    m_rootSceneNode->addChildNode(scene::ISceneNodePtr(m_rotatingNode));
+
+    scene::SimpleSceneNode *translationNode = new scene::SimpleSceneNode(D3DXVECTOR3(0, 30.0f, 2.4f));
+    m_rotatingNode->addChildNode(scene::ISceneNodePtr(translationNode));
+
+    scene::LCSArrowPgUpPgDownRotateNode *keyboardRotatingNode = new scene::LCSArrowPgUpPgDownRotateNode;
+    translationNode->addChildNode(scene::ISceneNodePtr(keyboardRotatingNode));
+
+    scene::TextureTransformNode *textureTransformNode = new scene::TextureTransformNode(D3DXMATRIX(
+        20,  0,  0,  0,
+        0,  20,  0,  0,
+        0,   0,  1,  0,
+        0,   0,  0,  1));
+    keyboardRotatingNode->addChildNode(scene::ISceneNodePtr(textureTransformNode));
+
+    scene::SimpleSceneNode *xmeshNode = new scene::SimpleSceneNode(D3DXMATRIX(
+        0,  1,  0,  0,
+        0,  0,  1,  0,
+       -1,  0,  0,  0,
+        0,  0,  0,  (float)(1.0 / 5.0)));
+    xmeshNode->addObject(m_mesh.get());
+    textureTransformNode->addChildNode(scene::ISceneNodePtr(xmeshNode));
+
+    // Attaching car light
+    m_carLight = new scene::LightsNode;
+    light::SpotLight spotLight;
+    spotLight.setPosition(D3DXVECTOR3(-7.5f, 0.0f, 0.5f));
+    spotLight.setDirection(D3DXVECTOR3(-1.0f, 0.0f, 0.0f));
+    spotLight.setAngles((float)util::deg2rad(30), (float)util::deg2rad(50));
+    pointLight.setMaterial(constants::color::gray(0.6f), constants::color::gray(0.6f), constants::color::gray(0.6f));
+    m_carLight->addLight(2, spotLight.light());
+    textureTransformNode->addChildNode(scene::ISceneNodePtr(m_carLight));
+    */
   }
   else if (1)
   {
@@ -525,6 +609,24 @@ void Application::renderInternal()
 
     drawScene(m_device, m_rootSceneNode);
   }
+  else if (doingTask4)
+  {
+    // Task 4.
+
+    if (m_usingSphericCamera)
+      m_device->SetTransform(D3DTS_VIEW, &m_sphericCamera->viewMatrix());
+    else
+      m_device->SetTransform(D3DTS_VIEW, &m_freeViewCamera->viewMatrix());
+
+    m_device->SetTransform(D3DTS_PROJECTION, &m_projectionMatrix->projectionMatrix());
+
+    m_device->SetRenderState(D3DRS_COLORVERTEX, TRUE);
+    m_device->SetRenderState(D3DRS_AMBIENTMATERIALSOURCE, D3DMCS_COLOR1);
+    m_device->SetRenderState(D3DRS_DIFFUSEMATERIALSOURCE, D3DMCS_COLOR1);
+    m_device->SetRenderState(D3DRS_EMISSIVEMATERIALSOURCE, D3DMCS_MATERIAL);
+
+    drawScene(m_device, m_rootSceneNode);
+  }
   else if (1)
   {
     // Debug
@@ -647,6 +749,22 @@ bool Application::processInput( unsigned int message, int wParam, long lParam )
       else if (wParam == VK_SUBTRACT || wParam == VK_OEM_MINUS)
       {
         m_mipmapLODBias -= 0.2f;
+      }
+    }
+  }
+  else if (doingTask4)
+  {
+    if (message == WM_KEYDOWN)
+    {
+      if (wParam == VK_F1)
+      {
+        // FIXME: Not using world matrix information.
+        if (m_usingSphericCamera)
+          m_freeViewCamera->lookAt(m_sphericCamera->eyePosition(), D3DXVECTOR3(0, 0, 0));
+        else
+          m_sphericCamera->setEyePosition(m_freeViewCamera->eyePosition());
+       
+        m_usingSphericCamera = !m_usingSphericCamera;
       }
     }
   }
