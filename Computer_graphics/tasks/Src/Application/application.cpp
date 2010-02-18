@@ -277,7 +277,7 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
 
     // Spheric camera (view matrix).
     m_sphericCamera.reset(new camera::SphericCamera);
-    m_sphericCamera->setSphericCoordinates(12, util::deg2rad(30), util::deg2rad(45));
+    m_sphericCamera->setSphericCoordinates(5, util::deg2rad(30), util::deg2rad(45));
     // Attaching camera to root node.
     m_rootSceneNode->addChildNode(scene::ISceneNodePtr(hierarchy::newSceneNode<scene::SimpleSceneNode>(m_sphericCamera.get())));
 
@@ -302,15 +302,28 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
     
     // Scene hierarchy.
 
+    size_t nPetals = 4;
     double const trunkR = 0.1, lowerCupR = 0.6, middleCupR = 0.9, topCupR = 0.7;
     double const trunkHeight = 2.0, cupBottomHeight = 0.1;
     double const cupLowerLen = 0.7, cupUpperLen = 0.6;
+    double const trunkRotatingSpeed = -0.1;
+    double const wave1LowestAngle = 0.2, wave2LowestAngle = 0.2;
 
-    scene::SimpleSceneNode *translation1Node = new scene::SimpleSceneNode(D3DXVECTOR3(1, 3, 0));
+    double const wave1HighestAngle = acos((middleCupR - lowerCupR) / cupLowerLen);
+    double const wave2HighestAngle = constants::pi - (acos((middleCupR - topCupR) / cupUpperLen) + wave1HighestAngle);
+
+    double const wavePeriod = 4;
+
+    double const wave1Range = wave1HighestAngle - wave1LowestAngle;
+    double const wave2Range = wave2HighestAngle - wave2LowestAngle;
+
+    double const wave1Speed = 2 * wave1Range / wavePeriod, wave2Speed = 2 * wave2Range / wavePeriod;
+
+    scene::SimpleSceneNode *translation1Node = new scene::SimpleSceneNode(D3DXVECTOR3(0, 1.5, -0.5));
     //translation1Node->addObject(m_coordinateSystem.get());
     m_rootSceneNode->addChildNode(scene::ISceneNodePtr(translation1Node));
     
-    scene::RotatingSceneNode *rotation1Node = new scene::RotatingSceneNode(D3DXVECTOR3(0, 0, 1), 0.1);
+    scene::RotatingSceneNode *rotation1Node = new scene::RotatingSceneNode(D3DXVECTOR3(0, 0, 1), trunkRotatingSpeed);
     translation1Node->addChildNode(scene::ISceneNodePtr(rotation1Node));
 
     m_trunk.reset(xobject::XMesh::createCylinder(m_device, trunkR, trunkR, trunkHeight, 20, 20, 
@@ -328,6 +341,21 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
     translation3Node->addObject(m_cup.get());
     //translation2Node->addObject(m_coordinateSystem.get());
     translation2Node->addChildNode(scene::ISceneNodePtr(translation3Node));
+
+    for (size_t i = 0; i < nPetals; ++i)
+    {
+      D3DXMATRIX rotation1;
+      D3DXMatrixRotationZ(&rotation1, (float)(i * 2.0 * constants::pi / nPetals));
+      D3DXMATRIX translation1;
+      D3DXMatrixTranslation(&translation1, (float)(lowerCupR), 0, 0);
+
+      scene::SimpleSceneNode *transform1Node = new scene::SimpleSceneNode(translation1 * rotation1);
+      translation3Node->addChildNode(scene::ISceneNodePtr(transform1Node));
+
+      scene::WavingSceneNode *waveingNode1 = new scene::WavingSceneNode(D3DXVECTOR3(0, -1, 0), wave1Speed, wave1LowestAngle, wave1Range, 0);
+      transform1Node->addChildNode(scene::ISceneNodePtr(waveingNode1));
+      waveingNode1->addObject(m_coordinateSystem.get());
+    }
 
     // Attaching ground.
     /*

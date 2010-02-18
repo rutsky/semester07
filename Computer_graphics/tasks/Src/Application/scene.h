@@ -147,6 +147,41 @@ namespace scene
     bool m_paused;
   };
 
+  class WavingSceneNode
+    : public SimpleSceneNode
+  {
+  public:
+    WavingSceneNode( D3DXVECTOR3 axis, double speed, double fromAngle, double angleRange, double startAngle = 0 )
+      : m_axis(axis)
+      , m_speed(speed)
+      , m_fromAngle(fromAngle)
+      , m_angleRange(angleRange)
+      , m_startAngle(startAngle)
+    {
+      assert(m_angleRange > 1e-8);
+    }
+
+    // IDynamicObject 
+  public:
+    void update( double time )
+    {
+      BaseDynamicObject::update(time);
+
+      double const fullAngle = m_startAngle + m_speed * time;
+      double const angle = m_angleRange - fabs(m_angleRange - fmod(fullAngle, 2 * m_angleRange));
+
+      // FIXME: owerflows.
+      D3DXMatrixRotationAxis(&m_matrix, &m_axis, (float)(m_fromAngle + angle));
+    }
+
+  protected:
+    D3DXVECTOR3 m_axis;
+    double m_speed;
+    double m_fromAngle;
+    double m_angleRange;
+    double m_startAngle;
+  };
+
   class LCSArrowPgUpPgDownMoveSceneNode
     : public SimpleSceneNode
     , public control::LCSArrowPgUpPgDownMove
