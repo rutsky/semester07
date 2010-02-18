@@ -475,12 +475,23 @@ namespace xobject
       float const d = (float)(zdepth / 2.0);
       vertex_v_n_diffuse::Vertex const vertices[] = 
         {
+          // Foreground.
           vertex_v_n_diffuse::fill(D3DXVECTOR3(-l, -h,  d), D3DXVECTOR3( 0,  0,  1), forwardFaceColor),
           vertex_v_n_diffuse::fill(D3DXVECTOR3(-u, +h,  d), D3DXVECTOR3( 0,  0,  1), forwardFaceColor),
           vertex_v_n_diffuse::fill(D3DXVECTOR3(+l, -h,  d), D3DXVECTOR3( 0,  0,  1), forwardFaceColor),
+
           vertex_v_n_diffuse::fill(D3DXVECTOR3(+l, -h,  d), D3DXVECTOR3( 0,  0,  1), forwardFaceColor),
           vertex_v_n_diffuse::fill(D3DXVECTOR3(-u, +h,  d), D3DXVECTOR3( 0,  0,  1), forwardFaceColor),
           vertex_v_n_diffuse::fill(D3DXVECTOR3(+u, +h,  d), D3DXVECTOR3( 0,  0,  1), forwardFaceColor),
+
+          // Background.
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-u, +h, -d), D3DXVECTOR3( 0,  0, -1), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-l, -h, -d), D3DXVECTOR3( 0,  0, -1), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+l, -h, -d), D3DXVECTOR3( 0,  0, -1), forwardFaceColor),
+
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-u, +h, -d), D3DXVECTOR3( 0,  0, -1), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+l, -h, -d), D3DXVECTOR3( 0,  0, -1), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+u, +h, -d), D3DXVECTOR3( 0,  0, -1), forwardFaceColor),
         };
       size_t const verticesNum = util::array_size(vertices);
 
@@ -490,7 +501,7 @@ namespace xobject
         return 0;
 
       return new XTrapezoid(device, vertexBuffer, vertex_v_n_diffuse::vertexFormat, 
-        sizeof(vertex_v_n_diffuse::Vertex), D3DPT_TRIANGLELIST, 1);
+        sizeof(vertex_v_n_diffuse::Vertex), D3DPT_TRIANGLELIST, verticesNum / 3);
     }
 
     static XTrapezoid * create( IDirect3DDevice9 *device,
