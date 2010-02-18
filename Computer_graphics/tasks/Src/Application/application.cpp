@@ -16,8 +16,8 @@
 #include "light.h"
 
 // DEBUG
-bool const doingTask1 = true;
-bool const doingTask2 = false;
+bool const doingTask1 = false;
+bool const doingTask2 = true;
 bool const doingTask3 = false;
 bool const doingTask4 = false;
 bool const doingTask5 = false;
