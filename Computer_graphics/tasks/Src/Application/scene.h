@@ -416,6 +416,41 @@ namespace scene
     lights_map_type m_lights;
   };
 
+  class TextureTransformNode
+    : public virtual BaseSceneNode 
+    , public virtual cs::BaseCoordinateSystem
+    , public virtual DummyChildRenderWrapper
+    , public virtual object::BaseWorldMatrixDependentObject
+  {
+  public:
+    TextureTransformNode()
+      : m_transform(constants::matrix::identity)
+    {
+    }
+
+    TextureTransformNode( D3DXMATRIX const &transform )
+      : m_transform(transform)
+    {
+    }
+
+    // IChildRenderWrapper
+  public:
+    void beginChildsDrawing( IDirect3DDevice9 *device );
+    
+    void endChildsDrawing( IDirect3DDevice9 *device )
+    {
+      device->SetTransform(D3DTS_TEXTURE0, &m_oldTransform);
+      device->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, m_oldTransformFlags);
+    }
+
+  protected:
+    D3DXMATRIX m_transform;
+
+  private:
+    D3DXMATRIX m_oldTransform;
+    DWORD m_oldTransformFlags;
+  };
+
   class RootNode
     : public virtual BaseSceneNode
     , public virtual cs::BaseCoordinateSystem

@@ -207,11 +207,12 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
     m_coordinateSystem.reset(xobject::XCoordinateSystem::create(m_device));
 
     // Car model.
-    m_mesh.reset(xobject::XMesh::create(m_device, "data", "car00.x"));
+    char *mipmaps[] = { "1.png", "2.png", "3.png", "4.png" };
+    m_mesh.reset(xobject::XMesh::createWithCustomTextures(m_device, "data", /*"car00.x"*/ "airplane00.x", 256, 256, D3DFMT_X8R8G8B8, 
+      &(mipmaps[0]), &(mipmaps[util::array_size(mipmaps)])));
 
     // Ground model.
     m_groundMesh.reset(xobject::XMesh::create(m_device, "data", "ground_paletted.x"));
-
 
     // Adding coordinate system model to root.
     //m_rootSceneNode->addObject(m_coordinateSystem.get());
@@ -237,13 +238,20 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
     scene::LCSArrowPgUpPgDownRotateNode *keyboardRotatingNode = new scene::LCSArrowPgUpPgDownRotateNode;
     translationNode->addChildNode(scene::ISceneNodePtr(keyboardRotatingNode));
 
+    scene::TextureTransformNode *textureTransformNode = new scene::TextureTransformNode(D3DXMATRIX(
+        20,  0,  0,  0,
+        0,  20,  0,  0,
+        0,   0,  1,  0,
+        0,   0,  0,  1));
+    keyboardRotatingNode->addChildNode(scene::ISceneNodePtr(textureTransformNode));
+
     scene::SimpleSceneNode *xmeshNode = new scene::SimpleSceneNode(D3DXMATRIX(
-        1,  0,  0,  0,
-        0,  0, -1,  0,
         0,  1,  0,  0,
-        0,  0,  0,  1));
+        0,  0,  1,  0,
+       -1,  0,  0,  0,
+        0,  0,  0,  (float)(1.0 / 5.0)));
     xmeshNode->addObject(m_mesh.get());
-    keyboardRotatingNode->addChildNode(scene::ISceneNodePtr(xmeshNode));
+    textureTransformNode->addChildNode(scene::ISceneNodePtr(xmeshNode));
 
     // Attaching car light
     m_carLight = new scene::LightsNode;
@@ -253,7 +261,7 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
     spotLight.setAngles((float)util::deg2rad(30), (float)util::deg2rad(50));
     pointLight.setMaterial(constants::color::gray(0.6f), constants::color::gray(0.6f), constants::color::gray(0.6f));
     m_carLight->addLight(2, spotLight.light());
-    keyboardRotatingNode->addChildNode(scene::ISceneNodePtr(m_carLight));
+    textureTransformNode->addChildNode(scene::ISceneNodePtr(m_carLight));
   }
   else if (1)
   {

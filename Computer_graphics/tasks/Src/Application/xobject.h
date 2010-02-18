@@ -22,6 +22,7 @@
 #include "util.h"
 #include "object.h"
 #include "constants.h"
+#include "texture.h"
 
 namespace xobject
 {
@@ -297,6 +298,52 @@ namespace xobject
                                                 &textures[i])))
             OutputDebugString("Failed to load some texture\n");
         }
+      }
+
+      // Done with the material buffer.
+      materialsBuffer->Release();
+
+      return new XMesh(device, mesh, materials, textures);
+    }
+
+    template< class FileNameIterator >
+    static XMesh * createWithCustomTextures( IDirect3DDevice9 *device, char const *dataDirectory, char const *fileName,
+      size_t width, size_t height, D3DFORMAT format, FileNameIterator textureFileNameFirst, FileNameIterator textureFileNameBeyond )
+    {
+      // Based on DirectX Meshes example.
+
+      ID3DXMesh *mesh;
+      DWORD materialsNum;
+      LPD3DXBUFFER materialsBuffer;
+
+
+      {
+        std::ostringstream ostr;
+        ostr << dataDirectory << "/" << fileName;
+
+        // Load the mesh from the specified file.
+        if (FAILED(D3DXLoadMeshFromX(ostr.str().c_str(), D3DXMESH_SYSTEMMEM,
+                                     device, NULL,
+                                     &materialsBuffer, NULL, &materialsNum,
+                                     &mesh)))
+          return 0;
+      }
+
+      // Extracting the material properties and texture names from the materialsBuffer.
+      D3DXMATERIAL *xmaterials = (D3DXMATERIAL *)materialsBuffer->GetBufferPointer();
+      std::vector<D3DMATERIAL9>       materials(materialsNum);
+      std::vector<IDirect3DTexture9 *> textures(materialsNum);
+      
+      for (size_t i = 0; i < materialsNum; ++i)
+      {
+        // Copy the material.
+        materials[i] = xmaterials[i].MatD3D;
+
+        // Set the ambient color for the material (D3DX does not do this).
+        materials[i].Ambient = materials[i].Diffuse;
+
+        textures[i] = texture::loadTextureWithMipmaps(device, width, height, format, dataDirectory, 
+          textureFileNameFirst, textureFileNameBeyond);
       }
 
       // Done with the material buffer.
