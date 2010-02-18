@@ -640,11 +640,11 @@ bool Application::processInput( unsigned int message, int wParam, long lParam )
       {
         m_rotatingNode->pause(!m_rotatingNode->isPaused());
       }
-      else if (wParam == 'P')
+      else if (wParam == VK_ADD || wParam == VK_OEM_PLUS)
       {
         m_mipmapLODBias += 0.2f;
       }
-      else if (wParam == 'O')
+      else if (wParam == VK_SUBTRACT || wParam == VK_OEM_MINUS)
       {
         m_mipmapLODBias -= 0.2f;
       }
