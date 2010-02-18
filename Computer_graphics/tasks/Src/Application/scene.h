@@ -41,11 +41,10 @@ namespace scene
   {
   };
 
-  template< class U, class V, class S = DummyChildRenderWrapper >
+  template< class U, class V >
   class MultipleChildRenderWrapper
     : public U
     , public V
-    , public S
   {
     // IChildRenderWrapper
   public:
@@ -53,14 +52,12 @@ namespace scene
     {
       U::beginChildsDrawing(device);
       V::beginChildsDrawing(device);
-      S::beginChildsDrawing(device);
     }
 
     void endChildsDrawing( IDirect3DDevice9 *device )
     {
       U::endChildsDrawing(device);
       V::endChildsDrawing(device);
-      S::endChildsDrawing(device);
     }
   };
 
@@ -220,6 +217,64 @@ namespace scene
     D3DCULL m_prevCullMode;
   };
 
+  class MagFilterSwitch
+    : public virtual DummyChildRenderWrapper
+  {
+  public:
+    MagFilterSwitch()
+      : m_magFilter(D3DTEXF_LINEAR)
+    {
+    }
+
+    // IChildRenderWrapper
+  public:
+    void beginChildsDrawing( IDirect3DDevice9 *device )
+    {
+      device->GetSamplerState(0, D3DSAMP_MAGFILTER, (DWORD *)&m_prevMagFilter);
+      device->SetSamplerState(0, D3DSAMP_MAGFILTER, m_magFilter);
+    }
+
+    void endChildsDrawing( IDirect3DDevice9 *device )
+    {
+      device->SetSamplerState(0, D3DSAMP_MAGFILTER, m_prevMagFilter);
+    }
+
+  protected:
+    D3DTEXTUREFILTERTYPE m_magFilter;
+
+  private:
+    D3DTEXTUREFILTERTYPE m_prevMagFilter;
+  };
+
+  class MinFilterSwitch
+    : public virtual DummyChildRenderWrapper
+  {
+  public:
+    MinFilterSwitch()
+      : m_minFilter(D3DTEXF_LINEAR)
+    {
+    }
+
+    // IChildRenderWrapper
+  public:
+    void beginChildsDrawing( IDirect3DDevice9 *device )
+    {
+      device->GetSamplerState(0, D3DSAMP_MINFILTER, (DWORD *)&m_prevMinFilter);
+      device->SetSamplerState(0, D3DSAMP_MINFILTER, m_minFilter);
+    }
+
+    void endChildsDrawing( IDirect3DDevice9 *device )
+    {
+      device->SetSamplerState(0, D3DSAMP_MINFILTER, m_prevMinFilter);
+    }
+
+  protected:
+    D3DTEXTUREFILTERTYPE m_minFilter;
+
+  private:
+    D3DTEXTUREFILTERTYPE m_prevMinFilter;
+  };
+
   class LightsNode
     : public virtual BaseSceneNode 
     , public virtual cs::BaseCoordinateSystem
@@ -335,14 +390,36 @@ namespace scene
   class RootNode
     : public virtual BaseSceneNode
     , public virtual cs::BaseCoordinateSystem
-    , public MultipleChildRenderWrapper<FillModeSwitch, CullModeSwitch, LightsNode>
-    , public control::CombineControlHandlers<control::SwitchByKey<D3DFILLMODE, VK_F6>, control::SwitchByKey<D3DCULL, VK_F7> >
+    , public MultipleChildRenderWrapper<
+        FillModeSwitch,
+        MultipleChildRenderWrapper<
+          CullModeSwitch, 
+          MultipleChildRenderWrapper<
+            LightsNode,
+            MultipleChildRenderWrapper<
+              MagFilterSwitch,
+              MinFilterSwitch>
+            >
+          >
+        >
+    , public control::CombineControlHandlers<
+        control::SwitchByKey<D3DFILLMODE, VK_F6>,
+        control::CombineControlHandlers<
+          control::SwitchByKey<D3DCULL, VK_F7>, 
+          control::CombineControlHandlers<
+            control::SwitchByKey<D3DTEXTUREFILTERTYPE, 'G'>,
+            control::SwitchByKey<D3DTEXTUREFILTERTYPE, 'F'>
+          >
+        >
+      >
   {
   public:
     RootNode()
     {
       control::SwitchByKey<D3DFILLMODE, VK_F6>::init(&m_fillMode, D3DFILL_SOLID, D3DFILL_WIREFRAME, D3DFILL_POINT);
       control::SwitchByKey<D3DCULL, VK_F7>::init(&m_cullMode, D3DCULL_NONE, D3DCULL_CW, D3DCULL_CCW);
+      control::SwitchByKey<D3DTEXTUREFILTERTYPE, 'G'>::init(&m_magFilter, D3DTEXF_LINEAR, D3DTEXF_POINT);
+      control::SwitchByKey<D3DTEXTUREFILTERTYPE, 'F'>::init(&m_minFilter, D3DTEXF_LINEAR, D3DTEXF_POINT);
     }
   };
 } // End of namespace 'scene'
