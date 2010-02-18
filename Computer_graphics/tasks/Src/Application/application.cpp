@@ -303,26 +303,35 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
     // Scene hierarchy.
 
     size_t nPetals = 4;
-    double const trunkR = 0.1, lowerCupR = 0.6, middleCupR = 0.9, topCupR = 0.7;
+    double const trunkR = 0.1, lowerCupR = 0.6, middleCupR = 0.9, topCupR = 0.3;
     double const trunkHeight = 2.0, cupBottomHeight = 0.1;
     double const cupLowerLen = 0.7, cupUpperLen = 0.6;
     double const lowerCupDepth = 0.05, upperCupDepth = 0.05;
     double const trunkRotatingSpeed = -0.1;
     double const wave1LowestAngle = 0.2, wave2LowestAngle = 0.2;
 
-    double const wave1HighestAngle = acos((middleCupR - lowerCupR) / cupLowerLen);
-    double const wave2HighestAngle = constants::pi - (acos((middleCupR - topCupR) / cupUpperLen) + wave1HighestAngle);
+    double const polyAngleSin = sin((1.0 - 2.0 / nPetals) * constants::pi / 2.0);
+    double const polyAngleCos = cos((1.0 - 2.0 / nPetals) * constants::pi / 2.0);
+    double const lowerH = lowerCupR * polyAngleSin;
+    double const middleH = middleCupR * polyAngleSin;
+    double const topH = topCupR * polyAngleSin;
+
+    double const wave1HighestAngle = acos((middleH - lowerH) / cupLowerLen);
+    double const wave2HighestAngle = constants::pi - (acos((middleH - topH) / cupUpperLen) + wave1HighestAngle);
 
     double const wavePeriod = 4;
 
     double const wave1Range = wave1HighestAngle - wave1LowestAngle;
     double const wave2Range = wave2HighestAngle - wave2LowestAngle;
 
+    assert(wave1Range > 1e-8);
+    assert(wave2Range > 1e-8);
+
     double const wave1Speed = 2 * wave1Range / wavePeriod, wave2Speed = 2 * wave2Range / wavePeriod;
 
-    double const lowerCupSideSize = 2 * constants::pi * lowerCupR / nPetals;
-    double const middleCupSideSize = 2 * constants::pi * middleCupR / nPetals;
-    double const topCupSideSize = 2 * constants::pi * topCupR / nPetals;
+    double const lowerCupSideSize = 2 * polyAngleCos * lowerCupR;
+    double const middleCupSideSize = 2 * polyAngleCos * middleCupR;
+    double const topCupSideSize = 2 * polyAngleCos * topCupR;
 
     scene::SimpleSceneNode *translation1Node = new scene::SimpleSceneNode(D3DXVECTOR3(0, 1.5, -0.5));
     //translation1Node->addObject(m_coordinateSystem.get());
@@ -352,7 +361,7 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
       D3DXMATRIX rotation1;
       D3DXMatrixRotationZ(&rotation1, (float)(i * 2.0 * constants::pi / nPetals));
       D3DXMATRIX translation1;
-      D3DXMatrixTranslation(&translation1, 0, (float)(lowerCupR), 0);
+      D3DXMatrixTranslation(&translation1, 0, (float)(lowerH), 0);
 
       scene::SimpleSceneNode *transform1Node = new scene::SimpleSceneNode(translation1 * rotation1);
       translation3Node->addChildNode(scene::ISceneNodePtr(transform1Node));
