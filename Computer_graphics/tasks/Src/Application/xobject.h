@@ -469,29 +469,53 @@ namespace xobject
       DWORD topFaceColor, DWORD leftFaceColor, 
       DWORD bottomFaceColor, DWORD backFaceColor )
     {
-      float const l = (float)(lowerSide / 2.0);
-      float const u = (float)(upperSide / 2.0);
-      float const h = (float)(trapezoidHeight / 2.0);
-      float const d = (float)(zdepth / 2.0);
+      float const x = (float)(lowerSide / 2.0);
+      float const X = (float)(upperSide / 2.0);
+      float const y = (float)(trapezoidHeight / 2.0);
+      float const z = (float)(zdepth / 2.0);
+
+      // TODO: Not checked.
+      float const tga = (float)((x - X) / (2.0 * y));
+      float const ax = (float)(sqrt(1.0 / (1.0 + util::sqr(tga))));
+      float const ay = (float)(sqrt(1.0 / (1.0 + 1.0 / util::sqr(tga))));
+
       vertex_v_n_diffuse::Vertex const vertices[] = 
         {
           // Foreground.
-          vertex_v_n_diffuse::fill(D3DXVECTOR3(-l, -h,  d), D3DXVECTOR3( 0,  0,  1), forwardFaceColor),
-          vertex_v_n_diffuse::fill(D3DXVECTOR3(-u, +h,  d), D3DXVECTOR3( 0,  0,  1), forwardFaceColor),
-          vertex_v_n_diffuse::fill(D3DXVECTOR3(+l, -h,  d), D3DXVECTOR3( 0,  0,  1), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-x, -y, +z), D3DXVECTOR3( 0,  0,  1), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-X, +y, +z), D3DXVECTOR3( 0,  0,  1), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+x, -y, +z), D3DXVECTOR3( 0,  0,  1), forwardFaceColor),
 
-          vertex_v_n_diffuse::fill(D3DXVECTOR3(+l, -h,  d), D3DXVECTOR3( 0,  0,  1), forwardFaceColor),
-          vertex_v_n_diffuse::fill(D3DXVECTOR3(-u, +h,  d), D3DXVECTOR3( 0,  0,  1), forwardFaceColor),
-          vertex_v_n_diffuse::fill(D3DXVECTOR3(+u, +h,  d), D3DXVECTOR3( 0,  0,  1), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+x, -y, +z), D3DXVECTOR3( 0,  0,  1), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-X, +y, +z), D3DXVECTOR3( 0,  0,  1), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+X, +y, +z), D3DXVECTOR3( 0,  0,  1), forwardFaceColor),
 
           // Background.
-          vertex_v_n_diffuse::fill(D3DXVECTOR3(-u, +h, -d), D3DXVECTOR3( 0,  0, -1), forwardFaceColor),
-          vertex_v_n_diffuse::fill(D3DXVECTOR3(-l, -h, -d), D3DXVECTOR3( 0,  0, -1), forwardFaceColor),
-          vertex_v_n_diffuse::fill(D3DXVECTOR3(+l, -h, -d), D3DXVECTOR3( 0,  0, -1), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-X, +y, -z), D3DXVECTOR3( 0,  0, -1), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-x, -y, -z), D3DXVECTOR3( 0,  0, -1), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+x, -y, -z), D3DXVECTOR3( 0,  0, -1), forwardFaceColor),
 
-          vertex_v_n_diffuse::fill(D3DXVECTOR3(-u, +h, -d), D3DXVECTOR3( 0,  0, -1), forwardFaceColor),
-          vertex_v_n_diffuse::fill(D3DXVECTOR3(+l, -h, -d), D3DXVECTOR3( 0,  0, -1), forwardFaceColor),
-          vertex_v_n_diffuse::fill(D3DXVECTOR3(+u, +h, -d), D3DXVECTOR3( 0,  0, -1), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-X, +y, -z), D3DXVECTOR3( 0,  0, -1), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+x, -y, -z), D3DXVECTOR3( 0,  0, -1), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+X, +y, -z), D3DXVECTOR3( 0,  0, -1), forwardFaceColor),
+
+          // Left.
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-x, -y, -z), D3DXVECTOR3(-ax, ay, 0), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-X, +y, -z), D3DXVECTOR3(-ax, ay, 0), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-X, +y, +z), D3DXVECTOR3(-ax, ay, 0), forwardFaceColor),
+
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-X, +y, +z), D3DXVECTOR3(-ax, ay, 0), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-x, -y, +z), D3DXVECTOR3(-ax, ay, 0), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-x, -y, -z), D3DXVECTOR3(-ax, ay, 0), forwardFaceColor),
+
+          // Right.
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+x, -y, -z), D3DXVECTOR3(-ax, ay, 0), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+X, +y, -z), D3DXVECTOR3(-ax, ay, 0), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+X, +y, +z), D3DXVECTOR3(-ax, ay, 0), forwardFaceColor),
+
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+X, +y, +z), D3DXVECTOR3(-ax, ay, 0), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+x, -y, +z), D3DXVECTOR3(-ax, ay, 0), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+x, -y, -z), D3DXVECTOR3(-ax, ay, 0), forwardFaceColor),
         };
       size_t const verticesNum = util::array_size(vertices);
 

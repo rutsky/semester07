@@ -290,7 +290,7 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
     // Direction light (Sun).
     light::DirectionLight directionLight;
     directionLight.setDirection(D3DXVECTOR3(-0.3f, 0.0f, -1.0f));
-    directionLight.setMaterial(constants::color::gray(0.5f), constants::color::gray(0.5f), constants::color::gray(0.5f));
+    directionLight.setMaterial(constants::color::gray(0.3f), constants::color::gray(0.5f), constants::color::gray(0.5f));
     // Attaching light to root node.
     m_weakRootNode->addLight(0, directionLight.light());
 
