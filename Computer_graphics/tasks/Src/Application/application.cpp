@@ -302,17 +302,29 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
     
     // Scene hierarchy.
 
+    double const trunkR = 0.1, lowerCupR = 0.6, middleCupR = 0.9, topCupR = 0.7;
+    double const trunkHeight = 2.0, cupBottomHeight = 0.1;
+    double const cupLowerLen = 0.7, cupUpperLen = 0.6;
+
     scene::SimpleSceneNode *translation1Node = new scene::SimpleSceneNode(D3DXVECTOR3(1, 3, 0));
     //translation1Node->addObject(m_coordinateSystem.get());
     m_rootSceneNode->addChildNode(scene::ISceneNodePtr(translation1Node));
 
-    m_trunk.reset(xobject::XMesh::createCylinder(m_device, 0.1, 0.1, 2, 20, 20, 
+    m_trunk.reset(xobject::XMesh::createCylinder(m_device, trunkR, trunkR, trunkHeight, 20, 20, 
       xutil::material(constants::color::green() * 0.5f, constants::color::green() * 0.1f)));
 
-    scene::SimpleSceneNode *translation2Node = new scene::SimpleSceneNode(D3DXVECTOR3(0, 0, 1));
+    scene::SimpleSceneNode *translation2Node = new scene::SimpleSceneNode(D3DXVECTOR3(0, 0, (float)(trunkHeight / 2.0)));
     translation2Node->addObject(m_trunk.get());
-    translation2Node->addObject(m_coordinateSystem.get());
+    //translation2Node->addObject(m_coordinateSystem.get());
     translation1Node->addChildNode(scene::ISceneNodePtr(translation2Node));
+
+    m_cup.reset(xobject::XMesh::createCylinder(m_device, lowerCupR, lowerCupR, cupBottomHeight, 20, 20, 
+      xutil::material(constants::color::green() * 0.5f, constants::color::green() * 0.1f)));
+
+    scene::SimpleSceneNode *translation3Node = new scene::SimpleSceneNode(D3DXVECTOR3(0, 0, (float)(trunkHeight / 2.0)));
+    translation3Node->addObject(m_cup.get());
+    //translation2Node->addObject(m_coordinateSystem.get());
+    translation2Node->addChildNode(scene::ISceneNodePtr(translation3Node));
 
     // Attaching ground.
     /*

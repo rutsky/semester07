@@ -64,6 +64,7 @@ private:
 
   std::vector<boost::shared_ptr<xobject::XTrapezoid> > m_trapezoids;
   boost::shared_ptr<xobject::XMesh> m_trunk;
+  boost::shared_ptr<xobject::XMesh> m_cup;
 };
 
 #endif // APPLICATION_H
