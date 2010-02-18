@@ -289,7 +289,7 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
 
     // Direction light (Sun).
     light::DirectionLight directionLight;
-    directionLight.setDirection(D3DXVECTOR3(-0.3f, 0.0f, -1.0f));
+    directionLight.setDirection(D3DXVECTOR3(-0.4f, 0.0f, -1.0f));
     directionLight.setMaterial(constants::color::gray(0.3f), constants::color::gray(0.5f), constants::color::gray(0.5f));
     // Attaching light to root node.
     m_weakRootNode->addLight(0, directionLight.light());
@@ -302,12 +302,12 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
     
     // Scene hierarchy.
 
-    size_t nPetals = 4;
+    size_t nPetals = 5;
     double const trunkR = 0.1, lowerCupR = 0.6, middleCupR = 0.9, topCupR = 0.3;
     double const trunkHeight = 2.0, cupBottomHeight = 0.1;
-    double const cupLowerLen = 0.7, cupUpperLen = 0.6;
+    double const cupLowerLen = 0.7, cupUpperLen = 0.7;
     double const lowerCupDepth = 0.05, upperCupDepth = 0.05;
-    double const trunkRotatingSpeed = -0.1;
+    double const trunkRotatingSpeed = -0.2;
     double const wave1LowestAngle = 0.2, wave2LowestAngle = 0.2;
 
     double const polyAngleSin = sin((1.0 - 2.0 / nPetals) * constants::pi / 2.0);
@@ -319,7 +319,7 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
     double const wave1HighestAngle = acos((middleH - lowerH) / cupLowerLen);
     double const wave2HighestAngle = constants::pi - (acos((middleH - topH) / cupUpperLen) + wave1HighestAngle);
 
-    double const wavePeriod = 4;
+    double const wavePeriod = 6;
 
     double const wave1Range = wave1HighestAngle - wave1LowestAngle;
     double const wave2Range = wave2HighestAngle - wave2LowestAngle;
