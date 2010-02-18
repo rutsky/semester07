@@ -200,8 +200,9 @@ namespace scene
     D3DCULL m_prevCullMode;
   };
 
-    class LightsNode
-    : public virtual cs::BaseCoordinateSystem
+  class LightsNode
+    : public virtual BaseSceneNode 
+    , public virtual cs::BaseCoordinateSystem
     , public virtual DummyChildRenderWrapper
     , public virtual object::BaseWorldMatrixDependentObject
   {
@@ -272,8 +273,13 @@ namespace scene
         }
 
         {
+          D3DXMATRIX transform = m_worldMatrix;
+          transform(3, 0) = 0;
+          transform(3, 1) = 0;
+          transform(3, 2) = 0;
+
           D3DXVECTOR4 dir(lightDescr.light.Direction.x, lightDescr.light.Direction.y, lightDescr.light.Direction.z, 1);
-          D3DXVec4Transform(&dir, &dir, &m_worldMatrix);
+          D3DXVec4Transform(&dir, &dir, &transform);
           light.Direction.x = dir.x;
           light.Direction.y = dir.y;
           light.Direction.z = dir.z;
@@ -291,10 +297,14 @@ namespace scene
         size_t const index = it->first;
         LightDescr const lightDescr = it->second;
 
+        /*
         if (!lightDescr.enabled)
           continue;
 
         device->LightEnable(index, false);
+        */
+        if (!lightDescr.enabled)
+          device->LightEnable(index, false);
       }
     }
 
@@ -303,7 +313,7 @@ namespace scene
   };
 
   class RootNode
-    : public BaseSceneNode
+    : public virtual BaseSceneNode
     , public virtual cs::BaseCoordinateSystem
     , public MultipleChildRenderWrapper<FillModeSwitch, CullModeSwitch, LightsNode>
     , public control::CombineControlHandlers<control::SwitchByKey<D3DFILLMODE, VK_F6>, control::SwitchByKey<D3DCULL, VK_F7> >

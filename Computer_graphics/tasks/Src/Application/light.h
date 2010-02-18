@@ -165,16 +165,15 @@ namespace light
     public:
       AnglesProperty()
       {
-        m_light.Theta = (float)(2.0 * constants::pi / 3.0);
-        m_light.Phi = (float)(constants::pi / 3.0);
+        m_light.Theta = (float)(1.0 * constants::pi / 3.0);
+        m_light.Phi = (float)(2.0 * constants::pi / 3.0);
       }
 
     public:
-      void setAttenuation( float a0, float a1, float a2 )
+      void setAngles( float theta, float phi )
       {
-        m_light.Attenuation0 = a0;
-        m_light.Attenuation1 = a1;
-        m_light.Attenuation2 = a2;
+        m_light.Theta = theta;
+        m_light.Phi = phi;
       }
     };
   } // End of namespace 'details'

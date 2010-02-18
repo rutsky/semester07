@@ -104,6 +104,7 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
 
     light::PointLight pointLight;
     pointLight.setPosition(D3DXVECTOR3(30.0f, 0.0f, 6.0f));
+    pointLight.setMaterial(constants::color::gray(0.7f), constants::color::gray(0.7f), constants::color::gray(0.7f));
     m_weakRootNode->addLight(1, pointLight.light());
 
     {
@@ -185,6 +186,15 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
             0,  0,  0,  1));
         xmeshNode->addObject(m_mesh.get());
         keyboardRotatingNode->addChildNode(scene::ISceneNodePtr(xmeshNode));
+
+        m_carLight = new scene::LightsNode;
+        light::SpotLight spotLight;
+        spotLight.setPosition(D3DXVECTOR3(-5.0f, 0.0f, 3.5f));
+        spotLight.setDirection(D3DXVECTOR3(-1.0f, 0.0f, 0.0f));
+        spotLight.setAngles((float)util::deg2rad(30), (float)util::deg2rad(50));
+        pointLight.setMaterial(constants::color::gray(0.6f), constants::color::gray(0.6f), constants::color::gray(0.6f));
+        m_carLight->addLight(2, spotLight.light());
+        keyboardRotatingNode->addChildNode(scene::ISceneNodePtr(m_carLight));
       }
     }
   }
@@ -358,7 +368,7 @@ bool Application::processInput( unsigned int message, int wParam, long lParam )
     else if (wParam == '3')
     {
       m_spotLightEnabled = !m_spotLightEnabled;
-      m_weakRootNode->enableLight(2, m_spotLightEnabled);
+      m_carLight->enableLight(2, m_spotLightEnabled);
     }
   }
 
