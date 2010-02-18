@@ -67,7 +67,7 @@ namespace light
       }
 
     public:
-      void setDiffuse( D3DXCOLOR const &ambient, D3DXCOLOR const &diffuse, D3DXCOLOR const &specular )
+      void setMaterial( D3DXCOLOR const &ambient, D3DXCOLOR const &diffuse, D3DXCOLOR const &specular )
       {
         m_light.Ambient = ambient;
         m_light.Diffuse = diffuse;
