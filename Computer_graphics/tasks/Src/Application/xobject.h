@@ -7,6 +7,7 @@
 #define XOBJECT_H
 
 #include <vector>
+#include <map>
 #include <cassert>
 #include <ostream>
 #include <sstream>
@@ -227,16 +228,18 @@ namespace xobject
     : public BaseXObject
   {
   public:
+    typedef std::map<size_t, D3DMATERIAL9>        materials_map_type;
+    typedef std::map<size_t, IDirect3DTexture9 *> textures_map_type;
+
     XMesh( IDirect3DDevice9 *device, 
            ID3DXMesh *mesh,
-           std::vector<D3DMATERIAL9> materials,
-           std::vector<IDirect3DTexture9 *> textures )
+           materials_map_type const &materials,
+           textures_map_type const &textures )
       : BaseXObject(device)
       , m_mesh(mesh)
       , m_materials(materials)
       , m_textures(textures)
     {
-      assert(materials.size() == textures.size());
     }
 
     ~XMesh()
@@ -273,8 +276,8 @@ namespace xobject
 
       // Extracting the material properties and texture names from the materialsBuffer.
       D3DXMATERIAL *xmaterials = (D3DXMATERIAL *)materialsBuffer->GetBufferPointer();
-      std::vector<D3DMATERIAL9>       materials(materialsNum);
-      std::vector<IDirect3DTexture9 *> textures(materialsNum);
+      materials_map_type materials;
+      textures_map_type textures;
       
       for (size_t i = 0; i < materialsNum; ++i)
       {
@@ -284,7 +287,7 @@ namespace xobject
         // Set the ambient color for the material (D3DX does not do this).
         materials[i].Ambient = materials[i].Diffuse;
 
-        textures[i] = NULL;
+        IDirect3DTexture9 *texture = NULL;
         if (loadTextures &&
             xmaterials[i].pTextureFilename != NULL &&
             lstrlenA(xmaterials[i].pTextureFilename) > 0)
@@ -295,9 +298,12 @@ namespace xobject
           // Create the texture.
           if (FAILED(D3DXCreateTextureFromFileA(device,
                                                 ostr.str().c_str(),
-                                                &textures[i])))
+                                                &texture)))
             OutputDebugString("Failed to load some texture\n");
         }
+
+        if (texture)
+          textures[i] = texture;
       }
 
       // Done with the material buffer.
@@ -331,8 +337,8 @@ namespace xobject
 
       // Extracting the material properties and texture names from the materialsBuffer.
       D3DXMATERIAL *xmaterials = (D3DXMATERIAL *)materialsBuffer->GetBufferPointer();
-      std::vector<D3DMATERIAL9>       materials(materialsNum);
-      std::vector<IDirect3DTexture9 *> textures(materialsNum);
+      materials_map_type materials;
+      textures_map_type  textures;
       
       for (size_t i = 0; i < materialsNum; ++i)
       {
@@ -352,14 +358,41 @@ namespace xobject
       return new XMesh(device, mesh, materials, textures);
     }
 
+    static XMesh * createCylinder( IDirect3DDevice9 *device,
+      double radius1,
+      double radius2,
+      double length,
+      size_t slices,
+      size_t stacks,
+      D3DMATERIAL9 const &material )
+    {
+      ID3DXMesh *mesh;
+      if (FAILED(D3DXCreateCylinder(device, (float)radius1, (float)radius2, (float)length, slices, stacks, &mesh, NULL)))
+        return NULL;
+
+      materials_map_type materials;
+      materials[0] = material;
+      return new XMesh(device, mesh, materials, textures_map_type());
+    }
+
     // object::IDrawableObject
   public:
     void draw()
     {
-      for (size_t i = 0; i < m_materials.size(); ++i)
+      DWORD size;
+      m_mesh->GetAttributeTable(NULL, &size); // TODO: Not sure, not sure...
+
+      // FIXME
+      if (size == 0)
+        size = 1;
+
+      for (size_t i = 0; i < size; ++i)
       {
-        m_device->SetMaterial(&m_materials[i]);
-        m_device->SetTexture(0, m_textures[i]);
+        if (m_materials.find(i) != m_materials.end())
+          m_device->SetMaterial(&m_materials[i]);
+
+        if (m_textures.find(i) != m_textures.end())
+          m_device->SetTexture(0, m_textures[i]);
 
         m_mesh->DrawSubset(i);
       }
@@ -367,8 +400,8 @@ namespace xobject
 
   protected:
     ID3DXMesh *m_mesh;
-    std::vector<D3DMATERIAL9> m_materials;
-    std::vector<IDirect3DTexture9 *> m_textures;
+    materials_map_type m_materials;
+    textures_map_type m_textures;
   };
 
   class XTriangle

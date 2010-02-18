@@ -368,6 +368,14 @@
 				RelativePath=".\Src\Application\xobject.h"
 				>
 			</File>
+			<File
+				RelativePath=".\Src\Application\xutil.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Src\Application\xutil.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Library"

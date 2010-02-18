@@ -14,6 +14,7 @@
 
 #include "constants.h"
 #include "light.h"
+#include "xutil.h"
 
 // DEBUG
 bool const doingTask1 = false;
@@ -300,6 +301,18 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
     m_rootSceneNode->addObject(m_coordinateSystem.get());
     
     // Scene hierarchy.
+
+    scene::SimpleSceneNode *translation1Node = new scene::SimpleSceneNode(D3DXVECTOR3(1, 3, 0));
+    //translation1Node->addObject(m_coordinateSystem.get());
+    m_rootSceneNode->addChildNode(scene::ISceneNodePtr(translation1Node));
+
+    m_trunk.reset(xobject::XMesh::createCylinder(m_device, 0.1, 0.1, 2, 20, 20, 
+      xutil::material(constants::color::green() * 0.5f, constants::color::green() * 0.1f)));
+
+    scene::SimpleSceneNode *translation2Node = new scene::SimpleSceneNode(D3DXVECTOR3(0, 0, 1));
+    translation2Node->addObject(m_trunk.get());
+    translation2Node->addObject(m_coordinateSystem.get());
+    translation1Node->addChildNode(scene::ISceneNodePtr(translation2Node));
 
     // Attaching ground.
     /*

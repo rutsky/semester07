@@ -61,6 +61,9 @@ private:
   boost::shared_ptr<xobject::XTriangle> m_triangle;
   boost::shared_ptr<xobject::XCoordinateSystem> m_coordinateSystem;
   boost::shared_ptr<xobject::xsurface::XSurface> m_surface;
+
+  std::vector<boost::shared_ptr<xobject::XTrapezoid> > m_trapezoids;
+  boost::shared_ptr<xobject::XMesh> m_trunk;
 };
 
 #endif // APPLICATION_H
