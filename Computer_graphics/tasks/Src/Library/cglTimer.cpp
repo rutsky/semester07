@@ -30,6 +30,8 @@
 cglTimer::cglTimer()
   : m_rTime(0.0f)
   , m_rDelta(0.0f)
+  , m_paused(false)
+  , m_pausePeriod(0.0f)
 {
   QueryPerformanceFrequency((LARGE_INTEGER*)&m_freq);
   m_rPrevTime = getCurTime();
@@ -44,8 +46,11 @@ float cglTimer::getCurTime()
 
 void cglTimer::update()
 {
-  float rCurTime = getCurTime();
-  m_rDelta = rCurTime - m_rPrevTime;
-  m_rTime += m_rDelta;
-  m_rPrevTime = rCurTime;
+  if (!m_paused)
+  {
+    float rCurTime = getCurTime() - m_pausePeriod;
+    m_rDelta = rCurTime - m_rPrevTime;
+    m_rTime += m_rDelta;
+    m_rPrevTime = rCurTime;
+  }
 }

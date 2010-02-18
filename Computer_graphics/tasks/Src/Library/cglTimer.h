@@ -37,6 +37,22 @@ public:
   void update();
   float getDelta() const { return m_rDelta; }
   float getTime() const { return m_rTime; }
+  void pause( bool p )
+  {
+    if (p != m_paused)
+    {
+      m_paused = p;
+      if (!p)
+      {
+        float rCurTime = getCurTime() - m_pausePeriod;
+        m_pausePeriod += rCurTime - m_rTime;
+
+        m_rPrevTime = m_rTime = getCurTime() - m_pausePeriod;
+        m_rDelta = 0.0f;
+      }
+    }
+  }
+  bool isPaused() const { return m_paused; }
 
 private:
   /// Unsigned 64-bit integer
@@ -52,6 +68,9 @@ private:
   float  m_rPrevTime;
   float  m_rTime;
   float  m_rDelta;
+
+  bool   m_paused;
+  float  m_pausePeriod;
 };
 
 #endif //__CGLTIMER_H__632619820234375000
