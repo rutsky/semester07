@@ -51,6 +51,7 @@ private:
   bool m_pointLightEnabled;
   bool m_spotLightEnabled;
 
+  scene::RotatingSceneNode *m_rotatingNode;
   scene::LightsNode *m_carLight;
 
   boost::shared_ptr<xobject::XMesh> m_mesh;

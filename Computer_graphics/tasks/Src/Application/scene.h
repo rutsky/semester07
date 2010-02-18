@@ -113,6 +113,7 @@ namespace scene
     RotatingSceneNode( D3DXVECTOR3 axis, double speed )
       : m_axis(axis)
       , m_speed(speed)
+      , m_paused(false)
     {
     }
 
@@ -122,12 +123,31 @@ namespace scene
     {
       BaseDynamicObject::update(time);
 
-      D3DXMatrixRotationAxis(&m_matrix, &m_axis, (float)(m_speed * time)); // FIXME: Overflows
+      // FIXME: Not precise.
+      D3DXMATRIX rotationMatrix = constants::matrix::identity;
+
+      if (!m_paused)
+        D3DXMatrixRotationAxis(&rotationMatrix, &m_axis, (float)(m_speed * dtime()));
+
+      m_matrix *= rotationMatrix;
+    }
+
+  public:
+    bool isPaused() const
+    {
+      return m_paused;
+    }
+
+    void pause( bool p )
+    {
+      m_paused = p;
     }
 
   protected:
     D3DXVECTOR3 m_axis;
     double m_speed;
+
+    bool m_paused;
   };
 
   class LCSArrowPgUpPgDownMoveSceneNode

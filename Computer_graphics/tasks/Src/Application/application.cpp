@@ -93,7 +93,7 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
     // Attaching camera to root node.
     m_rootSceneNode->addChildNode(scene::ISceneNodePtr(hierarchy::newSceneNode<scene::SimpleSceneNode>(m_sphericCamera.get())));
 
-    // Free view camerat (view matrix)
+    // Free view camera (view matrix)
     m_freeViewCamera.reset(new camera::FreeViewCamera);
     m_freeViewCamera->lookAt(D3DXVECTOR3(10, 0, 0), D3DXVECTOR3(0, 0, 0));
     // Attaching camera to root node.
@@ -138,11 +138,11 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
     m_rootSceneNode->addChildNode(scene::ISceneNodePtr(groundNode));
 
     // Attaching car.
-    scene::RotatingSceneNode *rotatingNode = new scene::RotatingSceneNode(D3DXVECTOR3(0, 0, 1), 0.4);
-    m_rootSceneNode->addChildNode(scene::ISceneNodePtr(rotatingNode));
+    m_rotatingNode = new scene::RotatingSceneNode(D3DXVECTOR3(0, 0, 1), 0.4);
+    m_rootSceneNode->addChildNode(scene::ISceneNodePtr(m_rotatingNode));
 
     scene::SimpleSceneNode *translationNode = new scene::SimpleSceneNode(D3DXVECTOR3(0, 30.0f, 2.4f));
-    rotatingNode->addChildNode(scene::ISceneNodePtr(translationNode));
+    m_rotatingNode->addChildNode(scene::ISceneNodePtr(translationNode));
 
     scene::LCSArrowPgUpPgDownRotateNode *keyboardRotatingNode = new scene::LCSArrowPgUpPgDownRotateNode;
     translationNode->addChildNode(scene::ISceneNodePtr(keyboardRotatingNode));
@@ -158,7 +158,7 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
     // Attaching car light
     m_carLight = new scene::LightsNode;
     light::SpotLight spotLight;
-    spotLight.setPosition(D3DXVECTOR3(-5.0f, 0.0f, 3.5f));
+    spotLight.setPosition(D3DXVECTOR3(-7.5f, 0.0f, 0.5f));
     spotLight.setDirection(D3DXVECTOR3(-1.0f, 0.0f, 0.0f));
     spotLight.setAngles((float)util::deg2rad(30), (float)util::deg2rad(50));
     pointLight.setMaterial(constants::color::gray(0.6f), constants::color::gray(0.6f), constants::color::gray(0.6f));
@@ -451,11 +451,6 @@ bool Application::processInput( unsigned int message, int wParam, long lParam )
   if (cglApp::processInput(message, wParam, lParam))
     return true;
 
-  if (message == WM_KEYDOWN && wParam == VK_SPACE)
-  {
-    m_timer.pause(!m_timer.isPaused());
-  }
-
   if (doingTask1)
   {
   }
@@ -487,6 +482,10 @@ bool Application::processInput( unsigned int message, int wParam, long lParam )
       {
         m_spotLightEnabled = !m_spotLightEnabled;
         m_carLight->enableLight(2, m_spotLightEnabled);
+      }
+      else if (wParam == VK_SPACE)
+      {
+        m_rotatingNode->pause(!m_rotatingNode->isPaused());
       }
     }
   }
