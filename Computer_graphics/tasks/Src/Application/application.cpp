@@ -366,7 +366,8 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
       scene::SimpleSceneNode *transform1Node = new scene::SimpleSceneNode(translation1 * rotation1);
       translation3Node->addChildNode(scene::ISceneNodePtr(transform1Node));
 
-      scene::WavingSceneNode *wavingNode1 = new scene::WavingSceneNode(D3DXVECTOR3(1, 0, 0), wave1Speed, wave1LowestAngle, wave1Range, 0);
+      double const startAngle1 = i * 2 * wave1Range / nPetals;
+      scene::WavingSceneNode *wavingNode1 = new scene::WavingSceneNode(D3DXVECTOR3(1, 0, 0), wave1Speed, wave1LowestAngle, wave1Range, startAngle1);
       transform1Node->addChildNode(scene::ISceneNodePtr(wavingNode1));
 
       m_trapezoids.push_back(boost::shared_ptr<xobject::XTrapezoid>());
@@ -380,7 +381,8 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
       scene::SimpleSceneNode *translation2Node = new scene::SimpleSceneNode(D3DXVECTOR3(0, (float)(cupLowerLen / 2.0), 0));
       translation1Node->addChildNode(scene::ISceneNodePtr(translation2Node));
 
-      scene::WavingSceneNode *wavingNode2 = new scene::WavingSceneNode(D3DXVECTOR3(1, 0, 0), wave2Speed, wave2LowestAngle, wave2Range, 0);
+      double const startAngle2 = i * 2 * wave2Range / nPetals;
+      scene::WavingSceneNode *wavingNode2 = new scene::WavingSceneNode(D3DXVECTOR3(1, 0, 0), wave2Speed, wave2LowestAngle, wave2Range, startAngle2);
       translation2Node->addChildNode(scene::ISceneNodePtr(wavingNode2));
 
       m_trapezoids.push_back(boost::shared_ptr<xobject::XTrapezoid>());
