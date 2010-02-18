@@ -302,7 +302,7 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
     
     // Scene hierarchy.
 
-    size_t nPetals = 5;
+    size_t nPetals = 10;
     double const trunkR = 0.1, lowerCupR = 0.6, middleCupR = 0.9, topCupR = 0.3;
     double const trunkHeight = 2.0, cupBottomHeight = 0.1;
     double const cupLowerLen = 0.7, cupUpperLen = 0.7;
