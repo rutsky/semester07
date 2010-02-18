@@ -54,6 +54,8 @@ private:
   scene::RotatingSceneNode *m_rotatingNode;
   scene::LightsNode *m_carLight;
 
+  float m_mipmapLODBias;
+
   boost::shared_ptr<xobject::XMesh> m_mesh;
   boost::shared_ptr<xobject::XMesh> m_groundMesh;
   boost::shared_ptr<xobject::XTriangle> m_triangle;

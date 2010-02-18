@@ -31,6 +31,7 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
   , m_directionLightEnabled(true)
   , m_pointLightEnabled(true)
   , m_spotLightEnabled(true)
+  , m_mipmapLODBias(0.0f)
 {
   // Updating caption first time.
   SetWindowText(HWND(m_hWnd), Application::getWindowText());
@@ -512,6 +513,8 @@ void Application::renderInternal()
     m_device->SetRenderState(D3DRS_DIFFUSEMATERIALSOURCE, D3DMCS_COLOR1);
     m_device->SetRenderState(D3DRS_EMISSIVEMATERIALSOURCE, D3DMCS_MATERIAL);
 
+    m_device->SetSamplerState(0, D3DSAMP_MIPMAPLODBIAS, *((DWORD *)(&m_mipmapLODBias)));
+
     drawScene(m_device, m_rootSceneNode);
   }
   else if (1)
@@ -628,6 +631,14 @@ bool Application::processInput( unsigned int message, int wParam, long lParam )
       else if (wParam == VK_SPACE)
       {
         m_rotatingNode->pause(!m_rotatingNode->isPaused());
+      }
+      else if (wParam == 'P')
+      {
+        m_mipmapLODBias += 0.2f;
+      }
+      else if (wParam == 'O')
+      {
+        m_mipmapLODBias -= 0.2f;
       }
     }
   }
