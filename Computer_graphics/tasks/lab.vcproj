@@ -245,6 +245,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Src\Application\constants.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Src\Application\constants.h"
 				>
 			</File>
@@ -274,6 +278,14 @@
 			</File>
 			<File
 				RelativePath=".\Src\Application\hierarchy.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Src\Application\light.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Src\Application\light.h"
 				>
 			</File>
 			<File

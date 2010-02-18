@@ -13,6 +13,7 @@
 #include "Library/cglD3D.h"
 
 #include "constants.h"
+#include "light.h"
 
 // DEBUG
 bool const doingTask1 = false;
@@ -27,6 +28,9 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
   , m_windowHeight(windowHeight)
   , m_device(m_pD3D->getDevice())
   , m_usingSphericCamera(true)
+  , m_directionLightEnabled(true)
+  , m_pointLightEnabled(true)
+  , m_spotLightEnabled(true)
 {
   // Updating caption first time.
   SetWindowText(HWND(m_hWnd), Application::getWindowText());
@@ -75,7 +79,8 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
   {
     // Debug
     // Root node.
-    m_rootSceneNode.reset(new scene::RootNode);
+    m_weakRootNode = new scene::RootNode;
+    m_rootSceneNode.reset(m_weakRootNode);
 
     // Projection matrix.
     m_projectionMatrix.reset(new projection::PerspectiveProjection(constants::pi / 2.0, (double)windowWidth / windowHeight, 1.0, 10000.0));
@@ -91,6 +96,14 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
     
     // Attaching camera to root node.
     m_rootSceneNode->addChildNode(scene::ISceneNodePtr(hierarchy::newSceneNode<scene::SimpleSceneNode>(m_freeViewCamera.get())));
+
+    light::DirectionLight directionLight;
+    directionLight.setDirection(D3DXVECTOR3(-0.3f, 0.0f, -1.0f));
+    m_weakRootNode->addLight(0, directionLight.light());
+
+    light::PointLight pointLight;
+    pointLight.setPosition(D3DXVECTOR3(30.0f, 0.0f, 6.0f));
+    m_weakRootNode->addLight(1, pointLight.light());
 
     {
       // Scene objects.
@@ -280,7 +293,7 @@ void Application::renderInternal()
     // Debug
 
     //m_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-    m_device->SetRenderState(D3DRS_LIGHTING, FALSE);
+    //m_device->SetRenderState(D3DRS_LIGHTING, FALSE);
     //m_device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 
     //D3DXMATRIX identity;
@@ -293,6 +306,12 @@ void Application::renderInternal()
       m_device->SetTransform(D3DTS_VIEW, &m_freeViewCamera->viewMatrix());
 
     m_device->SetTransform(D3DTS_PROJECTION, &m_projectionMatrix->projectionMatrix());
+
+    m_device->SetRenderState(D3DRS_COLORVERTEX, TRUE);
+    m_device->SetRenderState(D3DRS_AMBIENTMATERIALSOURCE, D3DMCS_COLOR1);
+    m_device->SetRenderState(D3DRS_DIFFUSEMATERIALSOURCE, D3DMCS_COLOR1);
+    m_device->SetRenderState(D3DRS_EMISSIVEMATERIALSOURCE, D3DMCS_MATERIAL);
+
 
     /*
     D3DXVECTOR3 vEyePt( 0.0f, 3.0f,-5.0f );
@@ -313,15 +332,33 @@ bool Application::processInput( unsigned int message, int wParam, long lParam )
   if (cglApp::processInput(message, wParam, lParam))
     return true;
 
-  if (message == WM_KEYDOWN && wParam == VK_F1)
+  if (message == WM_KEYDOWN)
   {
-    // FIXME: Not using world matrix information.
-    if (m_usingSphericCamera)
-      m_freeViewCamera->lookAt(m_sphericCamera->eyePosition(), D3DXVECTOR3(0, 0, 0));
-    else
-      m_sphericCamera->setEyePosition(m_freeViewCamera->eyePosition());
-   
-    m_usingSphericCamera = !m_usingSphericCamera;
+    if (wParam == VK_F1)
+    {
+      // FIXME: Not using world matrix information.
+      if (m_usingSphericCamera)
+        m_freeViewCamera->lookAt(m_sphericCamera->eyePosition(), D3DXVECTOR3(0, 0, 0));
+      else
+        m_sphericCamera->setEyePosition(m_freeViewCamera->eyePosition());
+     
+      m_usingSphericCamera = !m_usingSphericCamera;
+    }
+    else if (wParam == '1')
+    {
+      m_directionLightEnabled = !m_directionLightEnabled;
+      m_weakRootNode->enableLight(0, m_directionLightEnabled);
+    }
+    else if (wParam == '2')
+    {
+      m_pointLightEnabled = !m_pointLightEnabled;
+      m_weakRootNode->enableLight(1, m_pointLightEnabled);
+    }
+    else if (wParam == '3')
+    {
+      m_spotLightEnabled = !m_spotLightEnabled;
+      m_weakRootNode->enableLight(2, m_spotLightEnabled);
+    }
   }
 
   return processInputOnScene(m_rootSceneNode, message, wParam, lParam);

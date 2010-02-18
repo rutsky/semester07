@@ -7,7 +7,9 @@
 #define CONSTANTS_H
 
 #include <windows.h>
+#include <d3d9.h>
 #include <d3d9types.h>
+#include <d3dx9math.h>
 
 namespace constants
 {
@@ -15,11 +17,11 @@ namespace constants
 
   namespace color
   {
-    D3DCOLOR const black = D3DCOLOR_ARGB(255,   0,   0,   0);
-    D3DCOLOR const white = D3DCOLOR_ARGB(255, 255, 255, 255);
-    D3DCOLOR const red   = D3DCOLOR_ARGB(255, 255,   0,   0);
-    D3DCOLOR const green = D3DCOLOR_ARGB(255,   0, 255,   0);
-    D3DCOLOR const blue  = D3DCOLOR_ARGB(255,   0,   0, 255);
+    inline D3DXCOLOR black() { return D3DCOLOR_ARGB(255,   0,   0,   0); }
+    inline D3DXCOLOR white() { return D3DCOLOR_ARGB(255, 255, 255, 255); }
+    inline D3DXCOLOR red  () { return D3DCOLOR_ARGB(255, 255,   0,   0); }
+    inline D3DXCOLOR green() { return D3DCOLOR_ARGB(255,   0, 255,   0); }
+    inline D3DXCOLOR blue () { return D3DCOLOR_ARGB(255,   0,   0, 255); }
   } // End of namespace 'color'
 } // End of namespace 'constants'
 

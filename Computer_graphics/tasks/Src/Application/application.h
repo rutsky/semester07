@@ -39,12 +39,19 @@ private:
 
   IDirect3DDevice9 *m_device;
 
+  scene::RootNode *m_weakRootNode;
   scene::ISceneNodePtr m_rootSceneNode;
   boost::shared_ptr<projection::IProjectionMatrix> m_projectionMatrix;
 
   bool m_usingSphericCamera;
   boost::shared_ptr<camera::SphericCamera> m_sphericCamera;
   boost::shared_ptr<camera::FreeViewCamera> m_freeViewCamera;
+
+  bool m_directionLightEnabled;
+  bool m_pointLightEnabled;
+  bool m_spotLightEnabled;
+
+  scene::LightsNode *m_carLight;
 
   boost::shared_ptr<xobject::XMesh> m_mesh;
   boost::shared_ptr<xobject::XMesh> m_groundMesh;

@@ -621,9 +621,9 @@ namespace xobject
         DWORD operator () ( double u, double v )
         {
           if (((int)(u * m_uCells) + (int)(v * m_vCells)) % 2 == 0)
-            return constants::color::black;
+            return constants::color::black();
           else
-            return constants::color::white;
+            return constants::color::white();
         }
 
       private:
@@ -705,13 +705,13 @@ namespace xobject
     {
       xline_ptr_type xAxis(XLine::create(device, 
         D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(1, 0, 0), 
-        constants::color::red, constants::color::red));
+        constants::color::red(), constants::color::red()));
       xline_ptr_type yAxis(XLine::create(device, 
         D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(0, 1, 0), 
-        constants::color::green, constants::color::green));
+        constants::color::green(), constants::color::green()));
       xline_ptr_type zAxis(XLine::create(device, 
         D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(0, 0, 1), 
-        constants::color::blue, constants::color::blue));
+        constants::color::blue(), constants::color::blue()));
 
       if (!xAxis || !yAxis || !zAxis)
         return 0;

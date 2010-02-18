@@ -6,6 +6,8 @@
 #ifndef SCENE_H
 #define SCENE_H
 
+#include <map>
+
 #include <boost/shared_ptr.hpp>
 
 #include <d3d9.h>
@@ -23,26 +25,6 @@ namespace scene
     ~IChildRenderWrapper() {}
   };
 
-  template< class U, class V >
-  class MultipleChildRenderWrapper
-    : public U
-    , public V
-  {
-    // IChildRenderWrapper
-  public:
-    void beginChildsDrawing( IDirect3DDevice9 *device )
-    {
-      U::beginChildsDrawing(device);
-      V::beginChildsDrawing(device);
-    }
-
-    void endChildsDrawing( IDirect3DDevice9 *device )
-    {
-      U::endChildsDrawing(device);
-      V::endChildsDrawing(device);
-    }
-  };
-
   class DummyChildRenderWrapper
     : public virtual IChildRenderWrapper
   {
@@ -57,6 +39,29 @@ namespace scene
     , public virtual cs::ICoordinateSystem
     , public virtual IChildRenderWrapper
   {
+  };
+
+  template< class U, class V, class S = DummyChildRenderWrapper >
+  class MultipleChildRenderWrapper
+    : public U
+    , public V
+    , public S
+  {
+    // IChildRenderWrapper
+  public:
+    void beginChildsDrawing( IDirect3DDevice9 *device )
+    {
+      U::beginChildsDrawing(device);
+      V::beginChildsDrawing(device);
+      S::beginChildsDrawing(device);
+    }
+
+    void endChildsDrawing( IDirect3DDevice9 *device )
+    {
+      U::endChildsDrawing(device);
+      V::endChildsDrawing(device);
+      S::endChildsDrawing(device);
+    }
   };
 
   typedef boost::shared_ptr<ISceneNode> ISceneNodePtr;
@@ -195,10 +200,112 @@ namespace scene
     D3DCULL m_prevCullMode;
   };
 
+    class LightsNode
+    : public virtual cs::BaseCoordinateSystem
+    , public virtual DummyChildRenderWrapper
+    , public virtual object::BaseWorldMatrixDependentObject
+  {
+  protected:
+    struct LightDescr
+    {
+      LightDescr()
+        : enabled(true)
+      {
+      }
+
+      D3DLIGHT9 light;
+      bool enabled;
+    };
+
+    typedef std::map<size_t, LightDescr> lights_map_type;
+
+  public:
+    void addLight( size_t index, D3DLIGHT9 light )
+    {
+      m_lights[index].light = light;
+    }
+
+    void removeLight( size_t index )
+    {
+      lights_map_type::iterator it = m_lights.find(index);
+      if (it != m_lights.end())
+        m_lights.erase(it);
+      else
+      {
+        assert(0);
+      }
+    }
+
+    void enableLight( size_t index, bool enabled )
+    {
+      lights_map_type::iterator it = m_lights.find(index);
+      if (it != m_lights.end())
+      {
+        it->second.enabled = enabled;
+      }
+      else
+      {
+        assert(0);
+      }
+    }
+
+    // IChildRenderWrapper
+  public:
+    void beginChildsDrawing( IDirect3DDevice9 *device )
+    {
+      for (lights_map_type::const_iterator it = m_lights.begin(); it != m_lights.end(); ++it)
+      {
+        size_t const index = it->first;
+        LightDescr const lightDescr = it->second;
+
+        if (!lightDescr.enabled)
+          continue;
+
+        D3DLIGHT9 light = lightDescr.light;
+        
+        {
+          D3DXVECTOR4 pos(lightDescr.light.Position.x, lightDescr.light.Position.y, lightDescr.light.Position.z, 1);
+          D3DXVec4Transform(&pos, &pos, &m_worldMatrix);
+          light.Position.x = pos.x;
+          light.Position.y = pos.y;
+          light.Position.z = pos.z;
+        }
+
+        {
+          D3DXVECTOR4 dir(lightDescr.light.Direction.x, lightDescr.light.Direction.y, lightDescr.light.Direction.z, 1);
+          D3DXVec4Transform(&dir, &dir, &m_worldMatrix);
+          light.Direction.x = dir.x;
+          light.Direction.y = dir.y;
+          light.Direction.z = dir.z;
+        }
+
+        device->SetLight(index, &light);
+        device->LightEnable(index, true);
+      }
+    }
+
+    void endChildsDrawing( IDirect3DDevice9 *device )
+    {
+      for (lights_map_type::const_iterator it = m_lights.begin(); it != m_lights.end(); ++it)
+      {
+        size_t const index = it->first;
+        LightDescr const lightDescr = it->second;
+
+        if (!lightDescr.enabled)
+          continue;
+
+        device->LightEnable(index, false);
+      }
+    }
+
+  protected:
+    lights_map_type m_lights;
+  };
+
   class RootNode
     : public BaseSceneNode
     , public virtual cs::BaseCoordinateSystem
-    , public MultipleChildRenderWrapper<FillModeSwitch, CullModeSwitch>
+    , public MultipleChildRenderWrapper<FillModeSwitch, CullModeSwitch, LightsNode>
     , public control::CombineControlHandlers<control::SwitchByKey<D3DFILLMODE, VK_F6>, control::SwitchByKey<D3DCULL, VK_F7> >
   {
   public:
