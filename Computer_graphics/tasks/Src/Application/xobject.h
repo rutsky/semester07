@@ -99,7 +99,7 @@ namespace xobject
   {
     IDirect3DVertexBuffer9 *vertexBuffer;
     if (FAILED(device->CreateVertexBuffer(bufferSize,
-                 0, vertexFormat,
+                 D3DUSAGE_WRITEONLY, vertexFormat,
                  D3DPOOL_DEFAULT, &vertexBuffer, NULL)))
       return 0;
 
