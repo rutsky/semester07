@@ -14,6 +14,7 @@
 
 #include "hierarchy.h"
 #include "static_matrices.h"
+#include "constants.h"
 
 namespace scene
 {
@@ -168,7 +169,8 @@ namespace scene
       BaseDynamicObject::update(time);
 
       double const fullAngle = m_startAngle + m_speed * time;
-      double const angle = m_angleRange - fabs(m_angleRange - fmod(fullAngle, 2 * m_angleRange));
+      double angle = m_angleRange - fabs(m_angleRange - fmod(fullAngle, 2 * m_angleRange));
+      angle = fabs(cos((angle / m_angleRange) * constants::pi) * m_angleRange);
 
       // FIXME: owerflows.
       D3DXMatrixRotationAxis(&m_matrix, &m_axis, (float)(m_fromAngle + angle));
