@@ -123,6 +123,12 @@ namespace object
     , public virtual control::DummyControlHandler
   {
   public:
+    ISceneObject()
+      : m_show(true)
+    {
+    }
+
+  public:
     bool show()
     {
       return m_show;
