@@ -23,6 +23,8 @@ bool const doingTask3 = false;
 bool const doingTask4 = true;
 bool const doingTask5 = false;
 
+bool const syncPetals = false;
+
 Application::Application( int windowWidth, int windowHeight, void* hInstance, int nCmdShow )
   : cglApp(windowWidth, windowHeight, hInstance, nCmdShow)  
   , m_windowWidth(windowWidth)
@@ -302,7 +304,7 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
     
     // Scene hierarchy.
 
-    size_t nPetals = 10;
+    size_t nPetals = 5;
     double const trunkR = 0.1, lowerCupR = 0.6, middleCupR = 0.9, topCupR = 0.3;
     double const trunkHeight = 2.0, cupBottomHeight = 0.1;
     double const cupLowerLen = 0.7, cupUpperLen = 0.7;
@@ -366,7 +368,9 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
       scene::SimpleSceneNode *transform1Node = new scene::SimpleSceneNode(translation1 * rotation1);
       translation3Node->addChildNode(scene::ISceneNodePtr(transform1Node));
 
-      double const startAngle1 = i * 2 * wave1Range / nPetals;
+      double startAngle1 = 0;
+      if (!syncPetals)
+        startAngle1 = i * 2 * wave1Range / nPetals;
       scene::WavingSceneNode *wavingNode1 = new scene::WavingSceneNode(D3DXVECTOR3(1, 0, 0), wave1Speed, wave1LowestAngle, wave1Range, startAngle1);
       transform1Node->addChildNode(scene::ISceneNodePtr(wavingNode1));
 
@@ -381,7 +385,9 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
       scene::SimpleSceneNode *translation2Node = new scene::SimpleSceneNode(D3DXVECTOR3(0, (float)(cupLowerLen / 2.0), 0));
       translation1Node->addChildNode(scene::ISceneNodePtr(translation2Node));
 
-      double const startAngle2 = i * 2 * wave2Range / nPetals;
+      double startAngle2 = 0;
+      if (!syncPetals)
+        startAngle2 = i * 2 * wave2Range / nPetals;
       scene::WavingSceneNode *wavingNode2 = new scene::WavingSceneNode(D3DXVECTOR3(1, 0, 0), wave2Speed, wave2LowestAngle, wave2Range, startAngle2);
       translation2Node->addChildNode(scene::ISceneNodePtr(wavingNode2));
 
