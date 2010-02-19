@@ -9453,7 +9453,7 @@ Frame DXCC_ROOT {
      0.000000;0.000000;0.000000;;
 
      TextureFilename {
-      "D:/BVSDocs/Mine/_cgCourse/xMeshes/ground00.bmp";
+      "ground00.bmp";
      }
     }
    }

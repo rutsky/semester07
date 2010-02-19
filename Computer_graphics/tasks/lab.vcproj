@@ -18,9 +18,8 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="."
-			IntermediateDirectory=".\Out\Debug"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
 			CharacterSet="2"
@@ -49,19 +48,19 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="$(SolutionDir)Src;$(SolutionDir)boost_1_42_0"
-				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS"
+				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,D3D_DEBUG_INFO"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="precompiled.h"
-				PrecompiledHeaderFile="Out\Debug\precompiled.pch"
-				AssemblerListingLocation=".\Out\Debug/"
-				ObjectFile=".\Out\Debug/"
-				ProgramDataBaseFileName=".\Out\Debug/"
-				BrowseInformation="1"
+				PrecompiledHeaderFile="$(IntDir)\$(TargetName)"
+				AssemblerListingLocation=""
+				ObjectFile="$(IntDir)\"
+				ProgramDataBaseFileName="$(IntDir)\vc90.pdb"
+				BrowseInformation="0"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
-				DebugInformationFormat="1"
+				DebugInformationFormat="4"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -111,10 +110,9 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="."
-			IntermediateDirectory=".\Out\Release"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
 			CharacterSet="2"
@@ -141,7 +139,9 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				InlineFunctionExpansion="1"
+				Optimization="0"
+				InlineFunctionExpansion="0"
+				EnableIntrinsicFunctions="false"
 				AdditionalIncludeDirectories="$(SolutionDir)Src;$(SolutionDir)boost_1_42_0"
 				PreprocessorDefinitions="WIN32,NDEBUG,_WINDOWS"
 				StringPooling="true"
@@ -149,12 +149,13 @@
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="precompiled.h"
-				PrecompiledHeaderFile="Out\Release\precompiled.pch"
-				AssemblerListingLocation=".\Out\Release/"
-				ObjectFile=".\Out\Release/"
-				ProgramDataBaseFileName=".\Out\Release/"
+				PrecompiledHeaderFile="$(IntDir)\$(TargetName)"
+				AssemblerListingLocation=""
+				ObjectFile="$(IntDir)\"
+				ProgramDataBaseFileName="$(IntDir)\vc90.pdb"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
+				DebugInformationFormat="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -174,10 +175,15 @@
 				OutputFile="lab-rel.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
+				GenerateDebugInformation="true"
 				ProgramDatabaseFile="./lab-rel.pdb"
 				SubSystem="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				LinkTimeCodeGeneration="0"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
+				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -317,6 +323,7 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="1"
+						PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -325,6 +332,7 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="1"
+						PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
 					/>
 				</FileConfiguration>
 			</File>
@@ -349,6 +357,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Src\Application\texture.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Src\Application\texture.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Src\Application\util.h"
 				>
 			</File>
@@ -358,6 +374,14 @@
 			</File>
 			<File
 				RelativePath=".\Src\Application\xobject.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Src\Application\xutil.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Src\Application\xutil.h"
 				>
 			</File>
 		</Filter>

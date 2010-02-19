@@ -7,6 +7,7 @@
 #define XOBJECT_H
 
 #include <vector>
+#include <map>
 #include <cassert>
 #include <ostream>
 #include <sstream>
@@ -22,6 +23,7 @@
 #include "util.h"
 #include "object.h"
 #include "constants.h"
+#include "texture.h"
 
 namespace xobject
 {
@@ -97,7 +99,7 @@ namespace xobject
   {
     IDirect3DVertexBuffer9 *vertexBuffer;
     if (FAILED(device->CreateVertexBuffer(bufferSize,
-                 0, vertexFormat,
+                 D3DUSAGE_WRITEONLY, vertexFormat,
                  D3DPOOL_DEFAULT, &vertexBuffer, NULL)))
       return 0;
 
@@ -226,16 +228,18 @@ namespace xobject
     : public BaseXObject
   {
   public:
+    typedef std::map<size_t, D3DMATERIAL9>        materials_map_type;
+    typedef std::map<size_t, IDirect3DTexture9 *> textures_map_type;
+
     XMesh( IDirect3DDevice9 *device, 
            ID3DXMesh *mesh,
-           std::vector<D3DMATERIAL9> materials,
-           std::vector<IDirect3DTexture9 *> textures )
+           materials_map_type const &materials,
+           textures_map_type const &textures )
       : BaseXObject(device)
       , m_mesh(mesh)
       , m_materials(materials)
       , m_textures(textures)
     {
-      assert(materials.size() == textures.size());
     }
 
     ~XMesh()
@@ -272,8 +276,8 @@ namespace xobject
 
       // Extracting the material properties and texture names from the materialsBuffer.
       D3DXMATERIAL *xmaterials = (D3DXMATERIAL *)materialsBuffer->GetBufferPointer();
-      std::vector<D3DMATERIAL9>       materials(materialsNum);
-      std::vector<IDirect3DTexture9 *> textures(materialsNum);
+      materials_map_type materials;
+      textures_map_type textures;
       
       for (size_t i = 0; i < materialsNum; ++i)
       {
@@ -283,7 +287,7 @@ namespace xobject
         // Set the ambient color for the material (D3DX does not do this).
         materials[i].Ambient = materials[i].Diffuse;
 
-        textures[i] = NULL;
+        IDirect3DTexture9 *texture = NULL;
         if (loadTextures &&
             xmaterials[i].pTextureFilename != NULL &&
             lstrlenA(xmaterials[i].pTextureFilename) > 0)
@@ -294,9 +298,12 @@ namespace xobject
           // Create the texture.
           if (FAILED(D3DXCreateTextureFromFileA(device,
                                                 ostr.str().c_str(),
-                                                &textures[i])))
+                                                &texture)))
             OutputDebugString("Failed to load some texture\n");
         }
+
+        if (texture)
+          textures[i] = texture;
       }
 
       // Done with the material buffer.
@@ -305,14 +312,87 @@ namespace xobject
       return new XMesh(device, mesh, materials, textures);
     }
 
+    template< class FileNameIterator >
+    static XMesh * createWithCustomTextures( IDirect3DDevice9 *device, char const *dataDirectory, char const *fileName,
+      size_t width, size_t height, D3DFORMAT format, FileNameIterator textureFileNameFirst, FileNameIterator textureFileNameBeyond )
+    {
+      // Based on DirectX Meshes example.
+
+      ID3DXMesh *mesh;
+      DWORD materialsNum;
+      LPD3DXBUFFER materialsBuffer;
+
+
+      {
+        std::ostringstream ostr;
+        ostr << dataDirectory << "/" << fileName;
+
+        // Load the mesh from the specified file.
+        if (FAILED(D3DXLoadMeshFromX(ostr.str().c_str(), D3DXMESH_SYSTEMMEM,
+                                     device, NULL,
+                                     &materialsBuffer, NULL, &materialsNum,
+                                     &mesh)))
+          return 0;
+      }
+
+      // Extracting the material properties and texture names from the materialsBuffer.
+      D3DXMATERIAL *xmaterials = (D3DXMATERIAL *)materialsBuffer->GetBufferPointer();
+      materials_map_type materials;
+      textures_map_type  textures;
+      
+      for (size_t i = 0; i < materialsNum; ++i)
+      {
+        // Copy the material.
+        materials[i] = xmaterials[i].MatD3D;
+
+        // Set the ambient color for the material (D3DX does not do this).
+        materials[i].Ambient = materials[i].Diffuse;
+
+        textures[i] = texture::loadTextureWithMipmaps(device, width, height, format, dataDirectory, 
+          textureFileNameFirst, textureFileNameBeyond);
+      }
+
+      // Done with the material buffer.
+      materialsBuffer->Release();
+
+      return new XMesh(device, mesh, materials, textures);
+    }
+
+    static XMesh * createCylinder( IDirect3DDevice9 *device,
+      double radius1,
+      double radius2,
+      double length,
+      size_t slices,
+      size_t stacks,
+      D3DMATERIAL9 const &material )
+    {
+      ID3DXMesh *mesh;
+      if (FAILED(D3DXCreateCylinder(device, (float)radius1, (float)radius2, (float)length, slices, stacks, &mesh, NULL)))
+        return NULL;
+
+      materials_map_type materials;
+      materials[0] = material;
+      return new XMesh(device, mesh, materials, textures_map_type());
+    }
+
     // object::IDrawableObject
   public:
     void draw()
     {
-      for (size_t i = 0; i < m_materials.size(); ++i)
+      DWORD size;
+      m_mesh->GetAttributeTable(NULL, &size); // TODO: Not sure, not sure...
+
+      // FIXME
+      if (size == 0)
+        size = 1;
+
+      for (size_t i = 0; i < size; ++i)
       {
-        m_device->SetMaterial(&m_materials[i]);
-        m_device->SetTexture(0, m_textures[i]);
+        if (m_materials.find(i) != m_materials.end())
+          m_device->SetMaterial(&m_materials[i]);
+
+        if (m_textures.find(i) != m_textures.end())
+          m_device->SetTexture(0, m_textures[i]);
 
         m_mesh->DrawSubset(i);
       }
@@ -320,8 +400,8 @@ namespace xobject
 
   protected:
     ID3DXMesh *m_mesh;
-    std::vector<D3DMATERIAL9> m_materials;
-    std::vector<IDirect3DTexture9 *> m_textures;
+    materials_map_type m_materials;
+    textures_map_type m_textures;
   };
 
   class XTriangle
@@ -367,6 +447,123 @@ namespace xobject
     static XTriangle * create( IDirect3DDevice9 *device )
     {
       return create(device, D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(0, 1, 0), D3DXVECTOR3(1, 0, 0));
+    }
+  };
+
+  class XTrapezoid
+    : public XPrimitive
+  {
+  protected:
+    XTrapezoid( IDirect3DDevice9 *device, 
+                IDirect3DVertexBuffer9* streamData, 
+                DWORD vertexFormat, size_t vertexSize,
+                D3DPRIMITIVETYPE primitiveType, size_t primitiveCount )
+      : XPrimitive(device, streamData, vertexFormat, vertexSize, primitiveType, primitiveCount)
+    {
+    }
+
+  public:
+    static XTrapezoid * create( IDirect3DDevice9 *device,
+      double lowerSide, double upperSide, double trapezoidHeight, double zdepth,
+      DWORD forwardFaceColor, DWORD rightFaceColor, 
+      DWORD topFaceColor, DWORD leftFaceColor, 
+      DWORD bottomFaceColor, DWORD backFaceColor )
+    {
+      float const x = (float)(lowerSide / 2.0);
+      float const X = (float)(upperSide / 2.0);
+      float const y = (float)(trapezoidHeight / 2.0);
+      float const z = (float)(zdepth / 2.0);
+
+      // TODO: Not checked.
+      float const tga = (float)((x - X) / (2.0 * y));
+      float const ax = (float)(sqrt(1.0 / (1.0 + util::sqr(tga))));
+      float const ay = (float)(sqrt(1.0 / (1.0 + 1.0 / util::sqr(tga))));
+
+      vertex_v_n_diffuse::Vertex const vertices[] = 
+        {
+          // Foreground.
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-x, -y, +z), D3DXVECTOR3( 0,  0,  1), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-X, +y, +z), D3DXVECTOR3( 0,  0,  1), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+x, -y, +z), D3DXVECTOR3( 0,  0,  1), forwardFaceColor),
+
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+x, -y, +z), D3DXVECTOR3( 0,  0,  1), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-X, +y, +z), D3DXVECTOR3( 0,  0,  1), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+X, +y, +z), D3DXVECTOR3( 0,  0,  1), forwardFaceColor),
+
+          // Background.
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-X, +y, -z), D3DXVECTOR3( 0,  0, -1), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-x, -y, -z), D3DXVECTOR3( 0,  0, -1), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+x, -y, -z), D3DXVECTOR3( 0,  0, -1), forwardFaceColor),
+
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-X, +y, -z), D3DXVECTOR3( 0,  0, -1), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+x, -y, -z), D3DXVECTOR3( 0,  0, -1), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+X, +y, -z), D3DXVECTOR3( 0,  0, -1), forwardFaceColor),
+
+          // Left.
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-x, -y, -z), D3DXVECTOR3(-ax, ay, 0), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-X, +y, -z), D3DXVECTOR3(-ax, ay, 0), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-X, +y, +z), D3DXVECTOR3(-ax, ay, 0), forwardFaceColor),
+
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-X, +y, +z), D3DXVECTOR3(-ax, ay, 0), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-x, -y, +z), D3DXVECTOR3(-ax, ay, 0), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-x, -y, -z), D3DXVECTOR3(-ax, ay, 0), forwardFaceColor),
+
+          // Right.
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+x, -y, -z), D3DXVECTOR3(-ax, ay, 0), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+X, +y, -z), D3DXVECTOR3(-ax, ay, 0), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+X, +y, +z), D3DXVECTOR3(-ax, ay, 0), forwardFaceColor),
+
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+X, +y, +z), D3DXVECTOR3(-ax, ay, 0), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+x, -y, +z), D3DXVECTOR3(-ax, ay, 0), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+x, -y, -z), D3DXVECTOR3(-ax, ay, 0), forwardFaceColor),
+
+          // Top.
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-X, +y, +z), D3DXVECTOR3( 0,  1,  0), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-X, +y, -z), D3DXVECTOR3( 0,  1,  0), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+X, +y, +z), D3DXVECTOR3( 0,  1,  0), forwardFaceColor),
+
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-X, +y, -z), D3DXVECTOR3( 0,  1,  0), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+X, +y, -z), D3DXVECTOR3( 0,  1,  0), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+X, +y, +z), D3DXVECTOR3( 0,  1,  0), forwardFaceColor),
+
+          // Bottom.
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-x, -y, +z), D3DXVECTOR3( 0, -1,  0), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-x, -y, -z), D3DXVECTOR3( 0, -1,  0), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+x, -y, +z), D3DXVECTOR3( 0, -1,  0), forwardFaceColor),
+
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(-x, -y, -z), D3DXVECTOR3( 0, -1,  0), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+x, -y, -z), D3DXVECTOR3( 0, -1,  0), forwardFaceColor),
+          vertex_v_n_diffuse::fill(D3DXVECTOR3(+x, -y, +z), D3DXVECTOR3( 0, -1,  0), forwardFaceColor),
+        };
+      size_t const verticesNum = util::array_size(vertices);
+
+      IDirect3DVertexBuffer9 *vertexBuffer = 
+        createAndFillVertexBuffer(device, (void *)vertices, sizeof(vertices), vertex_v_n_diffuse::vertexFormat);
+      if (!vertexBuffer)
+        return 0;
+
+      return new XTrapezoid(device, vertexBuffer, vertex_v_n_diffuse::vertexFormat, 
+        sizeof(vertex_v_n_diffuse::Vertex), D3DPT_TRIANGLELIST, verticesNum / 3);
+    }
+
+    static XTrapezoid * create( IDirect3DDevice9 *device,
+      double lowerSide, double upperSide, double trapezoidHeight, double zdepth,
+      DWORD color )
+    {
+      return create(device, lowerSide, upperSide, trapezoidHeight, zdepth,
+        color, color, 
+        color, color, 
+        color, color);
+    }
+
+    static XTrapezoid * create( IDirect3DDevice9 *device,
+      double lowerSide, double upperSide, double trapezoidHeight, double zdepth )
+    {
+      DWORD color = constants::color::white();
+      return create(device, lowerSide, upperSide, trapezoidHeight, zdepth,
+        color, color, 
+        color, color, 
+        color, color);
     }
   };
 

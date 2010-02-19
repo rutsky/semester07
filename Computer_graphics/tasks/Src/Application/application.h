@@ -54,11 +54,17 @@ private:
   scene::RotatingSceneNode *m_rotatingNode;
   scene::LightsNode *m_carLight;
 
+  float m_mipmapLODBias;
+
   boost::shared_ptr<xobject::XMesh> m_mesh;
   boost::shared_ptr<xobject::XMesh> m_groundMesh;
   boost::shared_ptr<xobject::XTriangle> m_triangle;
   boost::shared_ptr<xobject::XCoordinateSystem> m_coordinateSystem;
   boost::shared_ptr<xobject::xsurface::XSurface> m_surface;
+
+  std::vector<boost::shared_ptr<xobject::XTrapezoid> > m_trapezoids;
+  boost::shared_ptr<xobject::XMesh> m_trunk;
+  boost::shared_ptr<xobject::XMesh> m_cup;
 };
 
 #endif // APPLICATION_H
