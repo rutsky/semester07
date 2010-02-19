@@ -23,7 +23,7 @@ bool const doingTask3 = false;
 bool const doingTask4 = true;
 bool const doingTask5 = false;
 
-bool const syncPetals = false;
+bool const syncPetals = true;
 
 Application::Application( int windowWidth, int windowHeight, void* hInstance, int nCmdShow )
   : cglApp(windowWidth, windowHeight, hInstance, nCmdShow)  
@@ -321,7 +321,7 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
     double const wave1HighestAngle = acos((middleH - lowerH) / cupLowerLen);
     double const wave2HighestAngle = constants::pi - (acos((middleH - topH) / cupUpperLen) + wave1HighestAngle);
 
-    double const wavePeriod = 6;
+    double const wavePeriod = 10;
 
     double const wave1Range = wave1HighestAngle - wave1LowestAngle;
     double const wave2Range = wave2HighestAngle - wave2LowestAngle;
