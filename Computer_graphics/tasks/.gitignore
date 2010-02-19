@@ -1,5 +1,7 @@
 *.user
 Out/
+Debug/
+Release/
 *.exe
 *.ilk
 *.bsc
