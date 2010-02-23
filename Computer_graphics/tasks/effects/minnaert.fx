@@ -93,7 +93,7 @@ PS_OUTPUT DiffusePS( VS_OUTPUT In,
 }
 
 
-technique RenderSceneWithTexturedDiffuse
+technique RenderSceneDiffuseTextured
 {
   pass P0
   {          
@@ -102,7 +102,25 @@ technique RenderSceneWithTexturedDiffuse
   }
 }
 
-technique RenderSceneWithNotTexturedDiffuse
+technique RenderSceneDiffuseNotTextured
+{
+  pass P0
+  {          
+    VertexShader = compile vs_2_0 DiffuseVS(false);
+    PixelShader  = compile ps_2_0 DiffusePS(false);
+  }
+}
+
+technique RenderSceneMinnaertTextured
+{
+  pass P0
+  {          
+    VertexShader = compile vs_2_0 DiffuseVS(true);
+    PixelShader  = compile ps_2_0 DiffusePS(true);
+  }
+}
+
+technique RenderSceneMinnaertNotTextured
 {
   pass P0
   {          

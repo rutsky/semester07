@@ -26,8 +26,19 @@ namespace scene
     shaderFlags |= D3DXSHADER_NO_PRESHADER;
 #endif // NDEBUG
 
-    if (FAILED(D3DXCreateEffectFromFile(device, "effects/minnaert.fx", NULL, NULL, shaderFlags, NULL, &m_effect, NULL)))
+    ID3DXBuffer *compilationErrors = NULL;
+    if (FAILED(D3DXCreateEffectFromFile(device, "effects/minnaert.fx", NULL, NULL, shaderFlags, NULL, &m_effect, &compilationErrors)))
+    {
+      if (compilationErrors)
+      {
+        // TODO
+        char *buffer = (char *)compilationErrors->GetBufferPointer();
+        size_t len = compilationErrors->GetBufferSize();
+
+        OutputDebugString(buffer); // FIXME
+      }
       return false;
+    }
 
     D3DXVECTOR3 lightDir(1.0f, -1.0f, 1.0f);
     D3DXCOLOR lightDiffuse(1.0f, 1.0f, 1.0f, 1.0f);
@@ -55,7 +66,22 @@ namespace scene
     D3DXMATRIX worldViewProjection = worldMatrix * m_viewProjectionMatrix;
     BOOST_VERIFY(m_effect->SetValue("g_mWorldViewProjection", &worldViewProjection, sizeof(worldViewProjection)) == D3D_OK);
 
-    BOOST_VERIFY(m_effect->SetTechnique("RenderSceneWithTexturedDiffuse") == D3D_OK);
+    float minnaertK = (float)m_minnaertK;
+    BOOST_VERIFY(m_effect->SetValue("g_MinnaertK", &minnaertK, sizeof(minnaertK)) == D3D_OK);
+
+    {
+      std::ostringstream ostr;
+      ostr << "RenderScene";
+      if (m_useMinnaert)
+        ostr << "Minnaert";
+      else
+        ostr << "Diffuse";
+      if (m_useTexture)
+        ostr << "Textured";
+      else
+        ostr << "NotTextured";
+      BOOST_VERIFY(m_effect->SetTechnique(ostr.str().c_str()) == D3D_OK);
+    }
 
     // Apply the technique contained in the effect 
     size_t nPasses;

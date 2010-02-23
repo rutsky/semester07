@@ -886,6 +886,22 @@ bool Application::processInput( unsigned int message, int wParam, long lParam )
        
         m_usingSphericCamera = !m_usingSphericCamera;
       }
+      else if (wParam == '1')
+      {
+        m_task5Node->useMinnaert(!m_task5Node->minnaert());
+      }
+      else if (wParam == '2')
+      {
+        m_task5Node->useTexture(!m_task5Node->textured());
+      }
+      else if (wParam == VK_ADD || wParam == VK_OEM_PLUS)
+      {
+        m_task5Node->setMinnaertK(m_task5Node->minnaertK() + 0.1);
+      }
+      else if (wParam == VK_SUBTRACT || wParam == VK_OEM_MINUS)
+      {
+        m_task5Node->setMinnaertK(m_task5Node->minnaertK() - 0.1);
+      }
     }
   }
   else if (1)

@@ -26,6 +26,8 @@ namespace scene
       : m_initialized(false)
       , m_minnaertK(0.5)
       , m_device(0)
+      , m_useTexture(true)
+      , m_useMinnaert(true)
     {
       m_viewProjectionMatrix = constants::matrix::identity;
     }
@@ -45,6 +47,34 @@ namespace scene
       m_viewProjectionMatrix = viewProjectionMatrix;
     }
 
+    double minnaertK() const
+    {
+      return m_minnaertK;
+    }
+    void setMinnaertK( double k )
+    {
+      m_minnaertK = k;
+    }
+
+    bool textured() const
+    {
+      return m_useTexture;
+    }
+    void useTexture( bool flag )
+    {
+      m_useTexture = flag;
+    }
+
+    bool minnaert() const
+    {
+      return m_useMinnaert;
+    }
+
+    void useMinnaert( bool flag )
+    {
+      m_useMinnaert = flag;
+    }
+
     // IDrawableObject
   public:
     void draw();
@@ -60,6 +90,7 @@ namespace scene
     boost::scoped_ptr<xobject::XMesh> m_mesh;
     
     double m_minnaertK;
+    bool m_useTexture, m_useMinnaert;
   };
 } // End of namespace 'scene'
 
