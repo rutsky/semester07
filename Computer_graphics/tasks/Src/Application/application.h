@@ -19,6 +19,7 @@
 #include "scene.h"
 #include "camera.h"
 #include "camera_projection.h"
+#include "task5.h"
 
 class Application : public cglApp
 {
@@ -55,6 +56,8 @@ private:
   scene::LightsNode *m_carLight;
 
   float m_mipmapLODBias;
+
+  scene::Task5Node *m_task5Node;
 
   boost::shared_ptr<xobject::XMesh> m_mesh;
   boost::shared_ptr<xobject::XMesh> m_groundMesh;
