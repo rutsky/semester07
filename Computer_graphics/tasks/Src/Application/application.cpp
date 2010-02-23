@@ -410,11 +410,11 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
     m_rootSceneNode.reset(m_weakRootNode);
 
     // Projection matrix.
-    m_projectionMatrix.reset(new projection::PerspectiveProjection(constants::pi / 2.0, (double)windowWidth / windowHeight, 1.0, 10000.0));
+    m_projectionMatrix.reset(new projection::PerspectiveProjection(constants::pi / 2.0, (double)windowWidth / windowHeight, 0.1, 10000.0));
 
     // Spheric camera (view matrix).
     m_sphericCamera.reset(new camera::SphericCamera);
-    m_sphericCamera->setSphericCoordinates(5, util::deg2rad(30), util::deg2rad(45));
+    m_sphericCamera->setSphericCoordinates(2, util::deg2rad(0), util::deg2rad(45));
     // Attaching camera to root node.
     m_rootSceneNode->addChildNode(scene::ISceneNodePtr(hierarchy::newSceneNode<scene::SimpleSceneNode>(m_sphericCamera.get())));
 
@@ -432,7 +432,7 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
     assert(m_task5Node->init(m_device));
     keyboardRotatingNode->addChildNode(scene::ISceneNodePtr(m_task5Node));
   }
-  else if (1)
+  else if (0)
   {
     // Debug
     // Root node.

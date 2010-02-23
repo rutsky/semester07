@@ -47,8 +47,14 @@ namespace scene
 
   void Task5Node::draw()
   {
-    BOOST_VERIFY(m_effect->SetValue("g_mWorld", &m_worldMatrix, sizeof(m_worldMatrix)) == D3D_OK);
-    D3DXMATRIX worldViewProjection = m_worldMatrix * m_viewProjectionMatrix;
+    D3DXMATRIX transform(
+      0, 1, 0, 0,
+      0, 0, 1, 0,
+     -1, 0, 0, 0,
+      0, 0, -0.6f, 1);
+    D3DXMATRIX worldMatrix = transform * m_worldMatrix;
+    BOOST_VERIFY(m_effect->SetValue("g_mWorld", &worldMatrix, sizeof(worldMatrix)) == D3D_OK);
+    D3DXMATRIX worldViewProjection = worldMatrix * m_viewProjectionMatrix;
     BOOST_VERIFY(m_effect->SetValue("g_mWorldViewProjection", &worldViewProjection, sizeof(worldViewProjection)) == D3D_OK);
 
     BOOST_VERIFY(m_effect->SetTechnique("RenderSceneWithTexturedDiffuse") == D3D_OK);
