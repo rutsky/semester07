@@ -1,6 +1,7 @@
 tiger.x
 tiger.bmp
-  - from DirectX example
+dwarf/
+  - from DirectX SDK (August 2009)
 
 car00.x
 ground_paletted.x 
