@@ -51,7 +51,7 @@
 				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,D3D_DEBUG_INFO"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
 				PrecompiledHeaderThrough="precompiled.h"
 				PrecompiledHeaderFile="$(IntDir)\$(TargetName)"
 				AssemblerListingLocation=""
@@ -147,7 +147,7 @@
 				StringPooling="true"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
 				PrecompiledHeaderThrough="precompiled.h"
 				PrecompiledHeaderFile="$(IntDir)\$(TargetName)"
 				AssemblerListingLocation=""
@@ -322,7 +322,7 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
+						UsePrecompiledHeader="0"
 						PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
 					/>
 				</FileConfiguration>
@@ -331,7 +331,7 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
+						UsePrecompiledHeader="0"
 						PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
 					/>
 				</FileConfiguration>
