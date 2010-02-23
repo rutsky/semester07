@@ -429,131 +429,13 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
     m_rootSceneNode->addChildNode(scene::ISceneNodePtr(keyboardRotatingNode));
 
     m_task5Node = new scene::Task5Node();
-    assert(m_task5Node->init(m_device));
+    BOOST_VERIFY(m_task5Node->init(m_device));
     keyboardRotatingNode->addChildNode(scene::ISceneNodePtr(m_task5Node));
   }
-  else if (0)
+  else if (1)
   {
     // Debug
-    // Root node.
-    m_weakRootNode = new scene::RootNode;
-    m_rootSceneNode.reset(m_weakRootNode);
-
-    // Projection matrix.
-    m_projectionMatrix.reset(new projection::PerspectiveProjection(constants::pi / 2.0, (double)windowWidth / windowHeight, 1.0, 10000.0));
-
-    // Camera (view matrix).
-    m_sphericCamera.reset(new camera::SphericCamera);
-    m_sphericCamera->setSphericCoordinates(50, util::deg2rad(30), util::deg2rad(45));
-    // Attaching camera to root node.
-    m_rootSceneNode->addChildNode(scene::ISceneNodePtr(hierarchy::newSceneNode<scene::SimpleSceneNode>(m_sphericCamera.get())));
-
-    m_freeViewCamera.reset(new camera::FreeViewCamera);
-    m_freeViewCamera->lookAt(D3DXVECTOR3(10, 0, 0), D3DXVECTOR3(0, 0, 0));
-    
-    // Attaching camera to root node.
-    m_rootSceneNode->addChildNode(scene::ISceneNodePtr(hierarchy::newSceneNode<scene::SimpleSceneNode>(m_freeViewCamera.get())));
-
-    light::DirectionLight directionLight;
-    directionLight.setDirection(D3DXVECTOR3(-0.3f, 0.0f, -1.0f));
-    directionLight.setMaterial(constants::color::gray(0.5f), constants::color::gray(0.5f), constants::color::gray(0.5f));
-    m_weakRootNode->addLight(0, directionLight.light());
-
-    light::PointLight pointLight;
-    pointLight.setPosition(D3DXVECTOR3(30.0f, 0.0f, 6.0f));
-    pointLight.setMaterial(constants::color::gray(0.7f), constants::color::gray(0.7f), constants::color::gray(0.7f));
-    m_weakRootNode->addLight(1, pointLight.light());
-
-    {
-      // Scene objects.
-
-      m_coordinateSystem.reset(xobject::XCoordinateSystem::create(m_device));
-      //m_rootSceneNode->addObject(m_coordinateSystem.get());
-
-      m_triangle.reset(xobject::XTriangle::create(m_device));
-      //m_triangle->setShow(false);
-
-      m_mesh.reset(xobject::XMesh::create(m_device, "data", "car00.x", false));
-      //m_mesh.reset(xobject::XMesh::create(m_device, "data", "tiger.x"));
-      //m_mesh->setShow(false);
-
-      m_groundMesh.reset(xobject::XMesh::create(m_device, "data", "ground_paletted.x", false));
-
-      //m_surface.reset(xobject::xsurface::createPlane(m_device, 3, 4));
-      //m_surface.reset(xobject::xsurface::createTorus(m_device, 1.5, 0.5, 100, 100, xobject::xsurface::color_generator::chessboard()));
-      //typedef xobject::xsurface::color_generator::yuv colorspace_type;
-      typedef xobject::xsurface::color_generator::chessboard colorspace_type;
-      //typedef xobject::xsurface::color_generator::yuv colorspace_type;
-      m_surface.reset(xobject::xsurface::createTorus(m_device, 1.5, 0.5, 100, 50, 
-        xobject::xsurface::ScaleColorSpace<colorspace_type>(colorspace_type(), 1 / 10.0, 1 / 5.0)));
-    }
-
-    {
-      // Scene hierarchy.
-
-      if (1)
-      {
-        m_rootSceneNode->addObject(m_coordinateSystem.get());
-      }
-
-      if (0)
-      {
-        scene::ISceneNodePtr node;
-        node = scene::ISceneNodePtr(hierarchy::newSceneNode<scene::SimpleSceneNode>(m_triangle.get()));
-        m_rootSceneNode->addChildNode(node);
-      }
-
-      if (0)
-      {
-        scene::RotatingSceneNode *node = new scene::RotatingSceneNode(D3DXVECTOR3(1, 0, 0), 1.0);
-        node->addObject(m_triangle.get());
-        m_rootSceneNode->addChildNode(scene::ISceneNodePtr(node));
-      }
-
-      if (0)
-      {
-        scene::LCSArrowPgUpPgDownMoveSceneNode *node = new scene::LCSArrowPgUpPgDownMoveSceneNode;
-        node->addObject(m_mesh.get());
-        m_rootSceneNode->addChildNode(scene::ISceneNodePtr(node));
-      }
-
-      if (1)
-      {
-        scene::RotatingSceneNode *rotatingNode = new scene::RotatingSceneNode(D3DXVECTOR3(0, 0, 1), 0.4);
-        m_rootSceneNode->addChildNode(scene::ISceneNodePtr(rotatingNode));
-
-        scene::SimpleSceneNode *translationNode = new scene::SimpleSceneNode(D3DXVECTOR3(0, 30.0f, 2.4f));
-        rotatingNode->addChildNode(scene::ISceneNodePtr(translationNode));
-
-        scene::SimpleSceneNode *groundNode = new scene::SimpleSceneNode(D3DXMATRIX(
-            1,  0,  0,  0,
-            0,  0, -1,  0,
-            0,  1,  0,  0,
-            0,  0,  0,  1));
-        groundNode->addObject(m_groundMesh.get());
-        m_rootSceneNode->addChildNode(scene::ISceneNodePtr(groundNode));
-
-        scene::LCSArrowPgUpPgDownRotateNode *keyboardRotatingNode = new scene::LCSArrowPgUpPgDownRotateNode;
-        translationNode->addChildNode(scene::ISceneNodePtr(keyboardRotatingNode));
-
-        scene::SimpleSceneNode *xmeshNode = new scene::SimpleSceneNode(D3DXMATRIX(
-            1,  0,  0,  0,
-            0,  0, -1,  0,
-            0,  1,  0,  0,
-            0,  0,  0,  1));
-        xmeshNode->addObject(m_mesh.get());
-        keyboardRotatingNode->addChildNode(scene::ISceneNodePtr(xmeshNode));
-
-        m_carLight = new scene::LightsNode;
-        light::SpotLight spotLight;
-        spotLight.setPosition(D3DXVECTOR3(-5.0f, 0.0f, 3.5f));
-        spotLight.setDirection(D3DXVECTOR3(-1.0f, 0.0f, 0.0f));
-        spotLight.setAngles((float)util::deg2rad(30), (float)util::deg2rad(50));
-        pointLight.setMaterial(constants::color::gray(0.6f), constants::color::gray(0.6f), constants::color::gray(0.6f));
-        m_carLight->addLight(2, spotLight.light());
-        keyboardRotatingNode->addChildNode(scene::ISceneNodePtr(m_carLight));
-      }
-    }
+    BOOST_VERIFY(0);
   }
 }
 
@@ -743,38 +625,7 @@ void Application::renderInternal()
   {
     // Debug
 
-    //m_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-    //m_device->SetRenderState(D3DRS_LIGHTING, FALSE);
-    //m_device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
-
-    //D3DXMATRIX identity;
-    //D3DXMatrixIdentity(&identity);
-    //m_device->SetTransform(D3DTS_WORLD, &initialWorld);
-    
-    if (m_usingSphericCamera)
-      m_device->SetTransform(D3DTS_VIEW, &m_sphericCamera->viewMatrix());
-    else
-      m_device->SetTransform(D3DTS_VIEW, &m_freeViewCamera->viewMatrix());
-
-    m_device->SetTransform(D3DTS_PROJECTION, &m_projectionMatrix->projectionMatrix());
-
-    m_device->SetRenderState(D3DRS_COLORVERTEX, TRUE);
-    m_device->SetRenderState(D3DRS_AMBIENTMATERIALSOURCE, D3DMCS_COLOR1);
-    m_device->SetRenderState(D3DRS_DIFFUSEMATERIALSOURCE, D3DMCS_COLOR1);
-    m_device->SetRenderState(D3DRS_EMISSIVEMATERIALSOURCE, D3DMCS_MATERIAL);
-
-
-    /*
-    D3DXVECTOR3 vEyePt( 0.0f, 3.0f,-5.0f );
-    D3DXVECTOR3 vLookatPt( 0.0f, 0.0f, 0.0f );
-    D3DXVECTOR3 vUpVec( 0.0f, 1.0f, 0.0f );
-    D3DXMATRIXA16 matView;
-    D3DXMatrixLookAtLH( &matView, &vEyePt, &vLookatPt, &vUpVec );
-    m_device->SetTransform( D3DTS_VIEW, &matView );*/
-
-    drawScene(m_device, m_rootSceneNode);
-
-    //m_coordinateSystem->draw();
+    BOOST_VERIFY(0);
   }
 }
 
@@ -915,6 +766,7 @@ bool Application::processInput( unsigned int message, int wParam, long lParam )
   else if (1)
   {
     // Debug
+    BOOST_VERIFY(0);
   }
 
   return processInputOnScene(m_rootSceneNode, message, wParam, lParam);

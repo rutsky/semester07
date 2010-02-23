@@ -56,86 +56,89 @@ namespace scene
 
   void Task5Node::draw()
   {
-    D3DXMATRIX transform(
-      0, 1, 0, 0,
-      0, 0, 1, 0,
-     -1, 0, 0, 0,
-      0, 0, -0.6f, 0.2);
-    D3DXMATRIX worldMatrix = transform * m_worldMatrix;
-    BOOST_VERIFY(m_effect->SetValue("g_mWorld", &worldMatrix, sizeof(worldMatrix)) == D3D_OK);
-    D3DXMATRIX worldViewProjection = worldMatrix * m_viewProjectionMatrix;
-    BOOST_VERIFY(m_effect->SetValue("g_mWorldViewProjection", &worldViewProjection, sizeof(worldViewProjection)) == D3D_OK);
-
-    float minnaertExp = (float)m_minnaertExp;
-    BOOST_VERIFY(m_effect->SetValue("g_MinnaertExp", &minnaertExp, sizeof(minnaertExp)) == D3D_OK);
-
-    BOOST_VERIFY(m_effect->SetValue("g_EyePos", &m_eyePos, sizeof(m_eyePos)) == D3D_OK);
-
+    if (m_initialized)
     {
-      std::ostringstream ostr;
-      ostr << "RenderScene";
-      
-      switch (m_technique % 3)
+      D3DXMATRIX transform(
+        0, 1, 0, 0,
+        0, 0, 1, 0,
+       -1, 0, 0, 0,
+        0, 0, -0.6f, 0.2f);
+      D3DXMATRIX worldMatrix = transform * m_worldMatrix;
+      BOOST_VERIFY(m_effect->SetValue("g_mWorld", &worldMatrix, sizeof(worldMatrix)) == D3D_OK);
+      D3DXMATRIX worldViewProjection = worldMatrix * m_viewProjectionMatrix;
+      BOOST_VERIFY(m_effect->SetValue("g_mWorldViewProjection", &worldViewProjection, sizeof(worldViewProjection)) == D3D_OK);
+
+      float minnaertExp = (float)m_minnaertExp;
+      BOOST_VERIFY(m_effect->SetValue("g_MinnaertExp", &minnaertExp, sizeof(minnaertExp)) == D3D_OK);
+
+      BOOST_VERIFY(m_effect->SetValue("g_EyePos", &m_eyePos, sizeof(m_eyePos)) == D3D_OK);
+
       {
-      case 0:
-        ostr << "Minnaert";
-        break;
-      case 1:
-        ostr << "DiffuseBump";
-        break;
-      case 2:
-        ostr << "Diffuse";
-        break;
+        std::ostringstream ostr;
+        ostr << "RenderScene";
+        
+        switch (m_technique % 3)
+        {
+        case 0:
+          ostr << "Minnaert";
+          break;
+        case 1:
+          ostr << "DiffuseBump";
+          break;
+        case 2:
+          ostr << "Diffuse";
+          break;
+        }
+
+        if (m_useTexture)
+          ostr << "Textured";
+        else
+          ostr << "NotTextured";
+        BOOST_VERIFY(m_effect->SetTechnique(ostr.str().c_str()) == D3D_OK);
       }
 
-      if (m_useTexture)
-        ostr << "Textured";
-      else
-        ostr << "NotTextured";
-      BOOST_VERIFY(m_effect->SetTechnique(ostr.str().c_str()) == D3D_OK);
-    }
+      // Apply the technique contained in the effect 
+      size_t nPasses;
+      BOOST_VERIFY(m_effect->Begin(&nPasses, 0) == D3D_OK);
 
-    // Apply the technique contained in the effect 
-    size_t nPasses;
-    BOOST_VERIFY(m_effect->Begin(&nPasses, 0) == D3D_OK);
-
-    for (size_t pass = 0; pass < nPasses; ++pass)
-    {
-      BOOST_VERIFY(m_effect->BeginPass(pass) == D3D_OK);
-
-      DWORD size;
-      //m_mesh->m_mesh->GetAttributeTable(NULL, &size); // TODO: Not sure, not sure...
-      size = m_mesh->m_materials.size();
-      for (size_t i = 0; i < size; ++i)
+      for (size_t pass = 0; pass < nPasses; ++pass)
       {
+        BOOST_VERIFY(m_effect->BeginPass(pass) == D3D_OK);
+
+        DWORD size;
+        //m_mesh->m_mesh->GetAttributeTable(NULL, &size); // TODO: Not sure, not sure...
+        size = m_mesh->m_materials.size();
+        for (size_t i = 0; i < size; ++i)
         {
-          xobject::XMesh::materials_map_type::const_iterator it = m_mesh->m_materials.find(i);
-          if (it != m_mesh->m_materials.end())
           {
-            BOOST_VERIFY(m_effect->SetValue("g_MaterialAmbientColor", &it->second.Ambient, sizeof(it->second.Ambient)) == D3D_OK);
-            BOOST_VERIFY(m_effect->SetValue("g_MaterialDiffuseColor", &it->second.Diffuse, sizeof(it->second.Diffuse)) == D3D_OK);
+            xobject::XMesh::materials_map_type::const_iterator it = m_mesh->m_materials.find(i);
+            if (it != m_mesh->m_materials.end())
+            {
+              BOOST_VERIFY(m_effect->SetValue("g_MaterialAmbientColor", &it->second.Ambient, sizeof(it->second.Ambient)) == D3D_OK);
+              BOOST_VERIFY(m_effect->SetValue("g_MaterialDiffuseColor", &it->second.Diffuse, sizeof(it->second.Diffuse)) == D3D_OK);
+            }
           }
+
+          {
+            xobject::XMesh::textures_map_type::const_iterator it = m_mesh->m_textures.find(i);
+            if (it != m_mesh->m_textures.end())
+              BOOST_VERIFY(m_effect->SetTexture("g_ColorTexture", it->second) == D3D_OK);
+          }
+
+          {
+            xobject::XMesh::textures_map_type::const_iterator it = m_mesh->m_bumps.find(i);
+            if (it != m_mesh->m_bumps.end())
+              BOOST_VERIFY(m_effect->SetTexture("g_NormalTexture", it->second) == D3D_OK);
+          }
+
+          BOOST_VERIFY(m_effect->CommitChanges() == D3D_OK);
+
+          m_mesh->m_mesh->DrawSubset(i);
         }
 
-        {
-          xobject::XMesh::textures_map_type::const_iterator it = m_mesh->m_textures.find(i);
-          if (it != m_mesh->m_textures.end())
-            BOOST_VERIFY(m_effect->SetTexture("g_ColorTexture", it->second) == D3D_OK);
-        }
-
-        {
-          xobject::XMesh::textures_map_type::const_iterator it = m_mesh->m_bumps.find(i);
-          if (it != m_mesh->m_bumps.end())
-            BOOST_VERIFY(m_effect->SetTexture("g_NormalTexture", it->second) == D3D_OK);
-        }
-
-        BOOST_VERIFY(m_effect->CommitChanges() == D3D_OK);
-
-        m_mesh->m_mesh->DrawSubset(i);
+        BOOST_VERIFY(m_effect->EndPass() == D3D_OK);
       }
-
-      BOOST_VERIFY(m_effect->EndPass() == D3D_OK);
+      BOOST_VERIFY(m_effect->End() == D3D_OK);
     }
-    BOOST_VERIFY(m_effect->End() == D3D_OK);
   }
 } // End of namespace 'scene'
