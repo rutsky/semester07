@@ -29,11 +29,9 @@ namespace scene
     if (FAILED(D3DXCreateEffectFromFile(device, "effects/minnaert.fx", NULL, NULL, shaderFlags, NULL, &m_effect, NULL)))
       return false;
 
-    D3DXCOLOR materialAmbientColor(0.3f, 0.3f, 0.3f, 1.0f);
-    D3DXCOLOR materialDiffuseColor(0.7f, 0.7f, 0.7f, 1.0f);
-    D3DXVECTOR3 lightDir(-1.0f, 0.0f, -1.0f);
+    D3DXVECTOR3 lightDir(1.0f, -1.0f, 1.0f);
     D3DXCOLOR lightDiffuse(1.0f, 1.0f, 1.0f, 1.0f);
-    D3DXCOLOR lightAmbient(1.0f, 1.0f, 1.0f, 1.0f);
+    D3DXCOLOR lightAmbient(0.1f, 0.1f, 0.1f, 1.0f);
 
     float minnaertK = (float)m_minnaertK;
     BOOST_VERIFY(m_effect->SetValue("g_MinnaertK", &minnaertK, sizeof(minnaertK)) == D3D_OK);
