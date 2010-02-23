@@ -24,7 +24,7 @@ bool const doingTask3 = false;
 bool const doingTask4 = false;
 bool const doingTask5 = true;
 
-bool const syncPetals = true;
+bool const syncPetals = false;
 
 Application::Application( int windowWidth, int windowHeight, void* hInstance, int nCmdShow )
   : cglApp(windowWidth, windowHeight, hInstance, nCmdShow)  
@@ -305,7 +305,7 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
     
     // Scene hierarchy.
 
-    size_t nPetals = 5;
+    size_t nPetals = 15;
     double const trunkR = 0.1, lowerCupR = 0.6, middleCupR = 0.9, topCupR = 0.3;
     double const trunkHeight = 2.0, cupBottomHeight = 0.1;
     double const cupLowerLen = 0.7, cupUpperLen = 0.7;
@@ -371,7 +371,7 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
 
       double startAngle1 = 0;
       if (!syncPetals)
-        startAngle1 = i * 2 * wave1Range / nPetals;
+        startAngle1 = i * wave1Range / nPetals;
       scene::WavingSceneNode *wavingNode1 = new scene::WavingSceneNode(D3DXVECTOR3(1, 0, 0), wave1Speed, wave1LowestAngle, wave1Range, startAngle1);
       transform1Node->addChildNode(scene::ISceneNodePtr(wavingNode1));
 
@@ -388,7 +388,7 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
 
       double startAngle2 = 0;
       if (!syncPetals)
-        startAngle2 = i * 2 * wave2Range / nPetals;
+        startAngle2 = i * wave2Range / nPetals;
       scene::WavingSceneNode *wavingNode2 = new scene::WavingSceneNode(D3DXVECTOR3(1, 0, 0), wave2Speed, wave2LowestAngle, wave2Range, startAngle2);
       translation2Node->addChildNode(scene::ISceneNodePtr(wavingNode2));
 
@@ -888,7 +888,7 @@ bool Application::processInput( unsigned int message, int wParam, long lParam )
       }
       else if (wParam == '1')
       {
-        m_task5Node->useMinnaert(!m_task5Node->minnaert());
+        m_task5Node->setTechnique(m_task5Node->technique() + 1);
       }
       else if (wParam == '2')
       {
