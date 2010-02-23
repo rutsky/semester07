@@ -47,6 +47,11 @@ namespace scene
       m_viewProjectionMatrix = viewProjectionMatrix;
     }
 
+    void setEyePos( D3DXVECTOR3 const &eyePos )
+    {
+      m_eyePos = eyePos;
+    }
+
     double minnaertK() const
     {
       return m_minnaertK;
@@ -85,6 +90,7 @@ namespace scene
     IDirect3DDevice9 *m_device;
     
     D3DXMATRIX m_viewProjectionMatrix;
+    D3DXVECTOR3 m_eyePos;
 
     ID3DXEffect *m_effect;
     boost::scoped_ptr<xobject::XMesh> m_mesh;

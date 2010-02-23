@@ -14,6 +14,8 @@ float3 g_LightDir;
 float4 g_LightDiffuse;
 float4 g_LightAmbient;
 
+float3 g_EyePos;
+
 texture g_ColorTexture;
 texture g_NormalTexture;
 
@@ -161,7 +163,7 @@ DiffuseBump_PS_OUTPUT DiffuseBumpPS( DiffuseBump_VS_OUTPUT In,
 // Minnaert
 //
  
-struct DiffuseBump_VS_OUTPUT
+struct Minnaert_VS_OUTPUT
 {
   float4 Position  : POSITION;
   float2 TextureUV : TEXCOORD0;
@@ -171,14 +173,14 @@ struct DiffuseBump_VS_OUTPUT
   float3 normalWorld   : TEXCOORD3;
 };
 
-DiffuseBump_VS_OUTPUT DiffuseBumpVS( float4 vPos       : POSITION, 
-                                     float3 vNormal    : NORMAL,
-                                     float3 vTangent   : TANGENT,
-                                     float3 vBinormal  : BINORMAL,
-                                     float2 vTexCoord0 : TEXCOORD0,
-                                     uniform bool bUseTexture )
+Minnaert_VS_OUTPUT MinnaertVS( float4 vPos       : POSITION, 
+                               float3 vNormal    : NORMAL,
+                               float3 vTangent   : TANGENT,
+                               float3 vBinormal  : BINORMAL,
+                               float2 vTexCoord0 : TEXCOORD0,
+                               uniform bool bUseTexture )
 {
-  DiffuseBump_VS_OUTPUT output;
+  Minnaert_VS_OUTPUT output;
 
   output.Position = mul(vPos, g_mWorldViewProjection);
 
@@ -191,15 +193,15 @@ DiffuseBump_VS_OUTPUT DiffuseBumpVS( float4 vPos       : POSITION,
   return output;    
 }
 
-struct DiffuseBump_PS_OUTPUT
+struct Minnaert_PS_OUTPUT
 {
   float4 RGBColor : COLOR0;
 };
 
-DiffuseBump_PS_OUTPUT DiffuseBumpPS( DiffuseBump_VS_OUTPUT In,
-                                     uniform bool bUseTexture ) 
+Minnaert_PS_OUTPUT MinnaertPS( Minnaert_VS_OUTPUT In,
+                               uniform bool bUseTexture ) 
 { 
-  DiffuseBump_PS_OUTPUT output;
+  Minnaert_PS_OUTPUT output;
   
   float3x3 normalBumpCSToWorldCS = float3x3(In.tangentWorld, In.binormalWorld, In.normalWorld);
   
@@ -267,8 +269,8 @@ technique RenderSceneMinnaertTextured
 {
   pass P0
   {          
-    VertexShader = compile vs_2_0 DiffuseVS(true);
-    PixelShader  = compile ps_2_0 DiffusePS(true);
+    VertexShader = compile vs_2_0 MinnaertVS(true);
+    PixelShader  = compile ps_2_0 MinnaertPS(true);
   }
 }
 
@@ -276,8 +278,7 @@ technique RenderSceneMinnaertNotTextured
 {
   pass P0
   {          
-    VertexShader = compile vs_2_0 DiffuseVS(false);
-    PixelShader  = compile ps_2_0 DiffusePS(false);
+    VertexShader = compile vs_2_0 MinnaertVS(false);
+    PixelShader  = compile ps_2_0 MinnaertPS(false);
   }
 }
-

@@ -69,6 +69,8 @@ namespace scene
     float minnaertK = (float)m_minnaertK;
     BOOST_VERIFY(m_effect->SetValue("g_MinnaertK", &minnaertK, sizeof(minnaertK)) == D3D_OK);
 
+    BOOST_VERIFY(m_effect->SetValue("g_EyePos", &m_eyePos, sizeof(m_eyePos)) == D3D_OK);
+
     {
       std::ostringstream ostr;
       ostr << "RenderScene";
@@ -78,11 +80,11 @@ namespace scene
       case 0:
         ostr << "Minnaert";
         break;
-      case 1:
-        ostr << "Diffuse";
-        break;
       case 2:
         ostr << "DiffuseBump";
+        break;
+      case 1:
+        ostr << "Diffuse";
         break;
       }
 
