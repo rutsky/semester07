@@ -72,10 +72,20 @@ namespace scene
     {
       std::ostringstream ostr;
       ostr << "RenderScene";
-      if (m_useMinnaert)
+      
+      switch (m_technique % 3)
+      {
+      case 0:
         ostr << "Minnaert";
-      else
+        break;
+      case 1:
         ostr << "Diffuse";
+        break;
+      case 2:
+        ostr << "DiffuseBump";
+        break;
+      }
+
       if (m_useTexture)
         ostr << "Textured";
       else

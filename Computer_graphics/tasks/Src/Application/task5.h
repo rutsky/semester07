@@ -27,7 +27,7 @@ namespace scene
       , m_minnaertK(0.5)
       , m_device(0)
       , m_useTexture(true)
-      , m_useMinnaert(true)
+      , m_technique(0)
     {
       m_viewProjectionMatrix = constants::matrix::identity;
     }
@@ -65,14 +65,14 @@ namespace scene
       m_useTexture = flag;
     }
 
-    bool minnaert() const
+    size_t technique() const
     {
-      return m_useMinnaert;
+      return m_technique;
     }
 
-    void useMinnaert( bool flag )
+    void setTechnique( size_t technique )
     {
-      m_useMinnaert = flag;
+      m_technique = technique;
     }
 
     // IDrawableObject
@@ -90,7 +90,8 @@ namespace scene
     boost::scoped_ptr<xobject::XMesh> m_mesh;
     
     double m_minnaertK;
-    bool m_useTexture, m_useMinnaert;
+    bool m_useTexture;
+    size_t m_technique;
   };
 } // End of namespace 'scene'
 
