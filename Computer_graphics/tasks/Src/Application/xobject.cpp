@@ -25,7 +25,7 @@ namespace xobject
 
       // Load the mesh from the specified file.
       HRESULT hr;
-      if (FAILED(hr = D3DXLoadMeshFromX(fullFileName.c_str(), 0,
+      if (FAILED(hr = D3DXLoadMeshFromX(fullFileName.c_str(), D3DXMESH_SYSTEMMEM,
                                    device, NULL,
                                    &materialsBuffer, NULL, &materialsNum,
                                    &mesh)))
