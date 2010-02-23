@@ -44,8 +44,8 @@ namespace scene
     D3DXCOLOR lightDiffuse(1.0f, 1.0f, 1.0f, 1.0f);
     D3DXCOLOR lightAmbient(0.1f, 0.1f, 0.1f, 1.0f);
 
-    float minnaertK = (float)m_minnaertK;
-    BOOST_VERIFY(m_effect->SetValue("g_MinnaertK", &minnaertK, sizeof(minnaertK)) == D3D_OK);
+    float minnaertExp = (float)m_minnaertExp;
+    BOOST_VERIFY(m_effect->SetValue("g_MinnaertExp", &minnaertExp, sizeof(minnaertExp)) == D3D_OK);
     BOOST_VERIFY(m_effect->SetValue("g_LightDir", &lightDir, sizeof(lightDir)) == D3D_OK);
     BOOST_VERIFY(m_effect->SetValue("g_LightDiffuse", &lightDiffuse, sizeof(lightDiffuse)) == D3D_OK);
     BOOST_VERIFY(m_effect->SetValue("g_LightAmbient", &lightAmbient, sizeof(lightAmbient)) == D3D_OK);
@@ -60,14 +60,14 @@ namespace scene
       0, 1, 0, 0,
       0, 0, 1, 0,
      -1, 0, 0, 0,
-      0, 0, -0.6f, 1);
+      0, 0, -0.6f, 0.2);
     D3DXMATRIX worldMatrix = transform * m_worldMatrix;
     BOOST_VERIFY(m_effect->SetValue("g_mWorld", &worldMatrix, sizeof(worldMatrix)) == D3D_OK);
     D3DXMATRIX worldViewProjection = worldMatrix * m_viewProjectionMatrix;
     BOOST_VERIFY(m_effect->SetValue("g_mWorldViewProjection", &worldViewProjection, sizeof(worldViewProjection)) == D3D_OK);
 
-    float minnaertK = (float)m_minnaertK;
-    BOOST_VERIFY(m_effect->SetValue("g_MinnaertK", &minnaertK, sizeof(minnaertK)) == D3D_OK);
+    float minnaertExp = (float)m_minnaertExp;
+    BOOST_VERIFY(m_effect->SetValue("g_MinnaertExp", &minnaertExp, sizeof(minnaertExp)) == D3D_OK);
 
     BOOST_VERIFY(m_effect->SetValue("g_EyePos", &m_eyePos, sizeof(m_eyePos)) == D3D_OK);
 
@@ -80,10 +80,10 @@ namespace scene
       case 0:
         ostr << "Minnaert";
         break;
-      case 2:
+      case 1:
         ostr << "DiffuseBump";
         break;
-      case 1:
+      case 2:
         ostr << "Diffuse";
         break;
       }

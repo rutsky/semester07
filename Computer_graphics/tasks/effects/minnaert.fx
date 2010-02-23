@@ -5,7 +5,7 @@
 
 // Based on Basic HLSL DirectX example.
 
-float g_MinnaertK;
+float g_MinnaertExp;
 
 float4 g_MaterialAmbientColor;
 float4 g_MaterialDiffuseColor;
@@ -66,8 +66,8 @@ Diffuse_VS_OUTPUT DiffuseVS( float4 vPos       : POSITION,
   
   float3 vTotalLightDiffuse = (float3)(g_LightDiffuse * max(0, dot(vNormalWorldSpace, normalize(g_LightDir))));
         
-  output.Diffuse.rgb = (float3)(g_MaterialDiffuseColor * vTotalLightDiffuse + 
-                                g_MaterialAmbientColor * g_LightAmbient);
+  output.Diffuse.rgb = (float3)g_MaterialDiffuseColor * vTotalLightDiffuse + 
+                       (float3)g_MaterialAmbientColor * (float3)g_LightAmbient;
   output.Diffuse.a = 1.0f; 
     
   output.TextureUV = vTexCoord0; 
@@ -139,15 +139,15 @@ DiffuseBump_PS_OUTPUT DiffuseBumpPS( DiffuseBump_VS_OUTPUT In,
   
   float3x3 normalBumpCSToWorldCS = float3x3(In.tangentWorld, In.binormalWorld, In.normalWorld);
   
-  float3 normalInBump = normalize(tex2D(NormalTextureSampler, In.TextureUV)) * 2.0 - 1.0;
+  float3 normalInBump = normalize((float3)tex2D(NormalTextureSampler, In.TextureUV)) * 2.0 - 1.0;
   //float3 normalInBump = normalize(tex2D(NormalTextureSampler, In.TextureUV));
   float3 normalWorld = mul(normalInBump, normalBumpCSToWorldCS);
   
   float3 vTotalLightDiffuse = (float3)(g_LightDiffuse * max(0, dot(normalWorld, normalize(g_LightDir))));
         
   float4 color;
-  color.rbg = (float3)(g_MaterialDiffuseColor * vTotalLightDiffuse + 
-                       g_MaterialAmbientColor * g_LightAmbient);
+  color.rbg = (float3)g_MaterialDiffuseColor * vTotalLightDiffuse + 
+              (float3)g_MaterialAmbientColor * (float3)g_LightAmbient;
   //color.rgb = normalInBump;
   color.a = 1.0f;
 
@@ -171,6 +171,8 @@ struct Minnaert_VS_OUTPUT
   float3 tangentWorld  : TEXCOORD1;
   float3 binormalWorld : TEXCOORD2;
   float3 normalWorld   : TEXCOORD3;
+  
+  float3 positionWorld : TEXCOORD4;
 };
 
 Minnaert_VS_OUTPUT MinnaertVS( float4 vPos       : POSITION, 
@@ -189,6 +191,8 @@ Minnaert_VS_OUTPUT MinnaertVS( float4 vPos       : POSITION,
   output.tangentWorld  = normalize(mul(vTangent,  (float3x3)g_mWorld));
   output.binormalWorld = normalize(mul(vBinormal, (float3x3)g_mWorld));
   output.normalWorld   = normalize(mul(vNormal,   (float3x3)g_mWorld));
+  
+  output.positionWorld = (float3)mul(vPos, g_mWorld); // TODO: Truncating division coefficient.
     
   return output;    
 }
@@ -205,11 +209,15 @@ Minnaert_PS_OUTPUT MinnaertPS( Minnaert_VS_OUTPUT In,
   
   float3x3 normalBumpCSToWorldCS = float3x3(In.tangentWorld, In.binormalWorld, In.normalWorld);
   
-  float3 normalInBump = normalize(tex2D(NormalTextureSampler, In.TextureUV)) * 2.0 - 1.0;
+  float3 normalInBump = normalize((float3)tex2D(NormalTextureSampler, In.TextureUV)) * 2.0 - 1.0;
   //float3 normalInBump = normalize(tex2D(NormalTextureSampler, In.TextureUV));
   float3 normalWorld = mul(normalInBump, normalBumpCSToWorldCS);
   
-  float3 vTotalLightDiffuse = (float3)(g_LightDiffuse * max(0, dot(normalWorld, normalize(g_LightDir))));
+  float3 eyeDir = normalize(g_EyePos - In.positionWorld);
+  float3 diffuseCoef = 
+    pow(max(0, dot(normalWorld, normalize(g_LightDir))), g_MinnaertExp) *
+    pow(max(0, dot(normalWorld, eyeDir)), 1.0 - g_MinnaertExp);
+  float3 vTotalLightDiffuse = g_LightDiffuse * diffuseCoef;
         
   float4 color;
   color.rbg = (float3)(g_MaterialDiffuseColor * vTotalLightDiffuse + 

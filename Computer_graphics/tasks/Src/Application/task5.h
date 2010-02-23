@@ -24,7 +24,7 @@ namespace scene
   public:
     Task5Node()
       : m_initialized(false)
-      , m_minnaertK(0.5)
+      , m_minnaertExp(0.5)
       , m_device(0)
       , m_useTexture(true)
       , m_technique(0)
@@ -52,13 +52,13 @@ namespace scene
       m_eyePos = eyePos;
     }
 
-    double minnaertK() const
+    double minnaertExp() const
     {
-      return m_minnaertK;
+      return m_minnaertExp;
     }
-    void setMinnaertK( double k )
+    void setMinnaertExp( double exp )
     {
-      m_minnaertK = k;
+      m_minnaertExp = exp;
     }
 
     bool textured() const
@@ -95,7 +95,7 @@ namespace scene
     ID3DXEffect *m_effect;
     boost::scoped_ptr<xobject::XMesh> m_mesh;
     
-    double m_minnaertK;
+    double m_minnaertExp;
     bool m_useTexture;
     size_t m_technique;
   };

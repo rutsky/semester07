@@ -414,7 +414,7 @@ Application::Application( int windowWidth, int windowHeight, void* hInstance, in
 
     // Spheric camera (view matrix).
     m_sphericCamera.reset(new camera::SphericCamera);
-    m_sphericCamera->setSphericCoordinates(2, util::deg2rad(0), util::deg2rad(45));
+    m_sphericCamera->setSphericCoordinates(10, util::deg2rad(0), util::deg2rad(45));
     // Attaching camera to root node.
     m_rootSceneNode->addChildNode(scene::ISceneNodePtr(hierarchy::newSceneNode<scene::SimpleSceneNode>(m_sphericCamera.get())));
 
@@ -716,11 +716,18 @@ void Application::renderInternal()
   {
     // Task 5.
 
+    D3DXVECTOR3 eyePosition;
     D3DXMATRIX viewMatrix;
     if (m_usingSphericCamera)
+    {
       viewMatrix = m_sphericCamera->viewMatrix();
+      eyePosition = m_sphericCamera->eyePosition();
+    }
     else
+    {
       viewMatrix = m_freeViewCamera->viewMatrix();
+      eyePosition = m_freeViewCamera->eyePosition();
+    }
     m_device->SetTransform(D3DTS_VIEW, &viewMatrix);
 
     D3DXMATRIX projectionMatrix;
@@ -728,6 +735,7 @@ void Application::renderInternal()
     m_device->SetTransform(D3DTS_PROJECTION, &projectionMatrix);
 
     m_task5Node->setViewProjectionMatrix(viewMatrix * projectionMatrix);
+    m_task5Node->setEyePos(eyePosition);
 
     drawScene(m_device, m_rootSceneNode);
   }
@@ -896,11 +904,11 @@ bool Application::processInput( unsigned int message, int wParam, long lParam )
       }
       else if (wParam == VK_ADD || wParam == VK_OEM_PLUS)
       {
-        m_task5Node->setMinnaertK(m_task5Node->minnaertK() + 0.1);
+        m_task5Node->setMinnaertExp(m_task5Node->minnaertExp() + 0.1);
       }
       else if (wParam == VK_SUBTRACT || wParam == VK_OEM_MINUS)
       {
-        m_task5Node->setMinnaertK(m_task5Node->minnaertK() - 0.1);
+        m_task5Node->setMinnaertExp(m_task5Node->minnaertExp() - 0.1);
       }
     }
   }
