@@ -357,6 +357,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Src\Application\task5.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Src\Application\task5.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Src\Application\texture.cpp"
 				>
 			</File>
