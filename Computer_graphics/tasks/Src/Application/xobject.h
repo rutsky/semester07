@@ -234,83 +234,28 @@ namespace xobject
     XMesh( IDirect3DDevice9 *device, 
            ID3DXMesh *mesh,
            materials_map_type const &materials,
-           textures_map_type const &textures )
+           textures_map_type const &textures,
+           textures_map_type const &bumps )
       : BaseXObject(device)
       , m_mesh(mesh)
       , m_materials(materials)
       , m_textures(textures)
+      , m_bumps(bumps)
     {
     }
 
     ~XMesh()
     {
-      for (size_t i = 0; i < m_materials.size(); ++i)
-      {
-        if (m_textures[i])
-          m_textures[i]->Release();
-      }
+      for (textures_map_type::iterator it = m_textures.begin(); it != m_textures.end(); ++it)
+        it->second->Release();
+      for (textures_map_type::iterator it = m_bumps.begin(); it != m_bumps.end(); ++it)
+        it->second->Release();
+        
       m_mesh->Release();
     }
 
   public:
-    static XMesh * create( IDirect3DDevice9 *device, char const *dataDirectory, char const *fileName, bool loadTextures = true )
-    {
-      // Based on DirectX Meshes example.
-
-      ID3DXMesh *mesh;
-      DWORD materialsNum;
-      LPD3DXBUFFER materialsBuffer;
-
-
-      {
-        std::ostringstream ostr;
-        ostr << dataDirectory << "/" << fileName;
-
-        // Load the mesh from the specified file.
-        if (FAILED(D3DXLoadMeshFromX(ostr.str().c_str(), D3DXMESH_SYSTEMMEM,
-                                     device, NULL,
-                                     &materialsBuffer, NULL, &materialsNum,
-                                     &mesh)))
-          return 0;
-      }
-
-      // Extracting the material properties and texture names from the materialsBuffer.
-      D3DXMATERIAL *xmaterials = (D3DXMATERIAL *)materialsBuffer->GetBufferPointer();
-      materials_map_type materials;
-      textures_map_type textures;
-      
-      for (size_t i = 0; i < materialsNum; ++i)
-      {
-        // Copy the material.
-        materials[i] = xmaterials[i].MatD3D;
-
-        // Set the ambient color for the material (D3DX does not do this).
-        materials[i].Ambient = materials[i].Diffuse;
-
-        IDirect3DTexture9 *texture = NULL;
-        if (loadTextures &&
-            xmaterials[i].pTextureFilename != NULL &&
-            lstrlenA(xmaterials[i].pTextureFilename) > 0)
-        {
-          std::ostringstream ostr;
-          ostr << dataDirectory << "/" << xmaterials[i].pTextureFilename;
-
-          // Create the texture.
-          if (FAILED(D3DXCreateTextureFromFileA(device,
-                                                ostr.str().c_str(),
-                                                &texture)))
-            OutputDebugString("Failed to load some texture\n");
-        }
-
-        if (texture)
-          textures[i] = texture;
-      }
-
-      // Done with the material buffer.
-      materialsBuffer->Release();
-
-      return new XMesh(device, mesh, materials, textures);
-    }
+    static XMesh * create( IDirect3DDevice9 *device, char const *dataDirectory, char const *fileName, bool loadTextures = true, bool loadBumps = false );
 
     template< class FileNameIterator >
     static XMesh * createWithCustomTextures( IDirect3DDevice9 *device, char const *dataDirectory, char const *fileName,
@@ -339,6 +284,7 @@ namespace xobject
       D3DXMATERIAL *xmaterials = (D3DXMATERIAL *)materialsBuffer->GetBufferPointer();
       materials_map_type materials;
       textures_map_type  textures;
+      textures_map_type  bumps;
       
       for (size_t i = 0; i < materialsNum; ++i)
       {
@@ -355,7 +301,7 @@ namespace xobject
       // Done with the material buffer.
       materialsBuffer->Release();
 
-      return new XMesh(device, mesh, materials, textures);
+      return new XMesh(device, mesh, materials, textures, bumps);
     }
 
     static XMesh * createCylinder( IDirect3DDevice9 *device,
@@ -372,7 +318,7 @@ namespace xobject
 
       materials_map_type materials;
       materials[0] = material;
-      return new XMesh(device, mesh, materials, textures_map_type());
+      return new XMesh(device, mesh, materials, textures_map_type(), textures_map_type());
     }
 
     // object::IDrawableObject
@@ -398,10 +344,11 @@ namespace xobject
       }
     }
 
-  protected:
+  public: // TODO
     ID3DXMesh *m_mesh;
     materials_map_type m_materials;
     textures_map_type m_textures;
+    textures_map_type m_bumps;
   };
 
   class XTriangle
