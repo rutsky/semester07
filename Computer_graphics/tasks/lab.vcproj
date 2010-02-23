@@ -47,7 +47,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(SolutionDir)Src;$(SolutionDir)boost_1_42_0"
+				AdditionalIncludeDirectories="$(SolutionDir)Src;$(SolutionDir)boost_1_42_0;$(SolutionDir)Src\Application"
 				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,D3D_DEBUG_INFO"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -142,7 +142,7 @@
 				Optimization="0"
 				InlineFunctionExpansion="0"
 				EnableIntrinsicFunctions="false"
-				AdditionalIncludeDirectories="$(SolutionDir)Src;$(SolutionDir)boost_1_42_0"
+				AdditionalIncludeDirectories="$(SolutionDir)Src;$(SolutionDir)boost_1_42_0;$(SolutionDir)Src\Application"
 				PreprocessorDefinitions="WIN32,NDEBUG,_WINDOWS"
 				StringPooling="true"
 				RuntimeLibrary="0"
