@@ -25,12 +25,34 @@ namespace xobject
 
       // Load the mesh from the specified file.
       HRESULT hr;
+      ID3DXMesh *tempMesh = NULL;
       if (FAILED(hr = D3DXLoadMeshFromX(fullFileName.c_str(), D3DXMESH_SYSTEMMEM,
                                    device, NULL,
                                    &materialsBuffer, NULL, &materialsNum,
-                                   &mesh)))
-        return 0;
+                                   &tempMesh)))
+        return NULL;
+
+      D3DVERTEXELEMENT9 const vertexDecl[] =
+      {
+          { 0, 0,  D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0 },
+          { 0, 12, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 0 },
+          { 0, 20, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_NORMAL,   0 },
+          { 0, 32, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TANGENT,  0 },
+          { 0, 44, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_BINORMAL, 0 },
+          D3DDECL_END()
+      };
+
+      if (FAILED(tempMesh->CloneMesh(tempMesh->GetOptions(), vertexDecl, device, &mesh)))
+      {
+        tempMesh->Release();
+        return NULL;
+      }
+      else
+        tempMesh->Release();
     }
+
+    //D3DVERTEXELEMENT9 vertexDecl[MAX_FVF_DECL_SIZE];
+    //mesh->GetDeclaration(vertexDecl);
 
     // Extracting the material properties and texture names from the materialsBuffer.
     D3DXMATERIAL *xmaterials = (D3DXMATERIAL *)materialsBuffer->GetBufferPointer();
