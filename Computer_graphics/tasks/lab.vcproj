@@ -299,14 +299,6 @@
 				>
 			</File>
 			<File
-				RelativePath="Src\Application\myApp.cpp"
-				>
-			</File>
-			<File
-				RelativePath="Src\Application\myApp.h"
-				>
-			</File>
-			<File
 				RelativePath=".\Src\Application\object.cpp"
 				>
 			</File>

@@ -17,7 +17,6 @@
 #include "windows.h"
 
 #include "application.h"
-#include "myApp.h"
 
 /**
   @brief    This function is WinMain for D3DBase project
