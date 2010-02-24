@@ -32,13 +32,23 @@ namespace xobject
                                    &tempMesh)))
         return NULL;
 
+      D3DVERTEXELEMENT9 tempVvertexDecl[MAX_FVF_DECL_SIZE];
+      tempMesh->GetDeclaration(tempVvertexDecl);
+
       D3DVERTEXELEMENT9 const vertexDecl[] =
       {
-          { 0, 0,  D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0 },
-          { 0, 12, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 0 },
-          { 0, 20, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_NORMAL,   0 },
-          { 0, 32, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TANGENT,  0 },
-          { 0, 44, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_BINORMAL, 0 },
+          { 0, 0,
+            D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0 },
+          { 0, 4 * 3, 
+            D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_NORMAL,   0 },
+          { 0, 4 * 3 + 4 * 3, 
+            D3DDECLTYPE_D3DCOLOR, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_COLOR,  0 },
+          { 0, 4 * 3 + 4 * 3 + 4,
+            D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 0 },
+          { 0, 4 * 3 + 4 * 3 + 4 + 4 * 3, 
+            D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_BINORMAL, 0 },
+          { 0, 4 * 3 + 4 * 3 + 4 + 4 * 3 + 4 * 3,
+            D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TANGENT,  0 },
           D3DDECL_END()
       };
 
@@ -50,9 +60,6 @@ namespace xobject
       else
         tempMesh->Release();
     }
-
-    //D3DVERTEXELEMENT9 vertexDecl[MAX_FVF_DECL_SIZE];
-    //mesh->GetDeclaration(vertexDecl);
 
     // Extracting the material properties and texture names from the materialsBuffer.
     D3DXMATERIAL *xmaterials = (D3DXMATERIAL *)materialsBuffer->GetBufferPointer();
