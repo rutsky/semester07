@@ -137,7 +137,7 @@ DiffuseBump_PS_OUTPUT DiffuseBumpPS( DiffuseBump_VS_OUTPUT In,
 { 
   DiffuseBump_PS_OUTPUT output;
   
-  float3x3 normalBumpCSToWorldCS = float3x3(In.tangentWorld, In.binormalWorld, In.normalWorld);
+  float3x3 normalBumpCSToWorldCS = float3x3(normalize(In.tangentWorld), normalize(In.binormalWorld), normalize(In.normalWorld));
   
   float3 normalInBump = normalize((float3)tex2D(NormalTextureSampler, In.TextureUV)) * 2.0 - 1.0;
   //float3 normalInBump = normalize(tex2D(NormalTextureSampler, In.TextureUV));
@@ -207,7 +207,7 @@ Minnaert_PS_OUTPUT MinnaertPS( Minnaert_VS_OUTPUT In,
 { 
   Minnaert_PS_OUTPUT output;
   
-  float3x3 normalBumpCSToWorldCS = float3x3(In.tangentWorld, In.binormalWorld, In.normalWorld);
+  float3x3 normalBumpCSToWorldCS = float3x3(normalize(In.tangentWorld), normalize(In.binormalWorld), normalize(In.normalWorld));
   
   float3 normalInBump = normalize((float3)tex2D(NormalTextureSampler, In.TextureUV)) * 2.0 - 1.0;
   //float3 normalInBump = normalize(tex2D(NormalTextureSampler, In.TextureUV));
