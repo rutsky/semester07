@@ -215,8 +215,8 @@ Minnaert_PS_OUTPUT MinnaertPS( Minnaert_VS_OUTPUT In,
   
   float3 eyeDir = normalize(g_EyePos - In.positionWorld);
   float3 diffuseCoef = 
-    saturate(pow(max(0, dot(normalWorld, normalize(g_LightDir))), g_MinnaertExp)) *
-    saturate(pow(max(0, dot(normalWorld, eyeDir)), 1.0 - g_MinnaertExp));
+    saturate(pow(max(0.00001f, dot(normalWorld, normalize(g_LightDir))), g_MinnaertExp)) *
+    saturate(pow(max(0.00001f, dot(normalWorld, eyeDir)), 1.0 - g_MinnaertExp));
   float3 vTotalLightDiffuse = g_LightDiffuse * diffuseCoef;
         
   float4 color;
