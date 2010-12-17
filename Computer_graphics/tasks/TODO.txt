@@ -1,0 +1,3 @@
+ * According to Dmitry K. words Dwarf model have zero tangent and bitangent 
+vectors, which leads to not really correct shading results. Model should be 
+fixed.
